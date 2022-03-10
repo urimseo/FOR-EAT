@@ -5,14 +5,14 @@ const Container = styled.div`
   margin: 0 10vw;
 `;
 
-const Feed = () => {
+const Category = () => {
   return (
     <>
       <Container>
-          Feed
+          Category
       </Container>
     </>
   );
 };
 
-export default Feed;
+export default Category;
