@@ -7,13 +7,12 @@ from foreat import settings
 
 # Create your models here.
 class MemberManager(BaseUserManager):
-    def create_user(self, nickname, email, profile_image_url, kakao_id, password=None):
+    def create_user(self, nickname, password=None, profile_image_url=None, kakao_id=None):
         # if not email:
         #     raise ValueError('Users must have an email address')
 
         user = self.model(
             nickname = nickname,
-            email=self.normalize_email(email),
             profile_image_url = profile_image_url,
             kakao_id = kakao_id,
         )
@@ -21,11 +20,10 @@ class MemberManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, nickname, email, password):
+    def create_superuser(self, nickname, password):
         user = self.create_user(
-            email,
-            password=password,
-            nickname=nickname,
+            nickname = nickname,
+            password = password,
         )
         user.is_admin = True
         user.save(using=self._db)
@@ -33,15 +31,13 @@ class MemberManager(BaseUserManager):
 
 
 class Member(AbstractBaseUser):
-    member_seq = models.IntegerField(primary_key=True)
+    ## uuid 설정하기 
+    member_seq = models.AutoField(primary_key=True)
     nickname=models.CharField(max_length=20, unique=True)
-    email = models.EmailField(
-        verbose_name='email',
-        max_length=255,
-        unique=True,
-    )
-    profile_image_url = models.CharField(max_length=255)
-    kakao_id = models.IntegerField(null=False)
+    # password = models.CharField(max_length=100, null=True)
+    profile_image_url = models.CharField(max_length=255, null=True)
+    kakao_id = models.CharField(max_length=100,null=True)
+    # google_id = models.IntegerField(null=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     liked_recipes = models.ManyToManyField(Recipe, related_name='members', through='LikedRecipe')
@@ -51,10 +47,8 @@ class Member(AbstractBaseUser):
 
     USERNAME_FIELD = 'nickname'
     # createsuperuser를 통해 user생성시 요청하는 값
-    REQUIRED_FIELDS = ['email',]
+    REQUIRED_FIELDS = ['password',]
 
-    def __str__(self):
-        return self.email
 
     # 권한 있음을 알림, Object를 반환하는 경우 해당 Object로 사용권한을 확인하는 절차가 필요
     def has_perm(self, perm, obj=None):
