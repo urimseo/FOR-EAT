@@ -1,98 +1,254 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
+import Title from "components/commons/Title";
+
 import Landing_1 from "assets/img/Landing_1.jpg";
+import Landing_2 from "assets/img/Landing_2.jpg";
+import Landing_3 from "assets/img/Landing_3.jpg";
+import Ingredient_broccoli from "assets/img/Ingredient_broccoli.jpg";
+import Ingredient_cucumber from "assets/img/Ingredient_cucumber.jpg";
+import Ingredient_egg from "assets/img/Ingredient_egg.jpg";
+import Ingredient_rosemary from "assets/img/Ingredient_rosemary.jpg";
+import Ingredient_spaghetti from "assets/img/Ingredient_spaghetti.jpg";
+import Ingredient_kiwi from "assets/img/Ingredient_kiwi.jpg";
+import Ingredient_asparagus from "assets/img/Ingredient_asparagus.jpg";
+import Ingredient_shrimp from "assets/img/Ingredient_shrimp.jpg";
 
 const Container = styled.div`
-  display: flex
+  display: flex;
 `
 const BackgroundImgContainer = styled.div`
   display: inline-flex;
+  width: 50%
 `;
 
-const Title = styled.p`
-  font-family : Philosopher;
-  font-size: 2.2rem;
-  position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 2rem;
-  left: 0.8rem;
-  right: 0;
-  text-align: center;
-  letter-spacing: -1%;
-`;
+const SpaceBetweenContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
 
 const Img = styled.img`
-  width: 50vw;
+  width: 100%;
   display: flex;
 `;
 
 const TextContainer = styled.div`
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
-  padding: 4rem;
+  width: ${(props) => (props.w ? props.w : "50  %")};
+  .text__wrapper {
+    padding: 26rem 4rem 4rem 4rem; 
+  }
   .point { 
     height: 2rem;
-    display: inline;
     font-size: 1.2rem;
     font-weight: 300;
-    margin-top: 17rem;
-  }
-  .hr__short {
-    border: 0;
-    width: 3rem;
-    align: left;
-    height: 0.1rem;
-    background: black;
-    margin: 0.2rem 0
   }
   .title {
     font-family: Playfair Display;
     font-size: 3.8rem;
     margin: 2rem 0 1.5rem 0;
   }
+  .title__2 {
+    font-family: Playfair Display;
+    font-size: 3.8rem;
+    margin: 1rem 0 1rem 0;
+  }
+  .hr__left {
+    border: 0;
+    width: 3rem;
+    height: 0.1rem;
+    background: black;
+    text-align: right;
+  }
+  .Hr_right {
+    border: 0;
+    width: 3rem;
+    height: 0.1rem;
+    background: black;
+    margin: 0 0 0 95.5%;
+  }
   .content {
     font-size: 1rem;
     font-weight: 200;
-    margin: 0.8rem 0;
+    margin: 2rem 0;
+  }
+  .content__2{
+    font-size: 1rem;
+    font-weight: 200;
+    margin: 1rem 0;
+  }
+  .content__wrapper {
+    padding-left: 12rem;
   }
 `
 const Discover = styled.a`
+  display: inline-block;
   color: black;
   cursor: pointer;
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: 400;
-  margin: 3rem 0;
+  margin: 2rem 0;
+  .rignt {
+    padding-left 20rem;
+  }
+`
+
+const ImgArchWrapper = styled.div`
+  width: 40rem;
+  height: 20rem;
+  overflow: hidden;
+  margin: 4rem 3.3rem;
+`
+const ImgArch = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50% 50% 0 0;
 `
 const Landing = () => {
   return (
     <>
       <div>
         <Container>
-          <Title>FOR:EAT</Title>
+        <Title 
+            ff="Philosopher" p="absolute" mr="auto" ml="auto" mt="2rem"
+            left="0" right="0"
+          >FOR:EAT</Title>
           <BackgroundImgContainer>
             <Img src={Landing_1}/>
           </BackgroundImgContainer>
           <TextContainer>
-            <div className="point">Recommends  Thousands of  Recipes</div>
-            <div className="hr__short" />
-            <div className="title">Personalized</div>
-            <div className="content">
-              FOR:EAT recommends thousands of international recipes based on your preferences.
-              <br />
-              Collects your choices by a survey and gives you the recipes that you are looking for.
+            <div className="text__wrapper">
+              <div className="point">Recommends  Thousands of  Recipes</div>
+              <div className="hr__left"/>
+              <div className="title">Personalized</div>
+              <div className="content">
+                FOR:EAT recommends thousands of international recipes based on your preferences.
+                <br />
+                Collects your choices by a survey and gives you the recipes that you are looking for.
+              </div>
+              <div className="content">
+                The more specific answers, the more exact result you will get.
+              </div>
+              <div className="content">
+                FOR:EAT recommends thousands of international recipes based on your preferences.
+                <br />
+                Collects your choices by a survey and gives you the recipes that you are looking for.
+              </div>
+              <Discover href="">DISCOVER</Discover>
             </div>
-            <div className="content">
-              The more specific answers, the more exact result you will get.
+          </TextContainer>
+        </Container>
+        <Container>
+          <Title 
+            ff="Philosopher" p="absolute" mr="auto" ml="auto" mt="2rem"
+            left="0" right="0"
+          >FOR:EAT</Title>
+          <TextContainer>
+            <div className="text__wrapper">
+              <div className="point" style={{textAlign: "right"}}>Tags</div>
+              <div className="Hr_right" />
+              <div className="title__2" style={{paddingLeft: "3rem"}}>Dessert</div>
+              <div className="title__2" style={{paddingLeft: "6rem"}}>Christmas</div>
+              <div className="title__2" style={{paddingLeft: "9rem"}}>Vegetarian</div>
+              <div className="content__wrapper">
+                <div className="content">
+                  Find the best recipes for your special occasions.
+                  <br />
+                  FOR:EAT provides several purified tags that helps you easily find great recipes.
+                </div>
+                <div className="content">
+                  Enjoy your meal:)
+                </div>
+                <div style={{alignItems: "end"}}>
+                  <Discover href="" style={{marginLeft: "73%"}}>DISCOVER</Discover>
+                </div>
+              </div>
             </div>
-            <div className="content">
-              FOR:EAT recommends thousands of international recipes based on your preferences.
-              <br />
-              Collects your choices by a survey and gives you the recipes that you are looking for.
+          </TextContainer>
+          <BackgroundImgContainer>
+            <Img src={Landing_2}/>
+          </BackgroundImgContainer>
+        </Container>
+        <Container style={{padding: "3rem 10rem", flexDirection:"column"}}>
+              <Title 
+                dp="inlinex" mt="2rem" mb="2rem"
+                fs="4rem" ta="left" 
+                >WHAT'S IN MY FRIDGE?</Title>
+          <SpaceBetweenContainer>
+            <ImgArchWrapper>
+              <ImgArch src={Ingredient_broccoli}/>
+            </ImgArchWrapper>
+            <ImgArchWrapper>
+              <ImgArch src={Ingredient_cucumber}/>
+            </ImgArchWrapper>
+            <ImgArchWrapper>
+              <ImgArch src={Ingredient_egg}/>
+            </ImgArchWrapper>
+            <ImgArchWrapper>
+              <ImgArch src={Ingredient_rosemary}/>
+            </ImgArchWrapper>
+          </SpaceBetweenContainer>
+          <SpaceBetweenContainer>
+            <ImgArchWrapper>
+              <ImgArch src={Ingredient_asparagus}/>
+            </ImgArchWrapper>
+            <ImgArchWrapper>
+              <ImgArch src={Ingredient_spaghetti}/>
+            </ImgArchWrapper>
+            <ImgArchWrapper>
+              <ImgArch src={Ingredient_kiwi}/>
+            </ImgArchWrapper>
+            <ImgArchWrapper>
+              <ImgArch src={Ingredient_shrimp}/>
+            </ImgArchWrapper>
+          </SpaceBetweenContainer>
+        </Container>  
+        <Container>
+          <Title 
+              ff="Philosopher" p="absolute" mr="auto" ml="auto" mt="2rem"
+              left="0" right="0"
+          >FOR:EAT</Title>
+          <BackgroundImgContainer style={{width:"39%", height:"100%", overflow:"hidden"}}>
+            <Img src={Landing_3}/>
+          </BackgroundImgContainer>
+          <TextContainer w="61%">
+            <div className="text__wrapper">
+              <div className="point">Recommends  Thousands of  Recipes</div>
+              <div className="hr__left"/>
+              <div className="title">Personalized</div>
+              <TextContainer style={{display: "flex", flexDirection: "row", width:"100%"}}>
+                <TextContainer style={{display: "flex", paddingRight:"3rem"}}>
+                  <div className="content__2">
+                    FOR:EAT recommends thousands of international recipes based on your preferences.
+                    <br />
+                    Collects your choices by a survey and gives you the recipes that you are looking for.
+                  </div>
+                  <div className="content__2">
+                    The more specific answers, the more exact result you will get.
+                  </div>
+                  <div className="content__2">
+                    FOR:EAT recommends thousands of international recipes based on your preferences.
+                    <br />
+                    Collects your choices by a survey and gives you the recipes that you are looking for.
+                  </div>
+                  <Discover href="">DISCOVER</Discover>
+                </TextContainer>
+                <TextContainer style={{display: "flex", paddingRight:"3rem"}}>
+                  <div className="content__2">
+                    FOR:EAT recommends thousands of international recipes based on your preferences.
+                    <br />
+                    Collects your choices by a survey and gives you the recipes that you are looking for.
+                  </div>
+                  <div className="content__2">
+                    The more specific answers, the more exact result you will get.
+                  </div>
+                </TextContainer>
+              </TextContainer>
             </div>
-            <Discover href="">DISCOVER</Discover>
           </TextContainer>
         </Container>
       </div>
@@ -102,32 +258,3 @@ const Landing = () => {
 };
 
 export default Landing;
-
-
-// const BackgroundImgContainer = styled.div`
-//   display: flex;
-//   width: 100%;
-// `;
-
-// const Img = styled.div`
-//   width: 100%;
-//   height: 100%;
-//   display: inline-block;
-// `
-
-// const Landing = () => {
-//   return (
-//     <>
-//         <h1>
-//           FOR:EAT
-//         </h1>
-//         <BackgroundImgContainer>
-//           <img src={Landing} alt=""/>
-//         </BackgroundImgContainer>
-//       <Outlet />
-
-//     </>
-//   );
-// };
-
-// export default Landing;
