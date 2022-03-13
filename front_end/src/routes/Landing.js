@@ -1,29 +1,31 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
+import Title from "components/commons/Title";
+
 import Landing_1 from "assets/img/Landing_1.jpg";
 import Landing_2 from "assets/img/Landing_2.jpg";
+import Ingredient_broccoli from "assets/img/Ingredient_broccoli.jpg";
+import Ingredient_cucumber from "assets/img/Ingredient_cucumber.jpg";
+import Ingredient_egg from "assets/img/Ingredient_egg.jpg";
+import Ingredient_rosemary from "assets/img/Ingredient_rosemary.jpg";
+import Ingredient_spaghetti from "assets/img/Ingredient_spaghetti.jpg";
+import Ingredient_kiwi from "assets/img/Ingredient_kiwi.jpg";
+import Ingredient_asparagus from "assets/img/Ingredient_asparagus.jpg";
+import Ingredient_shrimp from "assets/img/Ingredient_shrimp.jpg";
 
 const Container = styled.div`
-  display: inline-flex;
+  display: flex;
 `
 const BackgroundImgContainer = styled.div`
   display: inline-flex;
   width: 50%
 `;
 
-const Title = styled.p`
-  font-family : Philosopher;
-  font-size: 2.2rem;
-  position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 2rem;
-  left: 0;
-  right: 0;
-  text-align: center;
-  letter-spacing: -1%;
-`;
+const SpaceBetweenContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
 
 const Img = styled.img`
   width: 100%;
@@ -87,12 +89,28 @@ const Discover = styled.a`
     padding-left 20rem;
   }
 `
+
+const ImgArchWrapper = styled.div`
+  width: 40rem;
+  height: 20rem;
+  overflow: hidden;
+  margin: 4rem 3.3rem;
+`
+const ImgArch = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50% 50% 0 0;
+`
 const Landing = () => {
   return (
     <>
       <div>
         <Container>
-          <Title>FOR:EAT</Title>
+        <Title 
+            ff="Philosopher" p="absolute" mr="auto" ml="auto" mt="2rem"
+            left="0" right="0"
+          >FOR:EAT</Title>
           <BackgroundImgContainer>
             <Img src={Landing_1}/>
           </BackgroundImgContainer>
@@ -119,11 +137,13 @@ const Landing = () => {
           </TextContainer>
         </Container>
         <Container>
-          <Title>FOR:EAT</Title>
+          <Title 
+            ff="Philosopher" p="absolute" mr="auto" ml="auto" mt="2rem"
+            left="0" right="0"
+          >FOR:EAT</Title>
           <TextContainer>
             <div className="text__wrapper">
               <div className="point" style={{textAlign: "right"}}>Tags</div>
-              {/* <Hr_left /> */}
               <div className="Hr_right" />
               <div className="title__2" style={{paddingLeft: "3rem"}}>Dessert</div>
               <div className="title__2" style={{paddingLeft: "6rem"}}>Christmas</div>
@@ -147,6 +167,43 @@ const Landing = () => {
             <Img src={Landing_2}/>
           </BackgroundImgContainer>
         </Container>
+        <Container style={{padding: "3rem 10rem", flexDirection:"column"}}>
+              <Title 
+                dp="inlinex" mt="2rem" mb="2rem"
+                fs="4rem" ta="left" 
+                >WHAT'S IN MY FRIDGE?</Title>
+          <SpaceBetweenContainer>
+            <ImgArchWrapper>
+              <ImgArch src={Ingredient_broccoli}/>
+            </ImgArchWrapper>
+            <ImgArchWrapper>
+              <ImgArch src={Ingredient_cucumber}/>
+            </ImgArchWrapper>
+            <ImgArchWrapper>
+              <ImgArch src={Ingredient_egg}/>
+            </ImgArchWrapper>
+            <ImgArchWrapper>
+              <ImgArch src={Ingredient_rosemary}/>
+            </ImgArchWrapper>
+          </SpaceBetweenContainer>
+          <SpaceBetweenContainer>
+            <ImgArchWrapper>
+              <ImgArch src={Ingredient_asparagus}/>
+            </ImgArchWrapper>
+            <ImgArchWrapper>
+              <ImgArch src={Ingredient_spaghetti}/>
+            </ImgArchWrapper>
+            <ImgArchWrapper>
+              <ImgArch src={Ingredient_kiwi}/>
+            </ImgArchWrapper>
+            <ImgArchWrapper>
+              <ImgArch src={Ingredient_shrimp}/>
+            </ImgArchWrapper>
+          </SpaceBetweenContainer>
+        </Container>  
+            {/* <ImgArch src={Ingredient_cucumber}/>
+            <ImgArch src={Ingredient_egg}/>
+            <ImgArch src={Ingredient_rosemary}/> */}
 
       </div>
       <Outlet />
