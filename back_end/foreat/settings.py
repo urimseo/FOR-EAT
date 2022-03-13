@@ -10,8 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 from pathlib import Path
-from my_settings import DATABASES, SECRET_KEY
 from decouple import config
+import datetime
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -73,7 +74,18 @@ MIDDLEWARE = [
 
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # cors 
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+
+CORS_ORIGIN_ALLOW_ALL = False
+
+CORS_ORIGIN_WHITELIST = (
+       'http://localhost:3000',    #React 도메인
+       'http://localhost:8000',    #Django 도메인
+)
 
 # Rest Framework
 
@@ -85,8 +97,7 @@ REST_FRAMEWORK = {
 
 }
 
-import datetime
-
+# JWT
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
 }
@@ -146,17 +157,6 @@ DATABASES = {
         'PORT': config('DATABASE_PORT'),
     }
 }
-
-# DATABASES = {
-#     'default' : {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'foreat',
-#         'USER': 'foreat_admin',
-#         'PASSWORD': 'foreat103',
-#         'HOST': 'localhost',
-#         'PORT': '3306',
-#     }
-# }
 
 
 # Password validation
