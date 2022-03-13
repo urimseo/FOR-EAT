@@ -12,9 +12,7 @@ const Container = styled.div`
 `;
 
 const Login = () => {
-  // const REST_API_KEY = `${process.env.REACT_APP_URL_KAKAO_CLIENT_ID}`
-  // const REDIRECT_URI = `${process.env.REACT_APP_URL_KAKAO_REDIRECT_URI}`
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=fccb60a1e9392facb541d62f69d3c629&redirect_uri=http://localhost:3000/members/kakao/login&response_type=code`
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`
 
   return (
     <>

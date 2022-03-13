@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Title from "components/commons/Title";
+import Login from "components/accounts/login/Login"
 
 import Landing_1 from "assets/img/Landing_1.jpg";
 import Landing_2 from "assets/img/Landing_2.jpg";
@@ -139,6 +140,7 @@ const Landing = () => {
                 Collects your choices by a survey and gives you the recipes that you are looking for.
               </div>
               <Discover href="">DISCOVER</Discover>
+              <Login></Login>
             </div>
           </TextContainer>
         </Container>
