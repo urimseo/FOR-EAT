@@ -7,6 +7,7 @@ import {
 import Landing from "routes/Landing";
 import Feed from "routes/recommend/Feed";
 import Category from "routes/Category";
+import Auth from "routes/accounts/Auth";
 
 
 const AppRouter = () => {
@@ -17,6 +18,7 @@ const AppRouter = () => {
           <Route path="/" element={<Landing />} />
           <Route path="recommend" element={<Feed />} />
           <Route path="category" element={<Category />} />
+          <Route path="/members/kakao/login" element={<Auth />} />
         </Routes>
       </>
     </Router>
