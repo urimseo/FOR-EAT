@@ -5,6 +5,7 @@ import Title from "components/commons/Title";
 
 import Landing_1 from "assets/img/Landing_1.jpg";
 import Landing_2 from "assets/img/Landing_2.jpg";
+import Landing_3 from "assets/img/Landing_3.jpg";
 import Ingredient_broccoli from "assets/img/Ingredient_broccoli.jpg";
 import Ingredient_cucumber from "assets/img/Ingredient_cucumber.jpg";
 import Ingredient_egg from "assets/img/Ingredient_egg.jpg";
@@ -35,7 +36,7 @@ const Img = styled.img`
 const TextContainer = styled.div`
   display: inline-flex;
   flex-direction: column;
-  width:50%;
+  width: ${(props) => (props.w ? props.w : "50  %")};
   .text__wrapper {
     padding: 26rem 4rem 4rem 4rem; 
   }
@@ -72,6 +73,11 @@ const TextContainer = styled.div`
     font-size: 1rem;
     font-weight: 200;
     margin: 2rem 0;
+  }
+  .content__2{
+    font-size: 1rem;
+    font-weight: 200;
+    margin: 1rem 0;
   }
   .content__wrapper {
     padding-left: 12rem;
@@ -201,10 +207,50 @@ const Landing = () => {
             </ImgArchWrapper>
           </SpaceBetweenContainer>
         </Container>  
-            {/* <ImgArch src={Ingredient_cucumber}/>
-            <ImgArch src={Ingredient_egg}/>
-            <ImgArch src={Ingredient_rosemary}/> */}
-
+        <Container>
+          <Title 
+              ff="Philosopher" p="absolute" mr="auto" ml="auto" mt="2rem"
+              left="0" right="0"
+          >FOR:EAT</Title>
+          <BackgroundImgContainer style={{width:"39%", height:"100%", overflow:"hidden"}}>
+            <Img src={Landing_3}/>
+          </BackgroundImgContainer>
+          <TextContainer w="61%">
+            <div className="text__wrapper">
+              <div className="point">Recommends  Thousands of  Recipes</div>
+              <div className="hr__left"/>
+              <div className="title">Personalized</div>
+              <TextContainer style={{display: "flex", flexDirection: "row", width:"100%"}}>
+                <TextContainer style={{display: "flex", paddingRight:"3rem"}}>
+                  <div className="content__2">
+                    FOR:EAT recommends thousands of international recipes based on your preferences.
+                    <br />
+                    Collects your choices by a survey and gives you the recipes that you are looking for.
+                  </div>
+                  <div className="content__2">
+                    The more specific answers, the more exact result you will get.
+                  </div>
+                  <div className="content__2">
+                    FOR:EAT recommends thousands of international recipes based on your preferences.
+                    <br />
+                    Collects your choices by a survey and gives you the recipes that you are looking for.
+                  </div>
+                  <Discover href="">DISCOVER</Discover>
+                </TextContainer>
+                <TextContainer style={{display: "flex", paddingRight:"3rem"}}>
+                  <div className="content__2">
+                    FOR:EAT recommends thousands of international recipes based on your preferences.
+                    <br />
+                    Collects your choices by a survey and gives you the recipes that you are looking for.
+                  </div>
+                  <div className="content__2">
+                    The more specific answers, the more exact result you will get.
+                  </div>
+                </TextContainer>
+              </TextContainer>
+            </div>
+          </TextContainer>
+        </Container>
       </div>
       <Outlet />
     </>
