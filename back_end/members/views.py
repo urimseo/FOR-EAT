@@ -29,7 +29,7 @@ from decouple import config
 @api_view(['GET', 'POST'])
 @permission_classes([AllowAny, ])
 def get_user_info(request):
-    CODE = request.query_params['code']
+    CODE = request.data['code']
     url = "https://kauth.kakao.com/oauth/token"
     res = {
         'grant_type': 'authorization_code',
@@ -70,13 +70,12 @@ def check_kakao_user(request):
     else:
         return kakao_signup(request)
 
-
 def kakao_signup(request):
     try:
         data = {
             'kakao_id': request['id'],
             'nickname': request['properties']['nickname'],
-            'profile_image_url': request['properties']['profile_image'],
+            'profile_image_url': request['kakao_account']['profile']['profile_image_url'],
         }
         serializer = MemberSerializer(data=data)
 
@@ -88,11 +87,11 @@ def kakao_signup(request):
         data = {
             "data": {
                 "msg": "카카오 데이터 형식 오류",
-                "status": "400"
+                "status": 400
             }
         }
         return Response(data=data, status=status.HTTP_400_BAD_REQUEST)        
-        
+
 
 def kakao_login(request):
 
@@ -100,6 +99,8 @@ def kakao_login(request):
     kakao_id = member.kakao_id
     nickname = member.nickname
     profile_image_url = member.profile_image_url
+
+    # 건강 data 존재 여부를 확인하여 추가로 data에 담아서 보내줘야 함 
     
     try:
         payload_value = kakao_id
@@ -116,7 +117,7 @@ def kakao_login(request):
                 },
                 "access_token": access_token,
                 "status": 200,
-                "msg":'카카오 로그인 성공'
+                "msg":'카카오 로그인 성공'                                                      
             }
         }
         return Response(data=data, status=status.HTTP_200_OK)
