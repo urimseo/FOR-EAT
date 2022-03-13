@@ -16,19 +16,12 @@ import datetime
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# secret_file read
-# secret_file = os.path.join(BASE_DIR, 'secrets.json')
-# with open(secret_file) as f:
-#     secrets = json.loads(f.read())
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = SECRET_KEY
-SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
+SECRET_KEY = config("SECRET_KEY")
 DEBUG = config("DEBUG")
 
 ALLOWED_HOSTS = []
@@ -79,14 +72,6 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
-
-CORS_ORIGIN_ALLOW_ALL = False
-
-CORS_ORIGIN_WHITELIST = (
-       'http://localhost:3000',    #React 도메인
-       'http://localhost:8000',    #Django 도메인
-)
-
 # Rest Framework
 
 #DEFAULT_PERMISSION_CLASSES는 API에 접근 시에 인증된 유저, 즉 헤더에 access token을 포함하여 유효한 유저만이 접근이 가능하는 것을 Default로 설정해준다.
@@ -104,6 +89,16 @@ JWT_AUTH = {
 
 # CORS
 CORS_ORIGIN_ALLOW_ALL=True
+
+# False일 경우도 FE코드 pull 받아서 돌려보기
+# CORS_ORIGIN_ALLOW_ALL = False
+
+# CORS_ORIGIN_WHITELIST = (
+#        'http://localhost:3000',    #React 도메인
+#        'http://localhost:8000',    #Django 도메인
+# )
+
+
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_METHODS = (
