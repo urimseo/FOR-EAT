@@ -13,7 +13,7 @@ export const kakaoLogin = async (code) => {
 export const googleLogin = async (data, token) => {
   // console.log(data)
   const response = await instance.post('http://localhost:8000/members/google/login', { data: data });
-  if (token) {
+  if (response.data.status === 200) {
     localStorage.setItem('user', JSON.stringify(token));
   }
   return response.data;
