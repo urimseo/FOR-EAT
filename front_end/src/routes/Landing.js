@@ -1,6 +1,11 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import "animate.css/animate.min.css";
+import { AnimationOnScroll } from 'react-animation-on-scroll';
+
 import Title from "components/commons/Title";
 import Login from "components/accounts/login/Login"
 
@@ -16,6 +21,8 @@ import Ingredient_kiwi from "assets/img/Ingredient_kiwi.jpg";
 import Ingredient_asparagus from "assets/img/Ingredient_asparagus.jpg";
 import Ingredient_shrimp from "assets/img/Ingredient_shrimp.jpg";
 
+AOS.init();
+
 const Container = styled.div`
   display: flex;
 `
@@ -25,8 +32,9 @@ const BackgroundImgContainer = styled.div`
 `;
 
 const SpaceBetweenContainer = styled.div`
-  display: flex;
+  display: inline-flex;
   justify-content: space-between;
+  margin-bottom: ${(props) => (props.mb ? props.mb : "3rem")};
 `
 
 const Img = styled.img`
@@ -37,7 +45,7 @@ const Img = styled.img`
 const TextContainer = styled.div`
   display: inline-flex;
   flex-direction: column;
-  width: ${(props) => (props.w ? props.w : "50  %")};
+  width: ${(props) => (props.w ? props.w : "50%")};
   .text__wrapper {
     padding: 26rem 4rem 4rem 4rem; 
   }
@@ -98,10 +106,10 @@ const Discover = styled.a`
 `
 
 const ImgArchWrapper = styled.div`
-  width: 40rem;
-  height: 20rem;
+  width: 19rem;
+  height: 19rem;
   overflow: hidden;
-  margin: 4rem 3.3rem;
+  margin: 1rem 1rem;
 `
 const ImgArch = styled.img`
   width: 100%;
@@ -171,15 +179,22 @@ const Landing = () => {
               </div>
             </div>
           </TextContainer>
-          <BackgroundImgContainer>
-            <Img src={Landing_2}/>
-          </BackgroundImgContainer>
+            <BackgroundImgContainer>
+              <div
+                data-aos="fade-up-left"
+                data-aos-delay="300"
+              >
+                <Img src={Landing_2}/>
+              </div>
+            </BackgroundImgContainer>
         </Container>
         <Container style={{padding: "3rem 10rem", flexDirection:"column"}}>
-              <Title 
-                dp="inlinex" mt="2rem" mb="2rem"
-                fs="4rem" ta="left" 
-                >WHAT'S IN MY FRIDGE?</Title>
+          <AnimationOnScroll animateIn="animate__fadeInLeftBig">
+            <Title 
+              dp="inlinex" mt="2rem" mb="3rem"
+              fs="4rem" ta="left" 
+            >WHAT'S IN MY FRIDGE?</Title>
+          </AnimationOnScroll>
           <SpaceBetweenContainer>
             <ImgArchWrapper>
               <ImgArch src={Ingredient_broccoli}/>
@@ -194,7 +209,7 @@ const Landing = () => {
               <ImgArch src={Ingredient_rosemary}/>
             </ImgArchWrapper>
           </SpaceBetweenContainer>
-          <SpaceBetweenContainer>
+          <SpaceBetweenContainer mb="5rem">
             <ImgArchWrapper>
               <ImgArch src={Ingredient_asparagus}/>
             </ImgArchWrapper>
@@ -215,7 +230,12 @@ const Landing = () => {
               left="0" right="0"
           >FOR:EAT</Title>
           <BackgroundImgContainer style={{width:"39%", height:"100%", overflow:"hidden"}}>
-            <Img src={Landing_3}/>
+            <div
+              data-aos="zoom-in-right"
+              data-aos-duration="1000"
+            >
+              <Img src={Landing_3}/>
+            </div>
           </BackgroundImgContainer>
           <TextContainer w="61%">
             <div className="text__wrapper">
