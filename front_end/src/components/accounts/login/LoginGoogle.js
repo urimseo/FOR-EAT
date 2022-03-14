@@ -21,15 +21,15 @@ const LoginGoogle = () => {
   const setIsLoginState = useSetRecoilState(isLoginState);
 
   const successGoogle = async (response) => {
-    // console.log(response)
     const data = {
       googleId: response.profileObj.googleId,
       imageUrl: response.profileObj.imageUrl,
       name: response.profileObj.name
     };
+
     const result = await googleLogin(data, response.tokenId);
 
-    if (result.data.status === 200) {
+    if (result.data.user.status === 200) {
       try {
         setIsLoginState(true);
         navigate("/recommend");
@@ -38,20 +38,19 @@ const LoginGoogle = () => {
         window.location.reload();
       }
     } else {
-      // alert("로그인 정보를 확인해주세요.");
+      alert("로그인 정보를 확인해주세요.");
     }
   }
   
   const failGoogle = (response) => {
     console.log(response);
-    // alert("로그인 정보를 확인해주세요.")
   }
   
   return (
     <>
       <Container>
       <GoogleLogin
-        clientId="99460548731-f1jna9uv0thv2eo84q5m8h83078a585c.apps.googleusercontent.com"
+        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
         buttonText="Sign in with Google"
         onSuccess={successGoogle}
         onFailure={failGoogle}
