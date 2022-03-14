@@ -6,8 +6,12 @@ import 'aos/dist/aos.css';
 import "animate.css/animate.min.css";
 import { AnimationOnScroll } from 'react-animation-on-scroll';
 
+
+
+
+import KakaoLogin from "components/accounts/login/LoginKakao"
+import GoogleLogin from "components/accounts/login/LoginGoogle"
 import Title from "components/commons/Title";
-import Login from "components/accounts/login/Login"
 
 import Landing_1 from "assets/img/Landing_1.jpg";
 import Landing_2 from "assets/img/Landing_2.jpg";
@@ -148,7 +152,8 @@ const Landing = () => {
                 Collects your choices by a survey and gives you the recipes that you are looking for.
               </div>
               <Discover href="">DISCOVER</Discover>
-              <Login></Login>
+              <KakaoLogin></KakaoLogin>
+              <GoogleLogin></GoogleLogin>
             </div>
           </TextContainer>
         </Container>
