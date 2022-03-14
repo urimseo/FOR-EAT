@@ -25,8 +25,9 @@ const BackgroundImgContainer = styled.div`
 `;
 
 const SpaceBetweenContainer = styled.div`
-  display: flex;
+  display: inline-flex;
   justify-content: space-between;
+  margin-bottom: ${(props) => (props.mb ? props.mb : "3rem")};
 `
 
 const Img = styled.img`
@@ -37,7 +38,7 @@ const Img = styled.img`
 const TextContainer = styled.div`
   display: inline-flex;
   flex-direction: column;
-  width: ${(props) => (props.w ? props.w : "50  %")};
+  width: ${(props) => (props.w ? props.w : "50%")};
   .text__wrapper {
     padding: 26rem 4rem 4rem 4rem; 
   }
@@ -98,10 +99,10 @@ const Discover = styled.a`
 `
 
 const ImgArchWrapper = styled.div`
-  width: 40rem;
-  height: 20rem;
+  width: 19rem;
+  height: 19rem;
   overflow: hidden;
-  margin: 4rem 3.3rem;
+  margin: 1rem 1rem;
 `
 const ImgArch = styled.img`
   width: 100%;
@@ -177,7 +178,7 @@ const Landing = () => {
         </Container>
         <Container style={{padding: "3rem 10rem", flexDirection:"column"}}>
               <Title 
-                dp="inlinex" mt="2rem" mb="2rem"
+                dp="inlinex" mt="2rem" mb="3rem"
                 fs="4rem" ta="left" 
                 >WHAT'S IN MY FRIDGE?</Title>
           <SpaceBetweenContainer>
@@ -194,7 +195,7 @@ const Landing = () => {
               <ImgArch src={Ingredient_rosemary}/>
             </ImgArchWrapper>
           </SpaceBetweenContainer>
-          <SpaceBetweenContainer>
+          <SpaceBetweenContainer mb="5rem">
             <ImgArchWrapper>
               <ImgArch src={Ingredient_asparagus}/>
             </ImgArchWrapper>
