@@ -28,8 +28,8 @@ const Container = styled.div`
 `
 const BackgroundImgContainer = styled.div`
   display: inline-flex;
-  width: 50%
-`;
+  width: 50%;
+`
 
 const SpaceBetweenContainer = styled.div`
   display: inline-flex;
@@ -40,7 +40,7 @@ const SpaceBetweenContainer = styled.div`
 const Img = styled.img`
   width: 100%;
   display: flex;
-`;
+`
 
 const TextContainer = styled.div`
   display: inline-flex;
@@ -100,8 +100,8 @@ const Discover = styled.a`
   font-size: 1.2rem;
   font-weight: 400;
   margin: 2rem 0;
-  .rignt {
-    padding-left 20rem;
+  .right {
+    padding-left: 20rem;
   }
 `
 
