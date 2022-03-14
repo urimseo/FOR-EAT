@@ -1,4 +1,7 @@
+from xml.dom import ValidationErr
+from django.forms import ValidationError
 from django.shortcuts import redirect
+from django.views.decorators.csrf import csrf_exempt
 import requests
 # from foreat.settings import SOCIAL_OUTH_CONFIG
 from rest_framework.decorators import api_view, permission_classes
@@ -6,7 +9,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 from members.models import Member
-from .serializers import MemberSerializer
+from .serializers import KaKaoMemberSerializer, GoogleMemberSerializer
 from .token import *
 from django.contrib.auth import get_user_model
 import json
@@ -28,7 +31,7 @@ from decouple import config
 # 인가코드로 token 받기
 @api_view(['GET', 'POST'])
 @permission_classes([AllowAny, ])
-def get_user_info(request):
+def kakao_get_user_info(request):
     CODE = request.data['code']
     url = "https://kauth.kakao.com/oauth/token"
     res = {
@@ -77,9 +80,8 @@ def kakao_signup(request):
             'nickname': request['properties']['nickname'],
             'profile_image_url': request['kakao_account']['profile']['profile_image_url'],
         }
-        serializer = MemberSerializer(data=data)
-
-        if serializer.is_valid():
+        serializer = KaKaoMemberSerializer(data=data)
+        if serializer.is_valid(raise_exception=True):
             member = serializer.save()
             member.save()
             return kakao_login(request)
@@ -94,7 +96,6 @@ def kakao_signup(request):
 
 
 def kakao_login(request):
-
     member = Member.objects.get(kakao_id=request['id'])
     kakao_id = member.kakao_id
     nickname = member.nickname
@@ -139,3 +140,75 @@ def kakao_login(request):
             }
         }
         return Response(data=data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+# google login
+@api_view(['POST'])
+@permission_classes([AllowAny, ])
+@csrf_exempt
+def check_google_user(request):
+    if Member.objects.filter(google_id=request.data['data']['googleId']).exists():
+        return google_login(request)
+    else:
+        return google_signup(request)
+
+# 
+def google_signup(request):
+    try:
+        data = {
+            'google_id': request.data['data']['googleId'],
+            'nickname': request.data['data']['name'],
+            'profile_image_url': request.data['data']['imageUrl'],
+        }
+
+        serializer = GoogleMemberSerializer(data=data)
+
+        if serializer.is_valid(raise_exception=True):
+            member = serializer.save()
+            member.save()
+            return google_login(request)
+
+    except:
+        print(3)
+        data = {
+            "data": {
+                "msg": "구글 데이터 형식 오류",
+                "status": 400
+            }
+        }
+        return Response(data=data, status=status.HTTP_400_BAD_REQUEST)        
+
+
+def google_login(request):
+    # 건강 data 존재 여부를 확인하여 추가로 data에 담아서 보내줘야 함 
+    # isSurvey
+    try:
+        data = {
+            "data": {
+                "user": {
+                "isSurvey": True,
+                "status": 200,
+                "msg":'구글 로그인 성공'                                                      
+            }
+        }}
+        return Response(data=data, status=status.HTTP_200_OK)
+
+    except Member.DoesNotExist:
+        data = {
+            "data": {
+                "msg": "유저 정보가 올바르지 않습니다.",
+                "status": 401
+            }
+        }
+        return Response(data=data, status=status.HTTP_401_UNAUTHORIZED)
+
+    except Exception as e:
+        data = {
+            "data": {
+                "msg": "정상적인 접근이 아닙니다.",
+                "status": 500
+            }
+        }
+        return Response(data=data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+

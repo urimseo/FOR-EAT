@@ -19,14 +19,10 @@ from django.contrib import admin
 from django.urls.conf import include
 
 from django.urls import path
-from members.views import get_user_info
 
 urlpatterns = [
     # 장고 admin 관련 url
     path('admin/', admin.site.urls),
     path('members/', include('members.urls')),
-    # path('memebers/kakao/login', get_user_info),
-    # path('members/', include('dj_rest_auth.urls')),
-    # path('members/', include('dj_rest_auth.registration.urls'))
 
 ]
