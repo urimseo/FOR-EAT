@@ -1,8 +1,16 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import "animate.css/animate.min.css";
+import { AnimationOnScroll } from 'react-animation-on-scroll';
+
+
+
+import KakaoLogin from "components/accounts/login/LoginKakao"
+import GoogleLogin from "components/accounts/login/LoginGoogle"
 import Title from "components/commons/Title";
-import Login from "components/accounts/login/Login"
 
 import Landing_1 from "assets/img/Landing_1.jpg";
 import Landing_2 from "assets/img/Landing_2.jpg";
@@ -16,28 +24,31 @@ import Ingredient_kiwi from "assets/img/Ingredient_kiwi.jpg";
 import Ingredient_asparagus from "assets/img/Ingredient_asparagus.jpg";
 import Ingredient_shrimp from "assets/img/Ingredient_shrimp.jpg";
 
+AOS.init();
+
 const Container = styled.div`
   display: flex;
 `
 const BackgroundImgContainer = styled.div`
   display: inline-flex;
-  width: 50%
-`;
+  width: 50%;
+`
 
 const SpaceBetweenContainer = styled.div`
-  display: flex;
+  display: inline-flex;
   justify-content: space-between;
+  margin-bottom: ${(props) => (props.mb ? props.mb : "3rem")};
 `
 
 const Img = styled.img`
   width: 100%;
   display: flex;
-`;
+`
 
 const TextContainer = styled.div`
   display: inline-flex;
   flex-direction: column;
-  width: ${(props) => (props.w ? props.w : "50  %")};
+  width: ${(props) => (props.w ? props.w : "50%")};
   .text__wrapper {
     padding: 26rem 4rem 4rem 4rem; 
   }
@@ -92,16 +103,16 @@ const Discover = styled.a`
   font-size: 1.2rem;
   font-weight: 400;
   margin: 2rem 0;
-  .rignt {
-    padding-left 20rem;
+  .right {
+    padding-left: 20rem;
   }
 `
 
 const ImgArchWrapper = styled.div`
-  width: 40rem;
-  height: 20rem;
+  width: 19rem;
+  height: 19rem;
   overflow: hidden;
-  margin: 4rem 3.3rem;
+  margin: 1rem 1rem;
 `
 const ImgArch = styled.img`
   width: 100%;
@@ -140,7 +151,8 @@ const Landing = () => {
                 Collects your choices by a survey and gives you the recipes that you are looking for.
               </div>
               <Discover href="">DISCOVER</Discover>
-              <Login></Login>
+              <KakaoLogin></KakaoLogin>
+              <GoogleLogin></GoogleLogin>
             </div>
           </TextContainer>
         </Container>
@@ -171,15 +183,22 @@ const Landing = () => {
               </div>
             </div>
           </TextContainer>
-          <BackgroundImgContainer>
-            <Img src={Landing_2}/>
-          </BackgroundImgContainer>
+            <BackgroundImgContainer>
+              <div
+                data-aos="fade-up-left"
+                data-aos-delay="300"
+              >
+                <Img src={Landing_2}/>
+              </div>
+            </BackgroundImgContainer>
         </Container>
         <Container style={{padding: "3rem 10rem", flexDirection:"column"}}>
-              <Title 
-                dp="inlinex" mt="2rem" mb="2rem"
-                fs="4rem" ta="left" 
-                >WHAT'S IN MY FRIDGE?</Title>
+          <AnimationOnScroll animateIn="animate__fadeInLeftBig">
+            <Title 
+              dp="inlinex" mt="2rem" mb="3rem"
+              fs="4rem" ta="left" 
+            >WHAT'S IN MY FRIDGE?</Title>
+          </AnimationOnScroll>
           <SpaceBetweenContainer>
             <ImgArchWrapper>
               <ImgArch src={Ingredient_broccoli}/>
@@ -194,7 +213,7 @@ const Landing = () => {
               <ImgArch src={Ingredient_rosemary}/>
             </ImgArchWrapper>
           </SpaceBetweenContainer>
-          <SpaceBetweenContainer>
+          <SpaceBetweenContainer mb="5rem">
             <ImgArchWrapper>
               <ImgArch src={Ingredient_asparagus}/>
             </ImgArchWrapper>
@@ -215,7 +234,12 @@ const Landing = () => {
               left="0" right="0"
           >FOR:EAT</Title>
           <BackgroundImgContainer style={{width:"39%", height:"100%", overflow:"hidden"}}>
-            <Img src={Landing_3}/>
+            <div
+              data-aos="zoom-in-right"
+              data-aos-duration="1000"
+            >
+              <Img src={Landing_3}/>
+            </div>
           </BackgroundImgContainer>
           <TextContainer w="61%">
             <div className="text__wrapper">
