@@ -26,7 +26,7 @@ const Auth = () => {
           window.location.reload();
         }
       } else {
-        // alert("로그인 정보를 확인해주세요.");
+        alert("로그인 정보를 확인해주세요.");
       }
     }
     fetchData();
