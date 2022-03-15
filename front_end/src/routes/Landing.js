@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import AOS from 'aos';
@@ -6,12 +6,8 @@ import 'aos/dist/aos.css';
 import "animate.css/animate.min.css";
 import { AnimationOnScroll } from 'react-animation-on-scroll';
 
-
-
-
-import KakaoLogin from "components/accounts/login/LoginKakao"
-import GoogleLogin from "components/accounts/login/LoginGoogle"
-import Title from "components/commons/Title";
+import Typography from "components/commons/Typography";
+import LoginModal from 'components/accounts/login/LoginModal';
 
 import Landing_1 from "assets/img/Landing_1.jpg";
 import Landing_2 from "assets/img/Landing_2.jpg";
@@ -80,7 +76,7 @@ const TextContainer = styled.div`
     width: 3rem;
     height: 0.1rem;
     background: black;
-    margin: 0 0 0 95.5%;
+    margin: 0 0 0 92.5%;
   }
   .content {
     font-size: 1rem;
@@ -122,14 +118,23 @@ const ImgArch = styled.img`
   border-radius: 50% 50% 0 0;
 `
 const Landing = () => {
+  // useState를 사용하여 open상태를 변경한다. (open일때 true로 만들어 열리는 방식)
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
   return (
     <>
       <div>
         <Container>
-        <Title 
-            ff="Philosopher" p="absolute" mr="auto" ml="auto" mt="2rem"
-            left="0" right="0"
-          >FOR:EAT</Title>
+        <Typography 
+            ff="Philosopher" fs="2.2rem" p="absolute" mr="auto" ml="auto" mt="2rem"
+            l="0" r="0"
+          >FOR:EAT</Typography>
           <BackgroundImgContainer>
             <Img src={Landing_1}/>
           </BackgroundImgContainer>
@@ -151,17 +156,20 @@ const Landing = () => {
                 <br />
                 Collects your choices by a survey and gives you the recipes that you are looking for.
               </div>
-              <Discover href="">DISCOVER</Discover>
-              <KakaoLogin></KakaoLogin>
-              <GoogleLogin></GoogleLogin>
+              <div style={{alignItems: "end"}}>
+              <Discover onClick={openModal}>DISCOVER</Discover>
+              <LoginModal open={modalOpen} close={closeModal}
+              >
+              </LoginModal>
+              </div>
             </div>
           </TextContainer>
         </Container>
         <Container>
-          <Title 
-            ff="Philosopher" p="absolute" mr="auto" ml="auto" mt="2rem"
-            left="0" right="0"
-          >FOR:EAT</Title>
+          <Typography 
+              ff="Philosopher" fs="2.2rem" p="absolute" mr="auto" ml="auto" mt="2rem"
+              l="0" r="0"
+          >FOR:EAT</Typography>
           <TextContainer>
             <div className="text__wrapper">
               <div className="point" style={{textAlign: "right"}}>Tags</div>
@@ -178,27 +186,26 @@ const Landing = () => {
                 <div className="content">
                   Enjoy your meal:)
                 </div>
-                <div style={{alignItems: "end"}}>
-                  <Discover href="" style={{marginLeft: "73%"}}>DISCOVER</Discover>
-                </div>
+                <Discover onClick={openModal}>DISCOVER</Discover>
               </div>
             </div>
           </TextContainer>
-            <BackgroundImgContainer>
-              <div
-                data-aos="fade-up-left"
-                data-aos-delay="300"
-              >
-                <Img src={Landing_2}/>
-              </div>
-            </BackgroundImgContainer>
+          <BackgroundImgContainer>
+            <div
+              data-aos="fade-up-left"
+              data-aos-delay="300"
+            >
+              <Img src={Landing_2}/>
+            </div>
+          </BackgroundImgContainer>
         </Container>
         <Container style={{padding: "3rem 10rem", flexDirection:"column"}}>
           <AnimationOnScroll animateIn="animate__fadeInLeftBig">
-            <Title 
+            <Typography
+              ff="Playfair Display"
               dp="inlinex" mt="2rem" mb="3rem"
               fs="4rem" ta="left" 
-            >WHAT'S IN MY FRIDGE?</Title>
+            >WHAT'S IN MY FRIDGE?</Typography>
           </AnimationOnScroll>
           <SpaceBetweenContainer>
             <ImgArchWrapper>
@@ -230,10 +237,10 @@ const Landing = () => {
           </SpaceBetweenContainer>
         </Container>  
         <Container>
-          <Title 
-              ff="Philosopher" p="absolute" mr="auto" ml="auto" mt="2rem"
-              left="0" right="0"
-          >FOR:EAT</Title>
+          <Typography 
+            ff="Philosopher" fs="2.2rem" p="absolute" mr="auto" ml="auto" mt="2rem"
+            l="0" r="0"
+          >FOR:EAT</Typography>
           <BackgroundImgContainer style={{width:"39%", height:"100%", overflow:"hidden"}}>
             <div
               data-aos="zoom-in-right"
@@ -262,7 +269,7 @@ const Landing = () => {
                     <br />
                     Collects your choices by a survey and gives you the recipes that you are looking for.
                   </div>
-                  <Discover href="">DISCOVER</Discover>
+                  <Discover onClick={openModal}>DISCOVER</Discover>
                 </TextContainer>
                 <TextContainer style={{display: "flex", paddingRight:"3rem"}}>
                   <div className="content__2">
