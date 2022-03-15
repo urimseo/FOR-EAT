@@ -14,6 +14,7 @@ const Container = styled.div`
   width: 120px;
   height: 100vh;
   border: 1px solid black;
+  background-color: white;
 `;
 
 const Item = styled.div`
