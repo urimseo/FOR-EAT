@@ -7,13 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import { googleLogin } from '../../../api/AuthApi';
 
 const Container = styled.div`
-  margin: 0 10vw;
-
-  button {
-    background: none;
-    border: none;
-    cursor: pointer;
-`;
+  margin: auto;
+  margin-top: 2rem;
+`
 
 
 const LoginGoogle = () => {
@@ -49,12 +45,12 @@ const LoginGoogle = () => {
   return (
     <>
       <Container>
-      <GoogleLogin
-        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-        buttonText="Sign in with Google"
-        onSuccess={successGoogle}
-        onFailure={failGoogle}
-      />
+        <GoogleLogin
+          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+          buttonText="Sign in with Google"
+          onSuccess={successGoogle}
+          onFailure={failGoogle}
+        />
       </Container>
     </>
   );
