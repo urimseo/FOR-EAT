@@ -19,6 +19,7 @@ const StyledTypography = styled.p`
   text-align: ${(props) => (props.ta ? props.ta : "center")};
   letter-spacing: -1%;
   line-height: ${(props) => (props.lh ? props.lh : "")}; 
+  z-index: ${(props) => (props.zi ? props.zi : "")}; 
   cursor: ${(props) => (props.cursor ? props.cursor : "default")};
 `;
 
