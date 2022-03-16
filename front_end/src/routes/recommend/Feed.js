@@ -17,12 +17,18 @@ const Title = styled.div`
   margin-top: 3rem;
 `
 
+const BorderLine = styled.div`
+  width: 100%;
+  margin: 1rem 0;
+  border-bottom: 1px solid black;
+`
+
 const Feed = () => {
   return (
     <>
       <Container>
         <Title>FOR:YOU</Title>
-        <hr></hr>
+        <BorderLine />
         <CardContainer>
           <Card />
           <Card />
