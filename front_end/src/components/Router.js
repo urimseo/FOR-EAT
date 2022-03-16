@@ -17,7 +17,7 @@ const AppRouter = () => {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/recommend" element={<Feed />} />
-          <Route path="category" element={<Category />} />
+          <Route path="/category" element={<Category />} />
           <Route path="/members/kakao/login" element={<Auth />} />
         </Routes>
       </>
