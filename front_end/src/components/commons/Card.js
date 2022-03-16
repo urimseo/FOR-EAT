@@ -27,12 +27,11 @@ const TextContainer = styled.div`
     margin-top: 1rem;
   }
   .category {
-    font-family: Playfair Display;
-    font-size: 1.14rem;
+    font-size: 0.87rem;
     margin: 0.3rem 0;
   }
   .Calorie {
-    font-size: 1.14rem;
+    font-size: 0.87rem;
     font-weight: bold;
   }
 `
@@ -44,7 +43,7 @@ const BorderLine = styled.div`
 `
 
 const Line = styled.div`
-  height: 30rem;
+  height: 29.8rem;
   border-right: 1px solid black;
   margin: 2rem 0 0 0;
 `
@@ -64,7 +63,7 @@ const Card = () => {
             <Img src={Landing_1} />
             <TextContainer>
               <div className='title'>Recipe Name</div>
-              <div className='category'>category</div>
+              <div className='category'>CATEGORY</div>
               <BorderLine />
               <SpaceBetweenContainer>
                 <div className='Calorie'>Calorie</div>
