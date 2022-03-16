@@ -6,14 +6,14 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
-  position: fixed;
+  position: sticky;
+  top: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 120px;
   height: 100vh;
-  border: 1px solid black;
+  border-right: 1px solid black;
   background-color: white;
 `;
 
