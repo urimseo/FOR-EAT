@@ -3,14 +3,15 @@ import styled from "styled-components";
 
 import RecipeInfo from "components/recipeDetail/RecipeInfo";
 import Ingredient_spaghetti from "assets/img/Ingredient_spaghetti.jpg"
+import CalculateCalories from "components/recipeDetail/CalculateCalories";
 
 const Container = styled.div`
   display: flex;
+  flex-wrap: nowrap;
   padding: 6rem 12rem;
 `
 const ImgWrapper = styled.div`
-  width: 50rem;
-  height: 50rem;
+  width: 45%;
   overflow: hidden;
   margin: 0 1rem; 
   background-position: center;
@@ -28,6 +29,7 @@ const RecipeDetail = () => {
           <Img src={Ingredient_spaghetti} />
         </ImgWrapper>
         <RecipeInfo />
+        <CalculateCalories />
       </Container>
     </div>
 	)
