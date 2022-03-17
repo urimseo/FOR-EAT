@@ -6,6 +6,7 @@ const StyledTypography = styled.p`
   font-size: ${(props) => (props.fs ? props.fs : "1rem")};
   font-weight: ${(props) => (props.fw ? props.fw : "400")};
   color: ${(props) => (props.c ? props.c : "#000000")};
+  margin: ${(props) => (props.m ? props.m : "")};
   margin-top: ${(props) => (props.mt ? props.mt : "")};
   margin-left: ${(props) => (props.ml ? props.ml : "")};
   margin-bottom: ${(props) => (props.mb ? props.mb : "")};
