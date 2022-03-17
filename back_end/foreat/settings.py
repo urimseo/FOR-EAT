@@ -62,7 +62,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
 
     # 장고 admin 기능을 사용했을 때 인증하는 미들웨어 설정
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -77,9 +77,10 @@ MIDDLEWARE = [
 #DEFAULT_PERMISSION_CLASSES는 API에 접근 시에 인증된 유저, 즉 헤더에 access token을 포함하여 유효한 유저만이 접근이 가능하는 것을 Default로 설정해준다.
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        # 'rest_framework.permissions.IsAuthenticated',
     ),
-
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 18
 }
 
 # JWT
