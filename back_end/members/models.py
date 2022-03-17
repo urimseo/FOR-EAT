@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.hashers import make_password
 from recipes.models import Recipe, Ingredient
+# from recipes.models import Allergy
 from foreat import settings
 
 # Create your models here.
@@ -32,16 +33,16 @@ class MemberManager(BaseUserManager):
 
 class Member(AbstractBaseUser):
     ## uuid 설정하기 
-    member_seq = models.AutoField(primary_key=True)
+    member_seq = models.AutoField(primary_key=True, unique=True)
     nickname=models.CharField(max_length=20, unique=True)
     # password = models.CharField(max_length=100, null=True)
-    profile_image_url = models.CharField(max_length=255, null=True)
+    profile_image_url = models.CharField(max_length=255, null=True, blank=True)
     kakao_id = models.CharField(max_length=255,null=True, blank=True)
     google_id = models.CharField(max_length=255,null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     liked_recipes = models.ManyToManyField(Recipe, related_name='members', through='LikedRecipe')
-    disliked_ingredients = models.ManyToManyField(Ingredient, related_name='members', through='DislikedIngredient')
+    
 
     objects = MemberManager()
 
@@ -74,9 +75,57 @@ class LikedRecipe(models.Model):
         db_table = 'tb_liked_recipe'
 
 
-class DislikedIngredient(models.Model):
-    member_seq = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+class MemberSurvey(models.Model):
+    AGE_CHOICES = (
+        ('~14', 1),
+        ('15~18', 2),
+        ('19~29', 3),
+        ('30~49', 4),
+        ('50~64', 5),
+        ('65~74', 6),
+        ('75~', 7),
+        # (1, '~14'),
+        # (2, '15~18'),
+        # (3, '19~29'),
+        # (4, '30~49'),
+        # (5, '50~64'),
+        # (6, '65~74'),
+        # (7, '75~'),
+    )
+    member_seq = models.OneToOneField(Member, on_delete=models.CASCADE, primary_key=True)
+    age = models.IntegerField(choices=AGE_CHOICES, null=True, blank=True)
+    # age = models.IntegerField(null=True, blank=True)
+    gender = models.BooleanField(null=True, blank=True) # True: male, False=female
+
+    # nutrition
+    carbohydrate = models.FloatField(null=True, blank=True)
+    protein = models.FloatField(null=True, blank=True)
+    fat = models.FloatField(null=True, blank=True)
+    cholesterol = models.FloatField(null=True, blank=True)
+    sodium = models.FloatField(null=True, blank=True)
+    suger = models.FloatField(null=True, blank=True)
+
+    # goal
+    beginner = models.BooleanField(null=True, blank=True)
+    recipe_challenger = models.BooleanField(null=True, blank=True)
+    timesaver = models.BooleanField(null=True, blank=True)
+    healthy_diet = models.BooleanField(null=True, blank=True)
+    lose_weight = models.BooleanField(null=True, blank=True)
+    
+    # ingredient
+    liked_ingredients = models.ManyToManyField(Ingredient, related_name='members', through='LikedIngredient')
+
+    # allergy
+    # allergy = models.ManyToManyField(Ingredient, related_name='members', through='Allergy')
+
+
+class LikedIngredient(models.Model):
+    member_seq = models.ForeignKey(MemberSurvey, on_delete=models.CASCADE)
     ingredient_seq = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
 
     class Meta:
-        db_table = 'tb_disliked_ingredient'
+        db_table = 'tb_liked_ingredient'
+
+# class Allergy(models.Model):
+#     member_seq = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+#     allergy_seq = models.ForeignKey(Allergy, on_delete=models.CASCADE)
