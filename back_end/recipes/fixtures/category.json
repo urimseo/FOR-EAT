@@ -1,0 +1,121 @@
+[
+  {
+    "model": "recipes.category",
+    "fields": {
+      "category_seq": 1,
+      "category_name": "Beef"
+    }
+  },
+  {
+    "model": "recipes.category",
+    "fields": {
+      "category_seq": 2,
+      "category_name": "Pork"
+    }
+  },
+  {
+    "model": "recipes.category",
+    "fields": {
+      "category_seq": 3,
+      "category_name": "Chicken"
+    }
+  },
+  {
+    "model": "recipes.category",
+    "fields": {
+      "category_seq": 4,
+      "category_name": "Lamb"
+    }
+  },
+  {
+    "model": "recipes.category",
+    "fields": {
+      "category_seq": 5,
+      "category_name": "Poultry"
+    }
+  },
+  {
+    "model": "recipes.category",
+    "fields": {
+      "category_seq": 6,
+      "category_name": "Seafood"
+    }
+  },
+  {
+    "model": "recipes.category",
+    "fields": {
+      "category_seq": 7,
+      "category_name": "Vegetable"
+    }
+  },
+  {
+    "model": "recipes.category",
+    "fields": {
+      "category_seq": 8,
+      "category_name": "Fruit"
+    }
+  },
+  {
+    "model": "recipes.category",
+    "fields": {
+      "category_seq": 9,
+      "category_name": "Bread"
+    }
+  },
+  {
+    "model": "recipes.category",
+    "fields": {
+      "category_seq": 10,
+      "category_name": "Rice"
+    }
+  },
+  {
+    "model": "recipes.category",
+    "fields": {
+        "category_seq": 11,
+        "category_name": "Pasta"
+    }
+  },
+  {
+      "model": "recipes.category",
+      "fields": {
+          "category_seq": 12,
+          "category_name": "Dessert"
+        }
+  },
+  {
+      "model": "recipes.category",
+      "fields": {
+          "category_seq": 13,
+          "category_name": "Africa"
+        }
+  },
+  {
+      "model": "recipes.category",
+      "fields": {
+          "category_seq": 14,
+          "category_name": "America"
+        }
+  },
+  {
+      "model": "recipes.category",
+      "fields": {
+          "category_seq": 15,
+          "category_name": "Oceania"
+        }
+  },
+  {
+      "model": "recipes.category",
+      "fields": {
+          "category_seq": 16,
+          "category_name": "Europe"
+        }
+  },
+  {
+      "model": "recipes.category",
+      "fields": {
+          "category_seq": 17,
+          "category_name": "Asia"
+        }
+  }
+]

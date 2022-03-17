@@ -1,0 +1,51 @@
+[
+    {
+        "model": "recipes.allergy",
+        "fields": {
+          "allergy_seq": 1,
+          "allergy_name": "flour"
+        }
+    },
+    {
+        "model": "recipes.allergy",
+        "fields": {
+          "allergy_seq": 2,
+          "allergy_name": "peanut"
+        }
+    },
+    {
+        "model": "recipes.allergy",
+        "fields": {
+          "allergy_seq": 3,
+          "allergy_name": "walnut"
+        }
+    },
+    {
+        "model": "recipes.allergy",
+        "fields": {
+          "allergy_seq": 4,
+          "allergy_name": "apple"
+        }
+    },
+    {
+        "model": "recipes.allergy",
+        "fields": {
+          "allergy_seq": 5,
+          "allergy_name": "sesame"
+        }
+    },
+    {
+        "model": "recipes.allergy",
+        "fields": {
+          "allergy_seq": 6,
+          "allergy_name": "shellfish"
+        }
+    },
+    {
+        "model": "recipes.allergy",
+        "fields": {
+          "allergy_seq": 7,
+          "allergy_name": "egg"
+        }
+    }
+]

@@ -24,5 +24,5 @@ urlpatterns = [
     # 장고 admin 관련 url
     path('admin/', admin.site.urls),
     path('members/', include('members.urls')),
-
+    path('recipes/', include('recipes.urls')),
 ]

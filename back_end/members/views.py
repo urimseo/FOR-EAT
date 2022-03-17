@@ -16,17 +16,17 @@ import json
 from decouple import config
 
 # Django에서 인가코드 요청할 경우 사용 할 수 있다. (클라이언트에서 줘야함)
-# @api_view(['GET'])
-# @permission_classes([AllowAny, ])
-# def kakao_get_login(request):
-#     CLIENT_ID = "b4e70d34154f3107fd39de575768f82d"
-#     REDIRECT_URL = "http://localhost:8000/members/kakao/login"
-#     # CLIENT_ID = SOCIAL_OUTH_CONFIG['KAKAO_REST_API_KEY']
-#     # REDIRECT_URL = SOCIAL_OUTH_CONFIG['KAKAO_REDIRECT_URI']
-#     url = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id={0}&redirect_uri={1}".format(
-#         CLIENT_ID, REDIRECT_URL)
-#     res = redirect(url)
-#     return res
+@api_view(['GET'])
+@permission_classes([AllowAny, ])
+def kakao_get_login(request):
+    CLIENT_ID = "b4e70d34154f3107fd39de575768f82d"
+    REDIRECT_URL = "http://localhost:8000/members/kakao/login"
+    # CLIENT_ID = SOCIAL_OUTH_CONFIG['KAKAO_REST_API_KEY']
+    # REDIRECT_URL = SOCIAL_OUTH_CONFIG['KAKAO_REDIRECT_URI']
+    url = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id={0}&redirect_uri={1}".format(
+        CLIENT_ID, REDIRECT_URL)
+    res = redirect(url)
+    return res
 
 # 인가코드로 token 받기
 @api_view(['GET', 'POST'])
