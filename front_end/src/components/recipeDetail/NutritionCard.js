@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 const Container = styled.div`
   height: ${(props) => (props.height ? props.height : "15vh")};
-  width: 5vw;
   border: 1px solid #000000;
   display: flex;
   flex-direction: column;

@@ -2,11 +2,17 @@ import styled from "styled-components";
 import Rating from '@mui/material/Rating';
 
 import Typography from "components/commons/Typography";
-import NutritionCard from "components/commons/NutritionCard";
+import NutritionCard from "components/recipeDetail/NutritionCard";
 
 const Container = styled.div`
   width: 50%;
   padding-inline: 1rem;
+`
+const SpaceBetweenContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
 `
 const CategoryTag = styled.div`
 display: flex;
@@ -68,10 +74,12 @@ const RecipeInfo = () => {
       ta="start" dp="flex"
       mb="1rem"
       >Recipe Name Recipe Name Recipe Name</Typography>
-      <CategoryTag>
-        <div id="flag">Vegan</div>
-      </CategoryTag>
-      <Rating name="read-only" value={value} readOnly />
+      <SpaceBetweenContainer>
+        <CategoryTag>
+          <div id="flag">Vegan</div>
+        </CategoryTag>
+        <Rating name="read-only" value={value} readOnly />
+      </SpaceBetweenContainer>
       <hr />
         <TextContainer>
           <div className="itemTitle">SERVINGS</div>
@@ -86,8 +94,8 @@ const RecipeInfo = () => {
           <div className="nutriTitle">NUTRITION</div>
           <div className="item">Standard Daily Intake for One Meal</div>
         </TextContainer>
-        <div style={{display: "grid", gridTemplateColumns:"1fr 9fr"}}>
-          <NutritionCard title="CALORIES" height="33vh" style={{marginRight: "0.5vw"}}/>
+        <div style={{display: "grid", gridTemplateColumns:"2fr 8fr", gap: "0.5vw" }}>
+          <NutritionCard title="CALORIES" style={{ gridRow: 1/2, height: "35vh" }} />
           <CardContainer>
             {/* 여기다 map으로 card 보여주기 */}
             <NutritionCard title="PROTEIN" grams={grams} />
