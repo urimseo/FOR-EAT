@@ -5,7 +5,7 @@ import Typography from "components/commons/Typography";
 import NutritionCard from "components/recipeDetail/NutritionCard";
 
 const Container = styled.div`
-  width: 50%;
+  width: 45%;
   padding-inline: 1rem;
 `
 const SpaceBetweenContainer = styled.div`
