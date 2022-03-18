@@ -7,7 +7,7 @@ import CalculateCalories from "components/recipeDetail/CalculateCalories";
 
 const Container = styled.div`
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   padding: 6rem 12rem;
 `
 const ImgWrapper = styled.div`

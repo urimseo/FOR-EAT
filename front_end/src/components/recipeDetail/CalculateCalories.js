@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const ExerciseContainer = styled.p`
+const ExerciseContainer = styled.div`
 display: block;
 margin: 4rem auto;
 .text{

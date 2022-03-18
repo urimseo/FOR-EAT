@@ -6,7 +6,6 @@ import styled from "styled-components";
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 1fr 9fr;
   width: 100vw;
 `;
 
