@@ -1,4 +1,3 @@
-import Nav from "components/layout/Nav";
 import SearchBar from "components/layout/SearchBar";
 import React from "react";
 import { Outlet } from "react-router-dom";
@@ -20,7 +19,7 @@ const Home = () => {
   return (
     <>
       <Container>
-        <Nav />
+        {/* <Nav /> */}
         <SubContainer>
           <SearchBar />
           <Outlet />

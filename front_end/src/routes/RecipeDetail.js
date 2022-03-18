@@ -5,12 +5,15 @@ import RecipeInfo from "components/recipeDetail/RecipeInfo";
 import Ingredient_spaghetti from "assets/img/Ingredient_spaghetti.jpg"
 import CalculateCalories from "components/recipeDetail/CalculateCalories";
 import IngredientDirections from "components/recipeDetail/IngredientDirections";
+import RelatedRecipeList from "components/recipeDetail/RelatedRecipeList";
 
 const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
   padding: 6rem 12rem;
+`
+const Wrapper = styled.div`
+  display: flex;
+  justify-content:${(props) => (props.jc ? props.jc : "center")};
+  flex-wrap: wrap;
 `
 const ImgWrapper = styled.div`
   width: 45%;
@@ -27,12 +30,17 @@ const RecipeDetail = () => {
 	return (
     <div>
       <Container>
-        <ImgWrapper>
-          <Img src={Ingredient_spaghetti} />
-        </ImgWrapper>
-        <RecipeInfo />
-        <CalculateCalories />
-        <IngredientDirections />
+        <Wrapper>
+          <ImgWrapper>
+            <Img src={Ingredient_spaghetti} />
+          </ImgWrapper>
+          <RecipeInfo />
+          <CalculateCalories />
+          <IngredientDirections />
+        </Wrapper>
+        <Wrapper jc="start">
+          <RelatedRecipeList />
+        </Wrapper>
       </Container>
     </div>
 	)
