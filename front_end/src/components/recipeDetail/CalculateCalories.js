@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const ExerciseContainer = styled.div`
 display: block;
-margin: 4rem auto;
+margin: 7rem auto;
 .text{
   text-align: center;
   font-size: 4rem;
