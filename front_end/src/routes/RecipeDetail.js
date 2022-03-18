@@ -4,6 +4,7 @@ import styled from "styled-components";
 import RecipeInfo from "components/recipeDetail/RecipeInfo";
 import Ingredient_spaghetti from "assets/img/Ingredient_spaghetti.jpg"
 import CalculateCalories from "components/recipeDetail/CalculateCalories";
+import IngredientList from "components/recipeDetail/IngredientList";
 
 const Container = styled.div`
   display: flex;
@@ -30,6 +31,7 @@ const RecipeDetail = () => {
         </ImgWrapper>
         <RecipeInfo />
         <CalculateCalories />
+        <IngredientList />
       </Container>
     </div>
 	)
