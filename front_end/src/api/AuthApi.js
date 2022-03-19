@@ -2,7 +2,7 @@ import instance from '../api/Axios';
 
 
 export const kakaoLogin = async (code) => {
-  const response = await instance.post('http://localhost:8000/members/kakao/login', { code: code });
+  const response = await instance.post('/members/kakao/login', { code: code });
   if (response.data.data.access_token) {
     localStorage.setItem('user', JSON.stringify(response.data.data.access_token));
   }
@@ -10,7 +10,7 @@ export const kakaoLogin = async (code) => {
 };
 
 export const googleLogin = async (data, token) => {
-  const response = await instance.post('http://localhost:8000/members/google/login', { data: data });
+  const response = await instance.post('/members/google/login', { data: data });
   if (response.data.data.user.status === 200) {
     localStorage.setItem('user', JSON.stringify(token));
   }

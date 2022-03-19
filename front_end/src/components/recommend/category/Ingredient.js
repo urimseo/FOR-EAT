@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import styled from "styled-components";
 import SubIngredient from "components/recommend/category/SubIngredient";
+import { getRecipeList } from "api/CategoryApi";
 
 const IngredientButton = styled.button`
   display: inline-block;
@@ -20,24 +21,36 @@ const ButtonContainer = styled.p`
 `
 
 const Ingredient = () => {
-  const [meatShow, setMeatShow] = useState(false);
+  const [meatShow, setMeatShow] = useState(true);
   const [seafoodShow, setSeafoodShow] = useState(false);
   const [vegetableShow, setVegetableShow] = useState(false);
 
-  const getMeatRecipe = () => {
+  const getMeatRecipe = async() => {
     setMeatShow(true);
     setSeafoodShow(false);
     setVegetableShow(false);
+    const result = await getRecipeList(1, "Beef");
+    if (result) {
+      console.log(result)
+    }
   }
-  const getSeafoodRecipe = () => {
+  const getSeafoodRecipe = async() => {
     setSeafoodShow(true);
     setMeatShow(false);
     setVegetableShow(false);
+    const result = await getRecipeList(1, "Seafood");
+    if (result) {
+      console.log(result)
+    }
   }
-  const getVegetableRecipe = () => {
+  const getVegetableRecipe = async() => {
     setVegetableShow(true);
     setSeafoodShow(false);
     setMeatShow(false);
+    const result = await getRecipeList(1, "Vegetable");
+    if (result) {
+      console.log(result)
+    }
   }
   return (
     <>

@@ -1,5 +1,6 @@
 import { React, useState } from "react";
 import styled from "styled-components";
+import { getRecipeList } from "api/CategoryApi";
 
 const SubIngredientButton = styled.button`
   display: inline-block;
@@ -15,46 +16,66 @@ const SubIngredientButton = styled.button`
 `
 
 const SubIngredient = () => {
-  const [beafShow, setBeafShow] = useState(false);
+  const [beafShow, setBeafShow] = useState(true);
   const [porkShow, setporkShow] = useState(false);
   const [lambShow, setLambShow] = useState(false);
   const [poultryShow, setPoultryShow] = useState(false);
   const [chickenShow, setChickenShow] = useState(false);
 
-  const getBeefRecipe = () => {
+  const getBeefRecipe = async() => {
     setBeafShow(true);
     setporkShow(false);
     setLambShow(false);
     setPoultryShow(false);
     setChickenShow(false);
+    const result = await getRecipeList(1, "Beef");
+    if (result) {
+      console.log(result)
+    }
   }
-  const getPorkRecipe = () => {
+  const getPorkRecipe = async() => {
     setBeafShow(false);
     setporkShow(true);
     setLambShow(false);
     setPoultryShow(false);
     setChickenShow(false);
+    const result = await getRecipeList(1, "Pork");
+    if (result) {
+      console.log(result)
+    }
   }
-  const getLambRecipe = () => {
+  const getLambRecipe = async() => {
     setBeafShow(false);
     setporkShow(false);
     setLambShow(true);
     setPoultryShow(false);
     setChickenShow(false);
+    const result = await getRecipeList(1, "Lamb");
+    if (result) {
+      console.log(result)
+    }
   }
-  const getPoultryRecipe = () => {
+  const getPoultryRecipe = async() => {
     setBeafShow(false);
     setporkShow(false);
     setLambShow(false);
     setPoultryShow(true);
     setChickenShow(false);
+    const result = await getRecipeList(1, "Poultry");
+    if (result) {
+      console.log(result)
+    }
   }
-  const getChickenRecipe = () => {
+  const getChickenRecipe = async() => {
     setBeafShow(false);
     setporkShow(false);
     setLambShow(false);
     setPoultryShow(false);
     setChickenShow(true);
+    const result = await getRecipeList(1, "Chicken");
+    if (result) {
+      console.log(result)
+    }
   }
 
   return (

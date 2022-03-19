@@ -1,5 +1,6 @@
 import {React, useState} from "react";
 import styled from "styled-components";
+import { getRecipeList } from "api/CategoryApi";
 
 const TypeButton = styled.button`
   display: inline-block;
@@ -15,34 +16,50 @@ const TypeButton = styled.button`
 `
 
 const Type = () => {
-  const [breadShow, setBreadShow] = useState(false);
+  const [breadShow, setBreadShow] = useState(true);
   const [riceShow, setRiceShow] = useState(false);
   const [pastaShow, setPastaShow] = useState(false);
   const [dessertShow, setDessertShow] = useState(false);
 
-  const getBreadRecipe = () => {
+  const getBreadRecipe = async() => {
     setBreadShow(true);
     setRiceShow(false);
     setPastaShow(false);
     setDessertShow(false);
+    const result = await getRecipeList(1, "Bread");
+    if (result) {
+      console.log(result)
+    }
   }
-  const getRiceRecipe = () => {
+  const getRiceRecipe = async() => {
     setBreadShow(false);
     setRiceShow(true);
     setPastaShow(false);
     setDessertShow(false);
+    const result = await getRecipeList(1, "Rice");
+    if (result) {
+      console.log(result)
+    }
   }
-  const getPastaRecipe = () => {
+  const getPastaRecipe = async() => {
     setBreadShow(false);
     setRiceShow(false);
     setPastaShow(true);
     setDessertShow(false);
+    const result = await getRecipeList(1, "Pasta");
+    if (result) {
+      console.log(result)
+    }
   }
-  const getDessertRecipe = () => {
+  const getDessertRecipe = async() => {
     setBreadShow(false);
     setRiceShow(false);
     setPastaShow(false);
     setDessertShow(true);
+    const result = await getRecipeList(1, "Dessert");
+    if (result) {
+      console.log(result)
+    }
   }
   return (
     <>
