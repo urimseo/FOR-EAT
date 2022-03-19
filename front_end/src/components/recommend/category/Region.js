@@ -1,5 +1,6 @@
 import {React, useState} from "react";
 import styled from "styled-components";
+import { getRecipeList } from "api/CategoryApi";
 
 
 const RegionButton = styled.button`
@@ -16,54 +17,74 @@ const RegionButton = styled.button`
 `
 
 const Region = () => {
-  const [europeanShow, setEuropeanShow] = useState(false);
-  const [asianShow, setAsianShow] = useState(false);
-  const [americanShow, setAmericanShow] = useState(false);
-  const [africanShow, setAfricanShow] = useState(false);
-  const [austrailainShow, setAustrailainShow] = useState(false);
+  const [europeShow, setEuropeShow] = useState(true);
+  const [asiaShow, setAsiaShow] = useState(false);
+  const [americaShow, setAmericaShow] = useState(false);
+  const [africaShow, setAfricaShow] = useState(false);
+  const [Oceaniahow, setOceaniaShow] = useState(false);
 
-  const getEuropeanRecipe = () => {
-    setEuropeanShow(true);
-    setAsianShow(false);
-    setAmericanShow(false);
-    setAfricanShow(false);
-    setAustrailainShow(false);
+  const getEuropeRecipe = async() => {
+    setEuropeShow(true);
+    setAsiaShow(false);
+    setAmericaShow(false);
+    setAfricaShow(false);
+    setOceaniaShow(false);
+    const result = await getRecipeList(1, "Europe");
+    if (result) {
+      console.log(result)
+    }
   }
-  const getAsainRecipe = () => {
-    setEuropeanShow(false);
-    setAsianShow(true);
-    setAmericanShow(false);
-    setAfricanShow(false);
-    setAustrailainShow(false);
+  const getAsiaRecipe = async() => {
+    setEuropeShow(false);
+    setAsiaShow(true);
+    setAmericaShow(false);
+    setAfricaShow(false);
+    setOceaniaShow(false);
+    const result = await getRecipeList(1, "Asia");
+    if (result) {
+      console.log(result)
+    }
   }
-  const getAmericanRecipe = () => {
-    setEuropeanShow(false);
-    setAsianShow(false);
-    setAmericanShow(true);
-    setAfricanShow(false);
-    setAustrailainShow(false);
+  const getAmericaRecipe = async() => {
+    setEuropeShow(false);
+    setAsiaShow(false);
+    setAmericaShow(true);
+    setAfricaShow(false);
+    setOceaniaShow(false);
+    const result = await getRecipeList(1, "America");
+    if (result) {
+      console.log(result)
+    }
   }
-  const getAfricanRecipe = () => {
-    setEuropeanShow(false);
-    setAsianShow(false);
-    setAmericanShow(false);
-    setAfricanShow(true);
-    setAustrailainShow(false);
+  const getAfricaRecipe = async() => {
+    setEuropeShow(false);
+    setAsiaShow(false);
+    setAmericaShow(false);
+    setAfricaShow(true);
+    setOceaniaShow(false);
+    const result = await getRecipeList(1, "Africa");
+    if (result) {
+      console.log(result)
+    }
   }
-  const getAustrailainRecipe = () => {
-    setEuropeanShow(false);
-    setAsianShow(false);
-    setAmericanShow(false);
-    setAfricanShow(false);
-    setAustrailainShow(true);
+  const getOceaniaRecipe = async() => {
+    setEuropeShow(false);
+    setAsiaShow(false);
+    setAmericaShow(false);
+    setAfricaShow(false);
+    setOceaniaShow(true);
+    const result = await getRecipeList(1, "Oceania");
+    if (result) {
+      console.log(result)
+    }
   }
   return (
     <>
-      {europeanShow ? <RegionButton onClick={getEuropeanRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>EUROPEAN</RegionButton> : <RegionButton onClick={getEuropeanRecipe}>EUROPEAN</RegionButton>}
-      {asianShow ? <RegionButton onClick={getAsainRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>ASIAN</RegionButton> : <RegionButton onClick={getAsainRecipe}>ASIAN</RegionButton>}
-      {americanShow ? <RegionButton onClick={getAmericanRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>AMERICAN</RegionButton> : <RegionButton onClick={getAmericanRecipe}>AMERICAN</RegionButton>}
-      {africanShow ? <RegionButton onClick={getAfricanRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>AFRICAN</RegionButton> : <RegionButton onClick={getAfricanRecipe}>AFRICAN</RegionButton>}
-      {austrailainShow ? <RegionButton onClick={getAustrailainRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>AUSTRAILIAN</RegionButton> : <RegionButton onClick={getAustrailainRecipe}>AUSTRAILIAN</RegionButton>}
+      {europeShow ? <RegionButton onClick={getEuropeRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>EUROPE</RegionButton> : <RegionButton onClick={getEuropeRecipe}>EUROPE</RegionButton>}
+      {asiaShow ? <RegionButton onClick={getAsiaRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>ASIA</RegionButton> : <RegionButton onClick={getAsiaRecipe}>ASIA</RegionButton>}
+      {americaShow ? <RegionButton onClick={getAmericaRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>AMERICA</RegionButton> : <RegionButton onClick={getAmericaRecipe}>AMERICA</RegionButton>}
+      {africaShow ? <RegionButton onClick={getAfricaRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>AFRICA</RegionButton> : <RegionButton onClick={getAfricaRecipe}>AFRICA</RegionButton>}
+      {Oceaniahow ? <RegionButton onClick={getOceaniaRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>OCEANIA</RegionButton> : <RegionButton onClick={getOceaniaRecipe}>OCEANIA</RegionButton>}
     </>
   );
 };

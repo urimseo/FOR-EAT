@@ -1,4 +1,4 @@
-import { React, useState} from "react";
+import { React, useState, useEffect } from "react";
 import styled from "styled-components";
 import Card from "components/commons/Card"
 import Servings from "components/recommend/category/Serving"
@@ -8,6 +8,7 @@ import Type from "components/recommend/category/Type";
 import Ingredient from "components/recommend/category/Ingredient";
 import UnderLine from "components/commons/Line"
 import SearchInput from 'components/commons/SearchInput';
+import { getRecipeList } from "api/CategoryApi";
 
 
 const Container = styled.div`
@@ -62,41 +63,66 @@ const Category = () => {
   const [typeShow, setTypeShow] = useState(false);
   const [ingredientShow, setIngredientShow] = useState(false);
 
-  const showServings = () => {
+  const showServings = async() => {
     setServignsShow(true);
     setRegionShow(false);
     setTimeShow(false);
     setTypeShow(false);
     setIngredientShow(false);
+    const result = await getRecipeList(1, "One");
+    if (result) {
+      console.log(result)
+    }
   };
-  const showRegion = () => {
+  const showRegion = async() => {
     setRegionShow(true);
     setServignsShow(false);
     setTimeShow(false);
     setTypeShow(false);
     setIngredientShow(false);
+    const result = await getRecipeList(1, "Europe");
+    if (result) {
+      console.log(result)
+    }
   };
-  const showTime = () => {
+  const showTime = async() => {
     setTimeShow(true);
     setServignsShow(false);
     setRegionShow(false);
     setTypeShow(false);
     setIngredientShow(false);
+    const result = await getRecipeList(1, "30min");
+    if (result) {
+      console.log(result)
+    }
   };
-  const showType = () => {
+  const showType = async() => {
     setTypeShow(true);
     setServignsShow(false);
     setRegionShow(false);
     setTimeShow(false);
     setIngredientShow(false);
+    const result = await getRecipeList(1, "Bread");
+    if (result) {
+      console.log(result)
+    }
   };
-  const showIngredient = () => {
+  const showIngredient = async() => {
     setIngredientShow(true);
     setServignsShow(false);
     setRegionShow(false);
     setTimeShow(false);
     setTypeShow(false);
+    const result = await getRecipeList(1, "Beef");
+    if (result) {
+      console.log(result)
+    }
   };
+
+  useEffect(() => {
+    showServings();
+  },[]);
+
   return (
     <>
       <Container>
