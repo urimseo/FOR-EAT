@@ -1,5 +1,5 @@
 from pyexpat import model
-from .models import Recipe, Ingredient, Keyword
+from .models import Recipe, Ingredient, Keyword, Allergy, Category
 from rest_framework import serializers
 
 class IngredientSerializer(serializers.ModelSerializer):
@@ -14,23 +14,48 @@ class KeywordSerializer(serializers.ModelSerializer):
         model = Keyword
         fields = '__all__'
 
-class RecipeListSerializer(serializers.ModelSerializer):
-    # ReviewSerializer 이후에 추가
-    # Review에서 ratings count 하기
+class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Recipe
-        # 리뷰 추가하면 rating field 추가
-        fields = ('recipe_seq', 'name', 'calories', 'images',)
+        model = Category
+        fields = '__all__'
 
 class RecipeSerializer(serializers.ModelSerializer):
-    keywords = KeywordSerializer(many = True)
+
+    class KeywordSerializer(serializers.ModelSerializer):
+
+        class Meta:
+            model = Keyword
+            fields = ('keyword_name',)
+
+    class IngredientSerializer(serializers.ModelSerializer):
+
+        class Meta:
+            model = Ingredient
+            fields = ('ingredient_name',)
+    
+    class CategorySerializer(serializers.ModelSerializer):
+
+        class Meta:
+            model = Category
+            fields = ('category_name',)
+
+    keywords = KeywordSerializer(many = True,)
     ingredients = IngredientSerializer(many = True)
+    categories = CategorySerializer(many=True)
 
     class Meta:
         model = Recipe
         exclude = ('reviews',)
 
+
+class RecipeListSerializer(serializers.ModelSerializer):
+    # ReviewSerializer 이후에 추가
+    # Review에서 ratings count 하기
+    class Meta:
+        model = Recipe
+        # 리뷰 추가하면 rating field 추가
+        fields = ('recipe_seq', 'name', 'calories', 'images',)
 
     # recipe_seq = models.AutoField(primary_key=True)
     # recipe_id = models.IntegerField()
