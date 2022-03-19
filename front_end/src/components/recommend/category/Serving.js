@@ -1,5 +1,6 @@
 import {React, useState} from "react";
 import styled from "styled-components";
+import { getRecipeList } from "api/CategoryApi";
 
 const ServingsButton = styled.button`
   display: inline-block;
@@ -15,34 +16,50 @@ const ServingsButton = styled.button`
 `
 
 const Servings = () => {
-  const [oneRecipeShow, setOneRecipeShow] = useState(false);
+  const [oneRecipeShow, setOneRecipeShow] = useState(true);
   const [twoRecipeShow, setTwoRecipeShow] = useState(false);
   const [fourRecipeShow, setFourRecipeShow] = useState(false);
   const [partyRecipeShow, setPartyRecipeShow] = useState(false);
 
-  const getOneRecipe = () => {
+  const getOneRecipe = async() => {
     setOneRecipeShow(true);
     setTwoRecipeShow(false);
     setFourRecipeShow(false);
     setPartyRecipeShow(false);
+    const result = await getRecipeList(1, "One");
+    if (result) {
+      console.log(result)
+    }
   }
-  const getTwoRecipe = () => {
+  const getTwoRecipe = async() => {
     setOneRecipeShow(false);
     setTwoRecipeShow(true);
     setFourRecipeShow(false);
     setPartyRecipeShow(false);
+    const result = await getRecipeList(1, "Two");
+    if (result) {
+      console.log(result)
+    }
   }
-  const getFourRecipe = () => {
+  const getFourRecipe = async () => {
     setOneRecipeShow(false);
     setTwoRecipeShow(false);
     setFourRecipeShow(true);
     setPartyRecipeShow(false);
+    const result = await getRecipeList(1, "Four");
+    if (result) {
+      console.log(result)
+    }
   }
-  const getPartyRecipe = () => {
+  const getPartyRecipe = async() => {
     setOneRecipeShow(false);
     setTwoRecipeShow(false);
     setFourRecipeShow(false);
     setPartyRecipeShow(true);
+    const result = await getRecipeList(1, "Party");
+    if (result) {
+      console.log(result)
+    }
   }
   return (
     <>
