@@ -22,7 +22,7 @@ from django.urls import path
 
 urlpatterns = [
     # 장고 admin 관련 url
-    path('admin/', admin.site.urls),
-    path('members/', include('members.urls')),
-    path('recipes/', include('recipes.urls')),
+    path('api/v1/admin/', admin.site.urls),
+    path('api/v1/members/', include('members.urls')),
+    path('api/v1/recipes/', include('recipes.urls')),
 ]
