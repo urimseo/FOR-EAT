@@ -5,7 +5,6 @@ import styled from "styled-components";
 
 const Container = styled.div`
   display: grid;
-  width: 100vw;
 `;
 
 const SubContainer = styled.div`
@@ -19,7 +18,6 @@ const Home = () => {
   return (
     <>
       <Container>
-        {/* <Nav /> */}
         <SubContainer>
           <SearchBar />
           <Outlet />

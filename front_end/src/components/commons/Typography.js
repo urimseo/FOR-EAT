@@ -11,6 +11,11 @@ const StyledTypography = styled.p`
   margin-left: ${(props) => (props.ml ? props.ml : "")};
   margin-bottom: ${(props) => (props.mb ? props.mb : "")};
   margin-right: ${(props) => (props.mr ? props.mr : "")};
+  padding-top: ${(props) => (props.pt ? props.pt : "")};
+  padding-bottom: ${(props) => (props.pb ? props.pb : "")};
+  padding-inline: ${(props) => (props.pi ? props.pi : "")};
+  padding-left: ${(props) => (props.pl ? props.pl : "")};
+  padding-right: ${(props) => (props.pr ? props.pr : "")};
   position: ${(props) => (props.p ? props.p : "relative")};
   left: ${(props) => (props.l ? props.l : "")};
   top: ${(props) => (props.t ? props.t : "")};
@@ -22,7 +27,11 @@ const StyledTypography = styled.p`
   line-height: ${(props) => (props.lh ? props.lh : "")}; 
   z-index: ${(props) => (props.zi ? props.zi : "")}; 
   cursor: ${(props) => (props.cursor ? props.cursor : "default")};
-`;
+  &:hover {
+    color: ${(props) =>
+      props.hoverColor ? props.hoverColor : "#000"};
+  }
+  `;
 
 const Typography = (props) => {
   return <StyledTypography {...props} ></StyledTypography>;
