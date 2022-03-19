@@ -8,7 +8,7 @@ const RegionButton = styled.button`
   font-weight: 400;
   cursor: pointer;
   background-color: white;
-  margin: 1rem 1rem 0 0;
+  margin: 0 1rem 0 0;
   padding-inline: 1rem;
   border: none;
   border-radius: 10rem;

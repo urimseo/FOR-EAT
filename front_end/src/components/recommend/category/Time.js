@@ -7,7 +7,7 @@ const TimeButton = styled.button`
   font-weight: 400;
   cursor: pointer;
   background-color: white;
-  margin: 1rem 1rem 0 0;
+  margin: 0 1rem 0 0;
   padding-inline: 1rem;
   border: none;
   border-radius: 10rem;
@@ -58,9 +58,9 @@ const Time = () => {
   return (
     <>
       {time30minShow ? <TimeButton onClick={get30minRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>30min</TimeButton> : <TimeButton onClick={get30minRecipe}>30min</TimeButton>}
-      {time60minShow ? <TimeButton onClick={get60minRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>60min</TimeButton> : <TimeButton onClick={get60minRecipe}>60min</TimeButton>}
-      {time120minShow ? <TimeButton onClick={get120minRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>120min</TimeButton> : <TimeButton onClick={get120minRecipe}>120min</TimeButton>}
-      {time180minShow ? <TimeButton onClick={get180minRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>180min</TimeButton> : <TimeButton onClick={get180minRecipe}>180min</TimeButton>}
+      {time60minShow ? <TimeButton onClick={get60minRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>1hours</TimeButton> : <TimeButton onClick={get60minRecipe}>1hours</TimeButton>}
+      {time120minShow ? <TimeButton onClick={get120minRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>2hours</TimeButton> : <TimeButton onClick={get120minRecipe}>2hours</TimeButton>}
+      {time180minShow ? <TimeButton onClick={get180minRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>3hours</TimeButton> : <TimeButton onClick={get180minRecipe}>3hours</TimeButton>}
       {time24hoursShow ? <TimeButton onClick={get24hoursRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>24hours</TimeButton> : <TimeButton onClick={get24hoursRecipe}>24hours</TimeButton>}
     </>
   );

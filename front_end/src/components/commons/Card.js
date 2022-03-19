@@ -9,9 +9,9 @@ const Container = styled.div`
 `
 
 const CardItem = styled.div`
-  width: 22rem;
-  height: 31rem;
-  margin: 2rem;
+  width: 16rem;
+  height: 23rem;
+  margin: 2rem 1rem 0 0;
 `
 
 const Img = styled.img`
@@ -43,9 +43,9 @@ const BorderLine = styled.div`
 `
 
 const Line = styled.div`
-  height: 29.8rem;
+  height: 24.1rem;
   border-right: 1px solid black;
-  margin: 2rem 0 0 0;
+  margin: 2rem 1rem 0 0;
 `
 
 const SpaceBetweenContainer = styled.div`
