@@ -1,6 +1,5 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import Card from "components/commons/Card"
 import Servings from "components/recommend/category/Serving"
 import Region from "components/recommend/category/Region";
 import Time from "components/recommend/category/Time";
@@ -13,11 +12,6 @@ import { getRecipeList } from "api/CategoryApi";
 
 const Container = styled.div`
   margin: 0 10vw;
-`
-
-const CardContainer = styled.div`
-  display: flex;
-  flex-flow: wrap;
 `
 
 const Title = styled.div`
@@ -62,6 +56,11 @@ const Category = () => {
   const [timeShow, setTimeShow] = useState(false);
   const [typeShow, setTypeShow] = useState(false);
   const [ingredientShow, setIngredientShow] = useState(false);
+  const childServings = useRef();
+  const childRegion = useRef();
+  const childTime = useRef();
+  const childType = useRef();
+  const childIngredient = useRef();
 
   const showServings = async() => {
     setServignsShow(true);
@@ -69,9 +68,9 @@ const Category = () => {
     setTimeShow(false);
     setTypeShow(false);
     setIngredientShow(false);
-    const result = await getRecipeList(1, "One");
-    if (result) {
-      console.log(result)
+    const Recipe = await getRecipeList(1, "One");
+    if (Recipe) {
+      childServings.current.getServingsRecipe();
     }
   };
   const showRegion = async() => {
@@ -80,9 +79,9 @@ const Category = () => {
     setTimeShow(false);
     setTypeShow(false);
     setIngredientShow(false);
-    const result = await getRecipeList(1, "Europe");
-    if (result) {
-      console.log(result)
+    const Recipe = await getRecipeList(1, "Europe");
+    if (Recipe) {
+      childRegion.current.getRegionRecipe();
     }
   };
   const showTime = async() => {
@@ -93,7 +92,7 @@ const Category = () => {
     setIngredientShow(false);
     const result = await getRecipeList(1, "30min");
     if (result) {
-      console.log(result)
+      childTime.current.getTimeRecipe();
     }
   };
   const showType = async() => {
@@ -104,7 +103,7 @@ const Category = () => {
     setIngredientShow(false);
     const result = await getRecipeList(1, "Bread");
     if (result) {
-      console.log(result)
+      childType.current.getTypeRecipe();
     }
   };
   const showIngredient = async() => {
@@ -115,7 +114,7 @@ const Category = () => {
     setTypeShow(false);
     const result = await getRecipeList(1, "Beef");
     if (result) {
-      console.log(result)
+      childIngredient.current.getIngredientRecipe();
     }
   };
 
@@ -154,17 +153,14 @@ const Category = () => {
         <BorderLine />
         <SpaceBetweenContainer>
           <div>
-            {servignsShow ? <Servings /> : null}
-            {regionShow ? <Region /> : null}
-            {timeShow ? <Time /> : null}
-            {typeShow ? <Type /> : null}
-            {ingredientShow ? <Ingredient /> : null}
+            {servignsShow ? <Servings ref={childServings} /> : null}
+            {regionShow ? <Region ref={childRegion}/> : null}
+            {timeShow ? <Time ref={childTime}/> : null}
+            {typeShow ? <Type ref={childType}/> : null}
+            {ingredientShow ? <Ingredient ref={childIngredient}/> : null}
           </div>
           <SearchInput />
         </SpaceBetweenContainer>
-        <CardContainer>
-          <Card />
-        </CardContainer>
       </Container>
     </>
   );
