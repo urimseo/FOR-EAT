@@ -3,7 +3,7 @@ import styled from "styled-components";
 import reading_glasses from 'assets/img/reading_glasses.png'
 
 const Container = styled.div`
-  display: inline-flex;
+  display: none;
 `
 
 const Input = styled.input`

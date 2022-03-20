@@ -1,6 +1,13 @@
-import { React, useState } from "react";
+import { React, useState, forwardRef, useImperativeHandle } from "react";
 import styled from "styled-components";
 import { getRecipeList } from "api/CategoryApi";
+import Card from "components/commons/Card";
+
+
+const CardContainer = styled.div`
+  display: flex;
+  flex-flow: wrap;
+`
 
 const SubIngredientButton = styled.button`
   display: inline-block;
@@ -15,12 +22,18 @@ const SubIngredientButton = styled.button`
   height: 2rem;
 `
 
-const SubIngredient = () => {
+const SubIngredient = forwardRef((props, ref) => {
+  useImperativeHandle(ref, () => ({
+    getSubIngredientRecipe(){
+      getBeefRecipe();
+    }
+  }))
   const [beafShow, setBeafShow] = useState(true);
   const [porkShow, setporkShow] = useState(false);
   const [lambShow, setLambShow] = useState(false);
   const [poultryShow, setPoultryShow] = useState(false);
   const [chickenShow, setChickenShow] = useState(false);
+  const [RecipeList, setRecipeList] = useState([]);
 
   const getBeefRecipe = async() => {
     setBeafShow(true);
@@ -28,9 +41,9 @@ const SubIngredient = () => {
     setLambShow(false);
     setPoultryShow(false);
     setChickenShow(false);
-    const result = await getRecipeList(1, "Beef");
-    if (result) {
-      console.log(result)
+    const Recipe = await getRecipeList(1, "Beef");
+    if (Recipe) {
+      setRecipeList(Recipe)
     }
   }
   const getPorkRecipe = async() => {
@@ -39,9 +52,9 @@ const SubIngredient = () => {
     setLambShow(false);
     setPoultryShow(false);
     setChickenShow(false);
-    const result = await getRecipeList(1, "Pork");
-    if (result) {
-      console.log(result)
+    const Recipe = await getRecipeList(1, "Pork");
+    if (Recipe) {
+      setRecipeList(Recipe)
     }
   }
   const getLambRecipe = async() => {
@@ -50,9 +63,9 @@ const SubIngredient = () => {
     setLambShow(true);
     setPoultryShow(false);
     setChickenShow(false);
-    const result = await getRecipeList(1, "Lamb");
-    if (result) {
-      console.log(result)
+    const Recipe = await getRecipeList(1, "Lamb");
+    if (Recipe) {
+      setRecipeList(Recipe)
     }
   }
   const getPoultryRecipe = async() => {
@@ -61,9 +74,9 @@ const SubIngredient = () => {
     setLambShow(false);
     setPoultryShow(true);
     setChickenShow(false);
-    const result = await getRecipeList(1, "Poultry");
-    if (result) {
-      console.log(result)
+    const Recipe = await getRecipeList(1, "Poultry");
+    if (Recipe) {
+      setRecipeList(Recipe)
     }
   }
   const getChickenRecipe = async() => {
@@ -72,22 +85,36 @@ const SubIngredient = () => {
     setLambShow(false);
     setPoultryShow(false);
     setChickenShow(true);
-    const result = await getRecipeList(1, "Chicken");
-    if (result) {
-      console.log(result)
+    const Recipe = await getRecipeList(1, "Chicken");
+    if (Recipe) {
+      setRecipeList(Recipe)
     }
   }
 
   return (
     <>
-      {beafShow ? <SubIngredientButton onClick={getBeefRecipe} style={{color: "#ED8141"}}>BEEF</SubIngredientButton> : <SubIngredientButton onClick={getBeefRecipe}>BEEF</SubIngredientButton>}
-      {porkShow ? <SubIngredientButton onClick={getPorkRecipe} style={{color: "#ED8141"}}>PORK</SubIngredientButton> : <SubIngredientButton onClick={getPorkRecipe}>PORK</SubIngredientButton>}
-      {lambShow? <SubIngredientButton onClick={getLambRecipe} style={{color: "#ED8141"}}>LAMB</SubIngredientButton> : <SubIngredientButton onClick={getLambRecipe}>LAMB</SubIngredientButton>}
-      {poultryShow ? <SubIngredientButton onClick={getPoultryRecipe} style={{color: "#ED8141"}}>POULTRY</SubIngredientButton> : <SubIngredientButton onClick={getPoultryRecipe}>POULTRY</SubIngredientButton>}
-      {chickenShow ? <SubIngredientButton onClick={getChickenRecipe} style={{color: "#ED8141"}}>CHICKEN</SubIngredientButton> : <SubIngredientButton onClick={getChickenRecipe}>CHICKEN</SubIngredientButton>}
+      <div>
+        {beafShow ? <SubIngredientButton onClick={getBeefRecipe} style={{color: "#ED8141"}}>BEEF</SubIngredientButton> : <SubIngredientButton onClick={getBeefRecipe}>BEEF</SubIngredientButton>}
+        {porkShow ? <SubIngredientButton onClick={getPorkRecipe} style={{color: "#ED8141"}}>PORK</SubIngredientButton> : <SubIngredientButton onClick={getPorkRecipe}>PORK</SubIngredientButton>}
+        {lambShow? <SubIngredientButton onClick={getLambRecipe} style={{color: "#ED8141"}}>LAMB</SubIngredientButton> : <SubIngredientButton onClick={getLambRecipe}>LAMB</SubIngredientButton>}
+        {poultryShow ? <SubIngredientButton onClick={getPoultryRecipe} style={{color: "#ED8141"}}>POULTRY</SubIngredientButton> : <SubIngredientButton onClick={getPoultryRecipe}>POULTRY</SubIngredientButton>}
+        {chickenShow ? <SubIngredientButton onClick={getChickenRecipe} style={{color: "#ED8141"}}>CHICKEN</SubIngredientButton> : <SubIngredientButton onClick={getChickenRecipe}>CHICKEN</SubIngredientButton>}
+      </div>
+      <CardContainer>
+        {RecipeList.map((Recipe, index) => ( 
+          <Card
+            key={Recipe.recipe_seq}
+            index={index}
+            recipeImg={Recipe.images}
+            recipeName={Recipe.name}
+            // recipeCategory={recipe.summary}
+            recipeCalorie={Recipe.calories}
+          />
+        ))}
+      </CardContainer>
     </>
   );
-};
+});
 
 
 export default SubIngredient;
