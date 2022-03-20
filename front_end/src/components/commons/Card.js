@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import Landing_1 from "assets/img/Landing_1.jpg";
+import PropTypes from "prop-types";
 
 
 const Container = styled.div`
@@ -9,9 +9,9 @@ const Container = styled.div`
 `
 
 const CardItem = styled.div`
-  width: 16rem;
+  width: 17rem;
   height: 23rem;
-  margin: 2rem 1rem 0 0;
+  margin: 2rem 1rem 5rem 0;
 `
 
 const Img = styled.img`
@@ -22,7 +22,7 @@ const Img = styled.img`
 const TextContainer = styled.div`
   .title {
     font-family: Playfair Display;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: bold;
     margin-top: 1rem;
   }
@@ -43,7 +43,7 @@ const BorderLine = styled.div`
 `
 
 const Line = styled.div`
-  height: 24.1rem;
+  height: 23.8rem;
   border-right: 1px solid black;
   margin: 2rem 1rem 0 0;
 `
@@ -54,29 +54,39 @@ const SpaceBetweenContainer = styled.div`
 `
 
 
-const Card = () => {
+const Card = ({ key, index, recipeImg, recipeName, recipeCalorie }) => {
   return (
     <>
       <div>
         <Container>
           <CardItem>
-            <Img src={Landing_1} />
+            <Img src={recipeImg} />
             <TextContainer>
-              <div className='title'>Recipe Name</div>
+              <div className='title'>{recipeName}</div>
               <div className='category'>CATEGORY</div>
               <BorderLine />
               <SpaceBetweenContainer>
-                <div className='Calorie'>Calorie</div>
+                <div className='Calorie'>{recipeCalorie} Kcal</div>
                 <div>★★★★★</div>
               </SpaceBetweenContainer>
               <BorderLine />
             </TextContainer>
           </CardItem>
-          <Line />
+          { (index+1)%4 === 0 ? null : <Line /> }
         </Container>
       </div>
     </>
   );
 };
+
+
+Card.propTypes = {
+  key: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
+  recipeImg: PropTypes.string.isRequired,
+  recipeName: PropTypes.string.isRequired,
+  recipeCalorie: PropTypes.number.isRequired,
+};
+
 
 export default Card
