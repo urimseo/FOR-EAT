@@ -1,4 +1,4 @@
-import SearchBar from "components/layout/SearchBar";
+import Navbar from "components/layout/Navbar";
 import React from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
@@ -19,7 +19,7 @@ const Home = () => {
     <>
       <Container>
         <SubContainer>
-          <SearchBar />
+          <Navbar />
           <Outlet />
         </SubContainer>
       </Container>
