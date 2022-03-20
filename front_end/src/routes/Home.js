@@ -1,4 +1,5 @@
 import Navbar from "components/layout/Navbar";
+import Footer from "components/layout/Footer";
 import React from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
@@ -21,6 +22,7 @@ const Home = () => {
         <SubContainer>
           <Navbar />
           <Outlet />
+          <Footer />
         </SubContainer>
       </Container>
     </>
