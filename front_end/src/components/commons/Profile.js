@@ -2,6 +2,7 @@ import { React } from 'react';
 import styled from "styled-components";
 import profile from 'assets/img/profile.png'
 import profile_hover from 'assets/img/profile_hover.png'
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -20,11 +21,12 @@ const ProfileImg = styled.img`
 `
 
 const Profile = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Container>
         <ProfileImgWrapper>
-          <ProfileImg src={profile} alt="my page"/>
+          <ProfileImg src={profile} alt="my page" onClick={() => navigate("/mypage")}/>
         </ProfileImgWrapper>
       </Container>
     </>
