@@ -52,7 +52,7 @@ const BoxContainer = styled.div`
 `
 
 const Category = () => {
-  const [servignsShow, setServignsShow] = useState(true);
+  const [servignsShow, setServingsShow] = useState(true);
   const [regionShow, setRegionShow] = useState(false);
   const [timeShow, setTimeShow] = useState(false);
   const [typeShow, setTypeShow] = useState(false);
@@ -64,7 +64,7 @@ const Category = () => {
   const childIngredient = useRef();
 
   const showServings = async() => {
-    setServignsShow(true);
+    setServingsShow(true);
     setRegionShow(false);
     setTimeShow(false);
     setTypeShow(false);
@@ -77,7 +77,7 @@ const Category = () => {
 
   const showRegion = async() => {
     setRegionShow(true);
-    setServignsShow(false);
+    setServingsShow(false);
     setTimeShow(false);
     setTypeShow(false);
     setIngredientShow(false);
@@ -89,7 +89,7 @@ const Category = () => {
 
   const showTime = async() => {
     setTimeShow(true);
-    setServignsShow(false);
+    setServingsShow(false);
     setRegionShow(false);
     setTypeShow(false);
     setIngredientShow(false);
@@ -101,7 +101,7 @@ const Category = () => {
 
   const showType = async() => {
     setTypeShow(true);
-    setServignsShow(false);
+    setServingsShow(false);
     setRegionShow(false);
     setTimeShow(false);
     setIngredientShow(false);
@@ -110,10 +110,10 @@ const Category = () => {
       childType.current.getTypeRecipe();
     }
   };
-  
+
   const showIngredient = async() => {
     setIngredientShow(true);
-    setServignsShow(false);
+    setServingsShow(false);
     setRegionShow(false);
     setTimeShow(false);
     setTypeShow(false);
