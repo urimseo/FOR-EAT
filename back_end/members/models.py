@@ -1,8 +1,10 @@
+from tkinter import CASCADE
+from turtle import ondrag
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.hashers import make_password
-from recipes.models import Recipe, Ingredient
+from recipes.models import Recipe, Ingredient, Allergy
 # from recipes.models import Allergy
 from foreat import settings
 
@@ -37,8 +39,11 @@ class Member(AbstractBaseUser):
     nickname=models.CharField(max_length=20, unique=True)
     # password = models.CharField(max_length=100, null=True)
     profile_image_url = models.CharField(max_length=255, null=True, blank=True)
+    
+    # member Id
     kakao_id = models.CharField(max_length=255,null=True, blank=True)
     google_id = models.CharField(max_length=255,null=True, blank=True)
+    
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     liked_recipes = models.ManyToManyField(Recipe, related_name='members', through='LikedRecipe')
@@ -116,8 +121,10 @@ class MemberSurvey(models.Model):
     liked_ingredients = models.ManyToManyField(Ingredient, related_name='members', through='LikedIngredient')
 
     # allergy
-    # allergy = models.ManyToManyField(Ingredient, related_name='members', through='Allergy')
+    allergy = models.ManyToManyField(Allergy, related_name='members', through="MemberAllergy")
 
+    class Meta:
+        db_table = 'tb_member_survey'
 
 class LikedIngredient(models.Model):
     member_seq = models.ForeignKey(MemberSurvey, on_delete=models.CASCADE)
@@ -126,6 +133,9 @@ class LikedIngredient(models.Model):
     class Meta:
         db_table = 'tb_liked_ingredient'
 
-# class Allergy(models.Model):
-#     member_seq = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-#     allergy_seq = models.ForeignKey(Allergy, on_delete=models.CASCADE)
+class MemberAllergy(models.Model):
+    member_seq = models.ForeignKey(MemberSurvey, on_delete=models.CASCADE)
+    allergy_seq = models.ForeignKey(Allergy, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'tb_member_allergy'
