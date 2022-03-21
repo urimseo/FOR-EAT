@@ -22,15 +22,14 @@ const TextContainer = styled.div`
   }
 `
 const Ingredients = ({ ingredients }) => {
-  const ingredientList = ingredients.map((ingredient) => (<li className="content_bold">{ingredient}</li>))
   return (
     <TextContainer ta="right">
       <div className="title">INGREDIENTS</div>
       <ul>
-        {ingredientList}
+        {ingredients && ingredients.map((ingredient) => (<li className="content_bold">{ingredient}</li>))}
       </ul>
     </TextContainer>
-    )
+  )
 }
 
 export default Ingredients;
