@@ -17,3 +17,10 @@ def generate_token(payload, type):
     encoded = jwt.encode(payload, config("JWT_SECRET_KEY"), algorithm=config("JWT_ALGORITHM"))
 
     return encoded
+
+def decode_token(request, token):
+
+    payload = jwt.decode(jwt=token, key=config("JWT_SECRET_KEY"), algorithm=config("JWT_ALGORITHM"))
+
+    member_seq = payload['member_seq']
+    return member_seq
