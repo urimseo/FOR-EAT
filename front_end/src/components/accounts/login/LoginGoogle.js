@@ -15,9 +15,9 @@ const Container = styled.div`
 const LoginGoogle = () => {
   const navigate = useNavigate();
   const setIsLoginState = useSetRecoilState(isLoginState);
-
   const successGoogle = async (response) => {
     const data = {
+      access_token: response.tokenId,
       googleId: response.profileObj.googleId,
       imageUrl: response.profileObj.imageUrl,
       name: response.profileObj.name
