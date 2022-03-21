@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Typography from "components/commons/Typography";
-import SearchInput from "components/commons/SearchInput";
 import Profile from "components/commons/Profile";
 import reading_glasses from 'assets/img/reading_glasses.png'
+import { useEffect, useState } from "react";
 
 const Container = styled.div`
   display: flex;
@@ -17,7 +17,7 @@ const TabContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   justify-content: center;
-  align-items:center
+  align-items:center;
   position: relative;
   padding: 0 30vw 0 30vw;
 `
@@ -36,6 +36,7 @@ const Input = styled.input`
   margin: 0;
   border-radius: 10rem;
   border: 1px solid grey;
+  padding-left: 1rem;
 `
 
 const SearchImgWrapper = styled.a`
@@ -55,7 +56,7 @@ const SearchBar = () => {
     <Container>
       <div style={{display: "grid", gridTemplateColumns: "1fr 1fr 1fr"}}>
         <div></div>
-        <Typography ff="Philosopher" fs="3rem">FOR:EAT</Typography>
+        <Typography ff="Philosopher" fs="3rem" cursor="pointer" onClick={() => navigate("/recommend")} >FOR:EAT</Typography>
         <SearchContainer>
           <Input placeholder=" search in result" />
           <SearchImgWrapper>
