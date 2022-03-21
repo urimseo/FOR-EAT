@@ -17,7 +17,7 @@ import re
 class RecipeList(ListAPIView, LimitOffsetPagination):
     def get_queryset(self):
         word = self.request.GET['category']
-        if word in ['Europe', 'Asia', 'America', 'Africa', 'Austrailia', 'Beef', 'Pork', 'Lamb', 'Poultry', 'Chicken', 'Seafood', 'Vegetable',
+        if word in ['Europe', 'Asia', 'America', 'Africa', 'Oceania', 'Beef', 'Pork', 'Lamb', 'Poultry', 'Chicken', 'Seafood', 'Vegetable',
         'Bread', 'Rice', 'Pasta', 'Dessert',]:
             category = Category.objects.filter(category_name=word)
             object_list = Recipe.objects.filter(categories__in=category)
@@ -57,18 +57,20 @@ class RecipeList(ListAPIView, LimitOffsetPagination):
         return Response(serializer.data)
 
 
-# class RecipeDetail(APIView):
+class RecipeDetail(APIView):
 
-#     def get_object(self, pk):
-#         try:
-#             return Recipe.objects.get(pk=pk)
-#         except Recipe.DoesNotExist:
-#             raise Http404
+    def get_object(self, pk):
+        try:
+            return Recipe.objects.get(pk=pk)
+        except Recipe.DoesNotExist:
+            raise Http404
 
-#     def get(self, request, pk):
-#         recipe = self.get_object(pk)
-#         serializer = RecipeSerializer(recipe)
-#         response_data = serializer.data
-#         response_data['ingredient_raw'] = json.loads(serializer.data['ingredient_raw'])
-#         response_data['instructions'] = json.loads(serializer.data['instructions'])
-#         return Response(response_data)
+    def get(self, request, pk):
+        recipe = self.get_object(pk)
+        serializer = RecipeSerializer(recipe)
+        response_data = serializer.data
+        response_data['ingredient_raw'] = json.loads(serializer.data['ingredient_raw'])
+        response_data['instructions'] = json.loads(serializer.data['instructions'])
+        response_data['images'] = json.loads(response_data['images'])[0]
+        # 추천 리스트 추가
+        return Response(response_data)
