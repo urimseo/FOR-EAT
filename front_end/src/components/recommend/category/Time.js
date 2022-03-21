@@ -5,14 +5,6 @@ import Card from "components/commons/Card";
 import "assets/css/Pagination.css";
 import Pagination from "react-js-pagination";
 
-const CardContainer = styled.div`
-  display: flex;
-  flex-flow: wrap;
-`
-const PageContainer = styled.div`
-  margin: 1rem 0 5rem 0;
-`
-
 const TimeButton = styled.button`
   display: inline-block;
   font-size: 1rem;
@@ -25,6 +17,16 @@ const TimeButton = styled.button`
   border-radius: 10rem;
   height: 2rem;
 `
+
+const CardContainer = styled.div`
+  display: flex;
+  flex-flow: wrap;
+`
+
+const PageContainer = styled.div`
+  margin: 1rem 0 5rem 0;
+`
+
 
 const Time = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
@@ -68,6 +70,7 @@ const Time = forwardRef((props, ref) => {
     set24hoursShow(false);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "30min");
     if (Recipe) {
@@ -83,6 +86,7 @@ const Time = forwardRef((props, ref) => {
     set24hoursShow(false);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "60min");
     if (Recipe) {
@@ -98,6 +102,7 @@ const Time = forwardRef((props, ref) => {
     set24hoursShow(false);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "120min");
     if (Recipe) {
@@ -113,6 +118,7 @@ const Time = forwardRef((props, ref) => {
     set24hoursShow(false);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "180min");
     if (Recipe) {
@@ -128,6 +134,7 @@ const Time = forwardRef((props, ref) => {
     set24hoursShow(true);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "24hours");
     if (Recipe) {
@@ -139,10 +146,10 @@ const Time = forwardRef((props, ref) => {
     <>
       <div>
         {time30minShow ? <TimeButton onClick={()=>get30minRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>30MIN</TimeButton> : <TimeButton onClick={get30minRecipe}>30MIN</TimeButton>}
-        {time60minShow ? <TimeButton onClick={get60minRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>1HOURS</TimeButton> : <TimeButton onClick={get60minRecipe}>1HOURS</TimeButton>}
-        {time120minShow ? <TimeButton onClick={get120minRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>2HOURS</TimeButton> : <TimeButton onClick={get120minRecipe}>2HOURS</TimeButton>}
-        {time180minShow ? <TimeButton onClick={get180minRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>3HOURS</TimeButton> : <TimeButton onClick={get180minRecipe}>3HOURS</TimeButton>}
-        {time24hoursShow ? <TimeButton onClick={get24hoursRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>24HOURS</TimeButton> : <TimeButton onClick={get24hoursRecipe}>24HOURS</TimeButton>}
+        {time60minShow ? <TimeButton onClick={()=>get60minRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>1HOURS</TimeButton> : <TimeButton onClick={get60minRecipe}>1HOURS</TimeButton>}
+        {time120minShow ? <TimeButton onClick={()=>get120minRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>2HOURS</TimeButton> : <TimeButton onClick={get120minRecipe}>2HOURS</TimeButton>}
+        {time180minShow ? <TimeButton onClick={()=>get180minRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>3HOURS</TimeButton> : <TimeButton onClick={get180minRecipe}>3HOURS</TimeButton>}
+        {time24hoursShow ? <TimeButton onClick={()=>get24hoursRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>24HOURS</TimeButton> : <TimeButton onClick={get24hoursRecipe}>24HOURS</TimeButton>}
       </div>  
       <CardContainer>
         {RecipeList.map((Recipe, index) => ( 
@@ -156,17 +163,19 @@ const Time = forwardRef((props, ref) => {
           />
         ))}
       </CardContainer>
-      <PageContainer>
-        <Pagination 
-          activePage={page} 
-          itemsCountPerPage={10} 
-          totalItemsCount={250} 
-          pageRangeDisplayed={5} 
-          prevPageText={"‹"} 
-          nextPageText={"›"} 
-          onChange={handlePageChange}
-        />
-      </PageContainer>
+      {RecipeList.length !== 0 ?      
+        <PageContainer>
+          <Pagination 
+            activePage={page} 
+            itemsCountPerPage={10} 
+            totalItemsCount={250} 
+            pageRangeDisplayed={5} 
+            prevPageText={"‹"} 
+            nextPageText={"›"} 
+            onChange={handlePageChange}
+          />
+        </PageContainer> : null
+      }
     </>
   );
 });

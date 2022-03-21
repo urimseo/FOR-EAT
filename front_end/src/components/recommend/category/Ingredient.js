@@ -6,16 +6,6 @@ import Card from "components/commons/Card";
 import Pagination from "react-js-pagination";
 import "assets/css/Pagination.css";
 
-
-const CardContainer = styled.div`
-  display: flex;
-  flex-flow: wrap;
-`
-
-const PageContainer = styled.div`
-  margin: 1rem 0 5rem 0;
-`
-
 const IngredientButton = styled.button`
   display: inline-block;
   font-size: 1rem;
@@ -27,6 +17,15 @@ const IngredientButton = styled.button`
   border: none;
   border-radius: 10rem;
   height: 2rem;
+`
+
+const CardContainer = styled.div`
+  display: flex;
+  flex-flow: wrap;
+`
+
+const PageContainer = styled.div`
+  margin: 1rem 0 5rem 0;
 `
 
 
@@ -71,6 +70,7 @@ const Ingredient = forwardRef((props, ref) => {
     setVegetableShow(false);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "Seafood");
     if (Recipe) {
@@ -84,6 +84,7 @@ const Ingredient = forwardRef((props, ref) => {
     setMeatShow(false);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "Vegetable");
     if (Recipe) {
@@ -95,8 +96,8 @@ const Ingredient = forwardRef((props, ref) => {
     <>
       <div>
         {meatShow ? <IngredientButton onClick={getMeatRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>MEAT</IngredientButton> : <IngredientButton onClick={getMeatRecipe}>MEAT</IngredientButton>}
-        {seafoodShow ? <IngredientButton onClick={getSeafoodRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>SEAFOOD</IngredientButton> : <IngredientButton onClick={getSeafoodRecipe}>SEAFOOD</IngredientButton>}
-        {vegetableShow ? <IngredientButton onClick={getVegetableRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>VEGETABLE</IngredientButton> : <IngredientButton onClick={getVegetableRecipe}>VEGETABLE</IngredientButton>} 
+        {seafoodShow ? <IngredientButton onClick={()=>getSeafoodRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>SEAFOOD</IngredientButton> : <IngredientButton onClick={getSeafoodRecipe}>SEAFOOD</IngredientButton>}
+        {vegetableShow ? <IngredientButton onClick={()=>getVegetableRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>VEGETABLE</IngredientButton> : <IngredientButton onClick={getVegetableRecipe}>VEGETABLE</IngredientButton>} 
         {meatShow ? <SubIngredient ref={childSubIngredient}/> : null}
       </div>
       { meatShow ? null : 
@@ -113,7 +114,7 @@ const Ingredient = forwardRef((props, ref) => {
           ))}
         </CardContainer>
       }
-      {meatShow ? null :
+      { meatShow === false && RecipeList.length !== 0 ?  
         <PageContainer>
           <Pagination 
             activePage={page} 
@@ -124,7 +125,7 @@ const Ingredient = forwardRef((props, ref) => {
             nextPageText={"›"} 
             onChange={handlePageChange}
           />
-        </PageContainer>
+        </PageContainer> : null 
       }
     </>
   );
