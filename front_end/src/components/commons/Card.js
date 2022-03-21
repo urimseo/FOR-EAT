@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 import PropTypes from "prop-types";
-
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -53,27 +53,29 @@ const Line = styled.div`
   margin: 2rem 1rem 0 1rem;
 `
 
-
-
-const Card = ({ index, recipeImg, recipeName, recipeCalorie }) => {
+const Card = ({ index, recipeImg, recipeName, recipeCalorie, recipeSeq }) => {
   return (
     <>
-      <Container>
-        <CardItem>
-          <Img src={recipeImg} />
-          <TextContainer>
-            <div className='title'>{recipeName}</div>
-            <div className='category'>CATEGORY</div>
-            <BorderLine />
-            <SpaceBetweenContainer>
-              <div className='Calorie'>{recipeCalorie} Kcal</div>
-              <div>★★★★★</div>
-            </SpaceBetweenContainer>
-            <BorderLine />
-          </TextContainer>
-        </CardItem>
-        { (index+1)%4 === 0 ? null : <Line /> }
-      </Container>
+      <div>
+        <Container>
+          <Link to={`/recipes/${recipeSeq}`}>
+            <CardItem>
+              <Img src={recipeImg} />
+              <TextContainer>
+                <div className='title'>{recipeName}</div>
+                <div className='category'>CATEGORY</div>
+                <BorderLine />
+                <SpaceBetweenContainer>
+                  <div className='Calorie'>{recipeCalorie} Kcal</div>
+                  <div>★★★★★</div>
+                </SpaceBetweenContainer>
+                <BorderLine />
+              </TextContainer>
+            </CardItem>
+            { (index+1)%4 === 0 ? null : <Line /> }
+          </Link>
+        </Container>
+      </div>
     </>
   );
 };

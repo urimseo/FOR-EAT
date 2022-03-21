@@ -130,12 +130,13 @@ const Servings = forwardRef((props, ref) => {
       <CardContainer>
         {RecipeList.map((Recipe, index) => ( 
           <Card
+            key={Recipe.recipe_seq}
+            recipeSeq={Recipe.recipe_seq}
             index={index}
             recipeImg={Recipe.images}
             recipeName={Recipe.name}
             // recipeCategory={recipe.summary}
-            recipeCalorie={Recipe.calories}
-            key={Recipe.recipe_seq}
+            recipeCalorie={Recipe.calories}d
           />
         ))}
       </CardContainer>
