@@ -49,7 +49,7 @@ const ReadingGlassesImg = styled.img`
   width: 1.5rem;
   height: 1.5rem;
 `
-const SearchBar = () => {
+const Navbar = () => {
   const navigate = useNavigate();
 
   return (
@@ -75,4 +75,4 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+export default Navbar;
