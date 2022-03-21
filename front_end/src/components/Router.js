@@ -18,16 +18,14 @@ const AppRouter = () => {
     <Router>
       <>
         <Routes>
-          
           <Route path="" element={<Landing />} />
-        <Route path="/" element={<Home />}>
-          <Route path="/recommend" element={<Feed />} />
-          <Route path="/category" element={<Category />} />
-          <Route path="/members/kakao/login" element={<Auth />} />
-          <Route path="/recipes/1" element={<RecipeDetail />} />
-          <Route path="/mypage" element={<MyPage />} />
-        </Route>
-          {/* <Route path="/recipes/:recipe_seq" element={<RecipeDetail />} /> */}
+          <Route path="/" element={<Home />}>
+            <Route path="/recommend" element={<Feed />} />
+            <Route path="/category" element={<Category />} />
+            <Route path="/members/kakao/login" element={<Auth />} />
+            <Route path="/recipes/:recipe_seq" element={<RecipeDetail />} />
+            <Route path="/mypage" element={<MyPage />} />
+          </Route>
         </Routes>
       </>
     </Router>

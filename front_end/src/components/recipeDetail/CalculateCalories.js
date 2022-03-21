@@ -10,14 +10,13 @@ margin: 7rem auto;
   font-style: italic;
 }
 `
-const CalculateCalories = () => {
-  const calories = 307;
-  const exercise = "Swimming";
+const CalculateCalories = ({ calories }) => {
+  const exercise = "Swimming"
   const minutes = 32;
     return (
       <ExerciseContainer>
         <div className="text">
-        To Burn {calories} Calories<br />{exercise} {minutes} Minutes
+        To Burn {Math.round(calories)} Calories<br />{exercise} {minutes} Minutes
         </div>
       </ExerciseContainer>
     )

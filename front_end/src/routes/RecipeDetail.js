@@ -1,11 +1,13 @@
-import React from "react";
+import { React, useEffect, useState } from "react";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 
 import RecipeInfo from "components/recipeDetail/RecipeInfo";
-import Ingredient_spaghetti from "assets/img/Ingredient_spaghetti.jpg"
 import CalculateCalories from "components/recipeDetail/CalculateCalories";
-import IngredientDirections from "components/recipeDetail/IngredientDirections";
 import RelatedRecipeList from "components/recipeDetail/RelatedRecipeList";
+import Ingredients from "components/recipeDetail/Ingredients";
+import Instrunctions from "components/recipeDetail/Instructions";
+import { getRecipeDetail } from "api/RecipeDetailApi";
 
 const Container = styled.div`
   padding: 6rem 12rem;
@@ -26,17 +28,56 @@ const Img = styled.img`
   hight: 100%;
   object-fit: cover;
 `
+const IngredientWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
 const RecipeDetail = () => {
+
+  const location = useLocation();
+  let recipeId = Number(location.pathname.split("/")[2]);
+  const [recipe, setRecipe] = useState(getRecipeDetail(recipeId)); 
+
+  useEffect(() => {
+    getRecipeDetail(recipeId).then((res) => {
+      setRecipe(res)
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }, [])
+
 	return (
     <div>
       <Container>
         <Wrapper>
           <ImgWrapper>
-            <Img src={Ingredient_spaghetti} />
+            <Img src={recipe.images} />
           </ImgWrapper>
-          <RecipeInfo />
-          <CalculateCalories />
-          <IngredientDirections />
+          <RecipeInfo 
+            recipeId={recipeId}
+            recipe={recipe}
+            name={recipe.name}
+            servings={recipe.servings}
+            prepTime={recipe.prep_time}
+            cookTime={recipe.cook_time}
+            calories={recipe.calories}
+            carbs={recipe.carbohydrate_content}
+            protein={recipe.protein_content}
+            fat={recipe.fat_content}
+            saturatedFat={recipe.saturated_fat_content}
+            cholesterol={recipe.cholesterol_content}
+            sodium={recipe.sodium_content}
+            fiber={recipe.fiber_content}
+            sugar={recipe.sugar_content}
+          />
+          <CalculateCalories calories={recipe.calories}/>
+          <IngredientWrapper>
+            <Ingredients ingredients={recipe.ingredient_raw} />
+            <Instrunctions instructions={recipe.instructions}/>
+          </IngredientWrapper>
         </Wrapper>
         <Wrapper jc="start">
           <RelatedRecipeList />
