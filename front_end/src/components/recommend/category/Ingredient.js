@@ -3,11 +3,17 @@ import styled from "styled-components";
 import SubIngredient from "components/recommend/category/SubIngredient";
 import { getRecipeList } from "api/CategoryApi";
 import Card from "components/commons/Card";
+import Pagination from "react-js-pagination";
+import "assets/css/Pagination.css";
 
 
 const CardContainer = styled.div`
   display: flex;
   flex-flow: wrap;
+`
+
+const PageContainer = styled.div`
+  margin: 1rem 0 5rem 0;
 `
 
 const IngredientButton = styled.button`
@@ -23,6 +29,7 @@ const IngredientButton = styled.button`
   height: 2rem;
 `
 
+
 const Ingredient = forwardRef((props, ref) => {
   const childSubIngredient = useRef();
 
@@ -31,10 +38,22 @@ const Ingredient = forwardRef((props, ref) => {
       childSubIngredient.current.getSubIngredientRecipe();
     }
   }))
+
   const [meatShow, setMeatShow] = useState(true);
   const [seafoodShow, setSeafoodShow] = useState(false);
   const [vegetableShow, setVegetableShow] = useState(false);
   const [RecipeList, setRecipeList] = useState([]);
+  const [page, setPage] = useState(1); 
+
+  const handlePageChange = (page) => { 
+    setPage(page); 
+    if (seafoodShow === true) {
+      getSeafoodRecipe(page);
+    }
+    if (vegetableShow === true) {
+      getVegetableRecipe(page);
+    }
+  };
 
   const getMeatRecipe = async() => {
     setMeatShow(true);
@@ -45,24 +64,33 @@ const Ingredient = forwardRef((props, ref) => {
       childSubIngredient.current.getSubIngredientRecipe();
     }
   }
-  const getSeafoodRecipe = async() => {
+
+  const getSeafoodRecipe = async(page) => {
     setSeafoodShow(true);
     setMeatShow(false);
     setVegetableShow(false);
-    const Recipe = await getRecipeList(1, "Seafood");
+    if (isNaN(page) === true) {
+      setPage(1); 
+    }
+    const Recipe = await getRecipeList(page, "Seafood");
     if (Recipe) {
       setRecipeList(Recipe)
     }
   }
-  const getVegetableRecipe = async() => {
+
+  const getVegetableRecipe = async(page) => {
     setVegetableShow(true);
     setSeafoodShow(false);
     setMeatShow(false);
-    const Recipe = await getRecipeList(1, "Vegetable");
+    if (isNaN(page) === true) {
+      setPage(1); 
+    }
+    const Recipe = await getRecipeList(page, "Vegetable");
     if (Recipe) {
       setRecipeList(Recipe)
     }
   }
+  
   return (
     <>
       <div>
@@ -84,6 +112,19 @@ const Ingredient = forwardRef((props, ref) => {
             />
           ))}
         </CardContainer>
+      }
+      {meatShow ? null :
+        <PageContainer>
+          <Pagination 
+            activePage={page} 
+            itemsCountPerPage={10} 
+            totalItemsCount={250} 
+            pageRangeDisplayed={5} 
+            prevPageText={"‹"} 
+            nextPageText={"›"} 
+            onChange={handlePageChange}
+          />
+        </PageContainer>
       }
     </>
   );

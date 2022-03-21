@@ -16,7 +16,8 @@ const Container = styled.div`
 
 const Title = styled.div`
   font-family: Playfair Display;
-  font-size: 64px;
+  font-size: 2.5rem;
+  margin-top: 1rem;
 `
 
 const BorderLine = styled.div`
@@ -73,6 +74,7 @@ const Category = () => {
       childServings.current.getServingsRecipe();
     }
   };
+
   const showRegion = async() => {
     setRegionShow(true);
     setServignsShow(false);
@@ -84,6 +86,7 @@ const Category = () => {
       childRegion.current.getRegionRecipe();
     }
   };
+
   const showTime = async() => {
     setTimeShow(true);
     setServignsShow(false);
@@ -95,6 +98,7 @@ const Category = () => {
       childTime.current.getTimeRecipe();
     }
   };
+
   const showType = async() => {
     setTypeShow(true);
     setServignsShow(false);
@@ -106,6 +110,7 @@ const Category = () => {
       childType.current.getTypeRecipe();
     }
   };
+  
   const showIngredient = async() => {
     setIngredientShow(true);
     setServignsShow(false);
