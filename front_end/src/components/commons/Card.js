@@ -25,10 +25,19 @@ const TextContainer = styled.div`
     font-size: 1.2rem;
     font-weight: bold;
     margin-top: 1rem;
+    width: 100%;
+    height: 2.8rem;
+    line-height: 1.3rem;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
   .category {
     font-size: 0.87rem;
-    margin: 0.3rem 0;
+    margin: 0.6rem 0;
   }
   .Calorie {
     font-size: 0.87rem;
@@ -48,7 +57,7 @@ const SpaceBetweenContainer = styled.div`
 `
 
 const Line = styled.div`
-  height: 23.8rem;
+  height: 25.7rem;
   border-right: 1px solid black;
   margin: 2rem 1rem 0 1rem;
 `
