@@ -64,30 +64,31 @@ const CardContainer = styled.div`
   grid-template-rows: 1fr;
   gap: 0.5rem;
 `
-const RecipeInfo = () => {
-  const value = 4;
-  const grams = 20;
+
+const RecipeInfo = ({ name, servings, prepTime, cookTime, calories, carbs, protein, fat, saturatedFat, cholesterol, sodium, fiber, sugar }) => {
+  const rating = 4;
+
   return (
     <Container>
       <Typography 
       ff="Playfair Display" fs="3rem" fw="600"
       ta="start" dp="flex"
       mb="1rem"
-      >Recipe Name Recipe Name Recipe Name</Typography>
+      >{name}</Typography>
       <SpaceBetweenContainer>
         <CategoryTag>
-          <div id="flag">Vegan</div>
+          <div id="flag">Category</div>
         </CategoryTag>
-        <Rating name="read-only" value={value} readOnly />
+        <Rating name="read-only" value={rating} readOnly />
       </SpaceBetweenContainer>
       <hr />
         <TextContainer>
           <div className="itemTitle">SERVINGS</div>
-          <div className="item">1</div>
+          <div className="item">{servings}</div>
           <div className="itemTitle">PREPATION TIME</div>
-          <div className="item">120 MIN</div>
+          <div className="item">{prepTime} MIN</div>
           <div className="itemTitle">COOKING TIME</div>
-          <div className="item">60 MIN</div>
+          <div className="item">{cookTime} MIN</div>
         </TextContainer>
       <hr />
         <TextContainer>
@@ -95,17 +96,16 @@ const RecipeInfo = () => {
           <div className="item">Standard Daily Intake for One Meal</div>
         </TextContainer>
         <div style={{display: "grid", gridTemplateColumns:"2fr 8fr", gap: "0.5vw" }}>
-          <NutritionCard title="CALORIES" style={{ gridRow: 1/2, height: "35vh" }} />
+          <NutritionCard title="CALORIES" grams={Math.round(calories)} style={{ gridRow: 1/2, height: "35vh" }} />
           <CardContainer>
-            {/* 여기다 map으로 card 보여주기 */}
-            <NutritionCard title="PROTEIN" grams={grams} />
-            <NutritionCard title="PROTEIN" grams={grams} />
-            <NutritionCard title="PROTEIN" grams={grams} />
-            <NutritionCard title="PROTEIN" grams={grams} />
-            <NutritionCard title="PROTEIN" grams={grams} />
-            <NutritionCard title="PROTEIN" grams={grams} />
-            <NutritionCard title="PROTEIN" grams={grams} />
-            <NutritionCard title="PROTEIN" grams={grams} />
+            <NutritionCard title="CARBS" grams={Math.round(carbs)} />
+            <NutritionCard title="PROTEIN" grams={Math.round(protein)} />
+            <NutritionCard title="FAT" grams={Math.round(fat)} />
+            <NutritionCard title="SATURATED FAT" grams={Math.round(saturatedFat)} />
+            <NutritionCard title="SODIUM" grams={Math.round(sodium)} />
+            <NutritionCard title="SUGAR" grams={Math.round(sugar)} />
+            <NutritionCard title="FIBER" grams={Math.round(fiber)} />
+            <NutritionCard title="CHOLESTEROL" grams={Math.round(cholesterol)} />
           </CardContainer>
         </div>
     </Container>

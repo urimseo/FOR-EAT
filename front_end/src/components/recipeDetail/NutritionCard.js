@@ -16,26 +16,30 @@ const Container = styled.div`
     background: black;
     margin: auto;
   }
-  .caloryTitle {
+  .Title {
     font-size: 2vh;
     margin: auto;
   }
-  .caloryContent {
+  .TitleSmall {
+    font-size: 1.5vh;
+    margin: auto;
+  }
+  .Content {
     font-weight: 500;
     margin: auto;
   }
-`
+`  
 
-const NutritionCard = (props) => {
+const NutritionCard = ( props ) => {
   const title = props.title;
   const grams = props.grams;
-  const ratio  = props.ratio;
+  const ratio = props.ratio;
   return (
       <Container {...props}>
-        <div className='caloryTitle'>{title}</div>
-        <div className='caloryContent'>{grams}{(title ==="CALORIES" ? "Kcal" : "g")}</div>
+        <div className={( title === "CHOLESTEROL" ? "TitleSmall" : "Title")}>{title}</div>
+        <div className='Content'>{grams}{(title ==="CALORIES" ? "Kcal" : title === "SODIUM"? "mg" : title === "CHOLE STEROL" ? "mg" : "g")}</div>
         <div className='line'></div>
-        <div className='caloryContent'>{ratio}%</div>
+        <div className='Content'>{ratio}%</div>
       </Container>
   );
 };
