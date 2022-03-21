@@ -54,7 +54,7 @@ const SpaceBetweenContainer = styled.div`
 `
 
 
-const Card = ({ key, index, recipeImg, recipeName, recipeCalorie }) => {
+const Card = ({ index, recipeImg, recipeName, recipeCalorie }) => {
   return (
     <>
       <div>
@@ -81,7 +81,6 @@ const Card = ({ key, index, recipeImg, recipeName, recipeCalorie }) => {
 
 
 Card.propTypes = {
-  key: PropTypes.number.isRequired,
   index: PropTypes.number.isRequired,
   recipeImg: PropTypes.string.isRequired,
   recipeName: PropTypes.string.isRequired,
