@@ -5,14 +5,6 @@ import Card from "components/commons/Card";
 import Pagination from "react-js-pagination";
 import "assets/css/Pagination.css";
 
-const CardContainer = styled.div`
-  display: flex;
-  flex-flow: wrap;
-`
-
-const PageContainer = styled.div`
-  margin: 1rem 0 5rem 0;
-`
 
 const TypeButton = styled.button`
   display: inline-block;
@@ -26,6 +18,16 @@ const TypeButton = styled.button`
   border-radius: 10rem;
   height: 2rem;
 `
+
+const CardContainer = styled.div`
+  display: flex;
+  flex-flow: wrap;
+`
+
+const PageContainer = styled.div`
+  margin: 1rem 0 5rem 0;
+`
+
 
 const Type = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
@@ -64,6 +66,7 @@ const Type = forwardRef((props, ref) => {
     setDessertShow(false);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "Bread");
     if (Recipe) {
@@ -78,6 +81,7 @@ const Type = forwardRef((props, ref) => {
     setDessertShow(false);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "Rice");
     if (Recipe) {
@@ -92,6 +96,7 @@ const Type = forwardRef((props, ref) => {
     setDessertShow(false);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "Pasta");
     if (Recipe) {
@@ -106,6 +111,7 @@ const Type = forwardRef((props, ref) => {
     setDessertShow(true);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "Dessert");
     if (Recipe) {
@@ -117,9 +123,9 @@ const Type = forwardRef((props, ref) => {
     <>
       <div>
         {breadShow ? <TypeButton onClick={()=>getBreadRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>BREAD</TypeButton> : <TypeButton onClick={getBreadRecipe}>BREAD</TypeButton>}
-        {riceShow ? <TypeButton onClick={getRiceRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>RICE</TypeButton> : <TypeButton onClick={getRiceRecipe}>RICE</TypeButton>}
-        {pastaShow ? <TypeButton onClick={getPastaRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>PASTA</TypeButton> : <TypeButton onClick={getPastaRecipe}>PASTA</TypeButton>}
-        {dessertShow ? <TypeButton onClick={getDessertRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>DESSERT</TypeButton> : <TypeButton onClick={getDessertRecipe}>DESSERT</TypeButton>}
+        {riceShow ? <TypeButton onClick={()=>getRiceRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>RICE</TypeButton> : <TypeButton onClick={getRiceRecipe}>RICE</TypeButton>}
+        {pastaShow ? <TypeButton onClick={()=>getPastaRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>PASTA</TypeButton> : <TypeButton onClick={getPastaRecipe}>PASTA</TypeButton>}
+        {dessertShow ? <TypeButton onClick={()=>getDessertRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>DESSERT</TypeButton> : <TypeButton onClick={getDessertRecipe}>DESSERT</TypeButton>}
       </div>  
       <CardContainer>
         {RecipeList.map((Recipe, index) => ( 
@@ -133,17 +139,20 @@ const Type = forwardRef((props, ref) => {
           />
         ))}
       </CardContainer>
-      <PageContainer>
-        <Pagination 
-          activePage={page} 
-          itemsCountPerPage={10} 
-          totalItemsCount={250} 
-          pageRangeDisplayed={5} 
-          prevPageText={"‹"} 
-          nextPageText={"›"} 
-          onChange={handlePageChange}
-        />
-      </PageContainer>
+      {RecipeList.length !== 0 ?      
+        <PageContainer>
+          <Pagination 
+            activePage={page} 
+            itemsCountPerPage={10} 
+            totalItemsCount={250} 
+            pageRangeDisplayed={5} 
+            prevPageText={"‹"} 
+            nextPageText={"›"} 
+            onChange={handlePageChange}
+          />
+        </PageContainer> : null
+      }
+
     </>
   );
 });

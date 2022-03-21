@@ -6,15 +6,6 @@ import "assets/css/Pagination.css";
 import Pagination from "react-js-pagination";
 
 
-const CardContainer = styled.div`
-  display: flex;
-  flex-flow: wrap;
-`
-
-const PageContainer = styled.div`
-  margin: 1rem 0 5rem 0;
-`
-
 const ServingsButton = styled.button`
   display: inline-block;
   font-size: 1rem;
@@ -26,6 +17,16 @@ const ServingsButton = styled.button`
   border: none;
   border-radius: 10rem;
   height: 2rem;
+`
+
+const CardContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-flow: wrap;
+`
+
+const PageContainer = styled.div`
+  margin: 1rem 0 5rem 0;
 `
 
 const Servings = forwardRef((props, ref) => {
@@ -65,6 +66,7 @@ const Servings = forwardRef((props, ref) => {
     setPartyRecipeShow(false);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "One");
     if (Recipe) {
@@ -79,6 +81,7 @@ const Servings = forwardRef((props, ref) => {
     setPartyRecipeShow(false);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "Two");
     if (Recipe) {
@@ -93,6 +96,7 @@ const Servings = forwardRef((props, ref) => {
     setPartyRecipeShow(false);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "Four");
     if (Recipe) {
@@ -107,6 +111,7 @@ const Servings = forwardRef((props, ref) => {
     setPartyRecipeShow(true);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "Party");
     if (Recipe) {
@@ -118,9 +123,9 @@ const Servings = forwardRef((props, ref) => {
     <>
       <div>
         {oneRecipeShow ? <ServingsButton onClick={()=>getOneRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>ONE</ServingsButton> : <ServingsButton onClick={getOneRecipe}>ONE</ServingsButton>}
-        {twoRecipeShow ? <ServingsButton onClick={getTwoRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>TWO</ServingsButton> : <ServingsButton onClick={getTwoRecipe}>TWO</ServingsButton>}
-        {fourRecipeShow ? <ServingsButton onClick={getFourRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>FOUR</ServingsButton> : <ServingsButton onClick={getFourRecipe}>FOUR</ServingsButton>}
-        {partyRecipeShow ? <ServingsButton onClick={getPartyRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>PARTY</ServingsButton> : <ServingsButton onClick={getPartyRecipe}>PARTY</ServingsButton>}
+        {twoRecipeShow ? <ServingsButton onClick={()=>getTwoRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>TWO</ServingsButton> : <ServingsButton onClick={getTwoRecipe}>TWO</ServingsButton>}
+        {fourRecipeShow ? <ServingsButton onClick={()=>getFourRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>FOUR</ServingsButton> : <ServingsButton onClick={getFourRecipe}>FOUR</ServingsButton>}
+        {partyRecipeShow ? <ServingsButton onClick={()=>getPartyRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>PARTY</ServingsButton> : <ServingsButton onClick={getPartyRecipe}>PARTY</ServingsButton>}
       </div> 
       <CardContainer>
         {RecipeList.map((Recipe, index) => ( 
@@ -134,17 +139,19 @@ const Servings = forwardRef((props, ref) => {
           />
         ))}
       </CardContainer>
-      <PageContainer>
-        <Pagination 
-          activePage={page} 
-          itemsCountPerPage={10} 
-          totalItemsCount={250} 
-          pageRangeDisplayed={5} 
-          prevPageText={"‹"} 
-          nextPageText={"›"} 
-          onChange={handlePageChange}
-        />
-      </PageContainer>
+      {RecipeList.length !== 0 ?      
+        <PageContainer>
+          <Pagination 
+            activePage={page} 
+            itemsCountPerPage={10} 
+            totalItemsCount={250} 
+            pageRangeDisplayed={5} 
+            prevPageText={"‹"} 
+            nextPageText={"›"} 
+            onChange={handlePageChange}
+          />
+        </PageContainer> : null
+      }
     </>
   );
 });
