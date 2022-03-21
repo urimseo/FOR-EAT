@@ -6,7 +6,7 @@ import RecipeInfo from "components/recipeDetail/RecipeInfo";
 import CalculateCalories from "components/recipeDetail/CalculateCalories";
 import RelatedRecipeList from "components/recipeDetail/RelatedRecipeList";
 import Ingredients from "components/recipeDetail/Ingredients";
-import Instrunctions from "components/recipeDetail/Instructions";
+import Instructions from "components/recipeDetail/Instructions";
 import { getRecipeDetail } from "api/RecipeDetailApi";
 
 const Container = styled.div`
@@ -76,7 +76,7 @@ const RecipeDetail = () => {
           <CalculateCalories calories={recipe.calories}/>
           <IngredientWrapper>
             <Ingredients ingredients={recipe.ingredient_raw} />
-            <Instrunctions instructions={recipe.instructions}/>
+            <Instructions instructions={recipe.instructions}/>
           </IngredientWrapper>
         </Wrapper>
         <Wrapper jc="start">
