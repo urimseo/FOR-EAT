@@ -2,13 +2,17 @@ from contextlib import nullcontext
 from django.http import Http404
 from django.shortcuts import render
 from django.db.models import Q
+from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.pagination import LimitOffsetPagination
+from recipes.serializers import RecipeSerializer, RecipeListSerializer, ReviewSerializer
+from recipes.storages import FileUpload, s3_client
 
+from members.token import decode_token
 from recipes.models import Recipe, Ingredient, Category
-from recipes.serializers import RecipeSerializer, RecipeListSerializer
+from members.models import Member
 import json
 import re
 
@@ -74,3 +78,23 @@ class RecipeDetail(APIView):
         response_data['images'] = json.loads(response_data['images'])[0]
         # 추천 리스트 추가
         return Response(response_data)
+
+
+class Review(APIView):
+
+    def post(self, request, pk, format=None):
+        token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        # member_seq = decode_token(token)
+        member_seq = 1
+        file = request.FILES['image_url']
+        image_url = FileUpload(s3_client).upload(file)
+        request.data['image_url']=image_url
+
+        serializer = ReviewSerializer(data=request.data)
+
+        if serializer.is_valid():
+            # member추가
+            serializer.save(member_seq=Member.objects.get(member_seq=member_seq), recipe_seq=Recipe.objects.get(recipe_seq=pk))
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -88,8 +88,8 @@ class Review(models.Model):
                         MaxValueValidator(5),
                         MinValueValidator(1)
                     ])
-    create_date = models.DateTimeField(null=True)
-    last_modified_date = models.DateTimeField(null=True)
+    create_date = models.DateTimeField(auto_now_add=True, null=True)
+    last_modified_date = models.DateTimeField(auto_now=True, null=True)
 
     class Meta:
         db_table = 'tb_review'
