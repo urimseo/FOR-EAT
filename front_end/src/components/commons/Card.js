@@ -11,7 +11,7 @@ const Container = styled.div`
 const CardItem = styled.div`
   width: 17rem;
   height: 23rem;
-  margin: 2rem 1rem 5rem 0;
+  margin: 2rem 0 5rem 0;
 `
 
 const Img = styled.img`
@@ -42,39 +42,38 @@ const BorderLine = styled.div`
   border-bottom: 1px solid black;
 `
 
-const Line = styled.div`
-  height: 23.8rem;
-  border-right: 1px solid black;
-  margin: 2rem 1rem 0 0;
-`
-
 const SpaceBetweenContainer = styled.div`
   display: flex;
   justify-content: space-between;
 `
 
+const Line = styled.div`
+  height: 23.8rem;
+  border-right: 1px solid black;
+  margin: 2rem 1rem 0 1rem;
+`
+
+
 
 const Card = ({ index, recipeImg, recipeName, recipeCalorie }) => {
   return (
     <>
-      <div>
-        <Container>
-          <CardItem>
-            <Img src={recipeImg} />
-            <TextContainer>
-              <div className='title'>{recipeName}</div>
-              <div className='category'>CATEGORY</div>
-              <BorderLine />
-              <SpaceBetweenContainer>
-                <div className='Calorie'>{recipeCalorie} Kcal</div>
-                <div>★★★★★</div>
-              </SpaceBetweenContainer>
-              <BorderLine />
-            </TextContainer>
-          </CardItem>
-          { (index+1)%4 === 0 ? null : <Line /> }
-        </Container>
-      </div>
+      <Container>
+        <CardItem>
+          <Img src={recipeImg} />
+          <TextContainer>
+            <div className='title'>{recipeName}</div>
+            <div className='category'>CATEGORY</div>
+            <BorderLine />
+            <SpaceBetweenContainer>
+              <div className='Calorie'>{recipeCalorie} Kcal</div>
+              <div>★★★★★</div>
+            </SpaceBetweenContainer>
+            <BorderLine />
+          </TextContainer>
+        </CardItem>
+        { (index+1)%4 === 0 ? null : <Line /> }
+      </Container>
     </>
   );
 };

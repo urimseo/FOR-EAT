@@ -5,16 +5,6 @@ import Card from "components/commons/Card";
 import Pagination from "react-js-pagination";
 import "assets/css/Pagination.css";
 
-
-const CardContainer = styled.div`
-  display: flex;
-  flex-flow: wrap;
-`
-
-const PageContainer = styled.div`
-  margin: 1rem 0 5rem 0;
-`
-
 const RegionButton = styled.button`
   display: inline-block;
   font-size: 1rem;
@@ -27,6 +17,17 @@ const RegionButton = styled.button`
   border-radius: 10rem;
   height: 2rem;
 `
+
+const CardContainer = styled.div`
+  display: flex;
+  flex-flow: wrap;
+`
+
+const PageContainer = styled.div`
+  margin: 1rem 0 5rem 0;
+`
+
+
 
 const Region = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
@@ -70,6 +71,7 @@ const Region = forwardRef((props, ref) => {
     setOceaniaShow(false);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "Europe");
     if (Recipe) {
@@ -85,6 +87,7 @@ const Region = forwardRef((props, ref) => {
     setOceaniaShow(false);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "Asia");
     if (Recipe) {
@@ -100,6 +103,7 @@ const Region = forwardRef((props, ref) => {
     setOceaniaShow(false);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "America");
     if (Recipe) {
@@ -115,6 +119,7 @@ const Region = forwardRef((props, ref) => {
     setOceaniaShow(false);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "Africa");
     if (Recipe) {
@@ -130,6 +135,7 @@ const Region = forwardRef((props, ref) => {
     setOceaniaShow(true);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "Oceania");
     if (Recipe) {
@@ -141,10 +147,10 @@ const Region = forwardRef((props, ref) => {
     <>
       <div>
         {europeShow ? <RegionButton onClick={()=>{getEuropeRecipe(1)}} style={{backgroundColor: "#ED8141", color: "white"}}>EUROPE</RegionButton> : <RegionButton onClick={getEuropeRecipe}>EUROPE</RegionButton>}
-        {asiaShow ? <RegionButton onClick={getAsiaRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>ASIA</RegionButton> : <RegionButton onClick={getAsiaRecipe}>ASIA</RegionButton>}
-        {americaShow ? <RegionButton onClick={getAmericaRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>AMERICA</RegionButton> : <RegionButton onClick={getAmericaRecipe}>AMERICA</RegionButton>}
-        {africaShow ? <RegionButton onClick={getAfricaRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>AFRICA</RegionButton> : <RegionButton onClick={getAfricaRecipe}>AFRICA</RegionButton>}
-        {Oceaniahow ? <RegionButton onClick={getOceaniaRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>OCEANIA</RegionButton> : <RegionButton onClick={getOceaniaRecipe}>OCEANIA</RegionButton>}
+        {asiaShow ? <RegionButton onClick={()=>getAsiaRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>ASIA</RegionButton> : <RegionButton onClick={getAsiaRecipe}>ASIA</RegionButton>}
+        {americaShow ? <RegionButton onClick={()=>getAmericaRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>AMERICA</RegionButton> : <RegionButton onClick={getAmericaRecipe}>AMERICA</RegionButton>}
+        {africaShow ? <RegionButton onClick={()=>getAfricaRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>AFRICA</RegionButton> : <RegionButton onClick={getAfricaRecipe}>AFRICA</RegionButton>}
+        {Oceaniahow ? <RegionButton onClick={()=>getOceaniaRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>OCEANIA</RegionButton> : <RegionButton onClick={getOceaniaRecipe}>OCEANIA</RegionButton>}
       </div>  
       <CardContainer>
         {RecipeList.map((Recipe, index) => ( 
@@ -158,17 +164,19 @@ const Region = forwardRef((props, ref) => {
           />
         ))}
       </CardContainer>
-      <PageContainer>
-        <Pagination 
-          activePage={page} 
-          itemsCountPerPage={10} 
-          totalItemsCount={250} 
-          pageRangeDisplayed={5} 
-          prevPageText={"‹"} 
-          nextPageText={"›"} 
-          onChange={handlePageChange}
-        />
-      </PageContainer>
+      {RecipeList.length !== 0 ?      
+        <PageContainer>
+          <Pagination 
+            activePage={page} 
+            itemsCountPerPage={10} 
+            totalItemsCount={250} 
+            pageRangeDisplayed={5} 
+            prevPageText={"‹"} 
+            nextPageText={"›"} 
+            onChange={handlePageChange}
+          />
+        </PageContainer> : null
+      }
     </>
   );
 });

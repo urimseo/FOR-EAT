@@ -5,15 +5,6 @@ import Card from "components/commons/Card";
 import Pagination from "react-js-pagination";
 import "assets/css/Pagination.css";
 
-
-const CardContainer = styled.div`
-  display: flex;
-  flex-flow: wrap;
-`
-const PageContainer = styled.div`
-  margin: 1rem 0 5rem 0;
-`
-
 const SubIngredientButton = styled.button`
   display: inline-block;
   font-size: 1rem;
@@ -26,6 +17,17 @@ const SubIngredientButton = styled.button`
   border-radius: 10rem;
   height: 2rem;
 `
+
+const CardContainer = styled.div`
+  display: flex;
+  flex-flow: wrap;
+`
+
+const PageContainer = styled.div`
+  margin: 1rem 0 5rem 0;
+`
+
+
 
 const SubIngredient = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
@@ -69,6 +71,7 @@ const SubIngredient = forwardRef((props, ref) => {
     setChickenShow(false);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "Beef");
     if (Recipe) {
@@ -84,6 +87,7 @@ const SubIngredient = forwardRef((props, ref) => {
     setChickenShow(false);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "Pork");
     if (Recipe) {
@@ -99,6 +103,7 @@ const SubIngredient = forwardRef((props, ref) => {
     setChickenShow(false);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "Lamb");
     if (Recipe) {
@@ -114,6 +119,7 @@ const SubIngredient = forwardRef((props, ref) => {
     setChickenShow(false);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "Poultry");
     if (Recipe) {
@@ -129,6 +135,7 @@ const SubIngredient = forwardRef((props, ref) => {
     setChickenShow(true);
     if (isNaN(page) === true) {
       setPage(1); 
+      page = 1;
     }
     const Recipe = await getRecipeList(page, "Chicken");
     if (Recipe) {
@@ -140,10 +147,10 @@ const SubIngredient = forwardRef((props, ref) => {
     <>
       <div>
         {beafShow ? <SubIngredientButton onClick={()=>getBeefRecipe(1)} style={{color: "#ED8141"}}>BEEF</SubIngredientButton> : <SubIngredientButton onClick={getBeefRecipe}>BEEF</SubIngredientButton>}
-        {porkShow ? <SubIngredientButton onClick={getPorkRecipe} style={{color: "#ED8141"}}>PORK</SubIngredientButton> : <SubIngredientButton onClick={getPorkRecipe}>PORK</SubIngredientButton>}
-        {lambShow? <SubIngredientButton onClick={getLambRecipe} style={{color: "#ED8141"}}>LAMB</SubIngredientButton> : <SubIngredientButton onClick={getLambRecipe}>LAMB</SubIngredientButton>}
-        {poultryShow ? <SubIngredientButton onClick={getPoultryRecipe} style={{color: "#ED8141"}}>POULTRY</SubIngredientButton> : <SubIngredientButton onClick={getPoultryRecipe}>POULTRY</SubIngredientButton>}
-        {chickenShow ? <SubIngredientButton onClick={getChickenRecipe} style={{color: "#ED8141"}}>CHICKEN</SubIngredientButton> : <SubIngredientButton onClick={getChickenRecipe}>CHICKEN</SubIngredientButton>}
+        {porkShow ? <SubIngredientButton onClick={()=>getPorkRecipe(1)} style={{color: "#ED8141"}}>PORK</SubIngredientButton> : <SubIngredientButton onClick={getPorkRecipe}>PORK</SubIngredientButton>}
+        {lambShow? <SubIngredientButton onClick={()=>getLambRecipe(1)} style={{color: "#ED8141"}}>LAMB</SubIngredientButton> : <SubIngredientButton onClick={getLambRecipe}>LAMB</SubIngredientButton>}
+        {poultryShow ? <SubIngredientButton onClick={()=>getPoultryRecipe(1)} style={{color: "#ED8141"}}>POULTRY</SubIngredientButton> : <SubIngredientButton onClick={getPoultryRecipe}>POULTRY</SubIngredientButton>}
+        {chickenShow ? <SubIngredientButton onClick={()=>getChickenRecipe(1)} style={{color: "#ED8141"}}>CHICKEN</SubIngredientButton> : <SubIngredientButton onClick={getChickenRecipe}>CHICKEN</SubIngredientButton>}
       </div>
       <CardContainer>
         {RecipeList.map((Recipe, index) => ( 
@@ -157,17 +164,19 @@ const SubIngredient = forwardRef((props, ref) => {
           />
         ))}
       </CardContainer>
-      <PageContainer>
-        <Pagination 
-          activePage={page} 
-          itemsCountPerPage={10} 
-          totalItemsCount={250} 
-          pageRangeDisplayed={5} 
-          prevPageText={"‹"} 
-          nextPageText={"›"} 
-          onChange={handlePageChange}
-        />
-      </PageContainer>
+      {RecipeList.length !== 0 ?      
+        <PageContainer>
+          <Pagination 
+            activePage={page} 
+            itemsCountPerPage={10} 
+            totalItemsCount={250} 
+            pageRangeDisplayed={5} 
+            prevPageText={"‹"} 
+            nextPageText={"›"} 
+            onChange={handlePageChange}
+          />
+        </PageContainer> : null
+      }
     </>
   );
 });

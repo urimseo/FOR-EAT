@@ -14,15 +14,27 @@ const Container = styled.div`
   margin: 0 10vw;
 `
 
-const Title = styled.div`
-  font-family: Playfair Display;
-  font-size: 2.5rem;
-  margin-top: 1rem;
+const SpaceBetweenContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
 `
 
-const BorderLine = styled.div`
-  width: 100%;
-  border-bottom: 1px solid black;
+const Title = styled.div`
+  font-family: Playfair Display;
+  font-size: 3rem;
+  margin-top: 2rem;
+  font-weight: 600;
+`
+
+const BoxContainer = styled.div`
+  display: inline-flex;
+`
+
+const RowContainer = styled.div`
+  display: inline-flex;
+  flex-direction: column;
+  margin: 0;
 `
 
 const CategoryButton = styled.a`
@@ -32,24 +44,14 @@ const CategoryButton = styled.a`
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: 400;
-  margin: 2rem 1rem 0 0;
+  margin: 3.2rem 1rem 0 0;
 `
 
-const SpaceBetweenContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 2rem;
+const BorderLine = styled.div`
+  width: 100%;
+  border-bottom: 1px solid black;
 `
 
-const RowContainer = styled.div`
-  display: inline-flex;
-  flex-direction: column;
-  margin: 0;
-`
-
-const BoxContainer = styled.div`
-  display: inline-flex;
-`
 
 const Category = () => {
   const [servignsShow, setServingsShow] = useState(true);
