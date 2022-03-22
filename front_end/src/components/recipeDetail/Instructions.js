@@ -22,16 +22,15 @@ const TextContainer = styled.div`
   }
 `
 
-const Instrunctions = ({instructions}) => {
-  const instructionList = instructions.map((instruction) => (<li className="content_light">{instruction}</li>))
-    return (
-      <TextContainer>
+const Instructions = ({instructions}) => {
+  return (
+    <TextContainer>
         <div className="title">INSTRUCTIONS</div>
         <ul>
-          {instructionList}
+          { instructions && instructions.map((instruction) => (<li className="content_light">{instruction}</li>))}
         </ul>
       </TextContainer>
     )
 }
 
-export default Instrunctions;
+export default Instructions;
