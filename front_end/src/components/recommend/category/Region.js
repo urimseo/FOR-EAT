@@ -22,6 +22,7 @@ const CardContainer = styled.div`
   display: flex;
   justify-content: center;
   flex-flow: wrap;
+  min-width: 10vh;
 `
 
 const PageContainer = styled.div`
@@ -92,6 +93,7 @@ const Region = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Asia");
     if (Recipe) {
+      console.log(Recipe)
       setRecipeList(Recipe)
     }
   }

@@ -12,6 +12,7 @@ import { getRecipeList } from "api/CategoryApi";
 
 const Container = styled.div`
   margin: 0 10vw;
+  min-height: 100vh;
 `
 
 const SpaceBetweenContainer = styled.div`

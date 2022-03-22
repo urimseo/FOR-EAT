@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 const Container = styled.div`
   display: flex;
   flex-flow: wrap;
+  min-width: 32vh;
 `
 
 const CardItem = styled.div`
@@ -75,7 +76,7 @@ const Card = ({ index, recipeImg, recipeName, recipeCalorie, recipeSeq }) => {
               <div className='category'>CATEGORY</div>
               <BorderLine />
               <SpaceBetweenContainer>
-                <div className='Calorie'>{recipeCalorie} Kcal</div>
+                <div className='Calorie'>{Math.round(recipeCalorie)} Kcal</div>
                 <div>★★★★★</div>
               </SpaceBetweenContainer>
               <BorderLine />
