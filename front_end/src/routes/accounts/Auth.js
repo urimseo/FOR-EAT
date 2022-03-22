@@ -16,8 +16,7 @@ const Auth = () => {
   useEffect(() => {
     async function fetchData() {
       const result = await kakaoLogin(loginCode);
-
-      if (result.data.status === 200) {
+      if (result.status === 200) {
         try {
           setIsLoginState(true);
           navigate("/recommend");

@@ -20,13 +20,20 @@ import salmon from "assets/img/IngredientItem/salmon.jpg"
 import shrimp from "assets/img/IngredientItem/shrimp.PNG"
 import tomato from "assets/img/IngredientItem/tomato.jpg"
 import turkey from "assets/img/IngredientItem/turkey.png"
-import zucchini from "assets/img/IngredientItem/zucchini.PNG"
+import zucchini from "assets/img/IngredientItem/zucchini.jpg"
 
 
 const Container = styled.div`
   margin-top: 3rem;
   min-width: 32vh;
 `
+
+const IngredientContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+`
+
 const Image = styled.img`
   width: 6rem;
   height: 6rem;
@@ -34,41 +41,38 @@ const Image = styled.img`
   margin: 1rem 1.5rem 0 1.5rem;
 `
 
-const IngredientContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`
+
 
 const IngredientItem = () => {
   return (
     <>
     <Container>
       <IngredientContainer>
-        <Image src={onion}></Image>
-        <Image src={garlic}></Image>
-        <Image src={zucchini}></Image>
-        <Image src={carrot}></Image>
-        <Image src={mushroom}></Image>
-        <Image src={potato}></Image>
-        <Image src={tomato}></Image>
+        <Image src={onion} title="onion"></Image>
+        <Image src={garlic} title="garlic"></Image>
+        <Image src={zucchini} title="zucchini"></Image>
+        <Image src={carrot} title="carrot"></Image>
+        <Image src={mushroom} title="mushroom"></Image>
+        <Image src={potato} title="potato"></Image>
+        <Image src={tomato} title="tomato"></Image>
       </IngredientContainer>
       <IngredientContainer>
-        <Image src={beef}></Image>
-        <Image src={pork}></Image>
-        <Image src={chicken}></Image>
-        <Image src={turkey}></Image>
-        <Image src={bacon}></Image>
-        <Image src={salmon}></Image>
-        <Image src={shrimp}></Image>
+        <Image src={beef} title="beef"></Image>
+        <Image src={pork} title="pork"></Image>
+        <Image src={chicken} title="chicken"></Image>
+        <Image src={turkey} title="turkey"></Image>
+        <Image src={bacon} title="bacon"></Image>
+        <Image src={salmon} title="salmon"></Image>
+        <Image src={shrimp} title="shrimp"></Image>
       </IngredientContainer>
       <IngredientContainer>
-        <Image src={egg}></Image>
-        <Image src={milk}></Image>
-        <Image src={cheese}></Image>
-        <Image src={flour}></Image>
-        <Image src={noodle}></Image>
-        <Image src={bread}></Image>
-        <Image src={chocolate}></Image>
+        <Image src={egg} title="egg"></Image>
+        <Image src={milk} title="milk"></Image>
+        <Image src={cheese} title="cheese"></Image>
+        <Image src={flour} title="flour"></Image>
+        <Image src={noodle} title="noodle"></Image>
+        <Image src={bread} title="bread"></Image>
+        <Image src={chocolate} title="chocolate"></Image>
       </IngredientContainer>
     </Container>
     </>
