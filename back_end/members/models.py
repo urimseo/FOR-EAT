@@ -1,5 +1,3 @@
-from tkinter import CASCADE
-from turtle import ondrag
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
@@ -82,34 +80,36 @@ class LikedRecipe(models.Model):
 
 class MemberSurvey(models.Model):
     AGE_CHOICES = (
-        ('~14', 1),
-        ('15~18', 2),
-        ('19~29', 3),
-        ('30~49', 4),
-        ('50~64', 5),
-        ('65~74', 6),
-        ('75~', 7),
-        # (1, '~14'),
-        # (2, '15~18'),
-        # (3, '19~29'),
-        # (4, '30~49'),
-        # (5, '50~64'),
-        # (6, '65~74'),
-        # (7, '75~'),
+        # ('~14', 1),
+        # ('15~18', 2),
+        # ('19~29', 3),
+        # ('30~49', 4),
+        # ('50~64', 5),
+        # ('65~74', 6),
+        # ('75~', 7),
+        (1, '~14'),
+        (2, '15~18'),
+        (3, '19~29'),
+        (4, '30~49'),
+        (5, '50~64'),
+        (6, '65~74'),
+        (7, '75~'),
     )
     member_seq = models.OneToOneField(Member, on_delete=models.CASCADE, primary_key=True)
     age = models.IntegerField(choices=AGE_CHOICES, null=True, blank=True)
     # age = models.IntegerField(null=True, blank=True)
     gender = models.BooleanField(null=True, blank=True) # True: male, False=female
 
-    # nutrition
+    # nutrition - 상/중/하
     carbohydrate = models.FloatField(null=True, blank=True)
     protein = models.FloatField(null=True, blank=True)
     fat = models.FloatField(null=True, blank=True)
-    cholesterol = models.FloatField(null=True, blank=True)
-    sodium = models.FloatField(null=True, blank=True)
-    suger = models.FloatField(null=True, blank=True)
-
+    
+    # 식이제한 - True, False
+    cholesterol = models.BooleanField(null=True, blank=True)
+    sodium = models.BooleanField(null=True, blank=True)
+    suger = models.BooleanField(null=True, blank=True)
+    
     # goal
     beginner = models.BooleanField(null=True, blank=True)
     recipe_challenger = models.BooleanField(null=True, blank=True)
