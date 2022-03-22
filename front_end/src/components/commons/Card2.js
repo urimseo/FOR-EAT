@@ -4,14 +4,15 @@ import Ingredient_cucumber from "assets/img/Ingredient_cucumber.jpg";
 
 const Container = styled.div`
   display: flex;
+  justify-content: center;
   flex-flow: wrap;
-  margin: 1px 0 1rem 0;
+  margin: 0 0 1rem 0;
 `
 
 const CardItem = styled.div`
   width: 20rem;
   height: 24.5rem;
-  padding: 0 2rem;
+  padding: 0 1rem;
 `
 
 const ImgWrapper = styled.div`

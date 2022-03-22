@@ -65,7 +65,7 @@ const CardContainer = styled.div`
   gap: 0.5rem;
 `
 
-const RecipeInfo = ({ name, servings, prepTime, cookTime, calories, carbs, protein, fat, saturatedFat, cholesterol, sodium, fiber, sugar }) => {
+const RecipeInfo = ({ name, categories, servings, prepTime, cookTime, calories, carbs, protein, fat, saturatedFat, cholesterol, sodium, fiber, sugar }) => {
   const rating = 4;
 
   return (
@@ -77,7 +77,7 @@ const RecipeInfo = ({ name, servings, prepTime, cookTime, calories, carbs, prote
       >{name}</Typography>
       <SpaceBetweenContainer>
         <CategoryTag>
-          <div id="flag">Category</div>
+          <div id="flag">{ (categories ? categories[0]["category_name"] : "category")}</div>
         </CategoryTag>
         <Rating name="read-only" value={rating} readOnly />
       </SpaceBetweenContainer>

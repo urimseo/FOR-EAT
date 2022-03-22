@@ -16,7 +16,7 @@ const TextContainer = styled.div`
     text-align: left;
     font-family: Playfair Display;
     font-size: 2.5rem;
-    font-weight: 500;
+    font-weight: 600;
   }
   .line {
     margin: 0.5rem 0 1rem 0;
@@ -27,6 +27,7 @@ const TextContainer = styled.div`
 const CardContainer = styled.div`
   display: flex;
   flex-flow: wrap;
+  justify-content: center;
 `
 
 const RelatedRecipeList = () => {
