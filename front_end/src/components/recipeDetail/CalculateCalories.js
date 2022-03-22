@@ -11,12 +11,23 @@ margin: 7rem auto;
 }
 `
 const CalculateCalories = ({ calories }) => {
-  const exercise = "Swimming"
-  const minutes = 32;
+  const exercises =  [
+    ["Running", 0.133],
+    ["Swimming", 0.133],
+    ["Walking", 0.126],
+    ["Cycling", 0.153],
+    ["Hiking", 0.1],
+    ["Tennis", 0.126]
+  ]
+  const weight = 60
+  const chooseRandom = (a) => {
+    return a[Math.floor(Math.random()*a.length)];
+  }
+  const randomItem = chooseRandom(exercises)
     return (
       <ExerciseContainer>
         <div className="text">
-        To Burn {Math.round(calories)} Calories<br />{exercise} {minutes} Minutes
+        To Burn {Math.round(calories)} Calories<br />{randomItem[0]} {Math.round(calories/(randomItem[1]*weight))} Minutes
         </div>
       </ExerciseContainer>
     )
