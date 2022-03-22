@@ -12,4 +12,5 @@ urlpatterns = [
     path('kakao/login', kakao_get_user_info ),
     path('google/login', check_google_user),
     path('<int:pk>', views.MemberProfile.as_view()),
+    path('<int:pk>/survey', views.MemberSurveyProfile.as_view()),
 ]
