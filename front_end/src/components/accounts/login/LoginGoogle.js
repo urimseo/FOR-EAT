@@ -2,7 +2,7 @@ import React from "react";
 import GoogleLogin from 'react-google-login';
 import styled from "styled-components";
 import { useSetRecoilState } from 'recoil';
-import { isLoginState } from '../../../atoms/atoms';
+import { isLoginState, userInfoState } from '../../../atoms/atoms';
 import { useNavigate } from 'react-router-dom';
 import { googleLogin } from '../../../api/AuthApi';
 
@@ -15,6 +15,7 @@ const Container = styled.div`
 const LoginGoogle = () => {
   const navigate = useNavigate();
   const setIsLoginState = useSetRecoilState(isLoginState);
+  const setUserInfoState = useSetRecoilState(userInfoState);
   const successGoogle = async (response) => {
     const data = {
       access_token: response.tokenId,
@@ -24,10 +25,11 @@ const LoginGoogle = () => {
     };
 
     const result = await googleLogin(data, response.tokenId);
-
+    console.log(result)
     if (result.data.user.status === 200) {
       try {
         setIsLoginState(true);
+        setUserInfoState(result);
         navigate("/recommend");
       }
       catch {
