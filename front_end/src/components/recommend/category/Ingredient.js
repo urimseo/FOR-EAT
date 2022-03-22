@@ -21,6 +21,7 @@ const IngredientButton = styled.button`
 
 const CardContainer = styled.div`
   display: flex;
+  justify-content: center;
   flex-flow: wrap;
 `
 
@@ -74,6 +75,7 @@ const Ingredient = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Seafood");
     if (Recipe) {
+      console.log(Recipe)
       setRecipeList(Recipe)
     }
   }
@@ -105,6 +107,7 @@ const Ingredient = forwardRef((props, ref) => {
           {RecipeList.map((Recipe, index) => ( 
             <Card
               key={Recipe.recipe_seq}
+              recipeSeq={Recipe.recipe_seq}
               index={index}
               recipeImg={Recipe.images}
               recipeName={Recipe.name}

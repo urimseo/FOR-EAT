@@ -62,29 +62,28 @@ const Line = styled.div`
   margin: 2rem 1rem 0 1rem;
 `
 
+
 const Card = ({ index, recipeImg, recipeName, recipeCalorie, recipeSeq }) => {
   return (
     <>
-      <div>
-        <Container>
-          <Link to={`/recipes/${recipeSeq}`}>
-            <CardItem>
-              <Img src={recipeImg} />
-              <TextContainer>
-                <div className='title'>{recipeName}</div>
-                <div className='category'>CATEGORY</div>
-                <BorderLine />
-                <SpaceBetweenContainer>
-                  <div className='Calorie'>{recipeCalorie} Kcal</div>
-                  <div>★★★★★</div>
-                </SpaceBetweenContainer>
-                <BorderLine />
-              </TextContainer>
-            </CardItem>
-            { (index+1)%4 === 0 ? null : <Line /> }
-          </Link>
-        </Container>
-      </div>
+      <Container>
+        <Link to={`/recipes/${recipeSeq}`} style={{color: 'black', textDecoration : "none"}}>
+          <CardItem>
+            <Img src={recipeImg} />
+            <TextContainer>
+              <div className='title'>{recipeName}</div>
+              <div className='category'>CATEGORY</div>
+              <BorderLine />
+              <SpaceBetweenContainer>
+                <div className='Calorie'>{recipeCalorie} Kcal</div>
+                <div>★★★★★</div>
+              </SpaceBetweenContainer>
+              <BorderLine />
+            </TextContainer>
+          </CardItem>
+        </Link>
+        { (index+1)%4 === 0 ? null : <Line /> }
+      </Container>
     </>
   );
 };
@@ -95,6 +94,7 @@ Card.propTypes = {
   recipeImg: PropTypes.string.isRequired,
   recipeName: PropTypes.string.isRequired,
   recipeCalorie: PropTypes.number.isRequired,
+  recipeSeq: PropTypes.number.isRequired
 };
 
 
