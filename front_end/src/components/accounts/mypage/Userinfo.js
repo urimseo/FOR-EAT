@@ -66,9 +66,9 @@ const EditNickName = styled.input`
 
 const Email = styled.div`
   position: relative;
-	display: block;
+	display: inline-block;
 	top: -2rem;
-	left: 15rem;
+	left: -12rem;
 `;
 
 
