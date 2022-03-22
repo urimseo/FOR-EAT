@@ -11,6 +11,7 @@ import Auth from "routes/accounts/Auth";
 import Home from "routes/Home";
 import RecipeDetail from "routes/RecipeDetail";
 import MyPage from "routes/accounts/MyPage";
+import Ingredient from "routes/recommend/Ingredient";
 
 
 const AppRouter = () => {
@@ -22,6 +23,7 @@ const AppRouter = () => {
           <Route path="/" element={<Home />}>
             <Route path="/recommend" element={<Feed />} />
             <Route path="/category" element={<Category />} />
+            <Route path="/ingredient" element={<Ingredient />} />
             <Route path="/members/kakao/login" element={<Auth />} />
             <Route path="/recipes/:recipe_seq" element={<RecipeDetail />} />
             <Route path="/mypage" element={<MyPage />} />
