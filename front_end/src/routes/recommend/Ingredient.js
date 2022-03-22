@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import IngredientItem from "components/recommend/Ingredient/IngreientItem";
+import IngredientItem from "components/recommend/Ingredient/IngredientItem";
 
 
 const Container = styled.div`
