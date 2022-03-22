@@ -20,6 +20,7 @@ const TimeButton = styled.button`
 
 const CardContainer = styled.div`
   display: flex;
+  justify-content: center;
   flex-flow: wrap;
 `
 
@@ -155,6 +156,7 @@ const Time = forwardRef((props, ref) => {
         {RecipeList.map((Recipe, index) => ( 
           <Card
             key={Recipe.recipe_seq}
+            recipeSeq={Recipe.recipe_seq}
             index={index}
             recipeImg={Recipe.images}
             recipeName={Recipe.name}
