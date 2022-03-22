@@ -25,11 +25,10 @@ const LoginGoogle = () => {
     };
 
     const result = await googleLogin(data, response.tokenId);
-    console.log(result)
-    if (result.data.user.status === 200) {
+    if (result.status === 200) {
       try {
         setIsLoginState(true);
-        setUserInfoState(result);
+        setUserInfoState(result.user.member_seq);
         navigate("/recommend");
       }
       catch {
