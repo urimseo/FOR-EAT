@@ -5,10 +5,11 @@ import Card2 from "components/commons/Card2";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
 `
 
 const TextContainer = styled.div`
-  margin: 5rem 0 1rem 2rem;
+  margin: 5rem 0 2rem 0;
   display: block;
   justify-items: start;
   .text {
