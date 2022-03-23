@@ -34,7 +34,7 @@ class MemberManager(BaseUserManager):
 class Member(AbstractBaseUser):
     ## uuid 설정하기 
     member_seq = models.AutoField(primary_key=True, unique=True)
-    nickname=models.CharField(max_length=20, unique=True)
+    nickname=models.CharField(max_length=50, unique=True)
     # password = models.CharField(max_length=100, null=True)
     profile_image_url = models.CharField(max_length=255, null=True, blank=True)
     
@@ -79,31 +79,14 @@ class LikedRecipe(models.Model):
 
 
 class MemberSurvey(models.Model):
-    AGE_CHOICES = (
-        # ('~14', 1),
-        # ('15~18', 2),
-        # ('19~29', 3),
-        # ('30~49', 4),
-        # ('50~64', 5),
-        # ('65~74', 6),
-        # ('75~', 7),
-        (1, '~14'),
-        (2, '15~18'),
-        (3, '19~29'),
-        (4, '30~49'),
-        (5, '50~64'),
-        (6, '65~74'),
-        (7, '75~'),
-    )
     member_seq = models.OneToOneField(Member, on_delete=models.CASCADE, primary_key=True)
-    age = models.IntegerField(choices=AGE_CHOICES, null=True, blank=True)
-    # age = models.IntegerField(null=True, blank=True)
+    age = models.IntegerField(null=True, blank=True)
     gender = models.BooleanField(null=True, blank=True) # True: male, False=female
 
     # nutrition - 상/중/하
-    carbohydrate = models.FloatField(null=True, blank=True)
-    protein = models.FloatField(null=True, blank=True)
-    fat = models.FloatField(null=True, blank=True)
+    carbohydrate = models.IntegerField(null=True, blank=True)
+    protein = models.IntegerField(null=True, blank=True)
+    fat = models.IntegerField(null=True, blank=True)
     
     # 식이제한 - True, False
     cholesterol = models.BooleanField(null=True, blank=True)
@@ -118,6 +101,7 @@ class MemberSurvey(models.Model):
     lose_weight = models.BooleanField(null=True, blank=True)
     
     # ingredient
+    ingredient_keywords = models.CharField(max_length=255, null=True, blank=True)
     liked_ingredients = models.ManyToManyField(Ingredient, related_name='members', through='LikedIngredient')
 
     # allergy
