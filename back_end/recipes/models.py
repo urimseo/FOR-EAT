@@ -1,4 +1,3 @@
-from unicodedata import category
 from django.db import models
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -67,7 +66,6 @@ class Recipe(models.Model):
     images = models.TextField()
     ingredients = models.ManyToManyField(Ingredient, related_name='recipes', through='RecipeIngredient')
     keywords = models.ManyToManyField(Keyword, related_name='recipes', through='RecipeKeyword')
-    reviews = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Review')
     categories = models.ManyToManyField(Category, related_name='recipes', through='RecipeCategory')
     allergies = models.ManyToManyField(Allergy, related_name='recipes', through='RecipeAllergy')
 
@@ -79,8 +77,8 @@ class Recipe(models.Model):
 
 
 class Review(models.Model):
-    member_seq = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    recipe_seq = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    member = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     content = models.TextField()
     image_url = models.CharField(max_length=255)
     ratings = models.IntegerField(default=1,
