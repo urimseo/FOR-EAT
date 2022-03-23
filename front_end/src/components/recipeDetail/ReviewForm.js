@@ -5,26 +5,23 @@ import Rating from '@mui/material/Rating';
 
 import ReviewCard from "components/recipeDetail/ReviewCard"
 import profileImg from "assets/img/Ingredient_rosemary.jpg";
+import { flexbox } from "@mui/system";
 
 const Container = styled.div`
-
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 `
 
 const TextContainer = styled.div`
+  margin: 5rem 0 2rem 0;
   display: block;
   justify-items: start;
-  margin: 5rem 0 2rem 0;
   .text {
     display: flex;
     text-align: left;
-    font-family: Playfair Display;
     font-size: 2.5rem;
-    font-weight: 600;
-  }
-  .line {
-    margin: 0.5rem 0 1rem 0;
-    width: 6%;
-    border-bottom: 1px solid black;
+    font-weight: 300;
   }
 `
 const FormContainer = styled.div`
@@ -34,7 +31,7 @@ const FormContainer = styled.div`
 
 const Form = styled.form`
   display: flex;
-  margin: 1rem 0 4rem 0;
+  margin: 1rem 2rem 4rem 2rem;
   padding: 1.5rem;
   width: 60rem;
   height: 12rem;
@@ -113,11 +110,9 @@ const ReviewForm = () => {
   const { value, setValue } = useForm();
   
   return (
-    <>
       <Container>
         <TextContainer>
           <div className="text">Reviews</div>
-          <div className="line"/>
         </TextContainer>
         <FormContainer>
           <Form>
@@ -141,10 +136,11 @@ const ReviewForm = () => {
             </div>
           </Form>
         </FormContainer>
-        <ReviewCard />
-        <ReviewCard />
+        <div style={{display:"flex", justifyContent:"center", flexWrap:"wrap" }}>
+          <ReviewCard />
+          <ReviewCard />
+        </div>
       </Container>
-    </>
   );
 };
 

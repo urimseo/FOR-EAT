@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 
@@ -38,7 +38,7 @@ const RecipeDetail = () => {
 
   const location = useLocation();
   let recipeId = Number(location.pathname.split("/")[2]);
-  const [recipe, setRecipe] = useState(getRecipeDetail(recipeId)); 
+  const [recipe, setRecipe] = useState({}); 
 
   useEffect(() => {
     getRecipeDetail(recipeId).then((res) => {
@@ -83,7 +83,7 @@ const RecipeDetail = () => {
         </Wrapper>
         <Wrapper jc="center">
           <RelatedRecipeList />
-        <ReviewForm />
+          <ReviewForm />
         </Wrapper>
       </Container>
     </div>
