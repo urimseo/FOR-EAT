@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const TextContainer = styled.div`
   text-align: ${(props) => (props.ta ? props.ta : "left")};
-  width: 50%;
+  width: 40%;
   margin: 0 5rem;
   .title {
     font-size: 2.25rem;
