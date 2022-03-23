@@ -108,9 +108,12 @@ class ReviewList(APIView, LimitOffsetPagination):
             }
             return Response(data=data, status=status.HTTP_202_ACCEPTED)
 
-        file = request.FILES['image_url']
-        image_url = FileUpload(s3_client).upload(file)
-        request.data['image_url'] = image_url
+        try:
+            file = request.FILES['image']
+            image_url = FileUpload(s3_client).upload(file)
+            request.data['image_url'] = image_url
+        except:
+            pass
         serializer = ReviewSerializer(data=request.data)
 
         if serializer.is_valid():
@@ -152,4 +155,32 @@ class ReviewDetail(APIView):
                 }
             }
             return Response(data=data, status=status.HTTP_403_FORBIDDEN)
-        
+    
+    def put(self, request, id, format=None):
+        review = self.get_object(id)
+        review_writer = Member.objects.get(member_seq=review.member.member_seq).member_seq
+        # token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        # member = decode_token(token)
+        member = 2
+
+        try:
+            file = request.FILES['image']
+            image_url = FileUpload(s3_client).upload(file)
+            request.data['image_url'] = image_url
+        except:
+            pass
+
+        serializer = ReviewSerializer(review, data=request.data)
+        if review_writer == member:
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            data = {
+                "data": {
+                    "msg": "리뷰를 작성한 유저가 아닙니다",
+                    "status": 403
+                }
+            }
+            return Response(data= data, status=status.HTTP_403_FORBIDDEN)

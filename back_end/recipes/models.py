@@ -80,7 +80,7 @@ class Review(models.Model):
     member = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     content = models.TextField()
-    image_url = models.CharField(max_length=255)
+    image_url = models.CharField(max_length=255, null=True)
     ratings = models.IntegerField(default=1,
                     validators=[
                         MaxValueValidator(5),
