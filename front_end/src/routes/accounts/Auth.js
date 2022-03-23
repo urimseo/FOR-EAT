@@ -3,7 +3,17 @@ import { kakaoLogin } from '../../api/AuthApi';
 import { useSetRecoilState } from 'recoil';
 import { isLoginState } from '../../atoms/atoms';
 import { useNavigate } from 'react-router-dom';
+import styled from "styled-components";
 
+const Container = styled.div`
+  min-height: 100vh;
+`
+
+const Message = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+`
 
 const Auth = () => {
   // 인가코드 받기
@@ -16,10 +26,11 @@ const Auth = () => {
   useEffect(() => {
     async function fetchData() {
       const result = await kakaoLogin(loginCode);
+      console.log(result)
       if (result.status === 200) {
         try {
           setIsLoginState(true);
-          navigate("/recommend");
+          navigate("/category");
         }
         catch {
           window.location.reload();
@@ -29,11 +40,14 @@ const Auth = () => {
       }
     }
     fetchData();
-  }, [setIsLoginState, loginCode]); 
+  }, []); 
 
   return (
-    <div>
-    </div>
+    <Container>
+      <Message>
+        에러! ERR_CONNECTION_REFUSED
+      </Message>
+    </Container>
   );
 };
 
