@@ -70,7 +70,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         # fields = '__all__'
-        fields = ('member', 'recipe', 'content', 'image_url', 'ratings', 'create_date', 'last_modified_date')
+        fields = ('id','member', 'recipe', 'content', 'image_url', 'ratings', 'create_date', 'last_modified_date')
 
 class RecipeListSerializer(serializers.ModelSerializer):
     # ReviewSerializer 이후에 추가
