@@ -1,14 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import img from "assets/img/Landing_1.jpg";
-import img1 from "assets/img/Ingredient_cucumber.jpg";
 
 
 const Container = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 8fr;
-  height: 13rem;
-  margin: 0 8rem 1rem 8rem;
+  display: flex;
+  width: 70%;
+  height: 15rem;
+  margin: 1rem;
 `
 const ImgWrapper = styled.div`
   width: 100%;
@@ -59,7 +58,7 @@ const Contents = styled.div`
 
 const ReviewCard = () => {
   return (
-    <>
+
       <Container>
         <ImgWrapper>
           <Img src={img} alt="이미지를 찾을 수 없습니다." />
@@ -81,7 +80,6 @@ const ReviewCard = () => {
         </TextContainer>
       </Container>
 
-    </>
   );
 };
 

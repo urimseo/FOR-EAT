@@ -11,7 +11,7 @@ import ReviewForm from "components/recipeDetail/ReviewForm";
 import { getRecipeDetail } from "api/RecipeDetailApi";
 
 const Container = styled.div`
-  padding: 6rem 12rem;
+  padding: 6rem 10rem;
 `
 const Wrapper = styled.div`
   display: flex;
@@ -81,10 +81,10 @@ const RecipeDetail = () => {
             <Instructions instructions={recipe.instructions}/>
           </IngredientWrapper>
         </Wrapper>
-        <Wrapper jc="start">
+        <Wrapper jc="center">
           <RelatedRecipeList />
-        </Wrapper>
         <ReviewForm />
+        </Wrapper>
       </Container>
     </div>
 	)

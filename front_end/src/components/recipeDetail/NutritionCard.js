@@ -64,4 +64,4 @@ const NutritionCard = ( props ) => {
 };
 
 
-export default NutritionCard;
+export default React.memo(NutritionCard);
