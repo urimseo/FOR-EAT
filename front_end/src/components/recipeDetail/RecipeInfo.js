@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Rating from '@mui/material/Rating';
 
 import Typography from "components/commons/Typography";
+import CalorieCard from "components/recipeDetail/CalorieCard";
 import NutritionCard from "components/recipeDetail/NutritionCard";
 
 const Container = styled.div`
@@ -61,7 +62,7 @@ const TextContainer = styled.div`
 const CardContainer = styled.div`
   display:grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
+  grid-template-rows: 1fr 1fr;
   gap: 0.5rem;
 `
 
@@ -93,19 +94,19 @@ const RecipeInfo = ({ name, categories, servings, prepTime, cookTime, calories, 
       <hr />
         <TextContainer>
           <div className="nutriTitle">NUTRITION</div>
-          <div className="item">Standard Daily Intake for One Meal</div>
+          <div className="item">Of Adult's Reference Intake</div>
         </TextContainer>
         <div style={{display: "grid", gridTemplateColumns:"2fr 8fr", gap: "0.5vw" }}>
-          <NutritionCard title="CALORIES" grams={Math.round(calories)} style={{ gridRow: 1/2, height: "35vh" }} />
+          <CalorieCard title="CALORIES" grams={Math.ceil(calories)} ratio={Math.ceil(calories/2000*100)} />
           <CardContainer>
-            <NutritionCard title="CARBS" grams={Math.round(carbs)} />
-            <NutritionCard title="PROTEIN" grams={Math.round(protein)} />
-            <NutritionCard title="FAT" grams={Math.round(fat)} />
-            <NutritionCard title="SATURATED FAT" grams={Math.round(saturatedFat)} />
-            <NutritionCard title="SODIUM" grams={Math.round(sodium)} />
-            <NutritionCard title="SUGAR" grams={Math.round(sugar)} />
-            <NutritionCard title="FIBER" grams={Math.round(fiber)} />
-            <NutritionCard title="CHOLESTEROL" grams={Math.round(cholesterol)} />
+            <NutritionCard title="CARBS" grams={Math.ceil(carbs)} ratio={Math.ceil(carbs/328*100)} />
+            <NutritionCard title="PROTEIN" grams={Math.ceil(protein)} ratio={Math.ceil(protein/60*100)} />
+            <NutritionCard title="FAT" grams={Math.ceil(fat)} ratio={Math.ceil(fat/50*100)} />
+            <NutritionCard title="SATURATED FAT" grams={Math.ceil(saturatedFat)} ratio={Math.ceil(saturatedFat/15*100)} />
+            <NutritionCard title="SODIUM" grams={Math.ceil(sodium)} ratio={Math.ceil(sodium/2000*100)} />
+            <NutritionCard title="SUGAR" grams={Math.ceil(sugar)} ratio={Math.ceil(sugar/50*100)} />
+            <NutritionCard title="FIBER" grams={Math.ceil(fiber)} ratio={Math.ceil(fiber/25*100)} />
+            <NutritionCard title="CHOLESTEROL" grams={Math.ceil(cholesterol)} ratio={Math.ceil(cholesterol/300*100)} />
           </CardContainer>
         </div>
     </Container>
