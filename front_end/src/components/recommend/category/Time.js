@@ -160,6 +160,7 @@ const Time = forwardRef((props, ref) => {
             index={index}
             recipeImg={Recipe.images}
             recipeName={Recipe.name}
+            recipeKeywords={(Recipe.keywords.length > 1 ? [Recipe.keywords[0].keyword_name, Recipe.keywords[1].keyword_name] : Recipe.keywords[0].keyword_name)}
             // recipeCategory={recipe.summary}
             recipeCalorie={Recipe.calories}
           />

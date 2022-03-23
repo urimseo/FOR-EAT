@@ -1,4 +1,6 @@
-import React from "react";
+import { memo } from 'react';
+import Dustbin from './Dustbin';
+import Box from './Box';
 import styled from "styled-components";
 import egg from "assets/img/IngredientItem/egg.PNG"
 import bacon from "assets/img/IngredientItem/bacon.jpg"
@@ -22,7 +24,6 @@ import tomato from "assets/img/IngredientItem/tomato.jpg"
 import turkey from "assets/img/IngredientItem/turkey.png"
 import zucchini from "assets/img/IngredientItem/zucchini.jpg"
 
-
 const Container = styled.div`
   margin-top: 3rem;
   min-width: 32vh;
@@ -34,49 +35,49 @@ const IngredientContainer = styled.div`
   cursor: pointer;
 `
 
-const Image = styled.img`
-  width: 6rem;
-  height: 6rem;
-  border-radius: 55%;
-  margin: 1rem 1.5rem 0 1.5rem;
+const DustbinContainer = styled.div`
+  display: flex;
+  margin-top: 15rem; 
+  justify-content: center;
 `
 
-
-
-const IngredientItem = () => {
-  return (
-    <>
-    <Container>
-      <IngredientContainer>
-        <Image src={onion} title="onion"></Image>
-        <Image src={garlic} title="garlic"></Image>
-        <Image src={zucchini} title="zucchini"></Image>
-        <Image src={carrot} title="carrot"></Image>
-        <Image src={mushroom} title="mushroom"></Image>
-        <Image src={potato} title="potato"></Image>
-        <Image src={tomato} title="tomato"></Image>
-      </IngredientContainer>
-      <IngredientContainer>
-        <Image src={beef} title="beef"></Image>
-        <Image src={pork} title="pork"></Image>
-        <Image src={chicken} title="chicken"></Image>
-        <Image src={turkey} title="turkey"></Image>
-        <Image src={bacon} title="bacon"></Image>
-        <Image src={salmon} title="salmon"></Image>
-        <Image src={shrimp} title="shrimp"></Image>
-      </IngredientContainer>
-      <IngredientContainer>
-        <Image src={egg} title="egg"></Image>
-        <Image src={milk} title="milk"></Image>
-        <Image src={cheese} title="cheese"></Image>
-        <Image src={flour} title="flour"></Image>
-        <Image src={noodle} title="noodle"></Image>
-        <Image src={bread} title="bread"></Image>
-        <Image src={chocolate} title="chocolate"></Image>
-      </IngredientContainer>
-    </Container>
-    </>
-  );
-};
-
-export default IngredientItem;
+export const IngredientItem = memo(function IngredientItem() {
+    return (<div>
+      <div style={{ overflow: 'hidden', clear: 'both' }}>
+        <Container>
+          <IngredientContainer>
+            <Box src={onion} title="onion"/>
+            <Box src={garlic} title="garlic"/>
+            <Box src={zucchini} title="zucchini"/>
+            <Box src={carrot} title="carrot"/>
+            <Box src={mushroom} title="mushroom"/>
+            <Box src={potato} title="potato"/>
+            <Box src={tomato} title="tomato"/>
+          </IngredientContainer>
+          <IngredientContainer>
+            <Box src={beef} title="beef"/>
+            <Box src={pork} title="pork"/>
+            <Box src={chicken} title="chicken"/>
+            <Box src={turkey} title="turkey"/>
+            <Box src={bacon} title="bacon"/>
+            <Box src={salmon} title="salmon"/>
+            <Box src={shrimp} title="shrimp"/>
+          </IngredientContainer>
+          <IngredientContainer>
+            <Box src={egg} title="egg"/>
+            <Box src={milk} title="milk"/>
+            <Box src={cheese} title="cheese"/>
+            <Box src={flour} title="flour"/>
+            <Box src={noodle} title="noodle"/>
+            <Box src={bread} title="bread"/>
+            <Box src={chocolate} title="chocolate"/>
+          </IngredientContainer>
+        </Container>
+			</div>
+			<div style={{ overflow: 'hidden', clear: 'both' }}>
+        <DustbinContainer>
+          <Dustbin />
+        </DustbinContainer>
+			</div>
+		</div>);
+});
