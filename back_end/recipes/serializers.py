@@ -53,7 +53,7 @@ class ReviewListSerializer(serializers.ModelSerializer):
     member = serializers.CharField(source='member.nickname')
     class Meta:
         model = Review
-        fields = ('member', 'content', 'image_url', 'ratings', 'create_date', 'last_modified_date')
+        fields = ('id', 'member', 'content', 'image_url', 'ratings', 'create_date', 'last_modified_date')
 
 class ReviewSerializer(serializers.ModelSerializer):
 
