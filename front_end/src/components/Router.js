@@ -12,12 +12,13 @@ import Home from "routes/Home";
 import RecipeDetail from "routes/RecipeDetail";
 import MyPage from "routes/accounts/MyPage";
 import Ingredient from "routes/recommend/Ingredient";
-
+import ScrollToTop from "./commons/ScrollRestoration";
 
 const AppRouter = () => {
   return (
     <Router>
       <>
+        <ScrollToTop />
         <Routes>
           <Route path="" element={<Landing />} />
           <Route path="/" element={<Home />}>
