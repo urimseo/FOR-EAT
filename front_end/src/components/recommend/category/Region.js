@@ -93,7 +93,6 @@ const Region = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Asia");
     if (Recipe) {
-      console.log(Recipe)
       setRecipeList(Recipe)
     }
   }
@@ -163,6 +162,7 @@ const Region = forwardRef((props, ref) => {
             index={index}
             recipeImg={Recipe.images}
             recipeName={Recipe.name}
+            recipeKeywords={(Recipe.keywords.length > 1 ? [Recipe.keywords[0].keyword_name, Recipe.keywords[1].keyword_name] : Recipe.keywords[0].keyword_name)}
             // recipeCategory={recipe.summary}
             recipeCalorie={Recipe.calories}
           />

@@ -64,7 +64,7 @@ const Line = styled.div`
 `
 
 
-const Card = ({ index, recipeImg, recipeName, recipeCalorie, recipeSeq }) => {
+const Card = ({ index, recipeImg, recipeName, recipeCalorie, recipeSeq, recipeKeywords }) => {
   return (
     <>
       <Container>
@@ -73,7 +73,9 @@ const Card = ({ index, recipeImg, recipeName, recipeCalorie, recipeSeq }) => {
             <Img src={recipeImg} />
             <TextContainer>
               <div className='title'>{recipeName}</div>
-              <div className='category'>CATEGORY</div>
+              <div className='category'>
+                {recipeKeywords.map((recipeKeyword, index) =>(index === 1 ? ', ' : '') + recipeKeyword)}
+              </div>
               <BorderLine />
               <SpaceBetweenContainer>
                 <div className='Calorie'>{Math.round(recipeCalorie)} Kcal</div>
@@ -95,7 +97,8 @@ Card.propTypes = {
   recipeImg: PropTypes.string.isRequired,
   recipeName: PropTypes.string.isRequired,
   recipeCalorie: PropTypes.number.isRequired,
-  recipeSeq: PropTypes.number.isRequired
+  recipeSeq: PropTypes.number.isRequired,
+  recipeKeywords: PropTypes.array.isRequired,
 };
 
 
