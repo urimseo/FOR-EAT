@@ -82,7 +82,7 @@ class RecipeDetail(APIView):
         return Response(response_data)
 
 
-class Reviews(APIView, LimitOffsetPagination):
+class ReviewList(APIView, LimitOffsetPagination):
     def get_object(self, pk):
         try:
             return Review.objects.filter(recipe=Recipe.objects.get(recipe_seq=pk))
@@ -90,8 +90,8 @@ class Reviews(APIView, LimitOffsetPagination):
             raise Http404
 
     def get(self, request, pk, format=None):
-        temp = self.get_object(pk)[::-1]
-        results = self.paginate_queryset(temp, request)
+        reviews = self.get_object(pk)[::-1]
+        results = self.paginate_queryset(reviews, request)
         serilizer = ReviewListSerializer(results, many=True)
         return Response(serilizer.data)
 
@@ -120,3 +120,36 @@ class Reviews(APIView, LimitOffsetPagination):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
             
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ReviewDetail(APIView):
+    def get_object(self, id):
+        try:
+            return Review.objects.get(id=id)
+        except Review.DoesNotExist:
+            raise Http404
+
+    def delete(self, request, id, format=None):
+        review = self.get_object(id)
+        # print(review.member)
+        # token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        # member = decode_token(token)
+        review_writer = Member.objects.get(member_seq=review.member.member_seq).member_seq
+        member = 2
+        if review_writer == member:
+            Review.objects.get(id=id).delete()
+            data = {
+                "data": {
+                    "msg": "리뷰를 삭제했습니다",
+                    "status": 200
+                }
+            }
+            return Response(data=data, status=status.HTTP_200_OK)
+        else:
+            data = {
+                "data": {
+                    "msg": "리뷰를 작성한 유저가 아닙니다",
+                    "status": 403
+                }
+            }
+            return Response(data=data, status=status.HTTP_403_FORBIDDEN)
+        
