@@ -49,7 +49,6 @@ const Text = styled.div`
   padding: 3rem;
   padding-left: 5rem;
   margin-top: 3rem;
-  margin-left: 12rem;
 `
 
 const Sub = styled.div`

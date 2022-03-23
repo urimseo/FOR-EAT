@@ -10,15 +10,15 @@ const Container = styled.div`
 `
 
 const CardItem = styled.div`
-  width: 20rem;
+  width: 16rem;
   height: 24.5rem;
   padding: 0 1rem;
 `
 
 const ImgWrapper = styled.div`
   overflow: hidden;
-  height: 20rem;
-  width: 20rem;
+  height: 16rem;
+  width: 16rem;
 `
 
 const Img = styled.img`
