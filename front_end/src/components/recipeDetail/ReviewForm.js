@@ -13,6 +13,7 @@ const Container = styled.div`
 const TextContainer = styled.div`
   display: block;
   justify-items: start;
+  margin: 5rem 0 2rem 0;
   .text {
     display: flex;
     text-align: left;
@@ -36,7 +37,7 @@ const Form = styled.form`
   margin: 1rem 0 4rem 0;
   padding: 1.5rem;
   width: 60rem;
-  height: 11rem;
+  height: 12rem;
   border: 1px solid #000;
 `
 
@@ -99,7 +100,7 @@ const Button = styled.button`
   border-radius: 3rem;
   box-shadow: 0 0 1px 1px #969696;
   background-color: white;
-  margin-left: 1rem;
+  margin: 0.7rem 0 0 1rem;
   &:hover {
     border: 1px solid black;
     background-color: black;

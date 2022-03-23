@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 
 const Container = styled.div`
+  height: 32vh;
   border: 1px solid #000000;
   display: flex;
   flex-direction: column;
@@ -44,21 +45,11 @@ const NutritionCard = ( props ) => {
   const grams = props.grams;
   const ratio = props.ratio;
   return (
-      <Container {...props} style={(ratio > 100) && (title !== "FIBER") ? { backgroundColor:"#ff000017", borderColor: "red" } : {}}>
-        <div 
-          className={((ratio > 100) && (title !== "FIBER") ? ("Warning" + " " + "Title"): "Title") + ' ' + (title === "CHOLESTEROL" ? "TitleSmall" : "Title")}
-        >{title}
-        </div>
-        <div 
-          className={((ratio > 100) && (title !== "FIBER") ? ("Warning" + " " + "Content") : "Content" )}
-        >{grams}{(title === "SODIUM"? "mg" : title === "CHOLESTEROL" ? "mg" : "g")}
-        </div>
-        <div 
-          className={((ratio > 100) && (title !== "FIBER") ? "WarningLine" : "Line" )} />
-        <div 
-          className={((ratio > 100) && (title !== "FIBER") ? ("Warning" + " " + "Content") : "Content" )}>
-          {ratio}%
-        </div>
+      <Container {...props} style={(ratio > 100) ? { backgroundColor:"#ff000017", borderColor:"red" } : {}}>
+        <div className={((ratio > 100) ? ("Warning" + " " + "Title"): "Title")}>{title}</div>
+        <div className={((ratio > 100) ? ("Warning" + " " + "Content") : "Content" )}>{grams}Kcal</div>
+        <div className={((ratio > 100) ? "WarningLine" : "Line" )} />
+        <div className={( (ratio > 100) ? ("Warning" + " " + "Content") : "Content" )}>{ratio}%</div>
       </Container>
   );
 };
