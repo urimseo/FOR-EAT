@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import IngredientItem from "components/recommend/Ingredient/IngredientItem";
+import IngredientSelect from "components/recommend/Ingredient/IngredientSelect"
 
 
 const Container = styled.div`
@@ -27,7 +27,7 @@ const Ingredient = () => {
       <Container>
         <Title>Select From Below</Title>
         <BorderLine />
-        <IngredientItem></IngredientItem>
+        <IngredientSelect />
       </Container>
     </>
   );
