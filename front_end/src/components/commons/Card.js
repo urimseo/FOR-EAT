@@ -65,7 +65,6 @@ const Line = styled.div`
 
 
 const Card = ({ index, recipeImg, recipeName, recipeCalorie, recipeSeq, recipeKeywords }) => {
-  const list = []
   return (
     <>
       <Container>

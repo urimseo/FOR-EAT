@@ -28,8 +28,18 @@ const Box = ({ src, title }) =>  {
             handlerId: monitor.getHandlerId(),
         }),
     }));
+
     const opacity = isDragging ? 0.4 : 1;
-    return (<img src={src} ref={drag} style={{  ...style, opacity }} alt={title} data-testid={`box-${src}`} title={title}/>
+    
+    return (
+        <img 
+            src={src} 
+            ref={drag} 
+            style={{  ...style, opacity }} 
+            alt={title} 
+            data-testid={`box-${src}`} 
+            title={title}
+        />
 	);
 };
 
