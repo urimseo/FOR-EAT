@@ -1,5 +1,8 @@
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+from django.db.models import Avg
+from django.db.models import Q
+
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
@@ -8,10 +11,8 @@ from rest_framework.pagination import LimitOffsetPagination
 
 from recipes.serializers import RecipeSerializer, RecipeListSerializer, ReviewListSerializer, ReviewSerializer
 from recipes.storages import FileUpload, s3_client
-from django.db.models import Avg
-
 from members.token import decode_token
-from recipes.models import Recipe, Category,Review
+from recipes.models import Keyword, Recipe, Category, RecipeKeyword,Review
 from members.models import Member
 import json
 import re
@@ -186,12 +187,12 @@ class ReviewDetail(APIView):
 
 class RecipeLike(APIView):
     def get(self, request, pk):
-        token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
-        member = decode_token(token)
-        # member = Member.objects.get(member_seq=1)
+        # token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        # member = decode_token(token)
+        member = Member.objects.get(member_seq=1)
         recipe = get_object_or_404(Recipe, pk=pk)
 
-        if recipe.members.filter(member_seq=member.member_seq):
+        if recipe.members.filter(member_seq=member.member_seq).exists():
             recipe.members.remove(member)
             data = {
                 "data": {
@@ -209,3 +210,31 @@ class RecipeLike(APIView):
                 }
             }
             return Response(data= data, status=status.HTTP_201_CREATED)
+
+class Search(APIView, LimitOffsetPagination):
+    def get(self, request, format=None):
+        q_word = self.request.GET.get('word')
+        print(q_word)
+        if q_word:
+            object_list = Recipe.objects.filter(
+                Q(name__icontains=q_word) |
+                Q(ingredient_raw__icontains=q_word)
+            )
+            try:
+                q_seq = Keyword.objects.get(keyword_name=q_word)
+                if q_seq:
+                    if object_list:
+                        object_list.union(Recipe.objects.filter(keywords__in=RecipeKeyword.objects.filter(keyword_seq=q_seq).values('keyword_seq')))
+                    else:
+                        object_list = Recipe.objects.filter(keywords__in=RecipeKeyword.objects.filter(keyword_seq=q_seq).values('keyword_seq'))
+            except:
+                pass
+        else:
+            object_list = Recipe.objects.all()
+        results = self.paginate_queryset(object_list, request)
+        serializer = RecipeListSerializer(results, many=True)
+        for i in serializer.data:
+            i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).aggregate(average_rating=Avg('review__ratings')))
+            i['images'] = json.loads(i['images'])[0]
+        return Response(serializer.data)
+    
