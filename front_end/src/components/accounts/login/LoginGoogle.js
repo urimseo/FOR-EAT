@@ -2,37 +2,36 @@ import React from "react";
 import GoogleLogin from 'react-google-login';
 import styled from "styled-components";
 import { useSetRecoilState } from 'recoil';
-import { isLoginState } from '../../../atoms/atoms';
+import { isLoginState, userInfoState } from '../../../atoms/atoms';
 import { useNavigate } from 'react-router-dom';
 import { googleLogin } from '../../../api/AuthApi';
 
 const Container = styled.div`
-  margin: 0 10vw;
-
-  button {
-    background: none;
-    border: none;
-    cursor: pointer;
-`;
+  margin: auto;
+  margin-top: 2rem;
+`
 
 
 const LoginGoogle = () => {
   const navigate = useNavigate();
   const setIsLoginState = useSetRecoilState(isLoginState);
-
+  const setUserInfoState = useSetRecoilState(userInfoState);
   const successGoogle = async (response) => {
     const data = {
+      access_token: response.tokenId,
+      email: response.profileObj.email,
       googleId: response.profileObj.googleId,
       imageUrl: response.profileObj.imageUrl,
       name: response.profileObj.name
     };
 
     const result = await googleLogin(data, response.tokenId);
-
-    if (result.data.user.status === 200) {
+    if (result.status === 200) {
       try {
         setIsLoginState(true);
-        navigate("/recommend");
+        setUserInfoState(result.user.member_seq);
+        
+        navigate("/category");
       }
       catch {
         window.location.reload();
@@ -49,12 +48,12 @@ const LoginGoogle = () => {
   return (
     <>
       <Container>
-      <GoogleLogin
-        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-        buttonText="Sign in with Google"
-        onSuccess={successGoogle}
-        onFailure={failGoogle}
-      />
+        <GoogleLogin
+          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+          buttonText="Sign in with Google"
+          onSuccess={successGoogle}
+          onFailure={failGoogle}
+        />
       </Container>
     </>
   );

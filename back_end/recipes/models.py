@@ -1,4 +1,3 @@
-from unicodedata import category
 from django.db import models
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -24,6 +23,26 @@ class Keyword(models.Model):
     class Meta:
         db_table = 'tb_keyword'
 
+class Category(models.Model):
+    category_seq = models.IntegerField(primary_key=True)
+    category_name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f'{self.category_name}'
+
+    class Meta:
+        db_table = 'tb_category'
+
+class Allergy(models.Model):
+    allergy_seq = models.IntegerField(primary_key=True)
+    allergy_name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f'{self.allergy_name}'
+
+    class Meta:
+        db_table = 'tb_allergy'
+
 class Recipe(models.Model):
     recipe_seq = models.AutoField(primary_key=True)
     recipe_id = models.IntegerField()
@@ -47,7 +66,8 @@ class Recipe(models.Model):
     images = models.TextField()
     ingredients = models.ManyToManyField(Ingredient, related_name='recipes', through='RecipeIngredient')
     keywords = models.ManyToManyField(Keyword, related_name='recipes', through='RecipeKeyword')
-    reviews = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Review')
+    categories = models.ManyToManyField(Category, related_name='recipes', through='RecipeCategory')
+    allergies = models.ManyToManyField(Allergy, related_name='recipes', through='RecipeAllergy')
 
     def __str__(self):
         return f'{self.pk}: {self.name}'
@@ -57,17 +77,17 @@ class Recipe(models.Model):
 
 
 class Review(models.Model):
-    member_seq = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    recipe_seq = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    member = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     content = models.TextField()
-    image_url = models.CharField(max_length=255)
+    image_url = models.CharField(max_length=255, null=True)
     ratings = models.IntegerField(default=1,
                     validators=[
                         MaxValueValidator(5),
                         MinValueValidator(1)
                     ])
-    create_date = models.DateTimeField(null=True)
-    last_modified_date = models.DateTimeField(null=True)
+    create_date = models.DateTimeField(auto_now_add=True, null=True)
+    last_modified_date = models.DateTimeField(auto_now=True, null=True)
 
     class Meta:
         db_table = 'tb_review'
@@ -84,4 +104,18 @@ class RecipeIngredient(models.Model):
     ingredient_seq = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
 
     class Meta:
-        db_table = 'tb_recipe_ingredient'    
+        db_table = 'tb_recipe_ingredient'
+
+class RecipeCategory(models.Model):
+    recipe_seq = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    category_seq = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'tb_recipe_category'
+
+class RecipeAllergy(models.Model):
+    recipe_seq = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    allergy_seq = models.ForeignKey(Allergy, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'tb_recipe_allergy'
