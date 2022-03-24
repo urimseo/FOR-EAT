@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import React, { memo } from 'react';
 import Dustbin from './Dustbin';
 import Box from './Box';
 import styled from "styled-components";
@@ -35,18 +35,13 @@ const IngredientContainer = styled.div`
   cursor: pointer;
 `
 
-const DustbinContainer = styled.div`
-  display: flex;
-  margin-top: 15rem; 
-  justify-content: center;
-`
 
 export const IngredientItem = memo(function IngredientItem() {
     return (<div>
       <div style={{ overflow: 'hidden', clear: 'both' }}>
         <Container>
           <IngredientContainer>
-            <Box src={onion} title="onion"/>
+            <Box src={onion} title="onion" />
             <Box src={garlic} title="garlic"/>
             <Box src={zucchini} title="zucchini"/>
             <Box src={carrot} title="carrot"/>
@@ -75,9 +70,7 @@ export const IngredientItem = memo(function IngredientItem() {
         </Container>
 			</div>
 			<div style={{ overflow: 'hidden', clear: 'both' }}>
-        <DustbinContainer>
-          <Dustbin />
-        </DustbinContainer>
+        <Dustbin />
 			</div>
 		</div>);
 });

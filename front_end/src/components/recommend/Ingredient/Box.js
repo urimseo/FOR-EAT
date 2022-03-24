@@ -1,5 +1,6 @@
 import { useDrag } from 'react-dnd';
 import { ItemTypes } from './ItemTypes';
+import React from 'react';
 
 const style = {
   padding: '0.5rem 1rem',
@@ -7,8 +8,8 @@ const style = {
   marginBottom: '1.5rem',
   cursor: 'pointer',
   float: 'left',
-  width: '6rem',
-  height: '6rem',
+  width: '5.5rem',
+  height: '5.5rem',
   borderRadius: '55%'
 };
 
@@ -19,7 +20,7 @@ const Box = ({ src, title }) =>  {
         end: (item, monitor) => {
             const dropResult = monitor.getDropResult();
             if (item && dropResult) {
-                alert(`You dropped ${item.title} into ${dropResult.name}!`);
+                alert(`You dropped ${item.title} into Bowl!`);
             }
         },
         collect: (monitor) => ({
@@ -32,4 +33,4 @@ const Box = ({ src, title }) =>  {
 	);
 };
 
-export default Box;
+export default React.memo(Box);

@@ -19,7 +19,6 @@ const Auth = () => {
       .then((res) => 
         {
           if (res) {
-          console.log(res)
           setIsLoginState(true)
           navigate("/category")
           }

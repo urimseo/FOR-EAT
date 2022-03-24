@@ -65,6 +65,7 @@ const Line = styled.div`
 
 
 const Card = ({ index, recipeImg, recipeName, recipeCalorie, recipeSeq, recipeKeywords }) => {
+  const list = []
   return (
     <>
       <Container>
@@ -79,7 +80,6 @@ const Card = ({ index, recipeImg, recipeName, recipeCalorie, recipeSeq, recipeKe
               <BorderLine />
               <SpaceBetweenContainer>
                 <div className='Calorie'>{Math.round(recipeCalorie)} Kcal</div>
-                <div>★★★★★</div>
               </SpaceBetweenContainer>
               <BorderLine />
             </TextContainer>
