@@ -29,6 +29,7 @@ const LoginGoogle = () => {
       try {
         setIsLoginState(true);
         setUserInfoState(result.user.member_seq);
+        
         navigate("/category");
       }
       catch {
