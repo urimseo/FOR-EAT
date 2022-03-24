@@ -77,7 +77,7 @@ const RecipeInfo = ({ name, categories, servings, prepTime, cookTime, calories, 
       >{name}</Typography>
       <SpaceBetweenContainer>
         <CategoryTag>
-          <div id="flag">{ (categories ? categories[0]["category_name"] : "category")}</div>
+          <div id="flag">{(categories.length === 0 ? "category" : categories[0]["category_name"] )}</div>
         </CategoryTag>
         <Rating name="read-only" value={rating} readOnly />
       </SpaceBetweenContainer>
