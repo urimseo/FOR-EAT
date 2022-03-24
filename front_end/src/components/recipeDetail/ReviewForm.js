@@ -1,40 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 import styled from "styled-components";
 import Rating from '@mui/material/Rating';
 
-import ReviewCard from "components/recipeDetail/ReviewCard"
 import profileImg from "assets/img/Ingredient_rosemary.jpg";
-import { flexbox } from "@mui/system";
+import { createReview } from "api/RecipeDetailApi";
 
 const Container = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-`
-
-const TextContainer = styled.div`
-  margin: 5rem 0 2rem 0;
-  display: block;
-  justify-items: start;
-  .text {
-    display: flex;
-    text-align: left;
-    font-size: 2.5rem;
-    font-weight: 300;
-  }
-`
-const FormContainer = styled.div`
   display: flex;
   justify-content: center;
 `
 
 const Form = styled.form`
   display: flex;
-  margin: 1rem 2rem 4rem 2rem;
-  padding: 1.5rem;
-  width: 60rem;
-  height: 12rem;
+  margin: 1rem 5rem 4rem 5rem;
+  padding: 2rem;
+  width: 58rem;
+  height: 11rem;
   border: 1px solid #000;
 `
 
@@ -50,26 +33,9 @@ const Img = styled.img`
   width: 5rem;
 `
 
-
-const InputTitle = styled.input`
-  width: 52rem;
-  height: 1.5rem;
-  margin-top: 0.5rem;
-  border: 1px solid white;
-  padding-left: 0.6rem;
-  ::placeholder {
-    color: #969696;
-    font-size: 0.7rem;
-  }
-  :focus {
-    outline: none;
-    box-shadow: 0 0 1px 0 #969696;
-  }
-`
-
 const InputContent = styled.textarea`
-  width: 52rem;
-  height: 4rem;
+  width: 50rem;
+  height: 5rem;
   margin-top: 0.5rem;
   font-family: Work Sans;
   font-size: 1rem;
@@ -90,7 +56,7 @@ const ButtonContainer = styled.div`
   justify-content: end;
 `
 
-const Button = styled.button`
+const InputButton = styled.input`
   width: 6.7rem;
   height: 2.3rem;
   border: 1px solid white;
@@ -106,41 +72,96 @@ const Button = styled.button`
   }
 `
 
-const ReviewForm = () => {
-  const { value, setValue } = useForm();
+const Button = styled.div`
+  width: 6.7rem;
+  height: 2.3rem;
+  border: 1px solid white;
+  border-radius: 3rem;
+  box-shadow: 0 0 1px 1px #969696;
+  background-color: white;
+  margin: 0.7rem 0 0 1rem;
+  &:hover {
+    border: 1px solid black;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+  }
+`
+
+
+
+const ReviewForm = ({ recipeId }) => {
+  const [ ratings, setRatings ] = useState();
+  const [ content, setContent ] = useState();
+  const [ image_url, setImageUrl] = useState();
   
+  // const files = event.target.files;
+  // console.log(files);
+  // this.setState({
+  //   selectedFiles: files
+  // });
+  
+  const onFileUpload = (event) => { 
+    // 파일 이미지 크기 제한해야됨?!
+    const file = event.target.files[0]
+    // console.log(file)
+    setImageUrl(file);
+  };
+  
+  const onClickSave = async (event) => {
+    event.preventDefault();
+    console.log(content)
+    const formData = new FormData();
+    formData.append("image", image_url);
+    formData.append("content", content);
+    formData.append("ratings", ratings);
+    // console.log(formData)
+    for (let key of formData.keys()) { console.log(key, ":", formData.get(key)); }
+    // await axios({
+    //   method: 'post',
+    //   url: `/recipes/${recipeId}/reviews/`,
+    //   data: formData,
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data',
+    //     'Access-Control-Allow-Credentials': true,
+    //   }
+    // })
+    const response = await createReview(recipeId, formData)
+    console.log(response)
+    
+  }
+
   return (
-      <Container>
-        <TextContainer>
-          <div className="text">Reviews</div>
-        </TextContainer>
-        <FormContainer>
-          <Form>
-            <ImgWrapper>
-              <Img src={profileImg} alt="" />
-            </ImgWrapper>
-            <div>
-              <Rating
-                name="simple-controlled"
-                value={value}
-                onChange={(event, newValue) => {
-                  setValue(newValue);
-                }}
-              />
-              <InputTitle placeholder="REVIEW TITLE" />
-              <InputContent placeholder="WRITE YOUR REVIEW HERE" />
-              <ButtonContainer>
-                <Button>UPLOAD</Button>
-                <Button>SAVE</Button>
-              </ButtonContainer>
-            </div>
-          </Form>
-        </FormContainer>
-        <div style={{display:"flex", justifyContent:"center", flexWrap:"wrap" }}>
-          <ReviewCard />
-          <ReviewCard />
+    <Container>
+      <Form>
+        <ImgWrapper>
+          <Img src={profileImg} alt="" />
+        </ImgWrapper>
+        <div style={{padding: "0.5rem 1rem"}}>
+          <Rating
+            name="simple-controlled"
+            value={ratings}
+            onChange={(event, newRatings) => {
+              setRatings(newRatings);
+            }}
+          />
+          <InputContent placeholder="WRITE YOUR REVIEW HERE"
+            value={content} 
+            onChange={
+              (e)=> setContent(e.target.value)
+            }/>
+          <ButtonContainer>
+            <input 
+              type="file"
+              id="file" 
+              onChange={onFileUpload}
+              multiple="multiple"
+            />
+            <button onClick={onClickSave}>저장</button>
+          </ButtonContainer>
         </div>
-      </Container>
+      </Form>
+    </Container>
   );
 };
 

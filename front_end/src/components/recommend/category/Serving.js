@@ -137,7 +137,7 @@ const Servings = forwardRef((props, ref) => {
             recipeName={Recipe.name}
             recipeKeywords={(Recipe.keywords.length > 1 ? [Recipe.keywords[0].keyword_name, Recipe.keywords[1].keyword_name] : Recipe.keywords[0].keyword_name)}
             // recipeCategory={recipe.summary}
-            recipeCalorie={Recipe.calories}d
+            recipeCalorie={Recipe.calories}
           />
         ))}
       </CardContainer>
