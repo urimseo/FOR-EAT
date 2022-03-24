@@ -4,7 +4,7 @@ const StyledButton = styled.button`
   width: ${(props) => (props.width ? props.width : "150px")};
   height: ${(props) => (props.height ? props.height : "50px")};
   font-size: ${(props) => (props.fontSize ? props.fontSize : "15px")};
-  background-color: ${(props) => (props.bc ? props.bc : "#white")};
+  background-color: ${(props) => (props.bc ? props.bc : "#fec25c")};
   margin-top: ${(props) => (props.mt ? props.mt : "")};
   margin-left: ${(props) => (props.ml ? props.ml : "")};
   margin-bottom: ${(props) => (props.mb ? props.mb : "")};
@@ -19,7 +19,7 @@ const StyledButton = styled.button`
 
   &:hover {
     background-color: ${(props) =>
-      props.hoverColor ? props.hoverColor : "#000"};
+      props.hoverColor ? props.hoverColor : "#dca03a"};
   }
 
   &:disabled {
