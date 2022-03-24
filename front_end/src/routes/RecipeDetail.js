@@ -7,7 +7,7 @@ import CalculateCalories from "components/recipeDetail/CalculateCalories";
 import RelatedRecipeList from "components/recipeDetail/RelatedRecipeList";
 import Ingredients from "components/recipeDetail/Ingredients";
 import Instructions from "components/recipeDetail/Instructions";
-import ReviewForm from "components/recipeDetail/ReviewForm";
+import ReviewList from "components/recipeDetail/ReviewList";
 import { getRecipeDetail } from "api/RecipeDetailApi";
 
 const Container = styled.div`
@@ -61,7 +61,7 @@ const RecipeDetail = () => {
             recipeId={recipeId}
             recipe={recipe}
             name={recipe.name}
-            categories={recipe.categories}
+            categories={(recipe.categories ? recipe.categories : "-")}
             servings={recipe.servings}
             prepTime={recipe.prep_time}
             cookTime={recipe.cook_time}
@@ -74,6 +74,7 @@ const RecipeDetail = () => {
             sodium={recipe.sodium_content}
             fiber={recipe.fiber_content}
             sugar={recipe.sugar_content}
+            rating={recipe.average_rating}
           />
           <CalculateCalories calories={recipe.calories}/>
           <IngredientWrapper>
@@ -83,7 +84,7 @@ const RecipeDetail = () => {
         </Wrapper>
         <Wrapper jc="center">
           <RelatedRecipeList />
-          <ReviewForm />
+          <ReviewList recipeId={recipeId}/>
         </Wrapper>
       </Container>
     </div>
