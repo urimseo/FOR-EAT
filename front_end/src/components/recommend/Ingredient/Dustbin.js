@@ -1,7 +1,6 @@
 import { useDrop } from 'react-dnd';
 import { ItemTypes } from './ItemTypes';
 import React, { useState } from 'react';
-import Test from 'components/recommend/Ingredient/IngredientInDustbin'
 import styled from 'styled-components';
 
 
@@ -31,11 +30,28 @@ const DustbinContainer = styled.div`
 `
 
 const FoodContainer = styled.div`
-    display: flex;
+    display: flex-wrap;
     margin: 2rem 0 2rem 0;
     padding: 0 9rem;
 `
 
+const FoodButton = styled.button`
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 400;
+  cursor: pointer;
+  background-color: white;
+  margin: 0 1rem 1rem 0;
+  padding-inline: 1rem;
+  border: none;
+  box-shadow: 3px 4px 3px 0px gray;
+  border-radius: 10rem;
+  height: 2rem;
+  &:hover{
+    opacity: 0.3;
+    // filter: brightness(50%);
+  }
+`
 
 
 const Dustbin = React.memo(function Dustbin() {
@@ -51,6 +67,7 @@ const Dustbin = React.memo(function Dustbin() {
         }),
     }));
     const isActive = canDrop && isOver;
+
     let backgroundColor = '#222';
     if (isActive) {
         backgroundColor = 'darkgreen';
@@ -58,6 +75,15 @@ const Dustbin = React.memo(function Dustbin() {
     else if (canDrop) {
         backgroundColor = 'darkkhaki';
     }
+
+    const deleteFood = (food) => {
+        setFood(foods.filter(item => item.title !== food.title));
+    }
+
+    const foodsUnique = foods.filter((value, idx) => {
+        return foods.indexOf(value) === idx; 
+    });
+
     return (
         <>
         <Container>
@@ -67,11 +93,14 @@ const Dustbin = React.memo(function Dustbin() {
             </div>
           </DustbinContainer>
           <FoodContainer>
-            <Test foods={foods} />
+            {foodsUnique.map((food, index) => (
+              <FoodButton key={index} onClick={()=>{deleteFood(food)}}>{food.title}</FoodButton>
+            ))}
           </FoodContainer>  
         </Container>
         </>
     );
 });
+
 
 export default React.memo(Dustbin);
