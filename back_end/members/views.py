@@ -10,8 +10,9 @@ import requests
 from decouple import config
 
 from members.models import LikedIngredient, Member, MemberSurvey
-from recipes.models import Allergy, Ingredient
-from .serializers import KaKaoMemberSerializer, GoogleMemberSerializer, MemberProfileSerializer, MemberSurveySerializer, MemberInfoSerializer
+from recipes.models import Allergy, Ingredient, Review
+from recipes.serializers import RecipeListSerializer, ReviewListSerializer
+from .serializers import KaKaoMemberSerializer, GoogleMemberSerializer, MemberSurveySimpleSerializer, MemberSurveySerializer, MemberInfoSerializer
 from .token import generate_token, decode_token
 from .ingredients import get_ingredient_list
 
@@ -297,7 +298,7 @@ class MemberSurveyProfile(APIView):
             }
             return Response(data=data, status=status.HTTP_401_UNAUTHORIZED)
         else:
-            serializer = MemberSurveySerializer(member_survey)
+            serializer = MemberSurveySimpleSerializer(member_survey)
             data = serializer.data
             return Response(data=data,status=status.HTTP_200_OK)
         
@@ -320,7 +321,7 @@ class MemberSurveyProfile(APIView):
 
         else: 
             # get ingredient seq 
-            liked_ingredient = get_ingredient_list(member_survey['liked_ingredient'])
+            liked_ingredient = get_ingredient_list(member_survey['liked_ingredients'])
             serializer = MemberSurveySerializer(data=member_survey)
 
             # Create a member survey from the above data
@@ -330,7 +331,7 @@ class MemberSurveyProfile(APIView):
                 allergy=Allergy.objects.filter(allergy_seq__in=member_survey['allergy']))
                 data =  {
                         "msg": "유저 설문 저장 성공",
-                        "status": 200,
+                        "status": 201,
                 }
                 return Response(data=data, status=status.HTTP_201_CREATED)
             else:
@@ -355,9 +356,9 @@ class MemberSurveyProfile(APIView):
         else:
             # ingredient filter
             liked_ingredient = []
-            if 'liked_ingredient' in member_survey.keys():
-                member_survey['ingredient_keywords'] = str(member_survey['liked_ingredient'])
-                liked_ingredient = get_ingredient_list(member_survey['liked_ingredient'])
+            if 'liked_ingredients' in member_survey.keys():
+                member_survey['ingredient_keywords'] = str(member_survey['liked_ingredients'])
+                liked_ingredient = get_ingredient_list(member_survey['liked_ingredients'])
 
             
             member_survey_object = MemberSurvey.objects.get(member_seq=pk)
@@ -365,28 +366,78 @@ class MemberSurveyProfile(APIView):
             
             try: 
                 if serializer.is_valid(raise_exception=True):
-                    if 'liked_ingredient' in member_survey.keys():
+                    if 'liked_ingredients' in member_survey.keys():
                         serializer.save(liked_ingredients=Ingredient.objects.filter(ingredient_seq__in=liked_ingredient))
-                        return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+                        data = {
+                            "msg": "유저 설문 수정 성공",
+                            "status": 201,
+                        }
+                        return Response(data=data, status=status.HTTP_201_CREATED)
                     elif 'allergy' in member_survey.keys():
                         serializer.save(allergy=Allergy.objects.filter(allergy_seq__in=member_survey['allergy']))
-                        return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+                        data = {
+                            "msg": "유저 설문 수정 성공",
+                            "status": 201,
+                        }
+                        return Response(data=data, status=status.HTTP_201_CREATED)
                     else:
                         serializer.save()
-                        return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+                        data = {
+                            "msg": "유저 설문 수정 성공",
+                            "status": 201,
+                        }
+                        return Response(data=data, status=status.HTTP_201_CREATED)
             except:
                     return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class MemberProfilePage(APIView):
-    pass
     
-#     def get(self, request, pk, format=None):
-#         print(pk)
-#         member = Member.objects.get(pk=pk)
-#         print(member)
-#         print(member.liked_recipes.all())
-#         member_profile = MemberProfileSerializer(member)
-#         print(member_profile.data)
-#         member_survey = MemberSurveySerializer
-#         return Response(data=member_profile.data,status=status.HTTP_200_OK)
+    def get(self, request, pk, format=None):
+        token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        # check jwt token valid
+        try:            
+            get_member = Member.objects.get(pk=pk)
+            jwt_member = decode_token(token)
+            if jwt_member == None or pk!= jwt_member.member_seq: 
+                member_valid = None
+            member_valid = get_member
+        except:
+            member_valid = None
+
+
+        member = Member.objects.get(pk=pk)
+
+        if member_valid == member:
+
+            # get member 
+            member_survey = MemberSurvey.objects.get(pk=pk)
+
+            # get member_survey
+            member_serializer = MemberInfoSerializer(member)
+            member_survey_serializer = MemberSurveySimpleSerializer(member_survey)
+            
+            # get_member_liked_recipe
+            liked_recipe_serilizer_all = RecipeListSerializer(member.liked_recipes.all(), many=True)
+            liked_recipe_serilizer = liked_recipe_serilizer_all.data[-3:]
+            for recipe in liked_recipe_serilizer:
+                recipe['images'] = json.loads(recipe['images'])[0]
+
+
+            # get_member_review
+            review = Review.objects.filter(member=member)
+            review_serializer_all = ReviewListSerializer(review, many=True)
+
+            data = {
+                "member": member_serializer.data,
+                "member_survey":member_survey_serializer.data,
+                "liked_recipe": liked_recipe_serilizer,
+                "review": review_serializer_all.data[-3:]
+            }
+            return Response(data=data,status=status.HTTP_200_OK)
+        else:
+            data = {
+                "msg" : "존재하지 않는 유저입니다.",
+                "status": 404,
+            }
+            return Response(data=data, status=status.HTTP_404_NOT_FOUND)
