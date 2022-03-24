@@ -34,14 +34,14 @@ class MemberManager(BaseUserManager):
 class Member(AbstractBaseUser):
     ## uuid 설정하기 
     member_seq = models.AutoField(primary_key=True, unique=True)
-    nickname=models.CharField(max_length=50, unique=True)
+    nickname=models.CharField(max_length=50)
     # password = models.CharField(max_length=100, null=True)
     profile_image_url = models.CharField(max_length=255, null=True, blank=True)
     
     # member Id
     kakao_id = models.CharField(max_length=255,null=True, blank=True)
     google_id = models.CharField(max_length=255,null=True, blank=True)
-    
+    email = models.EmailField(max_length=255, unique=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     liked_recipes = models.ManyToManyField(Recipe, related_name='members', through='LikedRecipe')
@@ -49,7 +49,7 @@ class Member(AbstractBaseUser):
 
     objects = MemberManager()
 
-    USERNAME_FIELD = 'nickname'
+    USERNAME_FIELD = 'email'
     # createsuperuser를 통해 user생성시 요청하는 값
     REQUIRED_FIELDS = ['password',]
 
