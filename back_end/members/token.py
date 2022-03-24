@@ -33,9 +33,12 @@ def decode_token(token):
         return member
     # kakao token decode
     except:
-        payload = jwt.decode(jwt=token, key=config("JWT_SECRET_KEY"), algorithm=config("JWT_ALGORITHM"))
-        # print('kakao', payload)
-        member_seq = payload['member_seq']
-        member = Member.objects.get(member_seq=member_seq)
-        return member
-
+        try:
+            payload = jwt.decode(jwt=token, key=config("JWT_SECRET_KEY"), algorithm=config("JWT_ALGORITHM"))
+            # print('kakao', payload)
+            member_seq = payload['member_seq']
+            member = Member.objects.get(member_seq=member_seq)
+            return member
+        except:
+            return None
+    
