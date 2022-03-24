@@ -29,7 +29,7 @@ const LoginGoogle = () => {
       try {
         setIsLoginState(true);
         setUserInfoState(result.user.member_seq);
-        navigate("/recommend");
+        navigate("/category");
       }
       catch {
         window.location.reload();
