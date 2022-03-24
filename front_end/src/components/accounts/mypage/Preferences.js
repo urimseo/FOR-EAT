@@ -1,8 +1,20 @@
 import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
-import Modal from "components/commons/Modal";
-import Plus from "assets/img/Plus.png"
-import Rosemary from "assets/img/Ingredient_rosemary.jpg"
+import { motion, AnimatePresence } from "framer-motion";
+
+import DietsModal from "../modal/DietsModal";
+import AllergiesModal from "../modal/AllergiesModal";
+import DislikedIngredientsModal from "../modal/DislikedIngredientsModal";
+import FavoriteCuisinesModal from "../modal/FavoriteCuisinesModal";
+import GoalsModal from "../modal/GoalsModal";
+
+import Diets from "../preferences/Diets";
+import Allergies from "../preferences/Allergies";
+import DislikedIngredients from "../preferences/DislikedIngredients";
+import FavoriteCuisines from "../preferences/FavoriteCuisines";
+import Goals from "../preferences/Goals";
+
 
 const Container = styled.div`
 `
@@ -17,165 +29,76 @@ const SurveyContainer = styled.div`
   display: flex;
   flex-direction: column;
 `
-const SubTheme = styled.div`
-  margin-top: 3rem;
-`
 
-const SubTitle = styled.div`
-  font-size: 25px;
-`
-
-const Sub = styled.div`
-  font-size: 15px;
-  color: #8C8B8B;
-  margin-top: 1rem;
-`
-
-const Item = styled.div`
+const Overlay = styled(motion.div)`
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  flex-direction: row;
-`
-
-const ImageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 4rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
 `;
 
-const Image = styled.img`
-  border-radius: 4rem;
-  height: 8rem;
-  width: 8rem;
-  cursor: pointer;
-`;
+const overlay = {
+  hidden: { backgroundColor: "rgba(0, 0, 0, 0)" },
+  visible: { backgroundColor: "rgba(0, 0, 0, 0.5)" },
+  exit: { backgroundColor: "rgba(0, 0, 0, 0)" },
+};
 
-const ImageSub = styled.div`
-  font-size: 15px;
-  margin-top: 1rem;
-  font-weight: bold;
-
-`;
-
-const Diets = styled.div`
-`
-
-const Allergies = styled.div`
-`
-
-const DislikedIngredients = styled.div`
-`
-
-const FavoriteCuisines = styled.div`
-`
-
-const Goals = styled.div`
-`
 
 const Preferences = () => {
+  const [widgetId, setWidgetId] = useState();
+
+
+  const widgets = ["M01", "M02", "M03", "M04", "M05"];
+
+  const wid = {
+    M01: <Diets  setWidgetId={setWidgetId} />,
+    M02: <Allergies setWidgetId={setWidgetId} />,
+    M03: (
+      <DislikedIngredients setWidgetId={setWidgetId}/>
+    ),
+    M04: (
+      <FavoriteCuisines setWidgetId={setWidgetId} />
+    ),
+    M05: <Goals setWidgetId={setWidgetId} />,
+  };
+
+  const mod = {
+    M01: <DietsModal layoutId={widgetId} setWidgetId={setWidgetId} />,
+    M02: <AllergiesModal layoutId={widgetId} setWidgetId={setWidgetId} />,
+    M03: <DislikedIngredientsModal layoutId={widgetId} setWidgetId={setWidgetId} />,
+    M04: <FavoriteCuisinesModal layoutId={widgetId} setWidgetId={setWidgetId} />,
+    M05: <GoalsModal layoutId={widgetId} setWidgetId={setWidgetId} />,
+  };
+
   return (
     <>
       <Container>
         <Title>My Preferences</Title>
 
         <SurveyContainer>
-
-          <Diets>
-            <SubTheme>
-              <SubTitle>Diets</SubTitle>
-              <Sub>Click ‘ADD DIETS’ and Select from the diets below.</Sub>
-            </SubTheme>
-
-            <Item>
-              <ImageContainer>
-                <Image src={Rosemary}/>
-                <ImageSub>VEGETARIAN</ImageSub>
-              </ImageContainer>
-                
-              <ImageContainer>
-                <Image src={Plus}/>
-                <ImageSub>ADD DIETS</ImageSub>
-              </ImageContainer>
-            </Item>
-          </Diets>
-
-          <Allergies>
-            <SubTheme>
-            <SubTitle>Allergies</SubTitle>
-              <Sub>Click ‘Allergies’ and Select from the allergies below.</Sub>
-            </SubTheme>
-
-            <Item>
-              <ImageContainer>
-                <Image src={Rosemary}/>
-                <ImageSub>VEGETARIAN</ImageSub>
-              </ImageContainer>
-                
-              <ImageContainer>
-                <Image src={Plus}/>
-                <ImageSub>ADD DIETS</ImageSub>
-              </ImageContainer>
-            </Item>
-          </Allergies>
-
-          <DislikedIngredients>
-            <SubTheme>
-              <SubTitle>Disliked Ingredients</SubTitle>
-              <Sub>Click ‘ADD DISLIKED INGREDIENTS’ and Add ingredient that you don’t like.</Sub>
-            </SubTheme>
-
-            <Item>
-              <ImageContainer>
-                <Image src={Rosemary}/>
-                <ImageSub>VEGETARIAN</ImageSub>
-              </ImageContainer>
-                
-              <ImageContainer>
-                <Image src={Plus}/>
-                <ImageSub>ADD DIETS</ImageSub>
-              </ImageContainer>
-            </Item>
-          </DislikedIngredients>
-
-          <FavoriteCuisines>
-            <SubTheme>
-              <SubTitle>Favorite Cuisines</SubTitle>
-              <Sub>Click ‘ADD FAVORITE CUISINES’ and Add Cuisine that you like.</Sub>
-            </SubTheme>
-
-            <Item>
-              <ImageContainer>
-                <Image src={Rosemary}/>
-                <ImageSub>VEGETARIAN</ImageSub>
-              </ImageContainer>
-                
-              <ImageContainer>
-                <Image src={Plus}/>
-                <ImageSub>ADD DIETS</ImageSub>
-              </ImageContainer>
-            </Item>
-          </FavoriteCuisines>
-
-          <Goals>
-            <SubTheme>
-              <SubTitle>Goals</SubTitle>
-              <Sub>Click ‘ADD GOALS’ and Select your goals.</Sub>
-            </SubTheme>
-
-            <Item>
-              <ImageContainer>
-                <Image src={Rosemary}/>
-                <ImageSub>VEGETARIAN</ImageSub>
-              </ImageContainer>
-                
-              <ImageContainer>
-                <Image src={Plus}/>
-                <ImageSub>ADD DIETS</ImageSub>
-              </ImageContainer>
-            </Item>
-          </Goals>
-
+          <Container>
+            {widgets.map((widget) => wid[widget])}
+          </Container>
+      <AnimatePresence>
+        {widgetId && (
+          <Overlay
+            variants={overlay}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            onClick={() => setWidgetId(null)}
+          >
+            {mod[widgetId]}
+          </Overlay>
+        )}
+      </AnimatePresence>
+           
         </SurveyContainer>
       </Container>
     </>
