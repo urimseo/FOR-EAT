@@ -1,4 +1,3 @@
-from members.models import Member
 from .models import Recipe, Ingredient, Keyword, Allergy, Category, Review
 from rest_framework import serializers
 

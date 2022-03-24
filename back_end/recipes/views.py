@@ -1,12 +1,11 @@
-from contextlib import nullcontext
-from typing import Reversible
 from django.http import Http404
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.pagination import LimitOffsetPagination
-import recipes
+
 from recipes.serializers import RecipeSerializer, RecipeListSerializer, ReviewListSerializer, ReviewSerializer
 from recipes.storages import FileUpload, s3_client
 from django.db.models import Avg
@@ -96,9 +95,9 @@ class ReviewList(APIView, LimitOffsetPagination):
         return Response(serilizer.data)
 
     def post(self, request, pk, format=None):
-        # token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
-        # member = decode_token(token)
-        member = 2
+        token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        member = decode_token(token)
+        # member = Member.objects.get(member_seq=1)
         if Review.objects.filter(member=member, recipe=pk):
             data = {
                 "data": {
@@ -117,9 +116,7 @@ class ReviewList(APIView, LimitOffsetPagination):
         serializer = ReviewSerializer(data=request.data)
 
         if serializer.is_valid():
-            # member추가
-            # serializer.save(member_seq=Member.objects.get(member_seq=member.member_seq), recipe_seq=Recipe.objects.get(recipe_seq=pk))
-            serializer.save(member=Member.objects.get(member_seq=member), recipe=Recipe.objects.get(recipe_seq=pk))
+            serializer.save(member=Member.objects.get(member_seq=member.member_seq), recipe=Recipe.objects.get(recipe_seq=pk))
             return Response(serializer.data, status=status.HTTP_201_CREATED)
             
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -133,11 +130,12 @@ class ReviewDetail(APIView):
 
     def delete(self, request, id, format=None):
         review = self.get_object(id)
-        # print(review.member)
-        # token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
-        # member = decode_token(token)
-        review_writer = Member.objects.get(member_seq=review.member.member_seq).member_seq
-        member = 2
+        review_writer = Member.objects.get(member_seq=review.member.member_seq)
+
+        token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        member = decode_token(token)
+        # member = Member.objects.get(member_seq=1)
+
         if review_writer == member:
             Review.objects.get(id=id).delete()
             data = {
@@ -158,10 +156,11 @@ class ReviewDetail(APIView):
     
     def put(self, request, id, format=None):
         review = self.get_object(id)
-        review_writer = Member.objects.get(member_seq=review.member.member_seq).member_seq
-        # token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
-        # member = decode_token(token)
-        member = 2
+        review_writer = Member.objects.get(member_seq=review.member.member_seq)
+
+        token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        member = decode_token(token)
+        # member = Member.objects.get(member_seq=1)
 
         try:
             file = request.FILES['image']
@@ -184,3 +183,29 @@ class ReviewDetail(APIView):
                 }
             }
             return Response(data= data, status=status.HTTP_403_FORBIDDEN)
+
+class RecipeLike(APIView):
+    def get(self, request, pk):
+        token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        member = decode_token(token)
+        # member = Member.objects.get(member_seq=1)
+        recipe = get_object_or_404(Recipe, pk=pk)
+
+        if recipe.members.filter(member_seq=member.member_seq):
+            recipe.members.remove(member)
+            data = {
+                "data": {
+                    "msg": "찜하기 취소",
+                    "status": 202
+                }
+            }
+            return Response(data= data, status=status.HTTP_202_ACCEPTED)
+        else:
+            recipe.members.add(member)
+            data = {
+                "data": {
+                    "msg": "찜하기 성공",
+                    "status": 201
+                }
+            }
+            return Response(data= data, status=status.HTTP_201_CREATED)
