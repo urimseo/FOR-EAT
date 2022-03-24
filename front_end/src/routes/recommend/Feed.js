@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Card from "../../components/commons/Card"
 
 const Container = styled.div`
   margin: 0 10vw;
@@ -30,10 +29,6 @@ const Feed = () => {
         <Title>FOR:YOU</Title>
         <BorderLine />
         <CardContainer>
-          <Card />
-          <Card />
-          <Card />
-          <Card />
         </CardContainer>
       </Container>
     </>
