@@ -97,7 +97,7 @@ class ReviewList(APIView, LimitOffsetPagination):
 
     def post(self, request, pk, format=None):
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
-        member = decode_token(token)
+        member = decode_token(token.strip('"'))
         # member = Member.objects.get(member_seq=1)
         if Review.objects.filter(member=member, recipe=pk):
             data = {
@@ -134,7 +134,7 @@ class ReviewDetail(APIView):
         review_writer = Member.objects.get(member_seq=review.member.member_seq)
 
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
-        member = decode_token(token)
+        member = decode_token(token.strip('"'))
         # member = Member.objects.get(member_seq=1)
 
         if review_writer == member:
@@ -160,7 +160,7 @@ class ReviewDetail(APIView):
         review_writer = Member.objects.get(member_seq=review.member.member_seq)
 
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
-        member = decode_token(token)
+        member = decode_token(token.strip('"'))
         # member = Member.objects.get(member_seq=1)
 
         try:

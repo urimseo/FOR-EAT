@@ -5,6 +5,7 @@ from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework.pagination import LimitOffsetPagination
 import json
 import requests
 from decouple import config
@@ -236,7 +237,7 @@ class MemberInfo(APIView):
     def get(self, request, pk, format=None):
         # get jwt token from header
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
-        member = self.get_member(pk, token)
+        member = self.get_member(pk, token.strip('"'))
 
         if member is None:
             data = {
@@ -252,7 +253,7 @@ class MemberInfo(APIView):
     def patch(self, request, pk, format=None):
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
         found_user = self.get_member(pk, token)
-        member = decode_token(token)
+        member = decode_token(token.strip('"'))
 
         if found_user is None or pk != member.member_seq:
             data = {
@@ -288,7 +289,7 @@ class MemberSurveyProfile(APIView):
     # get user survey
     def get(self, request, pk):
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
-        member = self.get_member_survey(pk, token)
+        member = self.get_member_survey(pk, token.strip('"'))
         member_survey = MemberSurvey.objects.get(pk=pk)
 
         if member is None:
@@ -441,3 +442,26 @@ class MemberProfilePage(APIView):
                 "status": 404,
             }
             return Response(data=data, status=status.HTTP_404_NOT_FOUND)
+
+class MemberReviewList(APIView, LimitOffsetPagination):
+
+    def get(self, request, pk, format=None):
+        token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        # check jwt token valid
+        try:
+            get_member = Member.objects.get(pk=pk)
+            jwt_member = decode_token(token.strip('"'))
+            if jwt_member == None or pk!= jwt_member.member_seq: 
+                member_valid = None
+            member_valid = get_member
+        except:
+            member_valid = None
+        member = Member.objects.get(pk=pk)
+
+        if member_valid == member:
+        # get_member_review
+            review = Review.objects.filter(member=member)
+            review_serializer_all = ReviewListSerializer(review, many=True)
+            
+
+        
