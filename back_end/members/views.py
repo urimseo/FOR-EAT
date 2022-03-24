@@ -77,7 +77,7 @@ def check_kakao_user(request):
 def kakao_signup(request):
     try:
         data = {
-            'email': request['kakao_account']['email'],
+            'email': 'ka_' + request['kakao_account']['email'],
             'kakao_id': request['id'],
             'nickname': request['properties']['nickname'],
             'profile_image_url': request['kakao_account']['profile']['profile_image_url'],
@@ -161,7 +161,7 @@ def check_google_user(request):
 def google_signup(request):
     try:
         data = {
-            'email': request.data['data']['email'],
+            'email': 'go_' + request.data['data']['email'],
             'google_id': request.data['data']['googleId'],
             'nickname': request.data['data']['name'],
             'profile_image_url': request.data['data']['imageUrl'],
