@@ -19,6 +19,7 @@ const LoginGoogle = () => {
   const successGoogle = async (response) => {
     const data = {
       access_token: response.tokenId,
+      email: response.profileObj.email,
       googleId: response.profileObj.googleId,
       imageUrl: response.profileObj.imageUrl,
       name: response.profileObj.name
