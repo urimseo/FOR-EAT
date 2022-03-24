@@ -8,18 +8,18 @@ class KaKaoMemberSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Member
-        fields = ('nickname', 'profile_image_url', 'kakao_id')
+        fields = ('nickname', 'profile_image_url', 'kakao_id', 'email',)
 
 
 class GoogleMemberSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Member
-        fields = ('nickname', 'profile_image_url', 'google_id')
+        fields = ('nickname', 'profile_image_url', 'google_id', 'email',)
 
 
 
-class MemberProfileSerializer(serializers.ModelSerializer):
+class MemberInfoSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Member
@@ -35,3 +35,10 @@ class MemberSurveySerializer(serializers.ModelSerializer):
         depth = 1
     
     # member_seq = MemberSurvey(read_only=True)
+
+class MemberProfileSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Member
+        fields = '__all__'
+        depth = 2

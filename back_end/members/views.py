@@ -11,7 +11,7 @@ from decouple import config
 
 from members.models import LikedIngredient, Member, MemberSurvey
 from recipes.models import Allergy, Ingredient
-from .serializers import KaKaoMemberSerializer, GoogleMemberSerializer, MemberProfileSerializer, MemberSurveySerializer
+from .serializers import KaKaoMemberSerializer, GoogleMemberSerializer, MemberProfileSerializer, MemberSurveySerializer, MemberInfoSerializer
 from .token import generate_token, decode_token
 from .ingredients import get_ingredient_list
 
@@ -45,6 +45,7 @@ def kakao_get_user_info(request):
         'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
     }
     response = requests.post(url, data=res, headers=headers)
+    
     if response.status_code == 200:
         token_json = response.json()
         
@@ -56,7 +57,6 @@ def kakao_get_user_info(request):
         }
         res = requests.get(user_url, headers=HEADER)
         data = json.loads(res.text)
-
         return check_kakao_user(data)
     else:
         data = {
@@ -75,12 +75,14 @@ def check_kakao_user(request):
 def kakao_signup(request):
     try:
         data = {
-            'id': request['id'],
+            'email': request['kakao_account']['email'],
             'kakao_id': request['id'],
             'nickname': request['properties']['nickname'],
             'profile_image_url': request['kakao_account']['profile']['profile_image_url'],
         }
+        
         serializer = KaKaoMemberSerializer(data=data)
+        
         if serializer.is_valid(raise_exception=True):
             member = serializer.save()
             member.save()
@@ -114,7 +116,6 @@ def kakao_login(request):
             "nickname": nickname,
         }
         access_token = generate_token(payload, "access")
-        print(access_token)
         data = {
             "user": {
                 "member_seq": member_seq,
@@ -158,12 +159,11 @@ def check_google_user(request):
 def google_signup(request):
     try:
         data = {
-            'id': request.data['data']['googleId'],
+            'email': request.data['data']['email'],
             'google_id': request.data['data']['googleId'],
             'nickname': request.data['data']['name'],
             'profile_image_url': request.data['data']['imageUrl'],
         }
-
         serializer = GoogleMemberSerializer(data=data)
 
         if serializer.is_valid(raise_exception=True):
@@ -220,13 +220,13 @@ def google_login(request):
 
 # Member - (nickname, profile_image)
 @permission_classes([])
-class MemberProfile(APIView):
+class MemberInfo(APIView):
    
     def get_member(self, pk, token):
         try:
             found_user = Member.objects.get(member_seq=pk)
             jwt_member = decode_token(token)
-            if pk != jwt_member.member_seq: return None
+            if jwt_member == None or pk != jwt_member.member_seq: return None
             return found_user
         except Member.DoesNotExist:
             return None
@@ -236,6 +236,7 @@ class MemberProfile(APIView):
         # get jwt token from header
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
         member = self.get_member(pk, token)
+
         if member is None:
             data = {
                 "msg": "존재하지 않는 유저입니다.",
@@ -243,7 +244,7 @@ class MemberProfile(APIView):
             }
             return Response(data=data, status=status.HTTP_404_NOT_FOUND)
 
-        serializer = MemberProfileSerializer(member)
+        serializer = MemberInfoSerializer(member)
         return Response(data=serializer.data, status=status.HTTP_200_OK) 
         
 
@@ -260,7 +261,7 @@ class MemberProfile(APIView):
             return Response(data=data, status=status.HTTP_401_UNAUTHORIZED)
         
         else:
-            serializer = MemberProfileSerializer(found_user, data=request.data, partial=True)
+            serializer = MemberInfoSerializer(found_user, data=request.data, partial=True)
 
             if serializer.is_valid():
                 serializer.save()
@@ -276,7 +277,7 @@ class MemberSurveyProfile(APIView):
         try:
             get_member = Member.objects.get(pk=pk)
             jwt_member = decode_token(token)
-            if pk!= jwt_member.member_seq: return None
+            if jwt_member == None or pk!= jwt_member.member_seq: return None
             return get_member
 
         except:
@@ -377,3 +378,15 @@ class MemberSurveyProfile(APIView):
                     return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class MemberProfilePage(APIView):
+    pass
+    
+#     def get(self, request, pk, format=None):
+#         print(pk)
+#         member = Member.objects.get(pk=pk)
+#         print(member)
+#         print(member.liked_recipes.all())
+#         member_profile = MemberProfileSerializer(member)
+#         print(member_profile.data)
+#         member_survey = MemberSurveySerializer
+#         return Response(data=member_profile.data,status=status.HTTP_200_OK)
