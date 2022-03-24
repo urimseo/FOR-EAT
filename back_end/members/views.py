@@ -1,19 +1,22 @@
-from xml.dom import ValidationErr
-from django.forms import ValidationError
-from django.shortcuts import redirect
+from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
-import requests
-# from foreat.settings import SOCIAL_OUTH_CONFIG
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
 from rest_framework import status
-from members.models import Member
-from .serializers import KaKaoMemberSerializer, GoogleMemberSerializer
-from .token import *
-from django.contrib.auth import get_user_model
+from rest_framework.views import APIView
+from rest_framework.pagination import LimitOffsetPagination
 import json
+import requests
 from decouple import config
+
+from members.models import LikedIngredient, Member, MemberSurvey
+from recipes.models import Allergy, Ingredient, Review
+from recipes.serializers import RecipeListSerializer, ReviewListSerializer
+from .serializers import KaKaoMemberSerializer, GoogleMemberSerializer, MemberSurveySimpleSerializer, MemberSurveySerializer, MemberInfoSerializer
+from .token import generate_token, decode_token
+from .ingredients import get_ingredient_list
+
 
 # Django에서 인가코드 요청할 경우 사용 할 수 있다. (클라이언트에서 줘야함)
 # @api_view(['GET'])
@@ -44,7 +47,8 @@ def kakao_get_user_info(request):
         'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
     }
     response = requests.post(url, data=res, headers=headers)
-    if response.status_code == 200 :
+    
+    if response.status_code == 200:
         token_json = response.json()
         
         user_url = "https://kapi.kakao.com/v2/user/me"
@@ -55,14 +59,11 @@ def kakao_get_user_info(request):
         }
         res = requests.get(user_url, headers=HEADER)
         data = json.loads(res.text)
-
         return check_kakao_user(data)
     else:
         data = {
-            "data": {
-                "msg": "카카오 서버 상 문제 발생.",
-                "status": 400
-            }
+            "msg": "카카오 서버 상 문제 발생.",
+            "status": 400
         }
         return Response(data=data, status=status.HTTP_400_BAD_REQUEST)
 
@@ -76,68 +77,72 @@ def check_kakao_user(request):
 def kakao_signup(request):
     try:
         data = {
+            'email': 'ka_' + request['kakao_account']['email'],
             'kakao_id': request['id'],
             'nickname': request['properties']['nickname'],
             'profile_image_url': request['kakao_account']['profile']['profile_image_url'],
         }
+        
         serializer = KaKaoMemberSerializer(data=data)
+        
         if serializer.is_valid(raise_exception=True):
             member = serializer.save()
             member.save()
             return kakao_login(request)
     except:
         data = {
-            "data": {
-                "msg": "카카오 데이터 형식 오류",
-                "status": 400
-            }
+            "msg": "카카오 데이터 형식 오류",
+            "status": 400
         }
         return Response(data=data, status=status.HTTP_400_BAD_REQUEST)        
 
 
 def kakao_login(request):
     member = Member.objects.get(kakao_id=request['id'])
+    member_seq = member.member_seq
     kakao_id = member.kakao_id
     nickname = member.nickname
     profile_image_url = member.profile_image_url
-
-    # 건강 data 존재 여부를 확인하여 추가로 data에 담아서 보내줘야 함 
+    
+    # check if there is user survey data
+    try :
+        isSurvey = MemberSurvey.objects.get(member_seq=member.member_seq)
+        isSurvey = True
+    except:
+        isSurvey = False
     
     try:
-        payload_value = kakao_id
         payload = {
-            "subject": payload_value,
+            "subject": kakao_id,
+            "member_seq": member_seq,
+            "nickname": nickname,
         }
         access_token = generate_token(payload, "access")
         data = {
-            "data": {
-                "user": {
-                    "id": kakao_id,
-                    "nickname": nickname,
-                    "profile_image_url": profile_image_url,
-                },
+            "user": {
+                "member_seq": member_seq,
+                "nickname": nickname,
+                "profile_image_url": profile_image_url,
+                "isSurvey": isSurvey,
                 "access_token": access_token,
-                "status": 200,
-                "msg":'카카오 로그인 성공'                                                      
-            }
+            },
+            "status": 200,
+            "msg":'카카오 로그인 성공'                                                      
+
         }
         return Response(data=data, status=status.HTTP_200_OK)
 
     except Member.DoesNotExist:
         data = {
-            "data": {
-                "msg": "유저 정보가 올바르지 않습니다.",
-                "status": 401
-            }
+            "msg": "유저 정보가 올바르지 않습니다.",
+            "status": 401
         }
         return Response(data=data, status=status.HTTP_401_UNAUTHORIZED)
 
     except Exception as e:
         data = {
-            "data": {
-                "msg": "정상적인 접근이 아닙니다.",
-                "status": 500
-            }
+            "msg": "정상적인 접근이 아닙니다.",
+            "status": 500
         }
         return Response(data=data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
@@ -152,15 +157,15 @@ def check_google_user(request):
     else:
         return google_signup(request)
 
-# 
+
 def google_signup(request):
     try:
         data = {
+            'email': 'go_' + request.data['data']['email'],
             'google_id': request.data['data']['googleId'],
             'nickname': request.data['data']['name'],
             'profile_image_url': request.data['data']['imageUrl'],
         }
-
         serializer = GoogleMemberSerializer(data=data)
 
         if serializer.is_valid(raise_exception=True):
@@ -169,46 +174,294 @@ def google_signup(request):
             return google_login(request)
 
     except:
-        print(3)
         data = {
-            "data": {
-                "msg": "구글 데이터 형식 오류",
-                "status": 400
-            }
+
+            "msg": "구글 데이터 형식 오류",
+            "status": 400
+
         }
         return Response(data=data, status=status.HTTP_400_BAD_REQUEST)        
 
 
 def google_login(request):
-    # 건강 data 존재 여부를 확인하여 추가로 data에 담아서 보내줘야 함 
-    # isSurvey
+    token = request.data['data']['access_token']
+    member = decode_token(token)
+    
+    # check if there is user survey data
+    try :
+        isSurvey = MemberSurvey.objects.get(member_seq=member.member_seq)
+        isSurvey = True
+    except:
+        isSurvey = False
+
     try:
         data = {
-            "data": {
-                "user": {
-                "isSurvey": True,
-                "status": 200,
-                "msg":'구글 로그인 성공'                                                      
-            }
-        }}
+            "user": {
+                "member_seq": member.member_seq,
+                "isSurvey": isSurvey,
+            },
+            "status": 200,
+            "msg":'구글 로그인 성공'                                                      
+        }
         return Response(data=data, status=status.HTTP_200_OK)
 
     except Member.DoesNotExist:
         data = {
-            "data": {
-                "msg": "유저 정보가 올바르지 않습니다.",
-                "status": 401
-            }
+            "msg": "유저 정보가 올바르지 않습니다.",
+            "status": 401
         }
         return Response(data=data, status=status.HTTP_401_UNAUTHORIZED)
 
     except Exception as e:
         data = {
-            "data": {
-                "msg": "정상적인 접근이 아닙니다.",
-                "status": 500
-            }
+            "msg": "정상적인 접근이 아닙니다.",
+            "status": 500
         }
         return Response(data=data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+# Member - (nickname, profile_image)
+@permission_classes([])
+class MemberInfo(APIView):
+   
+    def get_member(self, pk, token):
+        try:
+            found_user = Member.objects.get(member_seq=pk)
+            jwt_member = decode_token(token)
+            if jwt_member == None or pk != jwt_member.member_seq: return None
+            return found_user
+        except Member.DoesNotExist:
+            return None
+
+
+    def get(self, request, pk, format=None):
+        # get jwt token from header
+        token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        member = self.get_member(pk, token.strip('"'))
+
+        if member is None:
+            data = {
+                "msg": "존재하지 않는 유저입니다.",
+                "status": 404,
+            }
+            return Response(data=data, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = MemberInfoSerializer(member)
+        return Response(data=serializer.data, status=status.HTTP_200_OK) 
+        
+
+    def patch(self, request, pk, format=None):
+        token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        found_user = self.get_member(pk, token)
+        member = decode_token(token.strip('"'))
+
+        if found_user is None or pk != member.member_seq:
+            data = {
+                "msg": "유저 정보가 올바르지 않습니다.",
+                "satus": 401
+            }
+            return Response(data=data, status=status.HTTP_401_UNAUTHORIZED)
+        
+        else:
+            serializer = MemberInfoSerializer(found_user, data=request.data, partial=True)
+
+            if serializer.is_valid():
+                serializer.save()
+                return Response(data=serializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@permission_classes([])
+class MemberSurveyProfile(APIView):
+    
+    def get_member_survey(self, pk, token):
+        try:
+            get_member = Member.objects.get(pk=pk)
+            jwt_member = decode_token(token)
+            if jwt_member == None or pk!= jwt_member.member_seq: return None
+            return get_member
+
+        except:
+            return None
+
+
+    # get user survey
+    def get(self, request, pk):
+        token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        member = self.get_member_survey(pk, token.strip('"'))
+        member_survey = MemberSurvey.objects.get(pk=pk)
+
+        if member is None:
+            data = {
+                "msg": "유저 정보가 올바르지 않습니다.",
+                "satus": 401
+            }
+            return Response(data=data, status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            serializer = MemberSurveySimpleSerializer(member_survey)
+            data = serializer.data
+            return Response(data=data,status=status.HTTP_200_OK)
+        
+
+
+    # crete member survey
+    def post(self, request, pk):
+        member_survey = request.data
+        member_survey['ingredient_keywords'] = str(member_survey['liked_ingredient'])
+        token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        member = self.get_member_survey(pk, token)
+
+        if member is None:
+            data = {
+                "msg": "유저 정보가 올바르지 않습니다.",
+                "satus": 401
+            }
+            return Response(data=data, status=status.HTTP_401_UNAUTHORIZED)
+        
+
+        else: 
+            # get ingredient seq 
+            liked_ingredient = get_ingredient_list(member_survey['liked_ingredients'])
+            serializer = MemberSurveySerializer(data=member_survey)
+
+            # Create a member survey from the above data
+            if serializer.is_valid(raise_exception=True):
+                serializer.save(member_seq=Member.objects.get(member_seq=pk),
+                liked_ingredients=Ingredient.objects.filter(ingredient_seq__in=liked_ingredient),
+                allergy=Allergy.objects.filter(allergy_seq__in=member_survey['allergy']))
+                data =  {
+                        "msg": "유저 설문 저장 성공",
+                        "status": 201,
+                }
+                return Response(data=data, status=status.HTTP_201_CREATED)
+            else:
+                data = {
+                        "msg" : "올바르지 않은 유저 설문 형식입니다.",
+                        "status": 400,
+                }
+                return Response(data=data, status=status.HTTP_400_BAD_REQUEST)
+
+    # update member suvey 
+    def patch(self, request, pk):
+        token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        member = self.get_member_survey(pk, token)
+        member_survey = request.data
+
+        if member is None:
+            data = {
+                    "msg": "유저 정보가 올바르지 않습니다.",
+                    "satus": 401
+            }
+            return Response(data=data, status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            # ingredient filter
+            liked_ingredient = []
+            if 'liked_ingredients' in member_survey.keys():
+                member_survey['ingredient_keywords'] = str(member_survey['liked_ingredients'])
+                liked_ingredient = get_ingredient_list(member_survey['liked_ingredients'])
+
+            
+            member_survey_object = MemberSurvey.objects.get(member_seq=pk)
+            serializer = MemberSurveySerializer(member_survey_object, data=member_survey, partial=True)
+            
+            try: 
+                if serializer.is_valid(raise_exception=True):
+                    if 'liked_ingredients' in member_survey.keys():
+                        serializer.save(liked_ingredients=Ingredient.objects.filter(ingredient_seq__in=liked_ingredient))
+                        data = {
+                            "msg": "유저 설문 수정 성공",
+                            "status": 201,
+                        }
+                        return Response(data=data, status=status.HTTP_201_CREATED)
+                    elif 'allergy' in member_survey.keys():
+                        serializer.save(allergy=Allergy.objects.filter(allergy_seq__in=member_survey['allergy']))
+                        data = {
+                            "msg": "유저 설문 수정 성공",
+                            "status": 201,
+                        }
+                        return Response(data=data, status=status.HTTP_201_CREATED)
+                    else:
+                        serializer.save()
+                        data = {
+                            "msg": "유저 설문 수정 성공",
+                            "status": 201,
+                        }
+                        return Response(data=data, status=status.HTTP_201_CREATED)
+            except:
+                    return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class MemberProfilePage(APIView):
+    
+    def get(self, request, pk, format=None):
+        token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        # check jwt token valid
+        try:            
+            get_member = Member.objects.get(pk=pk)
+            jwt_member = decode_token(token)
+            if jwt_member == None or pk!= jwt_member.member_seq: 
+                member_valid = None
+            member_valid = get_member
+        except:
+            member_valid = None
+
+
+        member = Member.objects.get(pk=pk)
+
+        if member_valid == member:
+
+            # get member 
+            member_survey = MemberSurvey.objects.get(pk=pk)
+
+            # get member_survey
+            member_serializer = MemberInfoSerializer(member)
+            member_survey_serializer = MemberSurveySimpleSerializer(member_survey)
+            
+            # get_member_liked_recipe
+            liked_recipe_serilizer_all = RecipeListSerializer(member.liked_recipes.all(), many=True)
+            liked_recipe_serilizer = liked_recipe_serilizer_all.data[-3:]
+            for recipe in liked_recipe_serilizer:
+                recipe['images'] = json.loads(recipe['images'])[0]
+
+
+            # get_member_review
+            review = Review.objects.filter(member=member)
+            review_serializer_all = ReviewListSerializer(review, many=True)
+
+            data = {
+                "member": member_serializer.data,
+                "member_survey":member_survey_serializer.data,
+                "liked_recipe": liked_recipe_serilizer,
+                "review": review_serializer_all.data[-3:]
+            }
+            return Response(data=data,status=status.HTTP_200_OK)
+        else:
+            data = {
+                "msg" : "존재하지 않는 유저입니다.",
+                "status": 404,
+            }
+            return Response(data=data, status=status.HTTP_404_NOT_FOUND)
+
+class MemberReviewList(APIView, LimitOffsetPagination):
+
+    def get(self, request, pk, format=None):
+        token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        # check jwt token valid
+        try:
+            get_member = Member.objects.get(pk=pk)
+            jwt_member = decode_token(token.strip('"'))
+            if jwt_member == None or pk!= jwt_member.member_seq: 
+                member_valid = None
+            member_valid = get_member
+        except:
+            member_valid = None
+        member = Member.objects.get(pk=pk)
+
+        if member_valid == member:
+        # get_member_review
+            review = Review.objects.filter(member=member)
+            review_serializer_all = ReviewListSerializer(review, many=True)
+            
+
+        

@@ -1,12 +1,23 @@
 import axios from 'axios';
 
-const instance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+
+export const instance = axios.create({
+  baseURL: process.env.REACT_APP_URL,
   headers: {
     'Content-type': 'application/json',
-    // For Spring Boot back-end
-    //// Authorization: 'Bearer ' + user.accessToken,
+    Authorization: `Bearer ${
+      localStorage.getItem("access_token")
+    }`,
   },
 });
 
-export default instance;
+
+export const fileInstance = axios.create({
+  baseURL: process.env.REACT_APP_URL,
+  headers: {
+    'Content-Type': 'multipart/form-data',
+    Authorization: `Bearer ${
+      localStorage.getItem("access_token")
+    }`,
+  },
+})

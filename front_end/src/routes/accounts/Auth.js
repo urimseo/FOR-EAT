@@ -15,26 +15,30 @@ const Auth = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const result = await kakaoLogin(loginCode);
-
-      if (result.data.status === 200) {
-        try {
-          setIsLoginState(true);
-          navigate("/recommend");
+      await kakaoLogin(loginCode)
+      .then((res) => 
+        {
+          if (res) {
+          setIsLoginState(true)
+          navigate("/category")
+          }
+          else {
+            alert("로그인에 실패했습니다.")
+            navigate("/")
+          }
         }
-        catch {
-          window.location.reload();
-        }
-      } else {
-        alert("로그인 정보를 확인해주세요.");
+      ).catch((err) => {
+        alert("로그인에 실패했습니다.")
+        navigate("/")
       }
+      );
     }
     fetchData();
-  }, [setIsLoginState, loginCode]); 
+  }, []); 
 
   return (
-    <div>
-    </div>
+    <>
+    </>
   );
 };
 
