@@ -36,9 +36,9 @@ class MemberSurveySerializer(serializers.ModelSerializer):
     
     # member_seq = MemberSurvey(read_only=True)
 
-class MemberProfileSerializer(serializers.ModelSerializer):
+class MemberSurveySimpleSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = Member
-        fields = '__all__'
-        depth = 2
+        model = MemberSurvey
+        exclude=('member_seq', 'liked_ingredients')
+        depth = 1
