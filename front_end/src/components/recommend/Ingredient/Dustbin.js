@@ -1,5 +1,8 @@
 import { useDrop } from 'react-dnd';
 import { ItemTypes } from './ItemTypes';
+import React, { useState } from 'react';
+import Test from 'components/recommend/Ingredient/IngredientInDustbin'
+import styled from 'styled-components';
 
 
 const style = {
@@ -15,10 +18,33 @@ const style = {
     float: 'left',
 };
 
-const Dustbin = () => {
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
+const DustbinContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-top: 10rem;
+`
+
+const FoodContainer = styled.div`
+    display: flex;
+    margin: 2rem 0 2rem 0;
+    padding: 0 9rem;
+`
+
+
+
+const Dustbin = React.memo(function Dustbin() {
+    const [foods, setFood] = useState([]);
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
         accept: ItemTypes.BOX,
-        drop: () => ({ name: 'Dustbin' }),
+        drop: (accept) => (
+            setFood(foods => [...foods, accept])
+        ),
         collect: (monitor) => ({
             isOver: monitor.isOver(),
             canDrop: monitor.canDrop(),
@@ -32,9 +58,20 @@ const Dustbin = () => {
     else if (canDrop) {
         backgroundColor = 'darkkhaki';
     }
-    return (<div ref={drop} role={'Dustbin'} style={{ ...style, backgroundColor }}>
-			{isActive ? 'Release to drop' : 'Drag a box here'}
-		</div>);
-};
+    return (
+        <>
+        <Container>
+          <DustbinContainer>
+            <div ref={drop} role={'Dustbin'} style={{ ...style, backgroundColor }}>
+                {isActive ? 'Release to drop' : 'Drag a box here'}
+            </div>
+          </DustbinContainer>
+          <FoodContainer>
+            <Test foods={foods} />
+          </FoodContainer>  
+        </Container>
+        </>
+    );
+});
 
-export default Dustbin;
+export default React.memo(Dustbin);
