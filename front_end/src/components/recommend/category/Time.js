@@ -20,7 +20,7 @@ const TimeButton = styled.button`
 
 const CardContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   flex-flow: wrap;
 `
 
@@ -161,7 +161,6 @@ const Time = forwardRef((props, ref) => {
             recipeImg={Recipe.images}
             recipeName={Recipe.name}
             recipeKeywords={(Recipe.keywords.length > 1 ? [Recipe.keywords[0].keyword_name, Recipe.keywords[1].keyword_name] : Recipe.keywords[0].keyword_name)}
-            // recipeCategory={recipe.summary}
             recipeCalorie={Recipe.calories}
           />
         ))}
