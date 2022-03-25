@@ -1,3 +1,4 @@
+from itertools import count
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.db.models import Avg
@@ -53,14 +54,15 @@ class RecipeList(ListAPIView, LimitOffsetPagination):
         return object_list
 
     def get(self, request, format=None):
-        
         recipes = self.get_queryset()
         results = self.paginate_queryset(recipes)
         serializer = RecipeListSerializer(results, many = True)
+
         for i in serializer.data:
             i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).aggregate(average_rating=Avg('review__ratings')))
             i['images'] = json.loads(i['images'])[0]
-        return Response(serializer.data)
+  
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class RecipeDetail(APIView):
@@ -86,20 +88,26 @@ class RecipeDetail(APIView):
 class ReviewList(APIView, LimitOffsetPagination):
     def get_object(self, pk):
         try:
+            print(Recipe.objects.get(recipe_seq=pk))
             return Review.objects.filter(recipe=Recipe.objects.get(recipe_seq=pk))
         except Review.DoesNotExist:
             raise Http404
 
     def get(self, request, pk, format=None):
         reviews = self.get_object(pk)[::-1]
+        count = len(reviews)
         results = self.paginate_queryset(reviews, request)
-        serilizer = ReviewListSerializer(results, many=True)
-        return Response(serilizer.data)
+        serializer = ReviewListSerializer(results, many=True)
+
+        response_data = dict()
+        response_data.update({'data':serializer.data})
+        response_data.update({'count':count})
+        return Response(response_data, status=status.HTTP_200_OK)
 
     def post(self, request, pk, format=None):
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
         member = decode_token(token.strip('"'))
-        # member = Member.objects.get(member_seq=1)
+        # member = Member.objects.get(member_seq=3)
         if Review.objects.filter(member=member, recipe=pk):
             data = {
                     "msg": "이미 리뷰를 작성한 회원입니다",
@@ -222,12 +230,17 @@ class Search(APIView, LimitOffsetPagination):
                 pass
         else:
             object_list = Recipe.objects.all()
+        count = len(object_list)
         results = self.paginate_queryset(object_list, request)
         serializer = RecipeListSerializer(results, many=True)
         for i in serializer.data:
             i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).aggregate(average_rating=Avg('review__ratings')))
             i['images'] = json.loads(i['images'])[0]
-        return Response(serializer.data)
+
+        response_data = dict()
+        response_data.update({'data':serializer.data})
+        response_data.update({'count':count})
+        return Response(response_data)
     
 with open('recipes/references/recipe_ingredient_choice.json') as ric:
     choice = json.load(ric)
@@ -247,9 +260,12 @@ class IngredientChoice(ListAPIView, LimitOffsetPagination):
                     "status": 404
                 }
                 return Response(data=data, status=status.HTTP_404_NOT_FOUND) 
+
         results = self.paginate_queryset(temp)
         serializer = IngredientChoiceListSerializer(results, many=True)
+
         for i in serializer.data:
             i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).aggregate(average_rating=Avg('review__ratings')))
             i['images'] = json.loads(i['images'])[0]
+
         return Response(serializer.data, status=status.HTTP_200_OK)
