@@ -26,8 +26,9 @@ const TextContainer = styled.div`
   width: 30rem;
   height: 15rem;
   .calorie {
-    margin: 1.5rem 0 0 0;
+    margin: 1.5rem 0 1rem 0;
     font-size: 1.5rem;
+    font-weight: 300;
     color: #949191;
   }
   .title {
@@ -58,11 +59,11 @@ const IngredientResultCard = ({recipeSeq, recipeImage, recipeName, recipeCalorie
           <Img src={recipeImage} />
         </ImgWrapper>
         <TextContainer>
-          <div className='calorie'>{recipeCalorie}Kcal</div>
-            <div className='title'>{recipeName}</div>
-            <ul>{recipeIngredients.map((ingredient, index) =>
-              <div className='ingredient' key={index}>{ingredient.ingredient_name}, </div>)}
-            </ul>
+        <div className='title'>{recipeName}</div>
+        <div className='calorie'>{recipeCalorie}Kcal</div>
+          <ul>{recipeIngredients.map((ingredient, index) =>
+            <div className='ingredient' key={index}>{index <= 8 ? ingredient.ingredient_name : null}{index > 7 || index === recipeIngredients.length-1 ? null : ","}</div>)}
+          </ul>
         </TextContainer>
       </Container>
     </Link>
