@@ -43,7 +43,7 @@ const RecipeDetail = () => {
   useEffect(() => {
     getRecipeDetail(recipeId).then((res) => {
       setRecipe(res)
-      console.log(res)
+      // console.log(res)
     })
     .catch((err) => {
       console.log(err)

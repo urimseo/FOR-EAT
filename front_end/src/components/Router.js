@@ -29,7 +29,7 @@ const AppRouter = () => {
             <Route path="/category" element={<Category />} />
             <Route path="/ingredient" element={<Ingredient />} />
             <Route path="/search/ingredient" element={<IngredientResult />} />
-            <Route path="/search/title" element={<Search />} />
+            <Route path="/recipes/search" element={<Search />} />
             <Route path="/members/kakao/login" element={<Auth />} />
             <Route path="/recipes/:recipe_seq" element={<RecipeDetail />} />
             <Route path="/mypage" element={<MyPage />} />
