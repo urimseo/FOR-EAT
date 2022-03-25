@@ -118,6 +118,7 @@ def kakao_login(request):
             "nickname": nickname,
         }
         access_token = generate_token(payload, "access")
+        print(access_token)
         data = {
             "user": {
                 "member_seq": member_seq,
@@ -227,7 +228,7 @@ class MemberInfo(APIView):
     def get_member(self, pk, token):
         try:
             found_user = Member.objects.get(member_seq=pk)
-            jwt_member = decode_token(token)
+            jwt_member = decode_token(token.strip('"'))
             if jwt_member == None or pk != jwt_member.member_seq: return None
             return found_user
         except Member.DoesNotExist:
@@ -237,7 +238,7 @@ class MemberInfo(APIView):
     def get(self, request, pk, format=None):
         # get jwt token from header
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
-        member = self.get_member(pk, token.strip('"'))
+        member = self.get_member(pk, token)
 
         if member is None:
             data = {
@@ -253,7 +254,7 @@ class MemberInfo(APIView):
     def patch(self, request, pk, format=None):
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
         found_user = self.get_member(pk, token)
-        member = decode_token(token.strip('"'))
+        member = decode_token(token)
 
         if found_user is None or pk != member.member_seq:
             data = {
@@ -278,7 +279,7 @@ class MemberSurveyProfile(APIView):
     def get_member_survey(self, pk, token):
         try:
             get_member = Member.objects.get(pk=pk)
-            jwt_member = decode_token(token)
+            jwt_member = decode_token(token.strip('"'))
             if jwt_member == None or pk!= jwt_member.member_seq: return None
             return get_member
 
@@ -289,7 +290,7 @@ class MemberSurveyProfile(APIView):
     # get user survey
     def get(self, request, pk):
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
-        member = self.get_member_survey(pk, token.strip('"'))
+        member = self.get_member_survey(pk, token)
         member_survey = MemberSurvey.objects.get(pk=pk)
 
         if member is None:
@@ -399,24 +400,26 @@ class MemberProfilePage(APIView):
         # check jwt token valid
         try:            
             get_member = Member.objects.get(pk=pk)
-            jwt_member = decode_token(token)
+            jwt_member = decode_token(token.strip('"'))
             if jwt_member == None or pk!= jwt_member.member_seq: 
                 member_valid = None
             member_valid = get_member
         except:
             member_valid = None
 
-
         member = Member.objects.get(pk=pk)
-
-        if member_valid == member:
-
+        if member_valid != None or member_valid == member:
+            
             # get member 
-            member_survey = MemberSurvey.objects.get(pk=pk)
+            member_serializer = MemberInfoSerializer(member).data
+            member_serializer['email'] = member_serializer['email'][3:]
 
             # get member_survey
-            member_serializer = MemberInfoSerializer(member)
-            member_survey_serializer = MemberSurveySimpleSerializer(member_survey)
+            try:
+                member_survey = MemberSurvey.objects.get(pk=pk)
+                member_survey_serializer = MemberSurveySimpleSerializer(member_survey)
+            except:
+                member_survey_serializer = None
             
             # get_member_liked_recipe
             liked_recipe_serilizer_all = RecipeListSerializer(member.liked_recipes.all(), many=True)
@@ -430,8 +433,8 @@ class MemberProfilePage(APIView):
             review_serializer_all = ReviewListSerializer(review, many=True)
 
             data = {
-                "member": member_serializer.data,
-                "member_survey":member_survey_serializer.data,
+                "member": member_serializer,
+                "member_survey":member_survey_serializer,
                 "liked_recipe": liked_recipe_serilizer,
                 "review": review_serializer_all.data[-3:]
             }
@@ -442,6 +445,8 @@ class MemberProfilePage(APIView):
                 "status": 404,
             }
             return Response(data=data, status=status.HTTP_404_NOT_FOUND)
+
+
 
 class MemberReviewList(APIView, LimitOffsetPagination):
 
