@@ -2,6 +2,8 @@ import { useDrop } from 'react-dnd';
 import { ItemTypes } from './ItemTypes';
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { getRecipeList } from 'api/IngredientApi';
+import { useNavigate } from 'react-router-dom';
 
 
 const style = {
@@ -55,7 +57,9 @@ const FoodButton = styled.button`
 
 
 const Dustbin = React.memo(function Dustbin() {
+    const navigate = useNavigate();
     const [foods, setFood] = useState([]);
+
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
         accept: ItemTypes.BOX,
         drop: (accept) => (
@@ -66,6 +70,7 @@ const Dustbin = React.memo(function Dustbin() {
             canDrop: monitor.canDrop(),
         }),
     }));
+    
     const isActive = canDrop && isOver;
 
     let backgroundColor = '#222';
@@ -78,6 +83,13 @@ const Dustbin = React.memo(function Dustbin() {
 
     const deleteFood = (food) => {
         setFood(foods.filter(item => item.title !== food.title));
+    }
+
+    const getResult = async (ingredient) => {
+        const result = await getRecipeList(ingredient);
+        if (result) {
+            navigate('/search/ingredient', { state: [result, foodsUnique]})
+        } 
     }
 
     const foodsUnique = foods.filter((value, idx) => {
@@ -96,6 +108,7 @@ const Dustbin = React.memo(function Dustbin() {
             {foodsUnique.map((food, index) => (
               <FoodButton key={index} onClick={()=>{deleteFood(food)}}>{food.title}</FoodButton>
             ))}
+            <FoodButton onClick={()=>getResult(foodsUnique)}>Mix</FoodButton>
           </FoodContainer>  
         </Container>
         </>
