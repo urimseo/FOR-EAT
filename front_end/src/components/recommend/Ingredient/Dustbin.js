@@ -2,7 +2,7 @@ import { useDrop } from 'react-dnd';
 import { ItemTypes } from './ItemTypes';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { getRecipeList } from 'api/IngredientApi';
+import { getIngredientRecipeList } from 'api/IngredientApi';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -86,10 +86,12 @@ const Dustbin = React.memo(function Dustbin() {
     }
 
     const getResult = async (ingredient) => {
-        const result = await getRecipeList(ingredient);
-        if (result) {
+        const result = await getIngredientRecipeList(0, ingredient);
+        if (result.length !== 0) {
             navigate('/search/ingredient', { state: [result, foodsUnique]})
-        } 
+        } else {
+            alert("레시피 결과가 존재하지 않습니다. 다시 조합해보세요!")
+        }
     }
 
     const foodsUnique = foods.filter((value, idx) => {

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import egg from "assets/img/IngredientItem/egg.PNG"
 import bacon from "assets/img/IngredientItem/bacon.jpg"
 import beef from "assets/img/IngredientItem/beef.jpg"
-import bread from "assets/img/IngredientItem/bread.PNG"
+import rice from "assets/img/IngredientItem/rice.jpg"
 import carrot from "assets/img/IngredientItem/carrot.PNG"
 import cheese from "assets/img/IngredientItem/cheese.jpg"
 import chicken from "assets/img/IngredientItem/chicken.jpg"
@@ -64,7 +64,7 @@ export const IngredientItem = memo(function IngredientItem() {
             <Box src={cheese} title="cheese"/>
             <Box src={flour} title="flour"/>
             <Box src={noodle} title="noodle"/>
-            <Box src={bread} title="bread"/>
+            <Box src={rice} title="rice"/>
             <Box src={chocolate} title="chocolate"/>
           </IngredientContainer>
         </Container>
