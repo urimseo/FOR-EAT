@@ -1,8 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import styled from "styled-components";
-import PropTypes from "prop-types";
-// import { Link } from 'react-router-dom';
-import Ingredient_egg from "assets/img/Ingredient_egg.jpg";
+import Rating from '@mui/material/Rating';
 
 const Container = styled.div`
   display: flex;
@@ -52,11 +52,11 @@ const TextContainer = styled.div`
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
   }
-  .category {
+  .keywords {
     font-size: 0.87rem;
     font-weight: 500;
   }
-  .calorie {
+  .calories {
     font-size: 0.87rem;
     font-weight: 300;
   }
@@ -71,18 +71,14 @@ const BorderLine = styled.div`
 const SpaceBetweenContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `
 
-
-const SearchCard = () => {
-  //{ index, recipeImg, recipeName, recipeCalorie, recipeSeq }
-  const recipeImg = Ingredient_egg
-  const recipeName = "salmon bruschetta"
-  const recipeCalorie = 128
-  const index = 0
+const SearchCard = ({ key, recipeImg, recipeName, recipeCalorie, recipeSeq, ratings, keywords }) => {
+  
     return (
       <Container>
-        {/* <Link to={`/recipes/${recipeSeq}`} style={{color: 'black', textDecoration : "none"}}> */}
+        <Link to={`/recipes/${recipeSeq}`} style={{color: 'black', textDecoration : "none"}}>
           <CardItem>
             <ImgWrapper>
               <Img src={recipeImg} />
@@ -91,24 +87,18 @@ const SearchCard = () => {
               <div className='title'>{recipeName}</div>
               <BorderLine />
               <SpaceBetweenContainer>
-                <div className='category'>CATEGORY</div>
-                <div className='calorie'>{Math.round(recipeCalorie)} Kcal</div>
+                {/* <div className='keywords'>{(keywords ? keywords[0] : "")}</div> */}
+                <div className='calories'>{Math.round(recipeCalorie)} Kcal</div>
+                <Rating name="read-only" value={ratings} readOnly  size="small" />
               </SpaceBetweenContainer>
             </TextContainer>
           </CardItem>
-        {/* </Link> */}
+        </Link>
         {/* { (index+1)%4 === 0 ? null : <Line /> } */}
       </Container>
   );
 };
 
-
-SearchCard.propTypes = {
-  index: PropTypes.number.isRequired,
-  recipeImg: PropTypes.string.isRequired,
-  recipeName: PropTypes.string.isRequired,
-  recipeCalorie: PropTypes.number.isRequired,
-};
 
 
 export default SearchCard
