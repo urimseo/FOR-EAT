@@ -59,6 +59,7 @@ const FoodButton = styled.button`
 const Dustbin = React.memo(function Dustbin() {
     const navigate = useNavigate();
     const [foods, setFood] = useState([]);
+
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
         accept: ItemTypes.BOX,
         drop: (accept) => (
@@ -69,6 +70,7 @@ const Dustbin = React.memo(function Dustbin() {
             canDrop: monitor.canDrop(),
         }),
     }));
+    
     const isActive = canDrop && isOver;
 
     let backgroundColor = '#222';

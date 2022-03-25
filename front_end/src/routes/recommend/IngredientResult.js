@@ -12,8 +12,8 @@ const Container = styled.div`
 `
 const IngredientResult = () => {
   const location = useLocation();
-
   console.log(location.state)
+  
   return (
     <Container>
         <IngredientResultCard />
