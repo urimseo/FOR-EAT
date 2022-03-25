@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
+
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -15,7 +16,6 @@ const ImgWrapper = styled.div`
 `
 
 const Img = styled.img`
-  display: block;
   width: 100%;
   height: 17rem;
   object-fit: cover;
@@ -49,28 +49,30 @@ const TextContainer = styled.div`
   }
 `
 
-const IngredientResultCard = ({recipeSeq, recipeImage, recipeName, recipeCalorie, recipeIngredients}) => {
 
+const IngredientResultCardRight = ({recipeSeq, recipeImage, recipeName, recipeCalorie, recipeIngredients}) => {
   return (
     <Link to={`/recipes/${recipeSeq}`} style={{color: 'black', textDecoration : "none"}}>
       <Container>
-        <ImgWrapper>
-          <Img src={recipeImage} />
-        </ImgWrapper>
         <TextContainer>
           <div className='calorie'>{recipeCalorie}Kcal</div>
             <div className='title'>{recipeName}</div>
-            <ul>{recipeIngredients.map((ingredient, index) =>
-              <div className='ingredient' key={index}>{ingredient.ingredient_name}, </div>)}
-            </ul>
+          <ul>{recipeIngredients.map((ingredient, index) =>
+            <div className='ingredient' key={index}>{ingredient.ingredient_name}, </div>)}
+          </ul>
+          <Link to="" 
+            style={{color: 'black', textDecoration : "none", marginTop: "1rem"}}
+          ></Link>
         </TextContainer>
+        <ImgWrapper>
+          <Img src={recipeImage} />
+        </ImgWrapper>
       </Container>
     </Link>
   );
 };
 
-
-IngredientResultCard.propTypes = {
+IngredientResultCardRight.propTypes = {
   recipeSeq: PropTypes.number.isRequired,
   recipeImage: PropTypes.string.isRequired,
   recipeName: PropTypes.string.isRequired,
@@ -78,5 +80,4 @@ IngredientResultCard.propTypes = {
   recipeIngredients: PropTypes.array.isRequired,
 };
 
-
-export default IngredientResultCard;
+export default IngredientResultCardRight;

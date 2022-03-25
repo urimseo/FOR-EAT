@@ -29,6 +29,7 @@
     "react-scripts": "5.0.0",
     "react-toastify": "^8.2.0",
     "recoil": "^0.6.1",
+    "recoil-persist": "^4.1.0",
     "styled-components": "^5.3.3",
     "styled-reset": "^4.3.4",
     "web-vitals": "^2.1.4"

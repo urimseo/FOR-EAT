@@ -1,4 +1,7 @@
 import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist'
+
+const { persistAtom } = recoilPersist()
 
 /* Sample code */
 // export const sampleState = atom({
@@ -13,10 +16,12 @@ Atom : 상태. 해당 아톰을 참고하고 있는 컴포넌트를 리렌더링
 export const userInfoState = atom({
   key: 'userInfoState',
   default: [],
+  effects_UNSTABLE: [persistAtom],
 });
 
 
 export const isLoginState = atom({
   key: 'isLoginState',
   default: false,
+  effects_UNSTABLE: [persistAtom],
 });
