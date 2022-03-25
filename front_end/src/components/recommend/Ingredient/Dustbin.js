@@ -86,7 +86,8 @@ const Dustbin = React.memo(function Dustbin() {
     }
 
     const getResult = async (ingredient) => {
-        const result = await getIngredientRecipeList(0, ingredient);
+        const result = await getIngredientRecipeList(1, ingredient);
+
         if (result.length !== 0) {
             navigate('/search/ingredient', { state: [result, foodsUnique]})
         } else {
