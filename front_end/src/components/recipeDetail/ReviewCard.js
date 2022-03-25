@@ -15,6 +15,7 @@ const CardContainer = styled.div`
   background-color: #F2F2F2;
   padding: 2.5rem;
   display: flex;
+  width: 70%;
 `
 
 const FlexContainer = styled.div`
@@ -23,13 +24,13 @@ const FlexContainer = styled.div`
 `
 
 const ImgWrapper = styled.div`
-  width: 50%;
+  width: 30%;
   overflow: hidden; 
   background-position: center;
 `
 
 const ProfileImgWrapper = styled.div`
-  width: 20rem;
+  width: 7rem;
   overflow: hidden;
   background-position: center;
 `
@@ -85,7 +86,7 @@ const ReviewCard = ({ key, reviewId, memberName, imgUrl, content, ratings, lastM
         <CardContainer>
           <FlexContainer>
             <ProfileImgWrapper>
-              <ProfileImg src={imgUrl} alt="" />
+              <ProfileImg src={profileImg} alt="" />
             </ProfileImgWrapper>
             <TextContainer>
               <Name>
@@ -102,7 +103,8 @@ const ReviewCard = ({ key, reviewId, memberName, imgUrl, content, ratings, lastM
           </FlexContainer>
         </CardContainer>
         <ImgWrapper>
-          <Img src={img} alt="이미지를 찾을 수 없습니다." />
+          {/* <Img src={imgUrl} alt="이미지를 찾을 수 없습니다." /> */}
+          <Img src={profileImg} alt="이미지를 찾을 수 없습니다." />
         </ImgWrapper>
       </Container>
   );

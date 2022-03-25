@@ -1,6 +1,4 @@
 import React, { useState, useRef } from "react";
-import { useForm } from "react-hook-form";
-import axios from "axios";
 import styled from "styled-components";
 import Rating from '@mui/material/Rating';
 
@@ -95,12 +93,6 @@ const ReviewForm = ({ recipeId }) => {
   const [ content, setContent ] = useState();
   const [ image_url, setImageUrl] = useState();
   
-  // const files = event.target.files;
-  // console.log(files);
-  // this.setState({
-  //   selectedFiles: files
-  // });
-  
   const onFileUpload = (event) => { 
     // 파일 이미지 크기 제한해야됨?!
     const file = event.target.files[0]
@@ -115,17 +107,8 @@ const ReviewForm = ({ recipeId }) => {
     formData.append("image", image_url);
     formData.append("content", content);
     formData.append("ratings", ratings);
-    // console.log(formData)
+
     for (let key of formData.keys()) { console.log(key, ":", formData.get(key)); }
-    // await axios({
-    //   method: 'post',
-    //   url: `/recipes/${recipeId}/reviews/`,
-    //   data: formData,
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data',
-    //     'Access-Control-Allow-Credentials': true,
-    //   }
-    // })
     const response = await createReview(recipeId, formData)
     console.log(response)
     
@@ -148,7 +131,8 @@ const ReviewForm = ({ recipeId }) => {
           <InputContent placeholder="WRITE YOUR REVIEW HERE"
             value={content} 
             onChange={
-              (e)=> setContent(e.target.value)
+              // (e)=> setContent(e.target.value)
+              (e) => console.log(e.target.value)
             }/>
           <ButtonContainer>
             <input 
