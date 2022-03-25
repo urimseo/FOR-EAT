@@ -7,8 +7,7 @@ import Pagination from "react-js-pagination";
 import "assets/css/Pagination.css";
 import { getIngredientRecipeList} from "api/IngredientApi"
 import MainImg from "assets/img/IngredientMain.jpg"
-import MainImg2 from "assets/img/IngredientMain2.jpg"
-import MainImg3 from "assets/img/IngredientMain3.jpg"
+
 
 
 const Container = styled.div`
