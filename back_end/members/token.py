@@ -40,5 +40,6 @@ def decode_token(token):
             member = Member.objects.get(member_seq=member_seq)
             return member
         except:
+            print('here')
             return None
     

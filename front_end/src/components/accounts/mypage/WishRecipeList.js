@@ -42,7 +42,7 @@ const WishRecipeList = () => {
         </Top>
         
         <CardContainer>
-          <Card />
+          {/* <Card /> */}
         </CardContainer>
       </Container>
     </>

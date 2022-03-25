@@ -1,4 +1,4 @@
-import instance from '../api/Axios';
+import { instance } from '../api/Axios';
 
 
 export const kakaoLogin = async (code) => {

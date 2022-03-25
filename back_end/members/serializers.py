@@ -20,10 +20,10 @@ class GoogleMemberSerializer(serializers.ModelSerializer):
 
 
 class MemberInfoSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = Member
-        fields = ('nickname', 'profile_image_url',)
+        fields = ('nickname', 'profile_image_url', 'email')
 
 
 class MemberSurveySerializer(serializers.ModelSerializer):

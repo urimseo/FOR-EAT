@@ -90,3 +90,12 @@ class RecipeListSerializer(serializers.ModelSerializer):
         # 리뷰 추가하면 rating field 추가
         fields = ('recipe_seq', 'name', 'calories', 'images', 'keywords', 'ratings')
 
+class IngredientChoiceListSerializer(serializers.ModelSerializer):
+
+    ratings = ReviewSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Recipe
+        # 리뷰 추가하면 rating field 추가
+        fields = ('recipe_seq', 'name', 'calories', 'images', 'ingredients', 'ratings')
+        depth = 1
