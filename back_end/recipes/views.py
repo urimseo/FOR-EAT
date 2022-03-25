@@ -8,8 +8,9 @@ from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.pagination import LimitOffsetPagination
+from recipes import serializers
 
-from recipes.serializers import RecipeSerializer, RecipeListSerializer, ReviewListSerializer, ReviewSerializer
+from recipes.serializers import RecipeSerializer, RecipeListSerializer, ReviewListSerializer, ReviewSerializer, IngredientChoiceListSerializer
 from recipes.storages import FileUpload, s3_client
 from members.token import decode_token
 from recipes.models import Keyword, Recipe, Category, RecipeKeyword,Review
@@ -101,11 +102,9 @@ class ReviewList(APIView, LimitOffsetPagination):
         # member = Member.objects.get(member_seq=1)
         if Review.objects.filter(member=member, recipe=pk):
             data = {
-                "data": {
                     "msg": "이미 리뷰를 작성한 회원입니다",
                     "status": 202
                 }
-            }
             return Response(data=data, status=status.HTTP_202_ACCEPTED)
 
         try:
@@ -140,19 +139,15 @@ class ReviewDetail(APIView):
         if review_writer == member:
             Review.objects.get(id=id).delete()
             data = {
-                "data": {
                     "msg": "리뷰를 삭제했습니다",
                     "status": 200
                 }
-            }
             return Response(data=data, status=status.HTTP_200_OK)
         else:
             data = {
-                "data": {
                     "msg": "리뷰를 작성한 유저가 아닙니다",
                     "status": 403
                 }
-            }
             return Response(data=data, status=status.HTTP_403_FORBIDDEN)
     
     def put(self, request, id, format=None):
@@ -178,11 +173,9 @@ class ReviewDetail(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             data = {
-                "data": {
                     "msg": "리뷰를 작성한 유저가 아닙니다",
                     "status": 403
                 }
-            }
             return Response(data= data, status=status.HTTP_403_FORBIDDEN)
 
 class RecipeLike(APIView):
@@ -195,11 +188,9 @@ class RecipeLike(APIView):
         if recipe.members.filter(member_seq=member.member_seq).exists():
             recipe.members.remove(member)
             data = {
-                "data": {
                     "msg": "찜하기 취소",
                     "status": 202
                 }
-            }
             return Response(data= data, status=status.HTTP_202_ACCEPTED)
         else:
             recipe.members.add(member)
@@ -238,3 +229,27 @@ class Search(APIView, LimitOffsetPagination):
             i['images'] = json.loads(i['images'])[0]
         return Response(serializer.data)
     
+with open('recipes/references/recipe_ingredient_choice.json') as ric:
+    choice = json.load(ric)
+
+class IngredientChoice(ListAPIView, LimitOffsetPagination):
+
+    def post(self, request, format=None):
+        check_list = request.data
+        temp = Recipe.objects.all()
+        for i in check_list:
+            try:
+                # print(choice[i['title']])
+                temp = temp & Recipe.objects.filter(recipe_seq__in=choice[i['title']])
+            except:
+                data = {
+                    "msg": "존재하지 않는 분류입니다",
+                    "status": 404
+                }
+                return Response(data=data, status=status.HTTP_404_NOT_FOUND) 
+        results = self.paginate_queryset(temp)
+        serializer = IngredientChoiceListSerializer(results, many=True)
+        for i in serializer.data:
+            i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).aggregate(average_rating=Avg('review__ratings')))
+            i['images'] = json.loads(i['images'])[0]
+        return Response(serializer.data, status=status.HTTP_200_OK)
