@@ -5,8 +5,7 @@ import Region from "components/recommend/category/Region";
 import Time from "components/recommend/category/Time";
 import Type from "components/recommend/category/Type";
 import Ingredient from "components/recommend/category/Ingredient";
-import UnderLine from "components/commons/Line"
-import SearchInput from 'components/commons/SearchInput';
+import UnderLine from "components/commons/Line";
 import { getRecipeList } from "api/CategoryApi";
 
 
@@ -167,7 +166,6 @@ const Category = () => {
             {typeShow ? <Type ref={childType}/> : null}
             {ingredientShow ? <Ingredient ref={childIngredient}/> : null}
           </div>
-          <SearchInput />
         </SpaceBetweenContainer>
       </Container>
     </>
