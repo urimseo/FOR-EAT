@@ -32,7 +32,7 @@ const AppRouter = () => {
             <Route path="/recipes/search" element={<Search />} />
             <Route path="/members/kakao/login" element={<Auth />} />
             <Route path="/recipes/:recipe_seq" element={<RecipeDetail />} />
-            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/mypage/:member_seq" element={<MyPage />} />
           </Route>
         </Routes>
       </>
