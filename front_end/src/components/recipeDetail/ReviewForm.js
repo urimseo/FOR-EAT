@@ -1,9 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Rating from '@mui/material/Rating';
 
 import profileImg from "assets/img/Ingredient_rosemary.jpg";
-import { createReview } from "api/RecipeDetailApi";
+import { createReview } from "api/ReviewApi";
 
 const Container = styled.div`
   display: flex;
@@ -37,7 +37,7 @@ const InputContent = styled.textarea`
   margin-top: 0.5rem;
   font-family: Work Sans;
   font-size: 1rem;
-  padding: 0.5rem 0 0 0.6rem;
+  padding: 0.5rem 0 0.5rem 0.3rem;
   border: none;
   ::placeholder {
     font-family: Work Sans;
@@ -52,38 +52,39 @@ const InputContent = styled.textarea`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: end;
+  label {
+    border: 1px solid black;
+    border-radius: 3rem;
+    background-color: white;
+    padding: 0.5rem 0.9rem;
+    margin: 0.7rem 0 0 1rem;
+    font-size: 0.8rem;
+    &:hover {
+      border: 1px solid black;
+      background-color: black;
+      color: white;
+      cursor: pointer;
+    }
+  }
+`
+const FileLabel = styled.div`
+  align-self: center;
+  margin: 0.5rem 0 0 0;
+  font-size: 0.8rem;
 `
 
-const InputButton = styled.input`
-  width: 6.7rem;
-  height: 2.3rem;
-  border: 1px solid white;
+const Button = styled.button`
+  border: 1px solid black;
   border-radius: 3rem;
-  box-shadow: 0 0 1px 1px #969696;
   background-color: white;
+  padding: 0.5rem 0.9rem;
   margin: 0.7rem 0 0 1rem;
+  font-size: 0.8rem;
   &:hover {
     border: 1px solid black;
     background-color: black;
     color: white;
     cursor: pointer;
-  }
-`
-
-const Button = styled.div`
-  width: 6.7rem;
-  height: 2.3rem;
-  border: 1px solid white;
-  border-radius: 3rem;
-  box-shadow: 0 0 1px 1px #969696;
-  background-color: white;
-  margin: 0.7rem 0 0 1rem;
-  &:hover {
-    border: 1px solid black;
-    background-color: black;
-    color: white;
-    cursor: pointer;
-  }
 `
 
 
@@ -92,12 +93,13 @@ const ReviewForm = ({ recipeId }) => {
   const [ ratings, setRatings ] = useState();
   const [ content, setContent ] = useState();
   const [ image_url, setImageUrl] = useState();
-  
+  const [ fileName, setFileName ] = useState();
+
   const onFileUpload = (event) => { 
     // 파일 이미지 크기 제한해야됨?!
     const file = event.target.files[0]
-    // console.log(file)
     setImageUrl(file);
+    setFileName(file.name)
   };
   
   const onClickSave = async (event) => {
@@ -116,11 +118,11 @@ const ReviewForm = ({ recipeId }) => {
 
   return (
     <Container>
-      <Form>
+      <Form enctype="multipart/form-data">
         <ImgWrapper>
           <Img src={profileImg} alt="" />
         </ImgWrapper>
-        <div style={{padding: "0.5rem 1rem"}}>
+        <div style={{padding: "0.5rem 0"}}>
           <Rating
             name="simple-controlled"
             value={ratings}
@@ -131,17 +133,22 @@ const ReviewForm = ({ recipeId }) => {
           <InputContent placeholder="WRITE YOUR REVIEW HERE"
             value={content} 
             onChange={
-              // (e)=> setContent(e.target.value)
-              (e) => console.log(e.target.value)
+              (e)=> setContent(e.target.value)
             }/>
           <ButtonContainer>
+          <FileLabel>{ fileName }</FileLabel>
+          <label htmlFor="input-file">
+            UPLOAD
+          </label>
             <input 
               type="file"
-              id="file" 
+              id="input-file" 
               onChange={onFileUpload}
               multiple="multiple"
+              accept="image/jpg, image/png, image/jpeg"
+              style={{display: "none"}}
             />
-            <button onClick={onClickSave}>저장</button>
+            <Button onClick={onClickSave}>SAVE</Button>
           </ButtonContainer>
         </div>
       </Form>
