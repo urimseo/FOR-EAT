@@ -253,7 +253,7 @@ class IngredientChoice(ListAPIView, LimitOffsetPagination):
         for i in check_list:
             try:
                 # print(choice[i['title']])
-                temp = temp & Recipe.objects.filter(recipe_seq__in=choice[i['title']])
+                temp = temp & Recipe.objects.filter(recipe_id__in=choice[i['title']])
             except:
                 data = {
                     "msg": "존재하지 않는 분류입니다",
