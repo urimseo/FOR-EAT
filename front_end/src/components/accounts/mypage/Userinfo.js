@@ -73,11 +73,9 @@ const Email = styled.div`
 
 
 
-const Userinfo = () => {
-  const [image, setImage] = useState();
+const Userinfo = (image, setImage) => {
   const [showNickname, setShowNickname] = useState(true);
   const [saveNickname, setSaveNickname] = useState("test");
-
   const onFileUpload = (e) => {
     console.log("FileUpload")
   };
@@ -103,8 +101,8 @@ const Userinfo = () => {
       <Container>
         <ProfileImage>
           <label htmlFor="file-input">
-            {image ? (
-              <Image src={image} alt="이미지를 찾을 수 없습니다." />
+            {image.image ? (
+              <Image src={image.image} alt="이미지를 찾을 수 없습니다." />
             ) : (
               <Image src={profileImg} alt="이미지를 찾을 수 없습니다." />
             )}
