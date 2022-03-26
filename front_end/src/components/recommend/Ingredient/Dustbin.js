@@ -1,39 +1,109 @@
 import { useDrop } from 'react-dnd';
 import { ItemTypes } from './ItemTypes';
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 import { getIngredientRecipeList } from 'api/IngredientApi';
 import { useNavigate } from 'react-router-dom';
 import mixing from 'assets/img/mixing.png'
 
 
 const style = {
-    height: '22rem',
-    width: '30rem',
-    color: 'white',
-    padding: '1rem',
-    textAlign: 'center',
-    fontSize: '1rem',
-    lineHeight: 'normal',
-    float: 'left',
+  height: '25rem',
+  width: '45rem',
+  color: 'white',
+  padding: '1rem',
+  textAlign: 'center',
+  fontSize: '1rem',
+  lineHeight: 'normal',
+  float: 'left',
 };
 
 
 const Container = styled.div`
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 `
 
 const DustbinContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    margin-top: 10rem;
+  display: flex;
+  justify-content: center;
+  margin-top: 10rem;
+`
+
+
+const BowlContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  .mixing {
+      margin: 2.5rem 0 0 0.5rem;
+  }
+`
+
+const BowlImg = styled.img`
+  width: 5rem;
+  height: 5rem;
+  cursor: pointer;
+  &:hover{
+    opacity: 0.5;
+  }
+`
+
+const firstBall = keyframes`
+  0% {
+    top: 0;
+  }
+  100% {
+    top: 20rem;
+  } 
+`
+
+const secondBall = keyframes`
+  0% {
+    top: -5rem;
+  }
+  100% {
+    top: 14rem;
+  } 
+`
+
+const thirdBall = keyframes`
+  0% {
+    top: -9.5rem;
+  }
+  100% {
+    top: 9.2rem;
+  } 
+`
+
+const Foodimg1 = styled.img`
+  width: 5rem;
+  height: 5rem;
+  border-radius: 55%;
+  position: relative;
+  animation: ${firstBall} 1s ease-in infinite alternate;
+`
+
+const Foodimg2 = styled.img`
+  width: 5rem;
+  height: 5rem;
+  border-radius: 55%;
+  position: relative;
+  animation: ${secondBall} 1s ease-in infinite alternate;
+`
+
+const Foodimg3 = styled.img`
+  width: 5rem;
+  height: 5rem;
+  border-radius: 55%;
+  position: relative;
+  animation: ${thirdBall} 1s ease-in infinite alternate;
 `
 
 const FoodContainer = styled.div`
-    display: flex-wrap;
-    margin: 2rem 0 2rem 0;
-    padding: 0 9rem;
+  display: flex-wrap;
+  margin: 2rem 0 2rem 0;
+  padding: 0 9rem;
+  min-height: 10vh;
 `
 
 const FoodButton = styled.button`
@@ -54,22 +124,6 @@ const FoodButton = styled.button`
   }
 `
 
-const BowlContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  .mixing {
-      margin: 2.5rem 0 0 0.5rem;
-  }
-`
-
-const BowlImg = styled.img`
-  width: 5rem;
-  height: 5rem;
-  cursor: pointer;
-  &:hover{
-    opacity: 0.5;
-  }
-`
 
 
 const Dustbin = React.memo(function Dustbin() {
@@ -78,9 +132,10 @@ const Dustbin = React.memo(function Dustbin() {
 
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
         accept: ItemTypes.BOX,
-        drop: (accept) => (
+        drop: (accept) => {
             setFood(foods => [...foods, accept])
-        ),
+            console.log(foods.length)
+        },
         collect: (monitor) => ({
             isOver: monitor.isOver(),
             canDrop: monitor.canDrop(),
@@ -102,12 +157,15 @@ const Dustbin = React.memo(function Dustbin() {
     }
 
     const getResult = async (ingredient) => {
-        const result = await getIngredientRecipeList(1, ingredient);
-
-        if (result.length !== 0) {
-            navigate('/search/ingredient', { state: [result, foodsUnique]})
+        if (ingredient.length === 0) {
+            alert("Select an ingredient!")
         } else {
-            alert("레시피 결과가 존재하지 않습니다. 다시 조합해보세요!")
+            const result = await getIngredientRecipeList(1, ingredient);
+            if (result.data.length !== 0) {
+                navigate('/search/ingredient', { state: [result, foodsUnique]})
+            } else {
+                alert("No recipe result, choose the ingredients again.")
+            }
         }
     }
 
@@ -123,7 +181,11 @@ const Dustbin = React.memo(function Dustbin() {
             <div ref={drop} role={'Dustbin'} style={{ ...style, backgroundColor }}>
               <div>{isActive ? 'Release to drop' : 'Drag a ingredient here!'}</div>
               {foodsUnique.map((food, index) => (
-                <img key={index} src={food.src} style={{ width: '4rem', height: '4rem', borderRadius: "55%"}} alt={food.title} />
+                (index <= 8 ? 
+                  <Foodimg1 key={index} src={food.src} alt={food.title} /> : ( index <= 17 ?
+                  <Foodimg2 key={index} src={food.src} alt={food.title} /> : <Foodimg3 key={index} src={food.src} alt={food.title} />
+                  )
+                )
               ))}
             </div>
           </DustbinContainer>

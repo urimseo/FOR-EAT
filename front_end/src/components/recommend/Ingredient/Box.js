@@ -17,12 +17,12 @@ const Box = ({ src, title }) =>  {
     const [{ isDragging }, drag] = useDrag(() => ({
         type: ItemTypes.BOX,
         item: { src, title },
-        end: (item, monitor) => {
-            const dropResult = monitor.getDropResult();
-            if (item && dropResult) {
-                alert(`You dropped ${item.title} into Bowl!`);
-            }
-        },
+        // end: (item, monitor) => {
+        //     const dropResult = monitor.getDropResult();
+        //     if (item && dropResult) {
+        //         alert(`You dropped ${item.title} into Bowl!`);
+        //     }
+        // },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
             handlerId: monitor.getHandlerId(),

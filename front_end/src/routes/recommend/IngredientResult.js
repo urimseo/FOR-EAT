@@ -40,7 +40,7 @@ const PageContainer = styled.div`
 
 const IngredientResult = () => {
   const location = useLocation();
-  const recipeList = location.state[0]
+  const recipeList = location.state[0].data
   const recipeIngredient = location.state[1]
   const [list, setRecipeList] = useState([]);
   const [page, setPage] = useState(1); 
@@ -57,7 +57,7 @@ const IngredientResult = () => {
   const getRecipeList = async(page) => {
     const recipeList = await getIngredientRecipeList(page, recipeIngredient);
     if (recipeList) {
-      setRecipeList(recipeList)
+      setRecipeList(recipeList.data)
     }
   }
   return (
@@ -90,7 +90,7 @@ const IngredientResult = () => {
           <Pagination 
             activePage={page} 
             itemsCountPerPage={8} 
-            totalItemsCount={40} 
+            totalItemsCount={location.state[0].count} 
             pageRangeDisplayed={5} 
             prevPageText={"‹"} 
             nextPageText={"›"} 
