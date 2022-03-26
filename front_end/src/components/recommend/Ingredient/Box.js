@@ -16,7 +16,7 @@ const style = {
 const Box = ({ src, title }) =>  {
     const [{ isDragging }, drag] = useDrag(() => ({
         type: ItemTypes.BOX,
-        item: { title },
+        item: { src, title },
         end: (item, monitor) => {
             const dropResult = monitor.getDropResult();
             if (item && dropResult) {
