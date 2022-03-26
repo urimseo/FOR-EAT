@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Rating from '@mui/material/Rating';
-import img from "assets/img/Ingredient_cucumber.jpg";
+
+import { deleteReview } from "api/ReviewApi";
 import profileImg from "assets/img/Landing_1.jpg";
+import iconDelete from "assets/img/icon_delete.png";
 
 const Container = styled.div`
   display: flex;
@@ -22,7 +24,10 @@ const FlexContainer = styled.div`
   display: flex;
   flex-direction: row;
 `
-
+const SpaceBetweenContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
 const ImgWrapper = styled.div`
   width: 30%;
   overflow: hidden; 
@@ -44,9 +49,11 @@ const ProfileImg = styled.img`
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 30rem;
 `
 
 const Name = styled.div`
+  display: flex;
   font-weight: bold;
   font-size: 1.3rem;
   font-weight: 300;
@@ -71,6 +78,14 @@ const Contents = styled.div`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 `
+const Icon = styled.img`
+  width: 1rem;
+  height: 1rem;
+  padding: 0 0.2rem;
+  &:hover {
+    cursor : pointer;
+  }
+`
 
 const Img = styled.img`
   width: 100%;
@@ -78,24 +93,35 @@ const Img = styled.img`
   object-fit: cover;
 `
 
+const ReviewCard = ({ reviewId, memberName, imgUrl, profileImgUrl, content, ratings, lastModifiedDate }) => {
 
+  const onClickDelete = async () => {
+    await deleteReview(reviewId);
+  }
 
-const ReviewCard = ({ key, reviewId, memberName, imgUrl, content, ratings, lastModifiedDate }) => {
   return (
       <Container>
         <CardContainer>
           <FlexContainer>
             <ProfileImgWrapper>
-              <ProfileImg src={profileImg} alt="" />
+              <ProfileImg src={profileImgUrl} alt="" />
             </ProfileImgWrapper>
             <TextContainer>
-              <Name>
-                {memberName}
-              </Name>
+              <SpaceBetweenContainer>
+                <Name>
+                  {memberName}
+                </Name>
+                {  }
+                <FlexContainer >
+                  <Icon src={iconDelete} onClick={onClickDelete}/>
+                </FlexContainer>
+              </SpaceBetweenContainer>
               <Date>
                 {(lastModifiedDate).slice(0, 10)}
               </Date>
-              <Rating name="read-only" value={ratings} readOnly size="small" />
+              <FlexContainer style={{justifyContent: "space-between"}}>
+                <Rating name="read-only" value={ratings} readOnly size="small" />
+              </FlexContainer>
               <Contents>
                 {content}
               </Contents>
@@ -103,8 +129,7 @@ const ReviewCard = ({ key, reviewId, memberName, imgUrl, content, ratings, lastM
           </FlexContainer>
         </CardContainer>
         <ImgWrapper>
-          {/* <Img src={imgUrl} alt="이미지를 찾을 수 없습니다." /> */}
-          <Img src={profileImg} alt="이미지를 찾을 수 없습니다." />
+          <Img src={imgUrl} alt="이미지를 찾을 수 없습니다." />
         </ImgWrapper>
       </Container>
   );
