@@ -260,7 +260,7 @@ class IngredientChoice(ListAPIView, LimitOffsetPagination):
                     "status": 404
                 }
                 return Response(data=data, status=status.HTTP_404_NOT_FOUND) 
-
+        count = len(temp)
         results = self.paginate_queryset(temp)
         serializer = IngredientChoiceListSerializer(results, many=True)
 
@@ -268,4 +268,8 @@ class IngredientChoice(ListAPIView, LimitOffsetPagination):
             i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).aggregate(average_rating=Avg('review__ratings')))
             i['images'] = json.loads(i['images'])[0]
 
+        response_data = dict()
+        response_data.update({'data':serializer.data})
+        response_data.update({'count':count})
+        return Response(response_data)
         return Response(serializer.data, status=status.HTTP_200_OK)
