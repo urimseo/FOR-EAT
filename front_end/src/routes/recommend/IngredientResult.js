@@ -34,7 +34,7 @@ const Title = styled.div`
 `
 
 const PageContainer = styled.div`
-  margin: 2rem 0 7rem 0;
+  margin: 4rem 0 7rem 0;
 `
 
 
@@ -90,7 +90,7 @@ const IngredientResult = () => {
           <Pagination 
             activePage={page} 
             itemsCountPerPage={8} 
-            totalItemsCount={100} 
+            totalItemsCount={40} 
             pageRangeDisplayed={5} 
             prevPageText={"‹"} 
             nextPageText={"›"} 

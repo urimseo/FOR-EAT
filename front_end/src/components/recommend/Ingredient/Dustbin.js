@@ -4,13 +4,12 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { getIngredientRecipeList } from 'api/IngredientApi';
 import { useNavigate } from 'react-router-dom';
+import mixing from 'assets/img/mixing.png'
 
 
 const style = {
-    height: '12rem',
-    width: '12rem',
-    marginRight: '1.5rem',
-    marginBottom: '1.5rem',
+    height: '22rem',
+    width: '30rem',
     color: 'white',
     padding: '1rem',
     textAlign: 'center',
@@ -55,6 +54,23 @@ const FoodButton = styled.button`
   }
 `
 
+const BowlContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  .mixing {
+      margin: 2.5rem 0 0 0.5rem;
+  }
+`
+
+const BowlImg = styled.img`
+  width: 5rem;
+  height: 5rem;
+  cursor: pointer;
+  &:hover{
+    opacity: 0.5;
+  }
+`
+
 
 const Dustbin = React.memo(function Dustbin() {
     const navigate = useNavigate();
@@ -73,12 +89,12 @@ const Dustbin = React.memo(function Dustbin() {
     
     const isActive = canDrop && isOver;
 
-    let backgroundColor = '#222';
+    let backgroundColor = '#ED8141';
     if (isActive) {
         backgroundColor = 'darkgreen';
     }
     else if (canDrop) {
-        backgroundColor = 'darkkhaki';
+        backgroundColor = '#ED8141';
     }
 
     const deleteFood = (food) => {
@@ -99,19 +115,26 @@ const Dustbin = React.memo(function Dustbin() {
         return foods.indexOf(value) === idx; 
     });
 
+
     return (
         <>
         <Container>
           <DustbinContainer>
             <div ref={drop} role={'Dustbin'} style={{ ...style, backgroundColor }}>
-                {isActive ? 'Release to drop' : 'Drag a box here'}
+              <div>{isActive ? 'Release to drop' : 'Drag a ingredient here!'}</div>
+              {foodsUnique.map((food, index) => (
+                <img key={index} src={food.src} style={{ width: '4rem', height: '4rem', borderRadius: "55%"}} alt={food.title} />
+              ))}
             </div>
           </DustbinContainer>
+          <BowlContainer>
+            <BowlImg src={mixing} alt="bowl" onClick={()=>getResult(foodsUnique)} />
+            <div className='mixing'>Let's Mix!</div>
+          </BowlContainer>
           <FoodContainer>
             {foodsUnique.map((food, index) => (
               <FoodButton key={index} onClick={()=>{deleteFood(food)}}>{food.title}</FoodButton>
             ))}
-            <FoodButton onClick={()=>getResult(foodsUnique)}>Mix</FoodButton>
           </FoodContainer>  
         </Container>
         </>
