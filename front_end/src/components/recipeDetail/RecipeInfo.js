@@ -79,7 +79,6 @@ const CardContainer = styled.div`
 
 const RecipeInfo = ({ name, like, toggleLike, categories, servings, prepTime, cookTime, calories, carbs, protein, fat, saturatedFat, cholesterol, sodium, fiber, sugar, rating }) => {
 
-
   return (
     <Container>
       <SpaceBetweenContainer>
@@ -92,7 +91,7 @@ const RecipeInfo = ({ name, like, toggleLike, categories, servings, prepTime, co
       </SpaceBetweenContainer>
       <SpaceBetweenContainer>
         <CategoryTag>
-          <div id="flag">{(categories.length === 0 ? "category" : categories[0]["category_name"] )}</div>
+          <div id="flag">{(categories.length === 0 ? "DELICIOUS" : categories[0]["category_name"] )}</div>
         </CategoryTag>
         <Rating name="read-only" value={rating} readOnly />
       </SpaceBetweenContainer>
