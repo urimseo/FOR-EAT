@@ -77,7 +77,8 @@ const CardContainer = styled.div`
   gap: 0.5rem;
 `
 
-const RecipeInfo = ({ name, recipeId, like, toggleLike, categories, servings, prepTime, cookTime, calories, carbs, protein, fat, saturatedFat, cholesterol, sodium, fiber, sugar, rating }) => {
+const RecipeInfo = ({ name, like, toggleLike, categories, servings, prepTime, cookTime, calories, carbs, protein, fat, saturatedFat, cholesterol, sodium, fiber, sugar, rating }) => {
+
 
   return (
     <Container>
