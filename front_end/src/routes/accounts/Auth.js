@@ -22,7 +22,11 @@ const Auth = () => {
           if (res) {
           setIsLoginState(true)
           setUserInfoState(res.user.member_seq);
-          navigate("/category")
+            if (res.user.isSurvey === false) {
+              navigate("/survey");
+            } else {
+              navigate("/category");
+            }
           }
           else {
             alert("로그인에 실패했습니다.")
