@@ -5,13 +5,13 @@ export const getMember = async (member_seq) => {
   return response.data;
 }
 
-export const editMember = async (member_seq) => {
-    const response = await instance.patch(`/members/${member_seq}`);
+export const editMember = async (member_seq, formData) => {
+    const response = await fileInstance.patch(`/members/${member_seq}`, formData);
     return response.data;
   }
 
-export const getMypage = async (member_seq, formData) => {
-    const response = await fileInstance.post(`/members/${member_seq}/mypage`, formData);
+export const getMypage = async (member_seq) => {
+    const response = await instance.get(`/members/${member_seq}/mypage`);
     return response.data;
   }
 
