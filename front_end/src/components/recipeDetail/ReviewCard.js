@@ -111,7 +111,6 @@ const ReviewCard = ({ reviewId, memberName, imgUrl, profileImgUrl, content, rati
                 <Name>
                   {memberName}
                 </Name>
-                {  }
                 <FlexContainer >
                   <Icon src={iconDelete} onClick={onClickDelete}/>
                 </FlexContainer>
