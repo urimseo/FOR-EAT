@@ -35,37 +35,111 @@ const IngredientContainer = styled.div`
   cursor: pointer;
 `
 
+const IngredientItemContainer = styled.div`
+  display: flex;
+  margin: 0 2rem 1.5rem 0;
+  flex-direction: column;
+  .title {
+    display: flex;
+    justify-content: center;
+    font-weight: 300;
+  }
+`
+
 
 export const IngredientItem = memo(function IngredientItem() {
     return (<div>
       <div style={{ overflow: 'hidden', clear: 'both' }}>
         <Container>
           <IngredientContainer>
-            <Box src={onion} title="onion" />
-            <Box src={garlic} title="garlic"/>
-            <Box src={zucchini} title="zucchini"/>
-            <Box src={carrot} title="carrot"/>
-            <Box src={mushroom} title="mushroom"/>
-            <Box src={potato} title="potato"/>
-            <Box src={tomato} title="tomato"/>
+            <IngredientItemContainer>
+              <Box src={onion} title="onion" />
+              <div className='title'>onion</div>
+            </IngredientItemContainer>
+            <IngredientItemContainer>
+              <Box src={garlic} title="garlic"/>
+              <div className='title'>garlic</div>
+            </IngredientItemContainer>
+            <IngredientItemContainer>
+              <Box src={zucchini} title="zucchini"/>
+              <div className='title'>zucchini</div>
+            </IngredientItemContainer>
+            <IngredientItemContainer>
+              <Box src={carrot} title="carrot"/>
+              <div className='title'>carrot</div>
+            </IngredientItemContainer>
+            <IngredientItemContainer>
+              <Box src={mushroom} title="mushroom"/>
+              <div className='title'>mushroom</div>
+            </IngredientItemContainer>
+            <IngredientItemContainer>
+              <Box src={potato} title="potato"/>
+              <div className='title'>potato</div>
+            </IngredientItemContainer>
+            <IngredientItemContainer>
+              <Box src={tomato} title="tomato"/>
+              <div className='title'>tomato</div>
+            </IngredientItemContainer>
           </IngredientContainer>
           <IngredientContainer>
-            <Box src={beef} title="beef"/>
-            <Box src={pork} title="pork"/>
-            <Box src={chicken} title="chicken"/>
-            <Box src={turkey} title="turkey"/>
-            <Box src={bacon} title="bacon"/>
-            <Box src={salmon} title="salmon"/>
-            <Box src={shrimp} title="shrimp"/>
+            <IngredientItemContainer>
+              <Box src={beef} title="beef"/>
+              <div className='title'>beef</div>
+            </IngredientItemContainer>
+            <IngredientItemContainer>
+              <Box src={pork} title="pork"/>
+              <div className='title'>pork</div>
+            </IngredientItemContainer>
+            <IngredientItemContainer>
+              <Box src={chicken} title="chicken"/>
+              <div className='title'>chicken</div>
+            </IngredientItemContainer>
+            <IngredientItemContainer>
+              <Box src={turkey} title="turkey"/>
+              <div className='title'>turkey</div>
+            </IngredientItemContainer>
+            <IngredientItemContainer>
+              <Box src={bacon} title="bacon"/>
+              <div className='title'>bacon</div>
+            </IngredientItemContainer>
+            <IngredientItemContainer>
+              <Box src={salmon} title="salmon"/>
+              <div className='title'>salmon</div>
+            </IngredientItemContainer>
+            <IngredientItemContainer>
+              <Box src={shrimp} title="shrimp"/>
+              <div className='title'>shrimp</div>
+            </IngredientItemContainer>     
           </IngredientContainer>
           <IngredientContainer>
-            <Box src={egg} title="egg"/>
-            <Box src={milk} title="milk"/>
-            <Box src={cheese} title="cheese"/>
-            <Box src={flour} title="flour"/>
-            <Box src={noodle} title="noodle"/>
-            <Box src={rice} title="rice"/>
-            <Box src={chocolate} title="chocolate"/>
+            <IngredientItemContainer>
+              <Box src={egg} title="egg"/>
+              <div className='title'>egg</div>
+            </IngredientItemContainer>
+            <IngredientItemContainer>
+              <Box src={milk} title="milk"/>
+              <div className='title'>milk</div>
+            </IngredientItemContainer>
+            <IngredientItemContainer>
+              <Box src={cheese} title="cheese"/>
+              <div className='title'>cheese</div>
+            </IngredientItemContainer>
+            <IngredientItemContainer>
+              <Box src={flour} title="flour"/>
+              <div className='title'>flour</div>
+            </IngredientItemContainer>
+            <IngredientItemContainer>
+              <Box src={noodle} title="noodle"/>
+              <div className='title'>noodle</div>
+            </IngredientItemContainer>
+            <IngredientItemContainer>
+              <Box src={rice} title="rice"/>
+              <div className='title'>rice</div>
+            </IngredientItemContainer>
+            <IngredientItemContainer>
+              <Box src={chocolate} title="chocolate"/>
+              <div className='title'>chocolate</div>
+            </IngredientItemContainer>
           </IngredientContainer>
         </Container>
 			</div>

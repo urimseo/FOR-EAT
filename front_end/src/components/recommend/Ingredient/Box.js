@@ -3,9 +3,6 @@ import { ItemTypes } from './ItemTypes';
 import React from 'react';
 
 const style = {
-  padding: '0.5rem 1rem',
-  marginRight: '1.5rem',
-  marginBottom: '1.5rem',
   cursor: 'pointer',
   float: 'left',
   width: '5.5rem',

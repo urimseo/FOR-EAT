@@ -30,8 +30,11 @@ const LoginGoogle = () => {
       try {
         setIsLoginState(true);
         setUserInfoState(result.user.member_seq);
-        
-        navigate("/category");
+        if (result.user.isSurvey === false) {
+          navigate("/survey");
+        } else {
+          navigate("/category");
+        }
       }
       catch {
         window.location.reload();
