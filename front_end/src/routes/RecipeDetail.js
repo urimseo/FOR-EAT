@@ -78,7 +78,6 @@ const RecipeDetail = (props) => {
           </ImgWrapper>
           <RecipeInfo 
             recipeId={recipe.recipe_seq}
-            recipe={recipe}
             name={recipe.name}
             toggleLike={toggleLike}  // 자식 컴포넌트에서 함수 실행하면 부모컴포넌트에서 결과 반영됨
             like={like} // useState에 있는 like 보내줌

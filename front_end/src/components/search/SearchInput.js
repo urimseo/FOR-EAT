@@ -36,7 +36,7 @@ const ReadingGlassesImg = styled.img`
 
 const SearchInput = () => {
 
-  const [ word, setWord ] = useState({word: ""});  // api
+  const [ word, setWord ] = useState(null);  // api
   const navigate = useNavigate();
 
   // 검색어 input
