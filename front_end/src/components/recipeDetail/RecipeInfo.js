@@ -1,14 +1,25 @@
+import React, { useState } from "react";
 import styled from "styled-components";
 import Rating from '@mui/material/Rating';
 
 import Typography from "components/commons/Typography";
 import CalorieCard from "components/recipeDetail/CalorieCard";
 import NutritionCard from "components/recipeDetail/NutritionCard";
+import { likeRecipe } from "api/RecipeDetailApi";
+import icon_lined_heart from "assets/img/icon_lined_heart.png"
+import icon_filled_heart from "assets/img/icon_filled_heart.png"
 
 const Container = styled.div`
   width: 45%;
   padding-inline: 1rem;
 `
+
+const Like = styled.img`
+  display: flex;
+  width: 4rem;
+  cursor: pointer;
+`
+
 const SpaceBetweenContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -66,15 +77,18 @@ const CardContainer = styled.div`
   gap: 0.5rem;
 `
 
-const RecipeInfo = ({ name, categories, servings, prepTime, cookTime, calories, carbs, protein, fat, saturatedFat, cholesterol, sodium, fiber, sugar, rating }) => {
+const RecipeInfo = ({ name, recipeId, like, toggleLike, categories, servings, prepTime, cookTime, calories, carbs, protein, fat, saturatedFat, cholesterol, sodium, fiber, sugar, rating }) => {
 
   return (
     <Container>
-      <Typography 
-      ff="Playfair Display" fs="3rem" fw="600"
-      ta="start" dp="flex"
-      mb="1rem"
-      >{name}</Typography>
+      <SpaceBetweenContainer>
+        <Typography 
+        ff="Playfair Display" fs="3rem" fw="600"
+        ta="start" dp="flex"
+        mb="1rem"
+        >{name}</Typography>
+        <Like src={like ? icon_filled_heart : icon_lined_heart} onClick={toggleLike} alt="" />
+      </SpaceBetweenContainer>
       <SpaceBetweenContainer>
         <CategoryTag>
           <div id="flag">{(categories.length === 0 ? "category" : categories[0]["category_name"] )}</div>
