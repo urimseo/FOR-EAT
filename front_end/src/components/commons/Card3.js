@@ -6,22 +6,19 @@ import Rating from '@mui/material/Rating';
 
 const Container = styled.div`
   display: flex;
-  flex-flow: wrap;
-  min-width: 32vh;
-  margin: 1rem;;
+  margin: 0.5rem;;
   padding: 0.2rem;
   border: 1px solid #C4C4C4;
 `
 
 const CardItem = styled.div`
-  width: 20rem;
-  height: 25rem;
-
+  width: 19rem;
+  height: 24rem;
 `
 
 const ImgWrapper = styled.div`
-  width: 20rem;
-  height: 20rem;
+  width: 19rem;
+  height: 19rem;
   overflow: hidden; 
   background-position: center;
 `
@@ -74,22 +71,26 @@ const SpaceBetweenContainer = styled.div`
   align-items: center;
 `
 
-const SearchCard = ({ key, recipeImg, recipeName, recipeCalorie, recipeSeq, ratings, keywords }) => {
+const Card3 = ({ 
+    recipe_seq, name, calories, 
+    images, average_rating
+  
+  }) => {
   
     return (
       <Container>
-        <Link to={`/recipes/${recipeSeq}`} style={{color: 'black', textDecoration : "none"}}>
+        <Link to={`/recipes/${recipe_seq}`} style={{color: 'black', textDecoration : "none"}}>
           <CardItem>
             <ImgWrapper>
-              <Img src={recipeImg} />
+              <Img src={images} />
             </ImgWrapper>
             <TextContainer>
-              <div className='title'>{recipeName}</div>
+              <div className='title'>{name}</div>
               <BorderLine />
               <SpaceBetweenContainer>
                 {/* <div className='keywords'>{(keywords ? keywords[0] : "")}</div> */}
-                <div className='calories'>{Math.round(recipeCalorie)} Kcal</div>
-                <Rating name="read-only" value={ratings} readOnly  size="small" />
+                <div className='calories'>{Math.round(calories)} Kcal</div>
+                <Rating name="read-only" value={average_rating} readOnly  size="small" />
               </SpaceBetweenContainer>
             </TextContainer>
           </CardItem>
@@ -101,4 +102,4 @@ const SearchCard = ({ key, recipeImg, recipeName, recipeCalorie, recipeSeq, rati
 
 
 
-export default SearchCard
+export default Card3
