@@ -4,7 +4,7 @@ import styled from "styled-components";
 import edit from "assets/img/edit.png";
 import profileImg from "assets/img/Ingredient_rosemary.jpg";
 import { warnAlert, successAlert } from "components/commons/Alert";
-// import { profileImage } from "api/user";
+import { editMember } from "api/MyPageApi";
 
 const Container = styled.div`
 	margin-top: 7rem;
@@ -73,12 +73,42 @@ const Email = styled.div`
 
 
 
-const Userinfo = (image, setImage) => {
+const Userinfo = ({image, nickname, email, UserInfo}) => {
   const [showNickname, setShowNickname] = useState(true);
-  const [saveNickname, setSaveNickname] = useState("test");
-  const onFileUpload = (e) => {
-    console.log("FileUpload")
-  };
+  const [saveNickname, setSaveNickname] = useState();
+  const [flag, setFlag] = useState();
+
+  if (!flag && nickname != undefined){setSaveNickname(nickname); setFlag(1)}
+
+    // window.location.reload();
+  const formData = new FormData();
+  const onFileUpload = async (e) => {
+    let file_kind = e.target.value.lastIndexOf(".");
+    let file_name = e.target.value.substring(file_kind + 1, e.length);
+    let file_type = file_name.toLowerCase();
+    let check_file_type = new Array();
+    check_file_type = ["jpg", "gif", "png", "jpeg"];
+    
+    if (check_file_type.indexOf(file_type) == -1) {
+      warnAlert("이미지 파일만 선택할 수 있습니다.");
+      return false;
+    }
+    
+    formData.append("profile_image_url", e.target.files[0]);
+    console.log(e)
+    console.log(e.target.files[0])
+    for (let key of formData.keys()) { console.log(key, ":", formData.get(key)); }
+    const response = await editMember(UserInfo, formData)
+    console.log(response)
+    
+    
+    // editMember(UserInfo, formData).then(() => {
+      //   setIsLoading(true);
+      //   console.log(formData)
+      // })
+      // .catch(() => console.log(formData))
+    };
+    
 
 	const onShowName = (e) => {
 		if(e.target.value.length === 0 && e.keyCode === 13){
@@ -87,7 +117,17 @@ const Userinfo = (image, setImage) => {
 		else if(e.keyCode === 13){
       successAlert("닉네임 변경에 성공하셨습니다!");
 			setSaveNickname(e.target.value)
+      formData.append("nickname", e.target.value)
 			setShowNickname(true)
+
+      editMember(UserInfo, formData)
+      .then((res) => 
+      {console.log(res)
+      })
+      .catch((err) => 
+        {console.log(err)
+          console.log(formData)
+        })
 		}
   };
 
@@ -95,14 +135,13 @@ const Userinfo = (image, setImage) => {
 			setShowNickname(false)
   };
 
-
   return (
     <>
       <Container>
         <ProfileImage>
           <label htmlFor="file-input">
-            {image.image ? (
-              <Image src={image.image} alt="이미지를 찾을 수 없습니다." />
+            {image ? (
+              <Image src={image} alt="이미지를 찾을 수 없습니다." />
             ) : (
               <Image src={profileImg} alt="이미지를 찾을 수 없습니다." />
             )}
@@ -133,7 +172,7 @@ const Userinfo = (image, setImage) => {
           )}
 				</NickName>
 				<Email>
-				1seul357@gmail.com
+				{email}
 				</Email>
       </Container>
     </>
