@@ -15,6 +15,9 @@ import DislikedIngredients from "../preferences/DislikedIngredients";
 import FavoriteCuisines from "../preferences/FavoriteCuisines";
 import Goals from "../preferences/Goals";
 
+// import { getSurvey } from "api/MyPageApi";
+// import { editSurvey } from "api/MyPageApi";
+
 
 const Container = styled.div`
 `
