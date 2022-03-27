@@ -8,7 +8,7 @@ import RelatedRecipeList from "components/recipeDetail/RelatedRecipeList";
 import Ingredients from "components/recipeDetail/Ingredients";
 import Instructions from "components/recipeDetail/Instructions";
 import ReviewList from "components/recipeDetail/ReviewList";
-import { getRecipeDetail } from "api/RecipeDetailApi";
+import { getRecipeDetail, likeRecipe } from "api/RecipeDetailApi";
 
 const Container = styled.div`
   padding: 6rem 10rem;
@@ -34,21 +34,40 @@ const IngredientWrapper = styled.div`
   justify-content: center;
 `
 
-const RecipeDetail = () => {
+const RecipeDetail = (props) => {
 
   const location = useLocation();
   let recipeId = Number(location.pathname.split("/")[2]);
   const [recipe, setRecipe] = useState({}); 
+  const [like, setLike] = useState(false); // recipe detail 조회할 때 User가 좋아요 했는지 정보 보여줘야됨, 아래가 맞는 코드인데 아직 
+  // const [like, setLike] = useState(recipe.isUserLiked);  
 
   useEffect(() => {
     getRecipeDetail(recipeId).then((res) => {
       setRecipe(res)
-      // console.log(res)
     })
     .catch((err) => {
       console.log(err)
     })
   }, [])
+  
+  // like 정보 불러오기
+  const getLike = async () => {
+    await likeRecipe(recipeId) // 지금은 toggle이라서 재실행 될때마다 토글되어 보여짐;; 
+  }
+  
+  // 화면 불러올 때 한번 실행.
+  // useEffect(()=> {
+  //   getLike();
+  // }, [])
+
+  const toggleLike = async () =>{
+    const response = await likeRecipe(recipeId)
+    console.log(response.data)  // data > data
+    if (response.data) {
+      setLike(!like)
+    }
+  }
 
 	return (
     <div>
@@ -58,9 +77,11 @@ const RecipeDetail = () => {
             <Img src={recipe.images} />
           </ImgWrapper>
           <RecipeInfo 
-            recipeId={recipeId}
+            recipeId={recipe.recipe_seq}
             recipe={recipe}
             name={recipe.name}
+            toggleLike={toggleLike}  // 자식 컴포넌트에서 함수 실행하면 부모컴포넌트에서 결과 반영됨
+            like={like} // useState에 있는 like 보내줌
             categories={(recipe.categories ? recipe.categories : "-")}
             servings={recipe.servings}
             prepTime={recipe.prep_time}
