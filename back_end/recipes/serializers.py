@@ -48,13 +48,13 @@ class RecipeSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ReviewListSerializer(serializers.ModelSerializer):
-
+    member_seq = serializers.CharField(source='member.member_seq')
     member_nickname = serializers.CharField(source='member.nickname')
     profile_image_url = serializers.CharField(source='member.profile_image_url')
     recipe_seq = serializers.IntegerField(source='recipe.recipe_seq')
     class Meta:
         model = Review
-        fields = ('id', 'member_nickname', 'content', 'image_url', 'ratings', 'create_date', 'last_modified_date', 'profile_image_url', 'recipe_seq')
+        fields = ('id', 'member_seq','member_nickname', 'content', 'image_url', 'ratings', 'create_date', 'last_modified_date', 'profile_image_url', 'recipe_seq')
 
 class ReviewSerializer(serializers.ModelSerializer):
 
