@@ -34,22 +34,27 @@ const IngredientWrapper = styled.div`
   justify-content: center;
 `
 
-const RecipeDetail = (props) => {
+const RecipeDetail = () => {
 
   const location = useLocation();
   let recipeId = Number(location.pathname.split("/")[2]);
-  const [recipe, setRecipe] = useState({}); 
+  // const [ recipeId, setRecipeId ] = useState(Number(location.pathname.split("/")[2])) // 이게 아닌지?
+  
+  const [ recipe, setRecipe ] = useState([])
+
+  const getRecipe = async () => {
+    const result = await getRecipeDetail(recipeId);
+    setRecipe(result)
+    console.log("getRecipeDetail", result)
+  }
+
   const [like, setLike] = useState(false); // recipe detail 조회할 때 User가 좋아요 했는지 정보 보여줘야됨, 아래가 맞는 코드인데 아직 
   // const [like, setLike] = useState(recipe.isUserLiked);  
 
   useEffect(() => {
-    getRecipeDetail(recipeId).then((res) => {
-      setRecipe(res)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+    getRecipe();
   }, [])
+
   
   // like 정보 불러오기
   const getLike = async () => {
@@ -103,7 +108,11 @@ const RecipeDetail = (props) => {
           </IngredientWrapper>
         </Wrapper>
         <Wrapper jc="center">
-          <RelatedRecipeList />
+            <RelatedRecipeList 
+              ingredientRecommend={recipe.ingredients_recommend}
+              nutritionRecommned={recipe.nutrient_recommend}
+            /> 
+
           <ReviewList recipeId={recipeId}/>
         </Wrapper>
       </Container>

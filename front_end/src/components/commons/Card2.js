@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import Ingredient_cucumber from "assets/img/Ingredient_cucumber.jpg";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -10,15 +10,15 @@ const Container = styled.div`
 `
 
 const CardItem = styled.div`
-  width: 16rem;
+  width: 18rem;
   height: 24.5rem;
   padding: 0 1rem;
 `
 
 const ImgWrapper = styled.div`
   overflow: hidden;
-  height: 16rem;
-  width: 16rem;
+  height: 18rem;
+  width: 18rem;
 `
 
 const Img = styled.img`
@@ -31,13 +31,20 @@ const Img = styled.img`
 const TextContainer = styled.div`
   .title {
     font-family: Playfair Display;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: bold;
+    max-width: 16rem;
     margin-top: 0.5rem;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
-  .category {
+  .keywords {
     font-size: 0.87rem;
-    margin: 1rem 0 0 0;
+    margin: 0;
   }
   .line {
     margin: 0.5rem 0;
@@ -49,7 +56,7 @@ const TextContainer = styled.div`
 const SpaceBetweenContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: end;
+  align-items: center;
 `
 
 const Arrow = () => {
@@ -59,27 +66,29 @@ const Arrow = () => {
 }
 
 
-const Card2 = () => {
+const Card2 = ({ name, images, keywords, recipeSeq }) => {
   return (
-    <>
-      <div>
-        <Container>
+    <div>
+      <Container>
+        <Link to={`/recipes/${recipeSeq}`} style={{color: 'black', textDecoration : "none"}}>
           <CardItem>
             <ImgWrapper>
-              <Img src={Ingredient_cucumber} />
+              <Img src={images} />
             </ImgWrapper>
             <TextContainer>
+              <div style={{minHeight: "3.5rem"}}>
+                <div className='title'>{name}</div>
+                <div className="line" />
+              </div>
               <SpaceBetweenContainer>
-                <div className='title'>Recipe Name</div>
-                <Arrow />
+              <div className="keywords">{ keywords.length === 0 ? "DELICIOUS" : keywords[0]["keyword_name"] }</div>
+              <Arrow />
               </SpaceBetweenContainer>
-              <div className="line" />
-              <div className='category'>CATEGORY</div>
             </TextContainer>
           </CardItem>
-        </Container>
-      </div>
-    </>
+        </Link>
+      </Container>
+    </div>
   );
 };
 

@@ -31,8 +31,7 @@ const CardContainer = styled.div`
   justify-content: center;
 `
 
-const RelatedRecipeList = () => {
-
+const RelatedRecipeList = ({ ingredientRecommend, nutritionRecommned }) => {
   return (
     <Container>
       <TextContainer>
@@ -40,20 +39,30 @@ const RelatedRecipeList = () => {
         <div className="line"/>
       </TextContainer>
       <CardContainer>
-        <Card2 />
-        <Card2 />
-        <Card2 />
-        <Card2 />
+        { ingredientRecommend ? ingredientRecommend.map((recipe) => ( 
+            <Card2
+              key={recipe.recipe_seq}
+              recipeSeq={recipe.recipe_seq}
+              name={recipe.name}
+              images={recipe.images}
+              keywords={recipe.keywords}
+            />
+          )) : null }
       </CardContainer>
       <TextContainer>
         <div className="text">Nutritionally Balanced</div>
         <div className="line"/>
       </TextContainer>
       <CardContainer>
-        <Card2 />
-        <Card2 />
-        <Card2 />
-        <Card2 />
+      { nutritionRecommned ? nutritionRecommned.map((recipe) => ( 
+            <Card2
+              key={recipe.recipe_seq}
+              recipeSeq={recipe.recipe_seq}
+              name={recipe.name}
+              images={recipe.images}
+              keywords={recipe.keywords}
+            />
+          )) : null }
       </CardContainer>
     </Container>
   )
