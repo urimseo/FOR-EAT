@@ -64,10 +64,16 @@ class Recipe(models.Model):
     protein_content = models.FloatField()
     instructions = models.TextField()
     images = models.TextField()
+    
+    # 추천항목들
+    ingredients_recommend = models.TextField()
+    nutrient_recommend = models.TextField()
+
     ingredients = models.ManyToManyField(Ingredient, related_name='recipes', through='RecipeIngredient')
     keywords = models.ManyToManyField(Keyword, related_name='recipes', through='RecipeKeyword')
     categories = models.ManyToManyField(Category, related_name='recipes', through='RecipeCategory')
     allergies = models.ManyToManyField(Allergy, related_name='recipes', through='RecipeAllergy')
+
 
     def __str__(self):
         return f'{self.pk}: {self.name}'
