@@ -1,6 +1,9 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import Card from "components/commons/Card"
+import Card from "components/commons/Card";
+import Pagination from "react-js-pagination";
+import "assets/css/Pagination.css";
 
 const Container = styled.div`
 `
@@ -29,10 +32,28 @@ const See = styled.a`
 
 const CardContainer = styled.div`
   display: flex;
+  justify-content: space-around;
   flex-flow: wrap;
+  min-width: 10vh;
 `
 
-const WishRecipeList = () => {
+const Sub = styled.div`
+  font-size: 20;
+`
+
+const PageContainer = styled.div`
+  margin: 2rem 0 5rem 0;
+`
+
+const WishRecipeList = ({RecipeList}) => {
+  const [page, setPage] = useState(1); 
+
+  const handlePageChange = (page) => { 
+    setPage(page); 
+  };
+
+  console.log(RecipeList)
+
   return (
     <>
       <Container>
@@ -42,8 +63,31 @@ const WishRecipeList = () => {
         </Top>
         
         <CardContainer>
-          {/* <Card /> */}
-        </CardContainer>
+        {RecipeList.map((recipe, index) => (
+          <Card
+            key={recipe.recipe_seq}
+            recipeSeq={recipe.recipe_seq}
+            index={index}
+            recipeImg={recipe.images}
+            recipeName={recipe.name}
+            recipeKeywords={(recipe.keywords.length > 1 ? [recipe.keywords[0].keyword_name, recipe.keywords[1].keyword_name] : recipe.keywords[0].keyword_name)}
+            recipeCalorie={recipe.calories}
+          />
+        ))}
+      </CardContainer>
+      {RecipeList.length !== 0 ?      
+        <PageContainer>
+          <Pagination 
+            activePage={page} 
+            itemsCountPerPage={3}
+            totalItemsCount={RecipeList.length} 
+            pageRangeDisplayed={5} 
+            prevPageText={"‹"} 
+            nextPageText={"›"} 
+            onChange={handlePageChange}
+          />
+        </PageContainer> : <Sub>레시피를 등록해주세요</Sub>
+      }
       </Container>
     </>
   );
