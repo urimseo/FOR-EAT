@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from 'react-router-dom';
 import styled from "styled-components";
 
-import SearchCard from "components/search/SearchCard";
+import Card3 from "components/commons/Card3";
 import Tile from "assets/img/Tile.jpg";
 import "assets/css/Pagination.css";
 import Pagination from "react-js-pagination";
@@ -57,9 +57,10 @@ const PageContainer = styled.div`
   margin: 2rem 0 5rem 0;
 `
 
+
+
 const SearchResult = () => {
   const location = useLocation();
-
 
   // const [ word, setWord ] = location.state[0]
   const word = location.state[0]
@@ -78,7 +79,6 @@ const SearchResult = () => {
     setPage(page); 
     const response = await getSearchList(page, word);
     if (response) {
-      console.log(777, response)
       setResultList(response.data)
     }
   }
@@ -93,16 +93,10 @@ const SearchResult = () => {
           <div className="count">{count}</div>
         </Result>
         <CardContainer>
-          { resultList.map((result, index) => ( 
-            <SearchCard
-              index={index}
+          { resultList.map((result) => ( 
+            <Card3
               key={result.recipe_seq}
-              recipeSeq={result.recipe_seq}
-              recipeName={result.name}
-              recipeImg={result.images}
-              recipeCalorie={result.calories}
-              ratings={result.average_rating}
-              keywords={result.keywords}
+              {...result} 
             />
           ))}
 

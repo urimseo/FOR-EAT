@@ -27,16 +27,15 @@ const TextContainer = styled.div`
 
 const ReviewList = ({ recipeId }) => {
   const [reviews, setReviews] = useState([]); 
-
   useEffect(() => {
     getReviewList(recipeId).then((res) => {
-      setReviews(res)
-      // console.log(res)
+      setReviews(res.data)
     })
     .catch((err) => {
       console.log(err)
     })
   }, [])
+
   return (
       <Container>
         <TextContainer>
@@ -44,12 +43,13 @@ const ReviewList = ({ recipeId }) => {
         </TextContainer>
         <ReviewForm recipeId={recipeId} />
         <div style={{display:"flex", justifyContent:"center", flexWrap:"wrap" }}>
-          { reviews.map((review, index) => ( 
+          { reviews.map((review) => ( 
             <ReviewCard
               key={review.id}
-              reviewId={review.recipe_id}
+              reviewId={review.id}
+              recipeId={review.recipe_seq}
               memberName={review.member_nickname}
-              index={index}
+              profileImgUrl={review.profile_image_url}
               imgUrl={review.image_url}
               content={review.content}
               ratings={review.ratings}

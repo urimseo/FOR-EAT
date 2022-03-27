@@ -81,7 +81,27 @@ class RecipeDetail(APIView):
         response_data['ingredient_raw'] = json.loads(serializer.data['ingredient_raw'])
         response_data['instructions'] = json.loads(serializer.data['instructions'])
         response_data['images'] = json.loads(response_data['images'])[0]
-        # 추천 리스트 추가
+        
+        ingredients_recommend_list = json.loads(serializer.data['ingredients_recommend'])
+        nutrient_recommend_list = json.loads(serializer.data['nutrient_recommend'])
+        
+        ingredients_recommend_recipes = Recipe.objects.filter(recipe_seq__in=ingredients_recommend_list)
+        nutrient_recommend_recipes = Recipe.objects.filter(recipe_seq__in=nutrient_recommend_list)
+
+        ingredients_recommend_serializer = RecipeListSerializer(ingredients_recommend_recipes, many=True)
+        nutrient_recommend_serializer = RecipeListSerializer(nutrient_recommend_recipes, many=True)
+
+        for i in ingredients_recommend_serializer.data:
+            i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).aggregate(average_rating=Avg('review__ratings')))
+            i['images'] = json.loads(i['images'])[0]
+            
+        for i in nutrient_recommend_serializer.data:
+            i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).aggregate(average_rating=Avg('review__ratings')))
+            i['images'] = json.loads(i['images'])[0]
+
+        response_data['ingredients_recommend'] = ingredients_recommend_serializer.data[-3:]
+        response_data['nutrient_recommend'] = nutrient_recommend_serializer.data[:3]
+
         return Response(response_data)
 
 
@@ -107,7 +127,7 @@ class ReviewList(APIView, LimitOffsetPagination):
     def post(self, request, pk, format=None):
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
         member = decode_token(token.strip('"'))
-        # member = Member.objects.get(member_seq=3)
+        # member = Member.objects.get(member_seq=2)
         if Review.objects.filter(member=member, recipe=pk):
             data = {
                     "msg": "이미 리뷰를 작성한 회원입니다",

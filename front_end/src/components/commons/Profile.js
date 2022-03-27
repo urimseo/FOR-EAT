@@ -3,6 +3,8 @@ import styled from "styled-components";
 import profile from 'assets/img/profile.png'
 import profile_hover from 'assets/img/profile_hover.png'
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { isLoginState, userInfoState } from '../../atoms/atoms';
 
 const Container = styled.div`
   display: flex;
@@ -22,11 +24,18 @@ const ProfileImg = styled.img`
 
 const Profile = () => {
   const navigate = useNavigate();
+
+  const UserInfo = useRecoilValue(userInfoState);
+
+  const onClick = () => {
+    navigate(`/mypage/${UserInfo}`);
+  }
+
   return (
     <>
       <Container>
         <ProfileImgWrapper>
-          <ProfileImg src={profile} alt="my page" onClick={() => navigate("/mypage")}/>
+          <ProfileImg src={profile} alt="my page" onClick={onClick}/>
         </ProfileImgWrapper>
       </Container>
     </>

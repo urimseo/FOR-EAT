@@ -1,4 +1,5 @@
-import { instance, fileInstance } from '../api/Axios';
+import { instance } from '../api/Axios';
+
 export const getRecipeDetail = async (recipe_seq) => {
   const response = await instance.get(`/recipes/${recipe_seq}`);
   return response.data;
@@ -6,12 +7,12 @@ export const getRecipeDetail = async (recipe_seq) => {
 
 
 export const getReviewList = async (recipe_seq) => {
-  const response = await instance.get(`/recipes/${recipe_seq}/reviews/`);
+  const response = await instance.get(`/recipes/${recipe_seq}/reviews`);
   return response.data;
 }
 
 
-export const createReview = async (recipe_seq, formData) => {
-  const response = await fileInstance.post(`/recipes/${recipe_seq}/reviews/`, formData);
+export const likeRecipe = async (recipe_seq) => {
+  const response = await instance.get(`/recipes/${recipe_seq}/likes`);
   return response.data;
 }

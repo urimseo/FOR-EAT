@@ -13,7 +13,7 @@ const Container = styled.div`
 
 const TabContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   justify-content: center;
   align-items:center;
   position: relative;
@@ -35,6 +35,7 @@ const Navbar = () => {
         <Typography fs="1rem" fw="600" cursor="pointer" hoverColor="#ED8141" onClick={() => { navigate("/recommend")}}>FEED</Typography>
         <Typography fs="1rem" fw="600" cursor="pointer" hoverColor="#ED8141" onClick={() => { navigate("/ingredient")}}>INGREDIENTS</Typography>
         <Typography fs="1rem" fw="600" cursor="pointer" hoverColor="#ED8141" onClick={() => { navigate("/category")}}>CATEGORIES</Typography>
+        <Typography fs="1rem" fw="600" cursor="pointer" hoverColor="#ED8141" onClick={() => { navigate("/browse")}}>BROWSE</Typography>
       </TabContainer>
     </Container>
   );

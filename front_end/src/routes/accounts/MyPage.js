@@ -1,10 +1,16 @@
 import { React, useState, useEffect } from "react";
 import styled from "styled-components";
+import { useRecoilValue } from 'recoil';
+import { userInfoState } from '../../atoms/atoms';
 
 import Preferences from "components/accounts/mypage/Preferences"
 import SavedRecipeList from "components/accounts/mypage/SavedRecipeList"
 import Userinfo from "components/accounts/mypage/Userinfo"
 
+
+import { getMember } from "api/MyPageApi";
+import { editMember } from "api/MyPageApi";
+import { getMypage } from "api/MyPageApi";
 
 const Container = styled.div`
   margin: 0 10vw;
@@ -48,6 +54,40 @@ const UnderLine = styled.div`
 const MyPage = () => {
   const [savedRecipes, setSavedRecipes] = useState(true);
   const [preferences, setPreferences] = useState(false);
+  const [image, setImage] = useState();
+  
+  const UserInfo = useRecoilValue(userInfoState);
+
+  getMember(UserInfo)
+  .then((res) => 
+    {
+    const data = {
+      email: res.email,
+      nickname: res.nickname,
+      profileUrl: res.profile_image_url,
+    };
+    setImage(res.profile_image_url)
+  })
+  .catch((err) => 
+    console.log(err)
+    )
+
+  editMember(UserInfo)
+  .then((res) => 
+    console.log(res)
+    )
+  .catch((err) => 
+    console.log(err)
+    )
+
+  getMypage(UserInfo)
+  .then((res) => 
+    console.log(res)
+    )
+  .catch((err) => 
+    console.log(err)
+    )
+
 
   const showSavedRecipes = async() => {
     setSavedRecipes(true);
@@ -62,10 +102,11 @@ const MyPage = () => {
     showSavedRecipes();
   },[]);
 
+
   return (
     <>
       <Container>
-          <Userinfo />
+          <Userinfo image={image} setImage={setImage} />
         <SpaceBetweenContainer>
           <BoxContainer>
             <RowContainer>
