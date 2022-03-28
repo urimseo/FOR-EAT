@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import styled, {keyframes} from 'styled-components';
 import { getIngredientRecipeList } from 'api/IngredientApi';
 import { useNavigate } from 'react-router-dom';
-import mixing from 'assets/img/mixing.png'
 
 
 const style = {
@@ -34,18 +33,16 @@ const DustbinContainer = styled.div`
 const BowlContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-  .mixing {
-      margin: 2.5rem 0 0 0.5rem;
-  }
 `
 
-const BowlImg = styled.img`
-  width: 5rem;
-  height: 5rem;
+const MixButton = styled.button`
+  font-size: 1rem;
+  margin: 2.5rem 0 0 0.5rem;
+  width: 8rem;
+  background-color: white;
   cursor: pointer;
-  &:hover{
-    opacity: 0.5;
-  }
+  border: none;
+
 `
 
 const firstBall = keyframes`
@@ -190,8 +187,7 @@ const Dustbin = React.memo(function Dustbin() {
             </div>
           </DustbinContainer>
           <BowlContainer>
-            <BowlImg src={mixing} alt="bowl" onClick={()=>getResult(foodsUnique)} />
-            <div className='mixing'>Let's Mix!</div>
+            <MixButton onClick={()=>getResult(foodsUnique)}>Let's Mix! →</MixButton>
           </BowlContainer>
           <FoodContainer>
             {foodsUnique.map((food, index) => (
