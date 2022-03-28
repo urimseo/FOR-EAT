@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import Rating from '@mui/material/Rating';
 
+import heart from "assets/img/icon_filled_heart.png"
+
 const Container = styled.div`
   display: flex;
-  margin: 0.5rem;;
+  margin: 1rem;;
   padding: 0.2rem;
   border: 1px solid #C4C4C4;
 `
@@ -14,6 +16,25 @@ const Container = styled.div`
 const CardItem = styled.div`
   width: 19rem;
   height: 24rem;
+  position: relative;
+  opacity: 1;
+  display: block;
+  transition: .5s ease;
+  backface-visibility: hidden;
+  object-fit: cover;
+  &:hover {
+    background-color: rgba(0,0,0,0.6);
+  }
+  &:hover .rating{
+    opacity: 0.3;
+  }
+  &:hover .image {
+    opacity: 0.3;
+  }
+  &:hover .middle {
+    opacity: 1;
+  }
+  
 `
 
 const ImgWrapper = styled.div`
@@ -21,12 +42,13 @@ const ImgWrapper = styled.div`
   height: 19rem;
   overflow: hidden; 
   background-position: center;
+
 `
 
 const Img = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: cover;
+
 `
 
 
@@ -71,18 +93,37 @@ const SpaceBetweenContainer = styled.div`
   align-items: center;
 `
 
-const Card3 = ({ 
-    recipe_seq, name, calories, 
-    images, average_rating
-  
-  }) => {
-  
+const HoverText = styled.div`
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+`
+const TextContent = styled.div`
+  color: white;
+  font-size: 16px;
+  font-style: italic;
+  padding: 1rem auto;
+  img {
+    width: 2rem;
+    height: auto;
+    margin: 0 0 1rem 0;
+  }
+`
+
+const Card3 = ({ recipe_seq, name, calories, images, average_rating }) => {
+    const likeCnt = 39
+
     return (
       <Container>
         <Link to={`/recipes/${recipe_seq}`} style={{color: 'black', textDecoration : "none"}}>
           <CardItem>
             <ImgWrapper>
-              <Img src={images} />
+              <Img src={images} className="image"/>
             </ImgWrapper>
             <TextContainer>
               <div className='title'>{name}</div>
@@ -90,12 +131,18 @@ const Card3 = ({
               <SpaceBetweenContainer>
                 {/* <div className='keywords'>{(keywords ? keywords[0] : "")}</div> */}
                 <div className='calories'>{Math.round(calories)} Kcal</div>
-                <Rating name="read-only" value={average_rating} readOnly  size="small" />
+                <Rating className='rating' name="read-only" value={ average_rating ? average_rating : 0 } readOnly  size="small" />
               </SpaceBetweenContainer>
             </TextContainer>
+            <HoverText className="middle">
+              <TextContent className="text">
+                <img src={heart} alt=""/>
+                <div>{likeCnt} PEOPLE</div>
+                <div>LIKED THIS RECIPE</div>
+              </TextContent>
+            </HoverText>
           </CardItem>
         </Link>
-        {/* { (index+1)%4 === 0 ? null : <Line /> } */}
       </Container>
   );
 };
