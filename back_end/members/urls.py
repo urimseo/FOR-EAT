@@ -14,5 +14,6 @@ urlpatterns = [
     path('<int:pk>', views.MemberInfo.as_view()),
     path('<int:pk>/survey', views.MemberSurveyProfile.as_view()),
     path('<int:pk>/mypage', views.MemberProfilePage.as_view()),
-    path('<int:pk>/mypage/review', views.MemberReviewList.as_view()),
+    path('<int:pk>/mypage/reviews', views.MemberReviewList.as_view()),
+    path('<int:pk>/mypage/likes', views.MemberLikeRecipeList.as_view()),
 ]
