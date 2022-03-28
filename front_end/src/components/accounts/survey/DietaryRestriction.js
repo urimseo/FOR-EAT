@@ -66,15 +66,16 @@ const Button = styled.button`
   }
 `
 
-const NextButton =styled.button`
-  display: flex;
-  float: right;
-  margin: 1.5rem 3rem 0 0;
+const BottomButton =styled.a`
   font-size: 1.2rem;
-  font-weight: 100;
+  font-weight: 300;
   cursor: pointer;
-  background-color: white;
   border: none;
+  float: ${(props) => (props.f ? props.f : "")};
+  margin-top: ${(props) => (props.mt ? props.mt : "")};
+  margin-bottom: ${(props) => (props.mb ? props.mb : "")};
+  margin-left: ${(props) => (props.ml ? props.ml : "")};
+  margin-right: ${(props) => (props.mr ? props.mr : "")};
 `
 
 const DietaryRestriction = () => {
@@ -107,7 +108,8 @@ const DietaryRestriction = () => {
                 </SpaceBetweenContainer>
               </div>
             </BoxContainer>
-            <NextButton>Continue</NextButton>
+            <BottomButton f="left" mt="1.5rem" ml="2rem">Back</BottomButton>
+            <BottomButton f="right" mt="1.5rem" mr="2rem">Continue</BottomButton>
           </div>
         </Question>
       </Container>

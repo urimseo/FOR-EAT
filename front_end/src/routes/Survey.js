@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import InformationSurvey from 'components/accounts/survey/InformationSurvey';
 import NutritionSurvey from 'components/accounts/survey/NutritionSurvey';
@@ -8,6 +9,7 @@ import GoalSurvey from 'components/accounts/survey/GoalSurvey';
 import AllergySurvey from 'components/accounts/survey/AllergySurvey';
 import LikeIngredient from 'components/accounts/survey/LikeIngredient';
 import { userInfoState } from 'atoms/atoms';
+import { getUserInfo } from 'api/SurveyApi';
 
 
 const Container = styled.div`
@@ -29,10 +31,19 @@ const Title = styled.div`
 
 const Survey = () => {
   const UserInfo = useRecoilValue(userInfoState);
+  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (UserInfo)
-  // }, []);
+  const getUserSurveyInfo = async (UserInfo) => {
+    const response = await getUserInfo(UserInfo);
+      if (response.isSurvey === true) {
+        navigate('/recommend')
+      } 
+  }
+  useEffect(() => {
+    if (UserInfo) {
+      getUserSurveyInfo(UserInfo);
+    }
+  }, []);
 
   return (
     <>
