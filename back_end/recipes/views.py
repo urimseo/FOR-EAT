@@ -317,3 +317,23 @@ class IngredientChoice(ListAPIView, LimitOffsetPagination):
         response_data.update({'data':serializer.data})
         response_data.update({'count':count})
         return Response(response_data)
+
+
+class BrowseRecipeList(ListAPIView, LimitOffsetPagination):
+    def get_queryset(self):
+        word = self.request.GET['keyword']
+        category = Keyword.objects.filter(keyword_name=word)
+        object_list = Recipe.objects.filter(keywords__in=category)
+        return object_list
+
+    def get(self, request, format=None):
+        recipes = self.get_queryset()
+        results = self.paginate_queryset(recipes)
+        serializer = RecipeListSerializer(results, many = True)
+
+        for i in serializer.data:
+            i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).aggregate(average_rating=Avg('review__ratings')))
+            i['liked_count'] = LikedRecipe.objects.filter(recipe_seq=i['recipe_seq']).count()
+            i['images'] = json.loads(i['images'])[0]
+  
+        return Response(serializer.data, status=status.HTTP_200_OK)
