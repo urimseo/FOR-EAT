@@ -27,7 +27,7 @@ const Question = styled.div`
   }
   .box {
     width: 50rem;
-    height: 30rem;
+    height: 29rem;
     border: 0px solid grey;
     box-shadow: 3px 5px 5px 5px #d3d3d3;
   }
@@ -78,15 +78,16 @@ const SelectContent = styled.select`
   font-family: Work Sans;
 `
 
-const NextButton =styled.button`
-  display: flex;
-  float: right;
-  margin: 2.5rem 3rem 0 0;
+const BottomButton =styled.a`
   font-size: 1.2rem;
-  font-weight: 100;
+  font-weight: 300;
   cursor: pointer;
-  background-color: white;
   border: none;
+  float: ${(props) => (props.f ? props.f : "")};
+  margin-top: ${(props) => (props.mt ? props.mt : "")};
+  margin-bottom: ${(props) => (props.mb ? props.mb : "")};
+  margin-left: ${(props) => (props.ml ? props.ml : "")};
+  margin-right: ${(props) => (props.mr ? props.mr : "")};
 `
 
 const InformationSurvey = () => {
@@ -132,7 +133,7 @@ const InformationSurvey = () => {
                 <option value="6">75 years of age or older</option>
               </SelectContent>
             </SelectContainer>
-            <NextButton>Continue</NextButton>
+            <BottomButton f="right" mt="1.5rem" mr="2rem">Continue</BottomButton>
           </div>
         </Question>
       </Container>
