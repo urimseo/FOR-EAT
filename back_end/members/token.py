@@ -30,7 +30,9 @@ def decode_token(token):
         member_seq = payload
         member_id = payload['sub']
         member = Member.objects.get(google_id=member_id)
+        print('hi',member)
         return member
+
     # kakao token decode
     except:
         try:
@@ -39,6 +41,7 @@ def decode_token(token):
             member_seq = payload['member_seq']
             member = Member.objects.get(member_seq=member_seq)
             return member
+
         except:
             print('here')
             return None

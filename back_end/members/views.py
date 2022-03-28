@@ -16,7 +16,7 @@ from recipes.serializers import RecipeListSerializer, ReviewListSerializer
 from .serializers import KaKaoMemberSerializer, GoogleMemberSerializer, MemberSurveySimpleSerializer, MemberSurveySerializer, MemberInfoSerializer
 from .token import generate_token, decode_token
 from .ingredients import get_ingredient_list
-
+from recipes.storages import FileUpload, s3_client
 
 # Django에서 인가코드 요청할 경우 사용 할 수 있다. (클라이언트에서 줘야함)
 # @api_view(['GET'])
@@ -249,14 +249,14 @@ class MemberInfo(APIView):
 
         serializer = MemberInfoSerializer(member)
         return Response(data=serializer.data, status=status.HTTP_200_OK) 
-        
+
 
     def patch(self, request, pk, format=None):
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
-        found_user = self.get_member(pk, token)
-        member = decode_token(token)
+        member = self.get_member(pk, token)
+        # member = self.get_member(token)
 
-        if found_user is None or pk != member.member_seq:
+        if member is None or pk != member.member_seq:
             data = {
                 "msg": "유저 정보가 올바르지 않습니다.",
                 "satus": 401
@@ -264,7 +264,14 @@ class MemberInfo(APIView):
             return Response(data=data, status=status.HTTP_401_UNAUTHORIZED)
         
         else:
-            serializer = MemberInfoSerializer(found_user, data=request.data, partial=True)
+            try:
+                file = request.FILES['profile_image_url']
+                image_url = FileUpload(s3_client).upload(file)
+                request.data['profile_image_url'] = image_url
+            except:
+                pass
+            
+            serializer = MemberInfoSerializer(member, data=request.data, partial=True)
 
             if serializer.is_valid():
                 serializer.save()
@@ -319,9 +326,9 @@ class MemberSurveyProfile(APIView):
                 "satus": 401
             }
             return Response(data=data, status=status.HTTP_401_UNAUTHORIZED)
-        
 
-        else: 
+
+        else:
             # get ingredient seq 
             liked_ingredient = get_ingredient_list(member_survey['liked_ingredients'])
             serializer = MemberSurveySerializer(data=member_survey)
@@ -426,7 +433,7 @@ class MemberProfilePage(APIView):
             liked_recipe_serilizer = liked_recipe_serilizer_all.data[-3:]
             for recipe in liked_recipe_serilizer:
                 recipe['images'] = json.loads(recipe['images'])[0]
-
+            
 
             # get_member_review
             review = Review.objects.filter(member=member)
@@ -438,6 +445,7 @@ class MemberProfilePage(APIView):
                 "liked_recipe": liked_recipe_serilizer,
                 "review": review_serializer_all.data[-3:]
             }
+
             return Response(data=data,status=status.HTTP_200_OK)
         else:
             data = {
