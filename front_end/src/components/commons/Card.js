@@ -2,19 +2,38 @@ import React from 'react';
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
+import Rating from '@mui/material/Rating';
+import heart from "assets/img/icon_filled_heart.png"
 
 const Container = styled.div`
   display: flex;
   flex-flow: wrap;
-  min-width: 32vh;
+  margin: 1rem 0 1rem 0;
+  padding: 0.2rem;
+  border: 1px solid #C4C4C4;
 `
 
 const CardItem = styled.div`
-  width: 17rem;
-  height: 23rem;
-  margin: 2rem 0 3rem 0;
-  border: 1px solid #C4C4C4;
-  padding: 0.3rem;
+  width: 20rem;
+  height: 26rem;
+  position: relative;
+  opacity: 1;
+  display: block;
+  transition: .5s ease;
+  backface-visibility: hidden;
+  object-fit: cover;
+  &:hover {
+    background-color: rgba(0,0,0,0.6);
+  }
+  &:hover .rating{
+    opacity: 0.3;
+  }
+  &:hover .image {
+    opacity: 0.3;
+  }
+  &:hover .middle {
+    opacity: 1;
+  }
 `
 
 const Img = styled.img`
@@ -25,9 +44,9 @@ const Img = styled.img`
 const TextContainer = styled.div`
   padding: 0.1rem 0.3rem;
   .title {
-    font-family: Playfair Display;
-    font-size: 1.2rem;
-    font-weight: bold;
+    font-family: Work Sans;
+    font-size: 1.3rem;
+    font-weight: 00;
     margin-top: 0.5rem;
     width: 100%;
     height: 2.8rem;
@@ -49,31 +68,42 @@ const TextContainer = styled.div`
   }
 `
 
-// const BorderLine = styled.div`
-//   width: 100%;
-//   margin: 1rem 0;
-//   border-bottom: 1px solid black;
-// `
-
 const SpaceBetweenContainer = styled.div`
   display: flex;
   justify-content: space-between;
 `
 
-// const Line = styled.div`
-//   height: 25.7rem;
-//   border-right: 1px solid black;
-//   margin: 2rem 1rem 0 1rem;
-// `
+const HoverText = styled.div`
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center; 
+`
 
+const TextContent = styled.div`
+  color: white;
+  font-size: 16px;
+  font-style: italic;
+  padding: 1rem auto;
+  img {
+    width: 2rem;
+    height: auto;
+    margin: 0 0 1rem 0;
+  }
+`
 
-const Card = ({ recipeImg, recipeName, recipeCalorie, recipeSeq, recipeKeywords }) => {
+const Card = ({ recipeImg, recipeName, recipeCalorie, recipeSeq, recipeKeywords, recipeRating}) => {
+  const likeCnt = 39
   return (
-    <>
+
       <Container>
         <Link to={`/recipes/${recipeSeq}`} style={{color: 'black', textDecoration : "none"}}>
           <CardItem>
-            <Img src={recipeImg} />
+            <Img src={recipeImg} className="image" />
             <TextContainer>
               <div className='title'>{recipeName}</div>
               <div className='category'>
@@ -81,14 +111,20 @@ const Card = ({ recipeImg, recipeName, recipeCalorie, recipeSeq, recipeKeywords 
               </div>
               <SpaceBetweenContainer>
                 <div className='Calorie'>{Math.round(recipeCalorie)} Kcal</div>
-                <div>★★★★★</div>
+                <Rating className='rating' name="read-only" value={ recipeRating ? recipeRating : 0 } readOnly  size="small" />
               </SpaceBetweenContainer>
             </TextContainer>
+            <HoverText className="middle">
+              <TextContent className="text">
+                <img src={heart} alt=""/>
+                <div>{likeCnt} PEOPLE</div>
+                <div>LIKED THIS RECIPE</div>
+              </TextContent>
+            </HoverText>
           </CardItem>
         </Link>
-        {/* { (index+1)%4 === 0 ? null : <Line /> } */}
       </Container>
-    </>
+
   );
 };
 

@@ -1,14 +1,18 @@
 import styled from "styled-components";
+import { AnimationOnScroll } from 'react-animation-on-scroll';
 
 const ExerciseContainer = styled.div`
-display: block;
-margin: 7rem auto;
-.text{
-  text-align: center;
-  font-size: 4rem;
-  font-weight: 100;
-  font-style: italic;
-}
+  display: flex;
+  flex-direction: column;
+  margin: 7rem auto;
+  * {
+    display: flex;
+    margin-right: 1rem;
+    text-align: center;
+    font-size: 4rem;
+    font-weight: 100;
+    font-style: italic;
+  }
 `
 const CalculateCalories = ({ calories }) => {
   const exercises =  [
@@ -26,8 +30,15 @@ const CalculateCalories = ({ calories }) => {
   const randomItem = chooseRandom(exercises)
     return (
       <ExerciseContainer>
-        <div className="text">
-        To Burn {Math.round(calories)} Calories<br />{randomItem[0]} {Math.round(calories/(randomItem[1]*weight))} Minutes
+        <div>
+          <div className="text">To Burn</div>
+          <AnimationOnScroll animateIn="animate__tada">{Math.round(calories)}</AnimationOnScroll>
+          <div className="text">Calories</div>
+        </div>
+        <div>
+          <AnimationOnScroll animateIn="animate__tada">{randomItem[0]} </AnimationOnScroll>
+          <AnimationOnScroll animateIn="animate__tada">{Math.round(calories/(randomItem[1]*weight))}</AnimationOnScroll>
+          <div className="text">Minutes</div>
         </div>
       </ExerciseContainer>
     )
