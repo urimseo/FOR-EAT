@@ -24,7 +24,7 @@ const ReviewList = ({ReviewList}) => {
 
   return (
       <Container>
-        <Title>My Wish Recipes</Title>
+        <Title>All reviews</Title>
         { ReviewList.map((review) => ( 
           <ReviewForm recipeId={review.recipe_seq} />
         ))}
