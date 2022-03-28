@@ -6,7 +6,6 @@ import IngredientResultCardRight from "components/recommend/Ingredient/Ingredien
 import Pagination from "react-js-pagination";
 import "assets/css/Pagination.css";
 import { getIngredientRecipeList} from "api/IngredientApi";
-import MainImg from "assets/img/IngredientMain.jpg";
 import CarouselHeader from "components/recommend/Ingredient/CarouselHeader";
 
 const Container = styled.div`
@@ -16,16 +15,10 @@ const Container = styled.div`
   margin-top: 5rem;
 `
 
-const Header = styled.div`
-  height: 24rem;
-  background-image: url(${MainImg});
-  background-size: cover;
-  background-repeat: no-repeat;
-`
-
 const Title = styled.div`
   display: flex;
   justify-content: center;
+  margin: 0 0 3rem 0;
   font-size: 2rem;    
   font-style: italic;
   font-weight: 300;
@@ -61,7 +54,6 @@ const IngredientResult = () => {
   }
   return (
     <>
-    {/* <Header /> */}
     <CarouselHeader />
     <Container>
       <Title>Combination result</Title>
