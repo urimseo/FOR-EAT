@@ -91,24 +91,10 @@ const RecipeDetail = () => {
             <KeywordList keywords={recipe.keywords}/>
           </div>
           <RecipeInfo 
-            recipeId={recipe.recipe_seq}
-            name={recipe.name}
             toggleLike={toggleLike}  // 자식 컴포넌트에서 함수 실행하면 부모컴포넌트에서 결과 반영됨
             like={like} // useState에 있는 like 보내줌
             categories={(recipe.categories ? recipe.categories : "-")}
-            servings={recipe.servings}
-            prepTime={recipe.prep_time}
-            cookTime={recipe.cook_time}
-            calories={recipe.calories}
-            carbs={recipe.carbohydrate_content}
-            protein={recipe.protein_content}
-            fat={recipe.fat_content}
-            saturatedFat={recipe.saturated_fat_content}
-            cholesterol={recipe.cholesterol_content}
-            sodium={recipe.sodium_content}
-            fiber={recipe.fiber_content}
-            sugar={recipe.sugar_content}
-            rating={recipe.average_rating}
+            {...recipe}
           />
           <CalculateCalories calories={recipe.calories}/>
           <IngredientWrapper>

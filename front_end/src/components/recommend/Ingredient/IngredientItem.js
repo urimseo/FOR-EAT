@@ -32,7 +32,6 @@ const Container = styled.div`
 const IngredientContainer = styled.div`
   display: flex;
   justify-content: center;
-  cursor: pointer;
 `
 
 const IngredientItemContainer = styled.div`
