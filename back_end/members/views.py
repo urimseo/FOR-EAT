@@ -117,7 +117,7 @@ def kakao_login(request):
             "nickname": nickname,
         }
         access_token = generate_token(payload, "access")
-        print(access_token)
+
         data = {
             "user": {
                 "member_seq": member_seq,
@@ -419,10 +419,8 @@ class MemberProfilePage(APIView):
             member_valid = get_member
         except:
             member_valid = None
-        # print(11111111111111111111111111111111111111111)
         member = Member.objects.get(pk=pk)
         if member_valid != None or member_valid == member:
-            # print(11111111111111111111111111111111111111111)
             # get member 
             member_serializer = MemberInfoSerializer(member).data
             member_serializer['email'] = member_serializer['email'][3:]
@@ -481,9 +479,8 @@ class MemberReviewList(APIView, LimitOffsetPagination):
             reviews = Review.objects.filter(member=member).order_by('-id')
             results = self.paginate_queryset(reviews, request)
             review_serializer_all = ReviewListSerializer(results, many=True)
-            print(review_serializer_all)
             data = {
-                "review_count" : len(review_serializer_all.data),
+                "review_count" : len(reviews),
                 "review_list" : review_serializer_all.data
             }
             return Response(data=data,status=status.HTTP_200_OK)
@@ -495,7 +492,7 @@ class MemberReviewList(APIView, LimitOffsetPagination):
             return Response(data=data, status=status.HTTP_404_NOT_FOUND)
 
 class MemberLikeRecipeList(APIView, LimitOffsetPagination):
-# 페이지 번호 -1 * limit
+
     def get(self, request, pk, format=None):
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
         # check jwt token valid
@@ -520,7 +517,7 @@ class MemberLikeRecipeList(APIView, LimitOffsetPagination):
                 recipe['images'] = json.loads(recipe['images'])[0]
 
             data = {
-                "likes_count" : len(like_serializer_all.data),
+                "likes_count" : len(likes),
                 "likes_list" : like_serializer_all.data
             }
             return Response(data=data,status=status.HTTP_200_OK)
