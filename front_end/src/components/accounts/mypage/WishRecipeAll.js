@@ -109,8 +109,8 @@ const WishRecipeAll = () => {
           <PageContainer>
             <Pagination 
               activePage={page} 
-              itemsCountPerPage={2}
-              totalItemsCount={6} 
+              itemsCountPerPage={12}
+              totalItemsCount={count} 
               pageRangeDisplayed={5} 
               prevPageText={"‹"} 
               nextPageText={"›"} 
