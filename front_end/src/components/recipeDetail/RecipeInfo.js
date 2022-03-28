@@ -11,12 +11,12 @@ import icon_filled_heart from "assets/img/icon_filled_heart.png"
 
 const Container = styled.div`
   width: 45%;
-  padding-inline: 1rem;
+  padding-inline: 2rem;
 `
 
 const Like = styled.img`
   display: flex;
-  width: 4rem;
+  width: 3rem;
   cursor: pointer;
 `
 
@@ -24,16 +24,15 @@ const SpaceBetweenContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 1rem 0;
 `
 const CategoryTag = styled.div`
 display: flex;
 #flag {
   width: 9rem;
-  height: 2rem;
+  height: 1.7rem;
   box-sizing: content-box;
   padding-right: 1rem;
-  padding-top: 1rem;
+  padding-top: 0.8rem;
   position: relative;
   background: #ED8141;
   color: white;
@@ -49,8 +48,8 @@ display: flex;
   width: 0;
   height: 0;
   border-right: 1rem solid #FFFFFF;
-  border-top: 1.5rem solid transparent;
-  border-bottom: 1.5rem solid transparent;
+  border-top: 1.3rem solid transparent;
+  border-bottom: 1.3rem solid transparent;
 }
 `
 const TextContainer = styled.div`
@@ -83,7 +82,7 @@ const RecipeInfo = ({ name, like, toggleLike, categories, servings, prepTime, co
     <Container>
       <SpaceBetweenContainer>
         <Typography 
-        ff="Playfair Display" fs="3rem" fw="600"
+        ff="Playfair Display" fs="2.5rem" fw="600"
         ta="start" dp="flex"
         mb="1rem"
         >{name}</Typography>

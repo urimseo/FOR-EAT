@@ -8,27 +8,35 @@ import RelatedRecipeList from "components/recipeDetail/RelatedRecipeList";
 import Ingredients from "components/recipeDetail/Ingredients";
 import Instructions from "components/recipeDetail/Instructions";
 import ReviewList from "components/recipeDetail/ReviewList";
+import KeywordList from "components/recipeDetail/KeywordList";
 import { getRecipeDetail, likeRecipe } from "api/RecipeDetailApi";
 
 const Container = styled.div`
   padding: 6rem 10rem;
+  display: grid;
+  grid-template-columns: 1fr;
 `
+
 const Wrapper = styled.div`
   display: flex;
   justify-content:${(props) => (props.jc ? props.jc : "center")};
   flex-wrap: wrap;
 `
-const ImgWrapper = styled.div`
-  width: 45%;
-  overflow: hidden;
-  margin: 0 1rem; 
-  background-position: center;
-`
+
+// const ImgWrapper = styled.div`
+//   display: block;
+//   width: 100%;
+//   height: 70%;
+//   overflow: hidden;
+//   background-position: center;
+// `
+
 const Img = styled.img`
   width: 100%;
-  height: 100%;
+  height: 80%;
   object-fit: cover;
 `
+
 const IngredientWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -78,9 +86,10 @@ const RecipeDetail = () => {
     <div>
       <Container>
         <Wrapper>
-          <ImgWrapper>
+          <div style={{display: "flex", flexDirection: "column", maxWidth:"35%"}}>
             <Img src={recipe.images} />
-          </ImgWrapper>
+            <KeywordList keywords={recipe.keywords}/>
+          </div>
           <RecipeInfo 
             recipeId={recipe.recipe_seq}
             name={recipe.name}
