@@ -9,4 +9,5 @@ urlpatterns = [
     path('<int:pk>/likes', views.RecipeLike.as_view()),
     path('search', views.Search.as_view()),
     path('ingredient_choices', views.IngredientChoice.as_view()),
+    path('browse', views.BrowseRecipeList.as_view()),
 ]
