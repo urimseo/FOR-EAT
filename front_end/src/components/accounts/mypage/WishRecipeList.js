@@ -12,14 +12,13 @@ const Top = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-top: 3rem;
   font-family: Playfair Display;
 `
 
 const Title = styled.div`
   display: flex;
   font-family: Playfair Display;
-  font-size: 64px;
+  font-size: 32px;
 `
 
 const See = styled.a`
@@ -45,23 +44,16 @@ const PageContainer = styled.div`
   margin: 2rem 0 5rem 0;
 `
 
-const WishRecipeList = ({RecipeList}) => {
-  const [page, setPage] = useState(1); 
-
-  const handlePageChange = (page) => { 
-    setPage(page); 
-  };
-
-  console.log(RecipeList)
-
+const WishRecipeList = ({RecipeList, UserInfo}) => {
   return (
     <>
       <Container>
         <Top>
           <Title>My Wish Recipes</Title>
-          <See href="/mypage">See all →</See>
+          <See href={'/' + UserInfo + '/mypage/likes'}>See all →</See>
         </Top>
         
+      {RecipeList.length !== 0 ? 
         <CardContainer>
         {RecipeList.map((recipe, index) => (
           <Card
@@ -74,19 +66,7 @@ const WishRecipeList = ({RecipeList}) => {
             recipeCalorie={recipe.calories}
           />
         ))}
-      </CardContainer>
-      {RecipeList.length !== 0 ?      
-        <PageContainer>
-          <Pagination 
-            activePage={page} 
-            itemsCountPerPage={3}
-            totalItemsCount={RecipeList.length} 
-            pageRangeDisplayed={5} 
-            prevPageText={"‹"} 
-            nextPageText={"›"} 
-            onChange={handlePageChange}
-          />
-        </PageContainer> : <Sub>레시피를 등록해주세요</Sub>
+      </CardContainer> : <Sub>레시피를 등록해주세요</Sub>
       }
       </Container>
     </>

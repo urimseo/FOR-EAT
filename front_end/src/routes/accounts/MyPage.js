@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import styled from "styled-components";
 import { useRecoilValue } from 'recoil';
-import { userInfoState } from '../../atoms/atoms';
+import { userInfoState } from 'atoms/atoms';
 
 import Preferences from "components/accounts/mypage/Preferences"
 import SavedRecipeList from "components/accounts/mypage/SavedRecipeList"
@@ -88,8 +88,7 @@ const MyPage = () => {
       getMember(UserInfo)
       .then((res) => 
         {
-        console.log(res)
-        setEmail(res.email.split('_')[1]) // 구글 기준으로 맞춤, 카카오로 했을 때는 달라질 수 있음
+        setEmail(res.email.split('_')[1])
         setNickname(res.nickname)
         setImage(res.profile_image_url)
       })
@@ -118,7 +117,7 @@ const MyPage = () => {
         
         <SpaceBetweenContainer>
           <div>
-            {savedRecipes ? <SavedRecipeList RecipeList={RecipeList} ReviewList={ReviewList} /> : null}
+            {savedRecipes ? <SavedRecipeList RecipeList={RecipeList} ReviewList={ReviewList} UserInfo={UserInfo} /> : null}
             {preferences ? <Preferences /> : null}
           </div>
         </SpaceBetweenContainer>

@@ -15,6 +15,27 @@ export const getMypage = async (member_seq) => {
     return response.data;
   }
 
+  export const getWish = async (page, member_seq) => {
+    console.log(page)
+    const response = await instance.get(`/members/${member_seq}/mypage/likes`,{
+      params: {
+        limit: 2,
+        offset: 2*(page-1)
+      },
+    });
+    return response.data;
+  }
+
+  export const getReview = async (page, member_seq) => {
+    const response = await instance.get(`/members/${member_seq}/mypage/reviews`,{
+      params: {
+        limit: 24,
+        offset: 24*(page-1)
+      },
+    });
+    return response.data;
+  }
+
   export const getSurvey = async (member_seq) => {
     const response = await instance.get(`/members/${member_seq}/survey`);
     return response.data;
