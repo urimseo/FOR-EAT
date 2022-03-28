@@ -59,7 +59,7 @@ const SearchInput = () => {
     <SearchContainer>
       <Input 
         placeholder=" search in result"
-        value={word}
+        value={word || ''}
         type="text"
         onChange={onChange}
         onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
