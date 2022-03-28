@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import styled, {keyframes} from 'styled-components';
 import { getIngredientRecipeList } from 'api/IngredientApi';
 import { useNavigate } from 'react-router-dom';
+import { Alert } from "components/commons/Alert";
 
 
 const style = {
@@ -155,13 +156,13 @@ const Dustbin = React.memo(function Dustbin() {
 
     const getResult = async (ingredient) => {
         if (ingredient.length === 0) {
-            alert("Select an ingredient!")
+            Alert("✅ Select an ingredient!")
         } else {
             const result = await getIngredientRecipeList(1, ingredient);
             if (result.data.length !== 0) {
                 navigate('/search/ingredient', { state: [result, foodsUnique]})
             } else {
-                alert("No recipe result, choose the ingredients again.")
+                Alert("❌ No recipe result, choose the ingredients again.")
             }
         }
     }

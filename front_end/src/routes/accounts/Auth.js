@@ -3,6 +3,7 @@ import { kakaoLogin } from '../../api/AuthApi';
 import { useSetRecoilState } from 'recoil';
 import { isLoginState, userInfoState } from '../../atoms/atoms';
 import { useNavigate } from 'react-router-dom';
+import { Alert } from "components/commons/Alert";
 
 
 const Auth = () => {
@@ -29,12 +30,12 @@ const Auth = () => {
             }
           }
           else {
-            alert("로그인에 실패했습니다.")
+            Alert("✅ Please check your information.");
             navigate("/")
           }
         }
       ).catch((err) => {
-        alert("로그인에 실패했습니다.")
+        Alert("✅ Please check your information.");
         navigate("/")
       }
       );
