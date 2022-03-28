@@ -76,7 +76,10 @@ const CardContainer = styled.div`
   gap: 0.5rem;
 `
 
-const RecipeInfo = ({ name, like, toggleLike, categories, servings, prepTime, cookTime, calories, carbs, protein, fat, saturatedFat, cholesterol, sodium, fiber, sugar, rating }) => {
+const RecipeInfo = ({ 
+  recipe_seq, name, like, toggleLike, categories, servings, 
+  prep_time, cook_time, calories, carbohydrate_content, protein_content, fat_content, 
+  saturated_fat_content, cholesterol_content, sodium_content, fiber_content, sugar_content, average_rating }) => {
 
   return (
     <Container>
@@ -92,16 +95,16 @@ const RecipeInfo = ({ name, like, toggleLike, categories, servings, prepTime, co
         <CategoryTag>
           <div id="flag">{(categories.length === 0 ? "DELICIOUS" : categories[0]["category_name"] )}</div>
         </CategoryTag>
-        <Rating name="read-only" value={rating} readOnly />
+        <Rating name="read-only" value={average_rating} readOnly />
       </SpaceBetweenContainer>
       <hr />
         <TextContainer>
           <div className="itemTitle">SERVINGS</div>
           <div className="item">{servings}</div>
           <div className="itemTitle">PREPATION TIME</div>
-          <div className="item">{prepTime} MIN</div>
+          <div className="item">{prep_time} MIN</div>
           <div className="itemTitle">COOKING TIME</div>
-          <div className="item">{cookTime} MIN</div>
+          <div className="item">{cook_time} MIN</div>
         </TextContainer>
       <hr />
         <TextContainer>
@@ -111,14 +114,14 @@ const RecipeInfo = ({ name, like, toggleLike, categories, servings, prepTime, co
         <div style={{display: "grid", gridTemplateColumns:"2fr 8fr", gap: "0.5vw" }}>
           <CalorieCard title="CALORIES" grams={Math.ceil(calories)} ratio={Math.ceil(calories/667*100)} />
           <CardContainer>
-            <NutritionCard title="CARBS" grams={Math.ceil(carbs)} ratio={Math.ceil(carbs/81*100)} />
-            <NutritionCard title="PROTEIN" grams={Math.ceil(protein)} ratio={Math.ceil(protein/35*100)} />
-            <NutritionCard title="FAT" grams={Math.ceil(fat)} ratio={Math.ceil(fat/18.5*100)} />
-            <NutritionCard title="SATURATED FAT" grams={Math.ceil(saturatedFat)} ratio={Math.ceil(saturatedFat/5*100)} />
-            <NutritionCard title="SODIUM" grams={Math.ceil(sodium)} ratio={Math.ceil(sodium/667*100)} />
-            <NutritionCard title="SUGAR" grams={Math.ceil(sugar)} ratio={Math.ceil(sugar/16.7*100)} />
-            <NutritionCard title="FIBER" grams={Math.ceil(fiber)} ratio={Math.ceil(fiber/8.3*100)} />
-            <NutritionCard title="CHOLESTEROL" grams={Math.ceil(cholesterol)} ratio={Math.ceil(cholesterol/100*100)} />
+            <NutritionCard title="CARBS" grams={Math.ceil(carbohydrate_content)} ratio={Math.ceil(carbohydrate_content/81*100)} />
+            <NutritionCard title="PROTEIN" grams={Math.ceil(protein_content)} ratio={Math.ceil(protein_content/35*100)} />
+            <NutritionCard title="FAT" grams={Math.ceil(fat_content)} ratio={Math.ceil(fat_content/18.5*100)} />
+            <NutritionCard title="SATURATED FAT" grams={Math.ceil(saturated_fat_content)} ratio={Math.ceil(saturated_fat_content/5*100)} />
+            <NutritionCard title="SODIUM" grams={Math.ceil(sodium_content)} ratio={Math.ceil(sodium_content/667*100)} />
+            <NutritionCard title="SUGAR" grams={Math.ceil(sugar_content)} ratio={Math.ceil(sugar_content/16.7*100)} />
+            <NutritionCard title="FIBER" grams={Math.ceil(fiber_content)} ratio={Math.ceil(fiber_content/8.3*100)} />
+            <NutritionCard title="CHOLESTEROL" grams={Math.ceil(cholesterol_content)} ratio={Math.ceil(cholesterol_content/100*100)} />
           </CardContainer>
         </div>
     </Container>

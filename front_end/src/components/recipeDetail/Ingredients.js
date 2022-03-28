@@ -3,14 +3,14 @@ import styled from "styled-components";
 const TextContainer = styled.div`
   text-align: ${(props) => (props.ta ? props.ta : "left")};
   width: 40%;
-  margin: 0 5rem;
+  margin: 0 3rem 0 6rem;
   .title {
-    font-size: 2.25rem;
+    font-size: 2rem;
     font-weight: 600;
-    margin: 0 0 7rem 0;
+    margin: 0 0 5rem 0;
   }
   .content_bold {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 500;
     margin: 1rem 0;
   }

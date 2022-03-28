@@ -9,14 +9,14 @@ const Container = styled.div`
 `
 
 const TextContainer = styled.div`
-  margin: 5rem 0 2rem 0;
+  margin: 5rem 0 1rem 0;
   display: block;
   justify-items: start;
   .text {
     display: flex;
     text-align: left;
     font-family: Playfair Display;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: 600;
   }
   .line {
@@ -42,10 +42,7 @@ const RelatedRecipeList = ({ ingredientRecommend, nutritionRecommned }) => {
         { ingredientRecommend ? ingredientRecommend.map((recipe) => ( 
             <Card2
               key={recipe.recipe_seq}
-              recipeSeq={recipe.recipe_seq}
-              name={recipe.name}
-              images={recipe.images}
-              keywords={recipe.keywords}
+              {...recipe}
             />
           )) : null }
       </CardContainer>
@@ -57,10 +54,7 @@ const RelatedRecipeList = ({ ingredientRecommend, nutritionRecommned }) => {
       { nutritionRecommned ? nutritionRecommned.map((recipe) => ( 
             <Card2
               key={recipe.recipe_seq}
-              recipeSeq={recipe.recipe_seq}
-              name={recipe.name}
-              images={recipe.images}
-              keywords={recipe.keywords}
+              {...recipe}
             />
           )) : null }
       </CardContainer>

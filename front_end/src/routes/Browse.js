@@ -11,7 +11,7 @@ const Container = styled.div`
 
 const Header = styled.div`
   height: 24rem;
-  background-image: url(${Tile})
+  background-image: url(${Tile});
 `
 const HeaderContent = styled.div`
   position: absolute;
