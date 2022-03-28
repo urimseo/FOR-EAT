@@ -17,7 +17,8 @@ import IngredientResult from "routes/recommend/IngredientResult";
 import Search from "routes/Search";
 import Survey from "routes/Survey";
 import Browse from "routes/Browse";
-
+import WishRecipes from "components/accounts/mypage/WishRecipeAll"
+import ReviewRecipes from "components/accounts/mypage/ReviewRecipeAll"
 
 
 const AppRouter = () => {
@@ -38,7 +39,9 @@ const AppRouter = () => {
             <Route path="/recipes/:recipe_seq" element={<RecipeDetail />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/survey" element={<Survey />} />
-            <Route path="/mypage/:member_seq" element={<MyPage />} />
+            <Route path="/:member_seq/mypage" element={<MyPage />} />
+            <Route path="/:member_seq/mypage/likes" element={<WishRecipes />} />
+            <Route path="/:member_seq/mypage/reviews" element={<ReviewRecipes />} />
           </Route>
         </Routes>
       </>
