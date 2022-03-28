@@ -30,7 +30,7 @@ const BodyContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 4rem 16rem;
+  padding: 4rem auto;
 `
 
 const Result = styled.div`
@@ -38,6 +38,7 @@ const Result = styled.div`
   justify-content: center;
   font-size: 1.5rem;
   font-weight: 300;
+  margin: 4rem 0 2rem 0;
   .result {
     padding: 1rem;
   }
@@ -48,8 +49,8 @@ const Result = styled.div`
 `
 
 const CardContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 21.5rem 21.5rem 21.5rem;
   justify-content: center;
 `
 
@@ -80,6 +81,7 @@ const SearchResult = () => {
     const response = await getSearchList(page, word);
     if (response) {
       setResultList(response.data)
+      console.log(response.data)
     }
   }
 
