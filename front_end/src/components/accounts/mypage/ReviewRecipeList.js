@@ -10,21 +10,40 @@ const Container = styled.div`
   justify-content: center;
 `
 
+const Top = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 3rem;
+  font-family: Playfair Display;
+`
+
 const Title = styled.div`
   display: flex;
   font-family: Playfair Display;
-  font-size: 64px;
+  font-size: 32px;
+`
+
+const See = styled.a`
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  margin-left: auto;
+  text-decoration: none;
 `
 
 
 
-const ReviewList = ({ReviewList}) => {
+const ReviewList = ({ReviewList, UserInfo}) => {
   const [reviews, setReviews] = useState([]); 
   console.log(ReviewList)
 
   return (
       <Container>
-        <Title>All reviews</Title>
+        <Top>
+          <Title>All Reviews</Title>
+          <See href={'/' + UserInfo + '/mypage/reviews'}>See all →</See>
+        </Top>
         { ReviewList.map((review) => ( 
           <ReviewForm recipeId={review.recipe_seq} />
         ))}

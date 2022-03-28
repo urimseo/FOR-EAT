@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from 'react-router-dom';
 import styled from "styled-components";
+import { userInfoState } from 'atoms/atoms';
+import { useRecoilValue } from 'recoil';
 
 import Card3 from "components/commons/Card3";
 import Tile from "assets/img/Tile.jpg";
 import "assets/css/Pagination.css";
 import Pagination from "react-js-pagination";
-// import { getSearchList } from "api/SearchApi";
+import { getReview } from "api/MyPageApi";
 
 const Container = styled.div`
 `
@@ -15,6 +16,7 @@ const Header = styled.div`
   height: 24rem;
   background-image: url(${Tile});
 `
+
 const HeaderContent = styled.div`
   position: absolute;
   top: 19rem;
@@ -26,6 +28,7 @@ const HeaderContent = styled.div`
   z-index: 2;
   text-align: center;
 `
+
 const BodyContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -57,36 +60,33 @@ const PageContainer = styled.div`
   margin: 2rem 0 5rem 0;
 `
 
-
-
-const ReviewecipeAll = () => {
-  const location = useLocation();
-
-  // const [ word, setWord ] = location.state[0]
-  const word = location.state[0]
+const ReviewRecipeAll = () => {
+  const UserInfo = useRecoilValue(userInfoState);
+  const [ count, setCount ] = useState(0)
   const [ resultList, setResultList ] = useState([])
-
-  useEffect(() => {   
-    setResultList(location.state[1]["data"])
-
-  }, location.state[1]["data"])
-
-  const count = location.state[1]["count"]
 
   const [ page, setPage ] = useState(1);
 
   const handlePageChange = async(page) => {
-    setPage(page); 
-    // const response = await getSearchList(page, word);
-    // if (response) {
-    //   setResultList(response.data)
-    // }
+    setPage(page);
+    getReview(page, UserInfo)
   }
+
+  useEffect(() => {
+    getReview(page, UserInfo).then((res) => {
+      console.log(res)
+      setCount(res.review_count)
+      setResultList(res.review_list)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  },[])
 
   return (
     <Container>
       <Header />
-      <HeaderContent>"{word}"</HeaderContent>
+      <HeaderContent>"All Reviews"</HeaderContent>
       <BodyContainer>
         <Result>
           <div className="result">Search Result</div>
@@ -100,13 +100,15 @@ const ReviewecipeAll = () => {
             />
           ))}
 
+          
+
         </CardContainer>
         { resultList.length !== 0 ?
           <PageContainer>
             <Pagination 
               activePage={page} 
               itemsCountPerPage={10} 
-              totalItemsCount={250} 
+              totalItemsCount={resultList.length} 
               pageRangeDisplayed={5} 
               prevPageText={"‹"} 
               nextPageText={"›"} 
@@ -119,4 +121,4 @@ const ReviewecipeAll = () => {
   )
 }
 
-export default ReviewecipeAll;
+export default ReviewRecipeAll;
