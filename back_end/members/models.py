@@ -1,3 +1,4 @@
+import email
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
@@ -8,14 +9,16 @@ from foreat import settings
 
 # Create your models here.
 class MemberManager(BaseUserManager):
-    def create_user(self, nickname, password=None, profile_image_url=None, kakao_id=None):
+    def create_user(self, nickname, email=None, password=None, profile_image_url=None, kakao_id=None, google_id=None):
         # if not email:
         #     raise ValueError('Users must have an email address')
 
         user = self.model(
             nickname = nickname,
             profile_image_url = profile_image_url,
+            email = email,
             kakao_id = kakao_id,
+            google_id = google_id,
         )
         user.set_password(password)
         user.save(using=self._db)
