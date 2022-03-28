@@ -9,9 +9,8 @@ from rest_framework.pagination import LimitOffsetPagination
 import json
 import requests
 from decouple import config
-
-from members.models import LikedIngredient, Member, MemberSurvey
-from recipes.models import Allergy, Ingredient, Review
+from members.models import LikedIngredient, Member, MemberSurvey, LikedRecipe
+from recipes.models import Allergy, Ingredient, Review, Recipe
 from recipes.serializers import RecipeListSerializer, ReviewListSerializer
 from .serializers import KaKaoMemberSerializer, GoogleMemberSerializer, MemberSurveySimpleSerializer, MemberSurveySerializer, MemberInfoSerializer
 from .token import generate_token, decode_token
@@ -479,9 +478,10 @@ class MemberReviewList(APIView, LimitOffsetPagination):
 
         if member_valid == member:
         # get_member_review
-            review = Review.objects.filter(member=member).order_by('-id')
-            review_serializer_all = ReviewListSerializer(review, many=True)
-            # print(len(review_serializer_all.data))
+            reviews = Review.objects.filter(member=member).order_by('-id')
+            results = self.paginate_queryset(reviews, request)
+            review_serializer_all = ReviewListSerializer(results, many=True)
+            print(review_serializer_all)
             data = {
                 "review_count" : len(review_serializer_all.data),
                 "review_list" : review_serializer_all.data
@@ -494,6 +494,41 @@ class MemberReviewList(APIView, LimitOffsetPagination):
             }
             return Response(data=data, status=status.HTTP_404_NOT_FOUND)
 
-            
+class MemberLikeRecipeList(APIView, LimitOffsetPagination):
+# 페이지 번호 -1 * limit
+    def get(self, request, pk, format=None):
+        token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        # check jwt token valid
+        try:
+            get_member = Member.objects.get(pk=pk)
+            jwt_member = decode_token(token.strip('"'))
+            if jwt_member == None or pk!= jwt_member.member_seq: 
+                member_valid = None
+            member_valid = get_member
+        except:
+            member_valid = None
+        member = Member.objects.get(pk=pk)
+        if member_valid == member:
+            # get_member_likes_recipe
+            likes = LikedRecipe.objects.filter(member_seq=pk)
+            recipe_seq = likes.values('recipe_seq')
+            likes_recipe = Recipe.objects.filter(recipe_seq__in=recipe_seq)
+            results = self.paginate_queryset(likes_recipe, request)
+            like_serializer_all = RecipeListSerializer(results, many=True)
+
+            for recipe in like_serializer_all.data:
+                recipe['images'] = json.loads(recipe['images'])[0]
+
+            data = {
+                "likes_count" : len(like_serializer_all.data),
+                "likes_list" : like_serializer_all.data
+            }
+            return Response(data=data,status=status.HTTP_200_OK)
+        else:
+            data = {
+                "msg" : "존재하지 않는 유저입니다.",
+                "status": 404,
+            }
+            return Response(data=data, status=status.HTTP_404_NOT_FOUND)
 
         
