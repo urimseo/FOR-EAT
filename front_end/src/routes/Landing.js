@@ -73,10 +73,10 @@ const TextContainer = styled.div`
   }
   .Hr_right {
     border: 0;
-    width: 3rem;
+    width: 2.5rem;
     height: 0.1rem;
     background: black;
-    margin: 0 0 0 92.5%;
+    margin: 0 0 0 94.5%;
   }
   .content {
     font-size: 1rem;
@@ -97,13 +97,18 @@ const Discover = styled.a`
   color: black;
   cursor: pointer;
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 400;
-  margin: 2rem 0;
+  margin: 1rem 0;
   .right {
     padding-left: 20rem;
+  };  
+  &:hover {
+    color: #ED8141; 
   }
 `
+/* offset-x | offset-y | blur-radius | spread-radius | color */
+// box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 
 const ImgArchWrapper = styled.div`
   width: 19rem;
@@ -157,7 +162,7 @@ const Landing = () => {
                 Collects your choices by a survey and gives you the recipes that you are looking for.
               </div>
               <div style={{alignItems: "end"}}>
-              <Discover onClick={openModal}>DISCOVER</Discover>
+              <Discover onClick={openModal}>SIGN UP</Discover>
               <LoginModal open={modalOpen} close={closeModal}
               >
               </LoginModal>
@@ -186,7 +191,7 @@ const Landing = () => {
                 <div className="content">
                   Enjoy your meal:)
                 </div>
-                <Discover onClick={openModal}>DISCOVER</Discover>
+                <Discover onClick={openModal}>SIGN UP</Discover>
               </div>
             </div>
           </TextContainer>
@@ -200,14 +205,12 @@ const Landing = () => {
           </BackgroundImgContainer>
         </Container>
         <Container style={{padding: "3rem 10rem", flexDirection:"column"}}>
-          <AnimationOnScroll animateIn="animate__fadeInLeftBig">
-            <Typography
-              ff="Playfair Display"
-              dp="inlinex" mt="2rem" mb="3rem"
-              fs="4rem" ta="left" 
-            >WHAT'S IN MY FRIDGE?</Typography>
-          </AnimationOnScroll>
-          <SpaceBetweenContainer>
+          <Typography
+            ff="Playfair Display"
+            dp="inlinex" mt="2rem" mb="3rem"
+            fs="4rem" ta="left" 
+          >WHAT'S IN MY FRIDGE?</Typography>
+          <SpaceBetweenContainer data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000" data-aos-easing="ease-in-out">
             <ImgArchWrapper>
               <ImgArch src={Ingredient_broccoli}/>
             </ImgArchWrapper>
@@ -221,7 +224,7 @@ const Landing = () => {
               <ImgArch src={Ingredient_rosemary}/>
             </ImgArchWrapper>
           </SpaceBetweenContainer>
-          <SpaceBetweenContainer mb="5rem">
+          <SpaceBetweenContainer mb="5rem" data-aos="fade-left" data-aos-delay="100" data-aos-duration="1000" data-aos-easing="ease-in-out">
             <ImgArchWrapper>
               <ImgArch src={Ingredient_asparagus}/>
             </ImgArchWrapper>
@@ -269,7 +272,7 @@ const Landing = () => {
                     <br />
                     Collects your choices by a survey and gives you the recipes that you are looking for.
                   </div>
-                  <Discover onClick={openModal}>DISCOVER</Discover>
+                  <Discover onClick={openModal}>SIGN UP</Discover>
                 </TextContainer>
                 <TextContainer style={{display: "flex", paddingRight:"3rem"}}>
                   <div className="content__2">
