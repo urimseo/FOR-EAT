@@ -53,11 +53,12 @@ const TextContainer = styled.div`
 const IngredientResultCard = ({recipeSeq, recipeImage, recipeName, recipeCalorie, recipeIngredients}) => {
 
   return (
-    <Link to={`/recipes/${recipeSeq}`} style={{color: 'black', textDecoration : "none"}}>
-      <Container>
+    <Container>
+      <Link to={`/recipes/${recipeSeq}`} style={{ color: 'black', textDecoration : "none"}}>
         <ImgWrapper>
           <Img src={recipeImage} />
         </ImgWrapper>
+        </Link>
         <TextContainer>
         <div className='title'>{recipeName}</div>
         <div className='calorie'>{recipeCalorie}Kcal</div>
@@ -65,8 +66,7 @@ const IngredientResultCard = ({recipeSeq, recipeImage, recipeName, recipeCalorie
             <div className='ingredient' key={index}>{index <= 8 ? ingredient.ingredient_name : null}{index > 7 || index === recipeIngredients.length-1 ? null : ","}</div>)}
           </ul>
         </TextContainer>
-      </Container>
-    </Link>
+    </Container>
   );
 };
 
