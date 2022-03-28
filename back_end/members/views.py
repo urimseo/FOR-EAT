@@ -246,9 +246,16 @@ class MemberInfo(APIView):
                 "status": 404,
             }
             return Response(data=data, status=status.HTTP_404_NOT_FOUND)
+        try :
+            isSurvey = MemberSurvey.objects.get(member_seq=member.member_seq)
+            isSurvey = True
+        except:
+            isSurvey = False
 
         serializer = MemberInfoSerializer(member)
-        return Response(data=serializer.data, status=status.HTTP_200_OK) 
+        data = serializer.data
+        data['isSurvey'] = isSurvey
+        return Response(data=data, status=status.HTTP_200_OK) 
 
 
     def patch(self, request, pk, format=None):
@@ -330,7 +337,7 @@ class MemberSurveyProfile(APIView):
 
         else:
             # get ingredient seq 
-            liked_ingredient = get_ingredient_list(member_survey['liked_ingredients'])
+            liked_ingredient = get_ingredient_list(member_survey['liked_ingredient'])
             serializer = MemberSurveySerializer(data=member_survey)
 
             # Create a member survey from the above data
@@ -365,9 +372,9 @@ class MemberSurveyProfile(APIView):
         else:
             # ingredient filter
             liked_ingredient = []
-            if 'liked_ingredients' in member_survey.keys():
-                member_survey['ingredient_keywords'] = str(member_survey['liked_ingredients'])
-                liked_ingredient = get_ingredient_list(member_survey['liked_ingredients'])
+            if 'liked_ingredient' in member_survey.keys():
+                member_survey['ingredient_keywords'] = str(member_survey['liked_ingredient'])
+                liked_ingredient = get_ingredient_list(member_survey['liked_ingredient'])
 
             
             member_survey_object = MemberSurvey.objects.get(member_seq=pk)
@@ -375,7 +382,7 @@ class MemberSurveyProfile(APIView):
             
             try: 
                 if serializer.is_valid(raise_exception=True):
-                    if 'liked_ingredients' in member_survey.keys():
+                    if 'liked_ingredient' in member_survey.keys():
                         serializer.save(liked_ingredients=Ingredient.objects.filter(ingredient_seq__in=liked_ingredient))
                         data = {
                             "msg": "유저 설문 수정 성공",
@@ -413,10 +420,10 @@ class MemberProfilePage(APIView):
             member_valid = get_member
         except:
             member_valid = None
-
+        # print(11111111111111111111111111111111111111111)
         member = Member.objects.get(pk=pk)
         if member_valid != None or member_valid == member:
-            
+            # print(11111111111111111111111111111111111111111)
             # get member 
             member_serializer = MemberInfoSerializer(member).data
             member_serializer['email'] = member_serializer['email'][3:]
@@ -425,18 +432,18 @@ class MemberProfilePage(APIView):
             try:
                 member_survey = MemberSurvey.objects.get(pk=pk)
                 member_survey_serializer = MemberSurveySimpleSerializer(member_survey)
+                member_survey_serializer = member_survey_serializer.data
             except:
                 member_survey_serializer = None
-            
+
             # get_member_liked_recipe
             liked_recipe_serilizer_all = RecipeListSerializer(member.liked_recipes.all(), many=True)
             liked_recipe_serilizer = liked_recipe_serilizer_all.data[-3:]
             for recipe in liked_recipe_serilizer:
                 recipe['images'] = json.loads(recipe['images'])[0]
-            
 
             # get_member_review
-            review = Review.objects.filter(member=member)
+            review = Review.objects.all().filter(member=member)
             review_serializer_all = ReviewListSerializer(review, many=True)
 
             data = {
@@ -445,7 +452,6 @@ class MemberProfilePage(APIView):
                 "liked_recipe": liked_recipe_serilizer,
                 "review": review_serializer_all.data[-3:]
             }
-
             return Response(data=data,status=status.HTTP_200_OK)
         else:
             data = {
@@ -473,8 +479,21 @@ class MemberReviewList(APIView, LimitOffsetPagination):
 
         if member_valid == member:
         # get_member_review
-            review = Review.objects.filter(member=member)
+            review = Review.objects.filter(member=member).order_by('-id')
             review_serializer_all = ReviewListSerializer(review, many=True)
+            # print(len(review_serializer_all.data))
+            data = {
+                "review_count" : len(review_serializer_all.data),
+                "review_list" : review_serializer_all.data
+            }
+            return Response(data=data,status=status.HTTP_200_OK)
+        else:
+            data = {
+                "msg" : "존재하지 않는 유저입니다.",
+                "status": 404,
+            }
+            return Response(data=data, status=status.HTTP_404_NOT_FOUND)
+
             
 
         
