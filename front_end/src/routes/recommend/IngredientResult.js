@@ -5,10 +5,9 @@ import IngredientResultCard from "components/recommend/Ingredient/IngredientResu
 import IngredientResultCardRight from "components/recommend/Ingredient/IngredientResultCardRight";
 import Pagination from "react-js-pagination";
 import "assets/css/Pagination.css";
-import { getIngredientRecipeList} from "api/IngredientApi"
-import MainImg from "assets/img/IngredientMain.jpg"
-
-
+import { getIngredientRecipeList} from "api/IngredientApi";
+import MainImg from "assets/img/IngredientMain.jpg";
+import CarouselHeader from "components/recommend/Ingredient/CarouselHeader";
 
 const Container = styled.div`
   display: flex;
@@ -62,7 +61,8 @@ const IngredientResult = () => {
   }
   return (
     <>
-    <Header />
+    {/* <Header /> */}
+    <CarouselHeader />
     <Container>
       <Title>Combination result</Title>
       {list.map((recipe, index) => ( 
