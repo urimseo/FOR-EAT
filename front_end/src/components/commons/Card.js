@@ -8,15 +8,14 @@ import heart from "assets/img/icon_filled_heart.png"
 const Container = styled.div`
   display: flex;
   flex-flow: wrap;
-  min-width: 32vh;
   margin: 1rem 0 1rem 0;
   padding: 0.2rem;
   border: 1px solid #C4C4C4;
 `
 
 const CardItem = styled.div`
-  width: 17rem;
-  height: 23rem;
+  width: 20rem;
+  height: 26rem;
   position: relative;
   opacity: 1;
   display: block;
@@ -45,9 +44,9 @@ const Img = styled.img`
 const TextContainer = styled.div`
   padding: 0.1rem 0.3rem;
   .title {
-    font-family: Playfair Display;
-    font-size: 1.2rem;
-    font-weight: bold;
+    font-family: Work Sans;
+    font-size: 1.3rem;
+    font-weight: 00;
     margin-top: 0.5rem;
     width: 100%;
     height: 2.8rem;
@@ -100,7 +99,7 @@ const TextContent = styled.div`
 const Card = ({ recipeImg, recipeName, recipeCalorie, recipeSeq, recipeKeywords, recipeRating}) => {
   const likeCnt = 39
   return (
-    <>
+
       <Container>
         <Link to={`/recipes/${recipeSeq}`} style={{color: 'black', textDecoration : "none"}}>
           <CardItem>
@@ -125,7 +124,7 @@ const Card = ({ recipeImg, recipeName, recipeCalorie, recipeSeq, recipeKeywords,
           </CardItem>
         </Link>
       </Container>
-    </>
+
   );
 };
 
