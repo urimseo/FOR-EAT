@@ -7,6 +7,7 @@ import Type from "components/recommend/category/Type";
 import Ingredient from "components/recommend/category/Ingredient";
 import UnderLine from "components/commons/Line";
 import { getRecipeList } from "api/CategoryApi";
+import CarouselHeader from "components/recommend/Ingredient/CarouselHeader";
 
 
 const Container = styled.div`
@@ -131,6 +132,7 @@ const Category = () => {
 
   return (
     <>
+      <CarouselHeader />
       <Container>
         <SpaceBetweenContainer>
           <Title>CATEGORY</Title>
