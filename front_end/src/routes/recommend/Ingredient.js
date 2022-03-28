@@ -4,15 +4,24 @@ import IngredientSelect from "components/recommend/Ingredient/IngredientSelect"
 
 
 const Container = styled.div`
-  margin: 0 10vw;
+  padding: 0 10vw;
   min-height: 100vh;
+  background-color: #fff4e7;
 `
 
-const Title = styled.div`
-  font-family: Playfair Display;
-  font-size: 3rem;
-  margin-top: 4rem;
-  font-weight: 600;
+const TextContainer = styled.div`
+  margin: 0 10rem;
+  .title {
+    font-family: Playfair Display;
+    font-size: 3rem;
+    margin-top: 4rem;
+    font-weight: 600;
+  }
+  .content {
+    font-size: 1rem;
+    font-weight: 300;
+    padding: 1rem 0;
+  }
 `
 
 const BorderLine = styled.div`
@@ -21,12 +30,28 @@ const BorderLine = styled.div`
   border-bottom: 1px solid black;
 `
 
+const SpaceBetweenContainer = styled.div`
+  display: flex;
+  justify-content: start;
+`
+
 const Ingredient = () => {
   return (
     <>
       <Container>
-        <Title>Select From Below</Title>
-        <BorderLine />
+        <TextContainer>
+          <div className="title">Select From Below</div>
+          <BorderLine />
+          <div className="content">Choose ingredients that are dormant in your refrigerator.<br />
+          <SpaceBetweenContainer>
+            <div style={{display: "flex", fontWeight:"500", marginRight:"0.3rem" }}>FOR:EAT</div>
+            <div style={{display: "flex" }}>
+              recommends some great dishes you can make based on this ingredient.
+            </div>
+          </SpaceBetweenContainer>
+          What materials do you have? Put the ingredients in the box by drag and drop.
+          </div>
+        </TextContainer>
         <IngredientSelect />
       </Container>
     </>

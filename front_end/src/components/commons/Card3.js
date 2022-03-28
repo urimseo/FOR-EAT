@@ -58,9 +58,9 @@ const TextContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   .title {
-    font-family: Playfair Display;
+    font-family: Work Sans;
     font-size: 1.2rem;
-    font-weight: 700;
+    font-weight: 500;
     width: 100%;
     height: 1.3rem;
     line-height: 1.3rem;
