@@ -92,7 +92,7 @@ const TextContainer = styled.div`
     padding-left: 12rem;
   }
 `
-const Discover = styled.a`
+const SignUpButton = styled.a`
   display: inline-block;
   color: black;
   cursor: pointer;
@@ -107,8 +107,6 @@ const Discover = styled.a`
     color: #ED8141; 
   }
 `
-/* offset-x | offset-y | blur-radius | spread-radius | color */
-// box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 
 const ImgArchWrapper = styled.div`
   width: 19rem;
@@ -162,7 +160,7 @@ const Landing = () => {
                 Collects your choices by a survey and gives you the recipes that you are looking for.
               </div>
               <div style={{alignItems: "end"}}>
-              <Discover onClick={openModal}>SIGN UP</Discover>
+              <SignUpButton onClick={openModal}>SIGN UP</SignUpButton>
               <LoginModal open={modalOpen} close={closeModal}
               >
               </LoginModal>
@@ -191,7 +189,7 @@ const Landing = () => {
                 <div className="content">
                   Enjoy your meal:)
                 </div>
-                <Discover onClick={openModal}>SIGN UP</Discover>
+                <SignUpButton onClick={openModal}>SIGN UP</SignUpButton>
               </div>
             </div>
           </TextContainer>
@@ -272,7 +270,7 @@ const Landing = () => {
                     <br />
                     Collects your choices by a survey and gives you the recipes that you are looking for.
                   </div>
-                  <Discover onClick={openModal}>SIGN UP</Discover>
+                  <SignUpButton onClick={openModal}>SIGN UP</SignUpButton>
                 </TextContainer>
                 <TextContainer style={{display: "flex", paddingRight:"3rem"}}>
                   <div className="content__2">
