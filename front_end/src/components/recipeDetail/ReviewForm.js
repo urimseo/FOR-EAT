@@ -85,6 +85,7 @@ const Button = styled.button`
     background-color: black;
     color: white;
     cursor: pointer;
+  }
 `
 
 
