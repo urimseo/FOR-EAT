@@ -13,7 +13,7 @@ const App = () => {
           <GlobalStyle />
           <AppRouter />
           
-          <ToastContainer style={{ width: "400px" }} />
+          <ToastContainer style={{ width: "400px", textAlign: "center" }} />
         </RecoilRoot>
       </>
     );
