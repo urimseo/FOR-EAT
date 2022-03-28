@@ -420,10 +420,10 @@ class MemberProfilePage(APIView):
             member_valid = get_member
         except:
             member_valid = None
-
+        # print(11111111111111111111111111111111111111111)
         member = Member.objects.get(pk=pk)
         if member_valid != None or member_valid == member:
-            
+            # print(11111111111111111111111111111111111111111)
             # get member 
             member_serializer = MemberInfoSerializer(member).data
             member_serializer['email'] = member_serializer['email'][3:]
@@ -432,18 +432,18 @@ class MemberProfilePage(APIView):
             try:
                 member_survey = MemberSurvey.objects.get(pk=pk)
                 member_survey_serializer = MemberSurveySimpleSerializer(member_survey)
+                member_survey_serializer = member_survey_serializer.data
             except:
                 member_survey_serializer = None
-            
+
             # get_member_liked_recipe
             liked_recipe_serilizer_all = RecipeListSerializer(member.liked_recipes.all(), many=True)
             liked_recipe_serilizer = liked_recipe_serilizer_all.data[-3:]
             for recipe in liked_recipe_serilizer:
                 recipe['images'] = json.loads(recipe['images'])[0]
-            
 
             # get_member_review
-            review = Review.objects.filter(member=member)
+            review = Review.objects.all().filter(member=member)
             review_serializer_all = ReviewListSerializer(review, many=True)
 
             data = {
@@ -452,7 +452,6 @@ class MemberProfilePage(APIView):
                 "liked_recipe": liked_recipe_serilizer,
                 "review": review_serializer_all.data[-3:]
             }
-
             return Response(data=data,status=status.HTTP_200_OK)
         else:
             data = {
@@ -480,8 +479,21 @@ class MemberReviewList(APIView, LimitOffsetPagination):
 
         if member_valid == member:
         # get_member_review
-            review = Review.objects.filter(member=member)
+            review = Review.objects.filter(member=member).order_by('-id')
             review_serializer_all = ReviewListSerializer(review, many=True)
+            # print(len(review_serializer_all.data))
+            data = {
+                "review_count" : len(review_serializer_all.data),
+                "review_list" : review_serializer_all.data
+            }
+            return Response(data=data,status=status.HTTP_200_OK)
+        else:
+            data = {
+                "msg" : "존재하지 않는 유저입니다.",
+                "status": 404,
+            }
+            return Response(data=data, status=status.HTTP_404_NOT_FOUND)
+
             
 
         
