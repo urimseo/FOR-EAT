@@ -28,7 +28,7 @@ const Profile = () => {
   const UserInfo = useRecoilValue(userInfoState);
 
   const onClick = () => {
-    navigate(`/mypage/${UserInfo}`);
+    navigate(`/${UserInfo}/mypage`);
   }
 
   return (
