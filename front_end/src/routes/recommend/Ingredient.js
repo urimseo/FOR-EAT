@@ -4,8 +4,9 @@ import IngredientSelect from "components/recommend/Ingredient/IngredientSelect"
 
 
 const Container = styled.div`
-  margin: 0 10vw;
+  padding: 0 10vw;
   min-height: 100vh;
+  background-color: #fff4e7;
 `
 
 const TextContainer = styled.div`
