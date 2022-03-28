@@ -21,7 +21,7 @@ const Question = styled.div`
   display: flex;
   justify-content: center;
   .line {
-    width: 16.6%;
+    width: 50%;
     height: 1.2rem;
     background-color: #ED8141;
   }
@@ -38,20 +38,21 @@ const Question = styled.div`
   }
 `
 
+const BoxContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
 const SpaceBetweenContainer = styled.div`
   display: flex;
   justify-content: space-around;
-`
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
 `
 
 const Button = styled.button`
   font-size: 1rem;
   cursor: pointer;
   border-radius: 1rem;
+  box-shadow: 1px 1px 10px 3px #e2e2e2;
   width: ${(props) => (props.w ? props.w : "")};
   height: ${(props) => (props.h ? props.h : "")};
   background-color: white;
@@ -65,23 +66,10 @@ const Button = styled.button`
   }
 `
 
-const SelectContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 3rem;
-`
-
-const SelectContent = styled.select`
-  width: 20rem;
-  height: 2rem;
-  font-size: 1rem;
-  font-family: Work Sans;
-`
-
 const NextButton =styled.button`
   display: flex;
   float: right;
-  margin: 2.5rem 3rem 0 0;
+  margin: 1.5rem 3rem 0 0;
   font-size: 1.2rem;
   font-weight: 100;
   cursor: pointer;
@@ -89,49 +77,36 @@ const NextButton =styled.button`
   border: none;
 `
 
-const InformationSurvey = () => {
-  const [genderShow, setGenderShow] = useState();
-
-  const survey = (info) => {
-    if (info === true) {
-      setGenderShow(true)
-    } else {
-      setGenderShow(false)
-    }
-  }
+const DietaryRestriction = () => {
   return (
     <>
-      <Container>
+    <Container>
         <Question>
           <div className='box'>
             <div className='line'></div>
-            <div className='number'>1/6</div>
+            <div className='number'>3/6</div>
             <Title fs="2.5rem" fw="300" mt="2rem" mb="1rem">Select your information</Title>
-            <Title fs="1.2rem" fw="200" mb="2rem">Check your gender and age.</Title>
-            <ButtonContainer>
+            <Title fs="1.2rem" fw="200" mb="1rem">Check your dietary restriction.</Title>
+            <BoxContainer>
               <div style={{width: "26rem"}}>
                 <SpaceBetweenContainer>
                   <Button mt="1rem" w="12rem" h="5rem" hoverColor="#a2a2a2">
-                    Man
+                    Low cholesterol
                   </Button>
                   <Button mt="1rem" w="12rem" h="5rem" hoverColor="#a2a2a2">
-                    Woman
+                    Low sodium
+                  </Button>
+                </SpaceBetweenContainer>
+                <SpaceBetweenContainer>
+                  <Button mt="2rem" w="12rem" h="5rem" hoverColor="#a2a2a2">
+                    Low sugar
+                  </Button>
+                  <Button mt="2rem" w="12rem" h="5rem" hoverColor="#a2a2a2">
+                    No interest
                   </Button>
                 </SpaceBetweenContainer>
               </div>
-            </ButtonContainer>
-            <SelectContainer>
-              <Title mt="0.5rem" fs="1rem" mr="0.5rem">AGE</Title>
-              <SelectContent>
-                <option value="0" selected disabled>select age</option>
-                <option value="1">15-19 years old</option>
-                <option value="2">20-29 years old</option>
-                <option value="3">30-49 years old</option>
-                <option value="4">50-64 years old</option>
-                <option value="5">65-74 years old</option>
-                <option value="6">75 years of age or older</option>
-              </SelectContent>
-            </SelectContainer>
+            </BoxContainer>
             <NextButton>Continue</NextButton>
           </div>
         </Question>
@@ -140,4 +115,5 @@ const InformationSurvey = () => {
   )
 }
 
-export default InformationSurvey;
+
+export default DietaryRestriction;
