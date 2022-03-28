@@ -246,9 +246,16 @@ class MemberInfo(APIView):
                 "status": 404,
             }
             return Response(data=data, status=status.HTTP_404_NOT_FOUND)
+        try :
+            isSurvey = MemberSurvey.objects.get(member_seq=member.member_seq)
+            isSurvey = True
+        except:
+            isSurvey = False
 
         serializer = MemberInfoSerializer(member)
-        return Response(data=serializer.data, status=status.HTTP_200_OK) 
+        data = serializer.data
+        data['isSurvey'] = isSurvey
+        return Response(data=data, status=status.HTTP_200_OK) 
 
 
     def patch(self, request, pk, format=None):
@@ -330,7 +337,7 @@ class MemberSurveyProfile(APIView):
 
         else:
             # get ingredient seq 
-            liked_ingredient = get_ingredient_list(member_survey['liked_ingredients'])
+            liked_ingredient = get_ingredient_list(member_survey['liked_ingredient'])
             serializer = MemberSurveySerializer(data=member_survey)
 
             # Create a member survey from the above data
@@ -365,9 +372,9 @@ class MemberSurveyProfile(APIView):
         else:
             # ingredient filter
             liked_ingredient = []
-            if 'liked_ingredients' in member_survey.keys():
-                member_survey['ingredient_keywords'] = str(member_survey['liked_ingredients'])
-                liked_ingredient = get_ingredient_list(member_survey['liked_ingredients'])
+            if 'liked_ingredient' in member_survey.keys():
+                member_survey['ingredient_keywords'] = str(member_survey['liked_ingredient'])
+                liked_ingredient = get_ingredient_list(member_survey['liked_ingredient'])
 
             
             member_survey_object = MemberSurvey.objects.get(member_seq=pk)
@@ -375,7 +382,7 @@ class MemberSurveyProfile(APIView):
             
             try: 
                 if serializer.is_valid(raise_exception=True):
-                    if 'liked_ingredients' in member_survey.keys():
+                    if 'liked_ingredient' in member_survey.keys():
                         serializer.save(liked_ingredients=Ingredient.objects.filter(ingredient_seq__in=liked_ingredient))
                         data = {
                             "msg": "유저 설문 수정 성공",
