@@ -74,7 +74,7 @@ class Member(AbstractBaseUser):
 
 
 class LikedRecipe(models.Model):
-    member_seq = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    member_seq = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, db_column="member_seq")
     recipe_seq = models.ForeignKey(Recipe, on_delete=models.CASCADE)
 
     class Meta:
@@ -82,7 +82,7 @@ class LikedRecipe(models.Model):
 
 
 class Survey(models.Model):
-    member_seq = models.OneToOneField(Member, on_delete=models.CASCADE, primary_key=True)
+    member_seq = models.OneToOneField(Member, on_delete=models.CASCADE, primary_key=True, db_column="member_seq" )
     age = models.IntegerField(null=True, blank=True)
     gender = models.BooleanField(null=True, blank=True) # True: male, False=female
 
@@ -112,9 +112,10 @@ class Survey(models.Model):
 
     class Meta:
         db_table = 'tb_survey'
+        
 
 class Recommend(models.Model):
-    member_seq = models.OneToOneField(Member, on_delete=models.CASCADE, primary_key=True)
+    member_seq = models.OneToOneField(Member, on_delete=models.CASCADE, primary_key=True, db_column="member_seq")
     content_base = models.TextField(null=True, blank=True)
     collaborate_base = models.TextField(null=True, blank=True)
     survey_base = models.TextField(null=True, blank=True)
@@ -122,15 +123,16 @@ class Recommend(models.Model):
     class Meta:
         db_table = 'tb_recommend'
 
+
 class LikedIngredient(models.Model):
-    member_seq = models.ForeignKey(Survey, on_delete=models.CASCADE)
+    member_seq = models.ForeignKey(Survey, on_delete=models.CASCADE, db_column="member_seq")
     ingredient_seq = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
 
     class Meta:
         db_table = 'tb_member_liked_ingredient'
 
 class MemberAllergy(models.Model):
-    member_seq = models.ForeignKey(Survey, on_delete=models.CASCADE)
+    member_seq = models.ForeignKey(Survey, on_delete=models.CASCADE, db_column="member_seq")
     allergy_seq = models.ForeignKey(Allergy, on_delete=models.CASCADE)
 
     class Meta:

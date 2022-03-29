@@ -34,7 +34,7 @@ class SurveySerializer(serializers.ModelSerializer):
         exclude = ('member_seq',)
         depth = 1
     
-    # member_seq = MemberSurvey(read_only=True)
+    # member_seq = Survey(read_only=True)
 
 class SurveySimpleSerializer(serializers.ModelSerializer):
     

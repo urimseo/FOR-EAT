@@ -1,5 +1,8 @@
+from venv import create
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
@@ -9,7 +12,7 @@ from rest_framework.pagination import LimitOffsetPagination
 import json
 import requests
 from decouple import config
-from members.models import LikedIngredient, Member, Survey, LikedRecipe
+from members.models import LikedIngredient, Member, Survey, LikedRecipe, Recommend
 from recipes.models import Allergy, Ingredient, Review, Recipe
 from recipes.serializers import RecipeListSerializer, ReviewListSerializer
 from .serializers import KaKaoMemberSerializer, GoogleMemberSerializer, SurveySimpleSerializer, SurveySerializer, MemberInfoSerializer
@@ -73,6 +76,7 @@ def check_kakao_user(request):
     else:
         return kakao_signup(request)
 
+# @receiver(post_save, sender=Recommend)
 def kakao_signup(request):
     try:
         data = {
@@ -87,6 +91,7 @@ def kakao_signup(request):
         if serializer.is_valid(raise_exception=True):
             member = serializer.save()
             member.save()
+            create_recommend
             return kakao_login(request)
     except:
         data = {
@@ -95,6 +100,10 @@ def kakao_signup(request):
         }
         return Response(data=data, status=status.HTTP_400_BAD_REQUEST)        
 
+@receiver(post_save, sender=Member)
+def create_recommend(sender, instance, created, **kwargs):
+    if created:
+        Recommend.objects.create(member_seq=instance)
 
 def kakao_login(request):
     member = Member.objects.get(kakao_id=request['id'])
@@ -171,6 +180,7 @@ def google_signup(request):
         if serializer.is_valid(raise_exception=True):
             member = serializer.save()
             member.save()
+            create_recommend
             return google_login(request)
 
     except:
