@@ -1,5 +1,8 @@
+from venv import create
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
@@ -9,10 +12,10 @@ from rest_framework.pagination import LimitOffsetPagination
 import json
 import requests
 from decouple import config
-from members.models import LikedIngredient, Member, MemberSurvey, LikedRecipe
+from members.models import LikedIngredient, Member, Survey, LikedRecipe, Recommend
 from recipes.models import Allergy, Ingredient, Review, Recipe
 from recipes.serializers import RecipeListSerializer, ReviewListSerializer
-from .serializers import KaKaoMemberSerializer, GoogleMemberSerializer, MemberSurveySimpleSerializer, MemberSurveySerializer, MemberInfoSerializer
+from .serializers import KaKaoMemberSerializer, GoogleMemberSerializer, SurveySimpleSerializer, SurveySerializer, MemberInfoSerializer
 from .token import generate_token, decode_token
 from .ingredients import get_ingredient_list
 from recipes.storages import FileUpload, s3_client
@@ -73,6 +76,7 @@ def check_kakao_user(request):
     else:
         return kakao_signup(request)
 
+# @receiver(post_save, sender=Recommend)
 def kakao_signup(request):
     try:
         data = {
@@ -87,6 +91,7 @@ def kakao_signup(request):
         if serializer.is_valid(raise_exception=True):
             member = serializer.save()
             member.save()
+            create_recommend
             return kakao_login(request)
     except:
         data = {
@@ -95,6 +100,10 @@ def kakao_signup(request):
         }
         return Response(data=data, status=status.HTTP_400_BAD_REQUEST)        
 
+@receiver(post_save, sender=Member)
+def create_recommend(sender, instance, created, **kwargs):
+    if created:
+        Recommend.objects.create(member_seq=instance)
 
 def kakao_login(request):
     member = Member.objects.get(kakao_id=request['id'])
@@ -105,7 +114,7 @@ def kakao_login(request):
     
     # check if there is user survey data
     try :
-        isSurvey = MemberSurvey.objects.get(member_seq=member.member_seq)
+        isSurvey = Survey.objects.get(member_seq=member.member_seq)
         isSurvey = True
     except:
         isSurvey = False
@@ -171,6 +180,7 @@ def google_signup(request):
         if serializer.is_valid(raise_exception=True):
             member = serializer.save()
             member.save()
+            create_recommend
             return google_login(request)
 
     except:
@@ -189,7 +199,7 @@ def google_login(request):
     
     # check if there is user survey data
     try :
-        isSurvey = MemberSurvey.objects.get(member_seq=member.member_seq)
+        isSurvey = Survey.objects.get(member_seq=member.member_seq)
         isSurvey = True
     except:
         isSurvey = False
@@ -246,7 +256,7 @@ class MemberInfo(APIView):
             }
             return Response(data=data, status=status.HTTP_404_NOT_FOUND)
         try :
-            isSurvey = MemberSurvey.objects.get(member_seq=member.member_seq)
+            isSurvey = Survey.objects.get(member_seq=member.member_seq)
             isSurvey = True
         except:
             isSurvey = False
@@ -304,7 +314,7 @@ class MemberSurveyProfile(APIView):
     def get(self, request, pk):
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
         member = self.get_member_survey(pk, token)
-        member_survey = MemberSurvey.objects.get(pk=pk)
+        member_survey = Survey.objects.get(pk=pk)
 
         if member is None:
             data = {
@@ -313,7 +323,7 @@ class MemberSurveyProfile(APIView):
             }
             return Response(data=data, status=status.HTTP_401_UNAUTHORIZED)
         else:
-            serializer = MemberSurveySimpleSerializer(member_survey)
+            serializer = SurveySimpleSerializer(member_survey)
             data = serializer.data
             return Response(data=data,status=status.HTTP_200_OK)
         
@@ -337,7 +347,7 @@ class MemberSurveyProfile(APIView):
         else:
             # get ingredient seq 
             liked_ingredient = get_ingredient_list(member_survey['liked_ingredient'])
-            serializer = MemberSurveySerializer(data=member_survey)
+            serializer = SurveySerializer(data=member_survey)
 
             # Create a member survey from the above data
             if serializer.is_valid(raise_exception=True):
@@ -376,8 +386,8 @@ class MemberSurveyProfile(APIView):
                 liked_ingredient = get_ingredient_list(member_survey['liked_ingredient'])
 
             
-            member_survey_object = MemberSurvey.objects.get(member_seq=pk)
-            serializer = MemberSurveySerializer(member_survey_object, data=member_survey, partial=True)
+            member_survey_object = Survey.objects.get(member_seq=pk)
+            serializer = SurveySerializer(member_survey_object, data=member_survey, partial=True)
             
             try: 
                 if serializer.is_valid(raise_exception=True):
@@ -427,8 +437,8 @@ class MemberProfilePage(APIView):
 
             # get member_survey
             try:
-                member_survey = MemberSurvey.objects.get(pk=pk)
-                member_survey_serializer = MemberSurveySimpleSerializer(member_survey)
+                member_survey = Survey.objects.get(pk=pk)
+                member_survey_serializer = SurveySimpleSerializer(member_survey)
                 member_survey_serializer = member_survey_serializer.data
             except:
                 member_survey_serializer = None

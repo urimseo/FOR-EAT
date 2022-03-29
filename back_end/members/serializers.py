@@ -2,7 +2,7 @@ from attr import field, fields_dict
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from recipes.models import Allergy, Ingredient
-from .models import LikedIngredient, Member, MemberSurvey
+from .models import LikedIngredient, Member, Survey
 
 class KaKaoMemberSerializer(serializers.ModelSerializer):
 
@@ -26,19 +26,19 @@ class MemberInfoSerializer(serializers.ModelSerializer):
         fields = ('nickname', 'profile_image_url', 'email')
 
 
-class MemberSurveySerializer(serializers.ModelSerializer):
+class SurveySerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = MemberSurvey
+        model = Survey
         # fields = '__all__'
         exclude = ('member_seq',)
         depth = 1
     
-    # member_seq = MemberSurvey(read_only=True)
+    # member_seq = Survey(read_only=True)
 
-class MemberSurveySimpleSerializer(serializers.ModelSerializer):
+class SurveySimpleSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = MemberSurvey
+        model = Survey
         exclude=('member_seq', 'liked_ingredients')
         depth = 1
