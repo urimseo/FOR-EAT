@@ -27,23 +27,39 @@ const Title = styled.div`
   margin-right: ${(props) => (props.mr ? props.mr : "")};
 `;
 
-const BoxContainer = styled.div`
+const SpaceBetweenContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+
+const ButtonContainers = styled.div`
   display: flex;
   justify-content: center;
 `;
 
-const SpaceBetweenContainer = styled.div`
+const SelectContainer = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  margin-top: 3rem;
+`;
+
+const SelectContent = styled.select`
+  width: 20rem;
+  height: 2rem;
+  font-size: 1rem;
+  font-family: Work Sans;
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
   margin: 3rem;
   margin-left: auto;
+
+  .button {
+  }
 `;
 
-const GoalsModal = ({ layoutId, setWidgetId }) => {
+const InfosModal = ({ layoutId, setWidgetId }) => {
   const onClick = (event) => {
     event.stopPropagation();
   };
@@ -51,6 +67,7 @@ const GoalsModal = ({ layoutId, setWidgetId }) => {
   const onButton = () => {
     setWidgetId(null);
   };
+
 
   return (
     <Container
@@ -64,10 +81,10 @@ const GoalsModal = ({ layoutId, setWidgetId }) => {
       <Title fs="2.5rem" fw="300" mt="2rem" mb="1rem">
         Select your information
       </Title>
-      <Title fs="1.2rem" fw="200" mb="1rem">
-        Check your diet goal.
+      <Title fs="1.2rem" fw="200" mb="2rem">
+        Check your gender and age.
       </Title>
-      <BoxContainer>
+      <ButtonContainers>
         <div style={{ width: "26rem" }}>
           <SpaceBetweenContainer>
             <Button
@@ -80,9 +97,8 @@ const GoalsModal = ({ layoutId, setWidgetId }) => {
               border="1px solid grey"
               fontsize="1rem"
               hoverColor="#a2a2a2"
-              name="Beginner cook"
+              name="Man"
             />
-
             <Button
               mt="1rem"
               w="12rem"
@@ -93,66 +109,27 @@ const GoalsModal = ({ layoutId, setWidgetId }) => {
               border="1px solid grey"
               fontsize="1rem"
               hoverColor="#a2a2a2"
-              name="Try new cuisin"
-            />
-          </SpaceBetweenContainer>
-          <SpaceBetweenContainer>
-            <Button
-              mt="1rem"
-              w="12rem"
-              h="5rem"
-              br="1rem"
-              bc="white"
-              bs="1px 1px 10px 3px #e2e2e2"
-              border="1px solid grey"
-              fontsize="1rem"
-              hoverColor="#a2a2a2"
-              name="Save time"
-            />
-
-            <Button
-              mt="1rem"
-              w="12rem"
-              h="5rem"
-              br="1rem"
-              bc="white"
-              bs="1px 1px 10px 3px #e2e2e2"
-              border="1px solid grey"
-              fontsize="1rem"
-              hoverColor="#a2a2a2"
-              name="Eat healty"
-            />
-          </SpaceBetweenContainer>
-          <SpaceBetweenContainer>
-            <Button
-              mt="1rem"
-              w="12rem"
-              h="5rem"
-              br="1rem"
-              bc="white"
-              bs="1px 1px 10px 3px #e2e2e2"
-              border="1px solid grey"
-              fontsize="1rem"
-              hoverColor="#a2a2a2"
-              name="Try diet"
-            />
-
-            <Button
-              mt="1rem"
-              w="12rem"
-              h="5rem"
-              br="1rem"
-              bc="white"
-              bs="1px 1px 10px 3px #e2e2e2"
-              border="1px solid grey"
-              fontsize="1rem"
-              hoverColor="#a2a2a2"
-              name="No interest"
+              name="Woman"
             />
           </SpaceBetweenContainer>
         </div>
-      </BoxContainer>
-
+      </ButtonContainers>
+      <SelectContainer>
+        <Title mt="0.5rem" fs="1rem" mr="0.5rem">
+          AGE
+        </Title>
+        <SelectContent>
+          <option value="0" selected disabled>
+            select age
+          </option>
+          <option value="1">15-19 years old</option>
+          <option value="2">20-29 years old</option>
+          <option value="3">30-49 years old</option>
+          <option value="4">50-64 years old</option>
+          <option value="5">65-74 years old</option>
+          <option value="6">75 years of age or older</option>
+        </SelectContent>
+      </SelectContainer>
       <ButtonContainer>
         <Button name="Check" onClick={onButton} />
 
@@ -168,4 +145,4 @@ const GoalsModal = ({ layoutId, setWidgetId }) => {
   );
 };
 
-export default GoalsModal;
+export default InfosModal;

@@ -72,11 +72,11 @@ const Goals = ({setWidgetId}) => {
           <ImageContainer>
             <PLUS
               onClick={() => {
-                if (setWidgetId) setWidgetId("M05");
+                if (setWidgetId) setWidgetId("M04");
               }}
             >
               <Image src={Plus}/>
-              <ImageSub>ADD DIETS</ImageSub>
+              <ImageSub>ADD Infos</ImageSub>
             </PLUS>
           </ImageContainer>
         </Item>
