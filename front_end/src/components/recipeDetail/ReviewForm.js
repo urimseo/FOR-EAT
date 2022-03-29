@@ -10,6 +10,7 @@ import ReviewCard from "components/recipeDetail/ReviewCard"
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
 `
 
