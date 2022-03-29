@@ -81,7 +81,7 @@ class LikedRecipe(models.Model):
         db_table = 'tb_liked_recipe'
 
 
-class MemberSurvey(models.Model):
+class Survey(models.Model):
     member_seq = models.OneToOneField(Member, on_delete=models.CASCADE, primary_key=True)
     age = models.IntegerField(null=True, blank=True)
     gender = models.BooleanField(null=True, blank=True) # True: male, False=female
@@ -111,17 +111,26 @@ class MemberSurvey(models.Model):
     allergy = models.ManyToManyField(Allergy, related_name='members', through="MemberAllergy")
 
     class Meta:
-        db_table = 'tb_member_survey'
+        db_table = 'tb_survey'
+
+class Recommend(models.Model):
+    member_seq = models.OneToOneField(Member, on_delete=models.CASCADE, primary_key=True)
+    content_base = models.TextField(null=True, blank=True)
+    collaborate_base = models.TextField(null=True, blank=True)
+    survey_base = models.TextField(null=True, blank=True)
+
+    class Meta:
+        db_table = 'tb_recommend'
 
 class LikedIngredient(models.Model):
-    member_seq = models.ForeignKey(MemberSurvey, on_delete=models.CASCADE)
+    member_seq = models.ForeignKey(Survey, on_delete=models.CASCADE)
     ingredient_seq = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
 
     class Meta:
-        db_table = 'tb_liked_ingredient'
+        db_table = 'tb_member_liked_ingredient'
 
 class MemberAllergy(models.Model):
-    member_seq = models.ForeignKey(MemberSurvey, on_delete=models.CASCADE)
+    member_seq = models.ForeignKey(Survey, on_delete=models.CASCADE)
     allergy_seq = models.ForeignKey(Allergy, on_delete=models.CASCADE)
 
     class Meta:
