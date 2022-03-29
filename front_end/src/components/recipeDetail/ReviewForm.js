@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Rating from '@mui/material/Rating';
-
-import profileImg from "assets/img/Ingredient_rosemary.jpg";
+import { useRecoilValue } from 'recoil';
+import { userInfoState } from 'atoms/atoms';
+import { getMember } from "api/MyPageApi";
+import { getReviewList } from "api/RecipeDetailApi";
 import { createReview } from "api/ReviewApi";
+import ReviewCard from "components/recipeDetail/ReviewCard"
 
 const Container = styled.div`
   display: flex;
@@ -58,7 +61,7 @@ const ButtonContainer = styled.div`
     background-color: white;
     padding: 0.5rem 0.9rem;
     margin: 0.7rem 0 0 1rem;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     &:hover {
       border: 1px solid black;
       background-color: black;
@@ -88,13 +91,40 @@ const Button = styled.button`
   }
 `
 
+  
+const CardContainer = styled.div`
+
+`
 
 
 const ReviewForm = ({ recipeId }) => {
+  const UserInfo = useRecoilValue(userInfoState);
+  const [ profileImage, setProfileImage] = useState();
   const [ ratings, setRatings ] = useState();
   const [ content, setContent ] = useState();
   const [ image_url, setImageUrl] = useState();
   const [ fileName, setFileName ] = useState();
+  const [ reviews, setReviews] = useState([]); 
+
+
+  useEffect(() => {
+
+    getMember(UserInfo)
+    .then((res) => {
+      console.log(res)
+      setProfileImage(res.profile_image_url)
+     })
+    .catch((err) => 
+      console.log(err)
+      )
+
+    getReviewList(recipeId).then((res) => {
+      setReviews(res.data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  },[]);
 
   const onFileUpload = (event) => { 
     // 파일 이미지 크기 제한해야됨?!
@@ -113,15 +143,18 @@ const ReviewForm = ({ recipeId }) => {
 
     for (let key of formData.keys()) { console.log(key, ":", formData.get(key)); }
     const response = await createReview(recipeId, formData)
-    console.log(response)
-    
+    if (response) {
+      const result = await getReviewList(recipeId)
+      console.log(result)
+      setReviews(result.data)
+    }
   }
 
   return (
     <Container>
       <Form enctype="multipart/form-data">
         <ImgWrapper>
-          <Img src={profileImg} alt="" />
+          <Img src={profileImage} alt="" />
         </ImgWrapper>
         <div style={{padding: "0.5rem 0"}}>
           <Rating
@@ -132,7 +165,8 @@ const ReviewForm = ({ recipeId }) => {
             }}
           />
           <InputContent placeholder="WRITE YOUR REVIEW HERE"
-            value={content} 
+            value={content}
+            maxLength="1000"
             onChange={
               (e)=> setContent(e.target.value)
             }/>
@@ -153,6 +187,23 @@ const ReviewForm = ({ recipeId }) => {
           </ButtonContainer>
         </div>
       </Form>
+      <CardContainer>
+        <div style={{display:"flex", justifyContent:"center", flexWrap:"wrap" }}>
+            { reviews.map((review) => ( 
+              <ReviewCard
+                key={review.id}
+                reviewId={review.id}
+                recipeId={review.recipe_seq}
+                memberName={review.member_nickname}
+                profileImgUrl={review.profile_image_url}
+                imgUrl={review.image_url}
+                content={review.content}
+                ratings={review.ratings}
+                lastModifiedDate={review.last_modified_date}
+              />
+            ))}
+          </div>
+      </CardContainer>
     </Container>
   );
 };
