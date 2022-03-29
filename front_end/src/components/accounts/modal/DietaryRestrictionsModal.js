@@ -1,13 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import Rosemary from "assets/img/Ingredient_rosemary.jpg";
-import Button from "../../commons/Button";
+import Button from "components/commons/Button";
 
 const Container = styled(motion.div)`
   box-sizing: border-box;
-  width: 1200px;
-  height: 700px;
+  width: 700px;
   border-radius: 40px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
   background-color: white;
@@ -19,50 +17,30 @@ const Container = styled(motion.div)`
 `;
 
 const Title = styled.div`
-  font-family: Playfair Display;
-  font-size: 40px;
-  margin-top: 3rem;
-`;
-
-const ItemContainer = styled.div`
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  width: 1000px;
+  font-size: ${(props) => (props.fs ? props.fs : "3rem")};
+  font-weight: ${(props) => (props.fw ? props.fw : "300")};
+  margin-top: ${(props) => (props.mt ? props.mt : "")};
+  margin-left: ${(props) => (props.ml ? props.ml : "")};
+  margin-bottom: ${(props) => (props.mb ? props.mb : "")};
+  margin-right: ${(props) => (props.mr ? props.mr : "")};
 `;
 
-const Item = styled.div`
+const BoxContainer = styled.div`
   display: flex;
-  flex-direction: row;
-`;
-
-const ImageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  margin: 3rem;
-  margin-right: 7rem;
 `;
 
-const Image = styled.img`
-  border-radius: 4rem;
-  height: 8rem;
-  width: 8rem;
-  cursor: pointer;
-`;
-
-const ImageSub = styled.div`
-  font-size: 15px;
-  margin-top: 1rem;
-  font-weight: bold;
+const SpaceBetweenContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
+  margin: 3rem;
   margin-left: auto;
-  margin-right: 30px;
 `;
 
 const DietaryRestrictionsModal = ({ layoutId, setWidgetId }) => {
@@ -83,58 +61,75 @@ const DietaryRestrictionsModal = ({ layoutId, setWidgetId }) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <Title>Dietary Restrictions</Title>
-      <ItemContainer>
-        <Item>
-          <ImageContainer>
-            <Image src={Rosemary} />
-            <ImageSub>VEGETARIAN</ImageSub>
-          </ImageContainer>
+      <Title fs="2.5rem" fw="300" mt="2rem" mb="1rem">
+        Select your information
+      </Title>
+      <Title fs="1.2rem" fw="200" mb="1rem">
+        Check your dietary restriction.
+      </Title>
+      <BoxContainer>
+        <div style={{ width: "26rem" }}>
+          <SpaceBetweenContainer>
+            <Button
+              mt="1rem"
+              w="12rem"
+              h="5rem"
+              br="1rem"
+              bc="white"
+              bs="1px 1px 10px 3px #e2e2e2"
+              border="1px solid grey"
+              fontsize="1rem"
+              hoverColor="#a2a2a2"
+              name="Low cholesterol"
+            />
+            <Button
+              mt="1rem"
+              w="12rem"
+              h="5rem"
+              br="1rem"
+              bc="white"
+              bs="1px 1px 10px 3px #e2e2e2"
+              border="1px solid grey"
+              fontsize="1rem"
+              hoverColor="#a2a2a2"
+              name="Low sodium"
+            />
+          </SpaceBetweenContainer>
+          <SpaceBetweenContainer>
+            <Button
+              mt="1rem"
+              w="12rem"
+              h="5rem"
+              br="1rem"
+              bc="white"
+              bs="1px 1px 10px 3px #e2e2e2"
+              border="1px solid grey"
+              fontsize="1rem"
+              hoverColor="#a2a2a2"
+              name="Low sugar"
+            />
 
-          <ImageContainer>
-            <Image src={Rosemary} />
-            <ImageSub>VEGETARIAN</ImageSub>
-          </ImageContainer>
-
-          <ImageContainer>
-            <Image src={Rosemary} />
-            <ImageSub>VEGETARIAN</ImageSub>
-          </ImageContainer>
-
-          <ImageContainer>
-            <Image src={Rosemary} />
-            <ImageSub>VEGETARIAN</ImageSub>
-          </ImageContainer>
-        </Item>
-
-        <Item>
-          <ImageContainer>
-            <Image src={Rosemary} />
-            <ImageSub>VEGETARIAN</ImageSub>
-          </ImageContainer>
-
-          <ImageContainer>
-            <Image src={Rosemary} />
-            <ImageSub>VEGETARIAN</ImageSub>
-          </ImageContainer>
-
-          <ImageContainer>
-            <Image src={Rosemary} />
-            <ImageSub>VEGETARIAN</ImageSub>
-          </ImageContainer>
-
-          <ImageContainer>
-            <Image src={Rosemary} />
-            <ImageSub>VEGETARIAN</ImageSub>
-          </ImageContainer>
-        </Item>
-      </ItemContainer>
+            <Button
+              mt="1rem"
+              w="12rem"
+              h="5rem"
+              br="1rem"
+              bc="white"
+              bs="1px 1px 10px 3px #e2e2e2"
+              border="1px solid grey"
+              fontsize="1rem"
+              hoverColor="#a2a2a2"
+              name="No interest"
+            />
+          </SpaceBetweenContainer>
+        </div>
+      </BoxContainer>
 
       <ButtonContainer>
-        <Button name="확인" onClick={onButton} />
+        <Button name="Check" onClick={onButton} />
 
         <Button
-          name="취소"
+          name="Cancel"
           bc="#C4C4C4"
           hoverColor="#a2a2a2"
           ml="3rem"
