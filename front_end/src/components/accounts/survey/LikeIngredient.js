@@ -49,11 +49,6 @@ const Question = styled.div`
   }
 `
 
-const BoxContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`
-
 const SpaceBetweenContainer = styled.div`
   display: flex;
   justify-content: space-around;
@@ -103,7 +98,7 @@ const LikeIngredient = () => {
             <div className='number'>5/6</div>
             <Title fs="2.5rem" fw="300" mt="2rem" mb="1rem">Select your information</Title>
             <Title fs="1.2rem" fw="200" mb="1rem">Check your favorite ingredient.</Title>
-            <BoxContainer>
+            <div style={{display: "flex", justifyContent: "center"}}>
               <div style={{width: "26rem"}}>
                 <SpaceBetweenContainer>
                   <Button mt="1rem" w="12rem" h="5rem" hoverColor="#a2a2a2">
@@ -176,7 +171,7 @@ const LikeIngredient = () => {
                   </Button>
                 </SpaceBetweenContainer>
               </div>
-            </BoxContainer>
+            </div>
             <BottomButton f="left" mt="1.5rem" ml="2rem">Back</BottomButton>
             <BottomButton f="right" mt="1.5rem" mr="2rem">Continue</BottomButton>
           </div>
