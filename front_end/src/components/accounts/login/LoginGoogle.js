@@ -6,6 +6,7 @@ import { isLoginState, userInfoState } from '../../../atoms/atoms';
 import { useNavigate } from 'react-router-dom';
 import { googleLogin } from '../../../api/AuthApi';
 import { Alert } from "components/commons/Alert";
+import { setApiHeaders } from "api/Axios";
 
 const Container = styled.div`
   margin: auto;
@@ -31,6 +32,7 @@ const LoginGoogle = () => {
       try {
         setIsLoginState(true);
         setUserInfoState(result.user.member_seq);
+        setApiHeaders();
         if (result.user.isSurvey === false) {
           navigate("/survey");
         } else {
