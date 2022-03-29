@@ -3,16 +3,14 @@ import { useState } from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 
-import DietsModal from "../modal/DietsModal";
+import InfosModal from "../modal/InfosModal";
 import AllergiesModal from "../modal/AllergiesModal";
-import DislikedIngredientsModal from "../modal/DislikedIngredientsModal";
-import FavoriteCuisinesModal from "../modal/FavoriteCuisinesModal";
+import DietaryRestrictionsModal from "../modal/DietaryRestrictionsModal";
 import GoalsModal from "../modal/GoalsModal";
 
-import Diets from "../preferences/Diets";
+import Infos from "../preferences/Infos";
 import Allergies from "../preferences/Allergies";
-import DislikedIngredients from "../preferences/DislikedIngredients";
-import FavoriteCuisines from "../preferences/FavoriteCuisines";
+import DietaryRestrictions from "../preferences/DietaryRestrictions";
 import Goals from "../preferences/Goals";
 
 // import { getSurvey } from "api/MyPageApi";
@@ -24,7 +22,7 @@ const Container = styled.div`
 
 const Title = styled.div`
   font-family: Playfair Display;
-  font-size: 64px;
+  font-size: 32px;
   margin-top: 3rem;
 `
 
@@ -56,27 +54,22 @@ const overlay = {
 const Preferences = () => {
   const [widgetId, setWidgetId] = useState();
 
-
-  const widgets = ["M01", "M02", "M03", "M04", "M05"];
+  const widgets = ["M01", "M02", "M03", "M04"];
 
   const wid = {
-    M01: <Diets  setWidgetId={setWidgetId} />,
-    M02: <Allergies setWidgetId={setWidgetId} />,
-    M03: (
-      <DislikedIngredients setWidgetId={setWidgetId}/>
+    M01: <Infos  setWidgetId={setWidgetId} />,
+    M02: (
+      <DietaryRestrictions setWidgetId={setWidgetId}/>
     ),
-    M04: (
-      <FavoriteCuisines setWidgetId={setWidgetId} />
-    ),
-    M05: <Goals setWidgetId={setWidgetId} />,
+    M03: <Allergies setWidgetId={setWidgetId} />,
+    M04: <Goals setWidgetId={setWidgetId} />,
   };
 
   const mod = {
-    M01: <DietsModal layoutId={widgetId} setWidgetId={setWidgetId} />,
-    M02: <AllergiesModal layoutId={widgetId} setWidgetId={setWidgetId} />,
-    M03: <DislikedIngredientsModal layoutId={widgetId} setWidgetId={setWidgetId} />,
-    M04: <FavoriteCuisinesModal layoutId={widgetId} setWidgetId={setWidgetId} />,
-    M05: <GoalsModal layoutId={widgetId} setWidgetId={setWidgetId} />,
+    M01: <InfosModal layoutId={widgetId} setWidgetId={setWidgetId} />,
+    M02: <DietaryRestrictionsModal layoutId={widgetId} setWidgetId={setWidgetId} />,
+    M03: <AllergiesModal layoutId={widgetId} setWidgetId={setWidgetId} />,
+    M04: <GoalsModal layoutId={widgetId} setWidgetId={setWidgetId} />,
   };
 
   return (

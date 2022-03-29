@@ -3,14 +3,6 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import Button from "components/commons/Button";
 
-import egg from "assets/img/IngredientItem/egg.PNG";
-import wheat from "assets/img/IngredientItem/flour.jpg";
-import shellfish from "assets/img/IngredientItem/seafood.PNG";
-import apple from "assets/img/IngredientItem/apple.PNG";
-import walnut from "assets/img/IngredientItem/walnut.jpg";
-import peanut from "assets/img/IngredientItem/peanut.jpg";
-import sesame from "assets/img/IngredientItem/sesame.jpg";
-
 const Container = styled(motion.div)`
   box-sizing: border-box;
   width: 700px;
@@ -45,17 +37,13 @@ const SpaceBetweenContainer = styled.div`
   justify-content: space-around;
 `;
 
-const ButtonContainers = styled.div`
-  display: flex;
-`;
-
 const ButtonContainer = styled.div`
   display: flex;
   margin: 3rem;
   margin-left: auto;
 `;
 
-const AllergiesModal = ({ layoutId, setWidgetId }) => {
+const DietaryRestrictionsModal = ({ layoutId, setWidgetId }) => {
   const onClick = (event) => {
     event.stopPropagation();
   };
@@ -77,7 +65,7 @@ const AllergiesModal = ({ layoutId, setWidgetId }) => {
         Select your information
       </Title>
       <Title fs="1.2rem" fw="200" mb="1rem">
-        Check your allergy information.
+        Check your dietary restriction.
       </Title>
       <BoxContainer>
         <div style={{ width: "26rem" }}>
@@ -92,7 +80,7 @@ const AllergiesModal = ({ layoutId, setWidgetId }) => {
               border="1px solid grey"
               fontsize="1rem"
               hoverColor="#a2a2a2"
-              name="Wheat"
+              name="Low cholesterol"
             />
             <Button
               mt="1rem"
@@ -104,7 +92,7 @@ const AllergiesModal = ({ layoutId, setWidgetId }) => {
               border="1px solid grey"
               fontsize="1rem"
               hoverColor="#a2a2a2"
-              name="Peanut"
+              name="Low sodium"
             />
           </SpaceBetweenContainer>
           <SpaceBetweenContainer>
@@ -118,60 +106,9 @@ const AllergiesModal = ({ layoutId, setWidgetId }) => {
               border="1px solid grey"
               fontsize="1rem"
               hoverColor="#a2a2a2"
-              name="walnut"
+              name="Low sugar"
             />
-            <Button
-              mt="1rem"
-              w="12rem"
-              h="5rem"
-              br="1rem"
-              bc="white"
-              bs="1px 1px 10px 3px #e2e2e2"
-              border="1px solid grey"
-              fontsize="1rem"
-              hoverColor="#a2a2a2"
-              name="Apple"
-            />
-          </SpaceBetweenContainer>
-          <SpaceBetweenContainer>
-            <Button
-              mt="1rem"
-              w="12rem"
-              h="5rem"
-              br="1rem"
-              bc="white"
-              bs="1px 1px 10px 3px #e2e2e2"
-              border="1px solid grey"
-              fontsize="1rem"
-              hoverColor="#a2a2a2"
-              name="Sesame"
-            />
-            <Button
-              mt="1rem"
-              w="12rem"
-              h="5rem"
-              br="1rem"
-              bc="white"
-              bs="1px 1px 10px 3px #e2e2e2"
-              border="1px solid grey"
-              fontsize="1rem"
-              hoverColor="#a2a2a2"
-              name="Shellfish"
-            />
-          </SpaceBetweenContainer>
-          <SpaceBetweenContainer>
-            <Button
-              mt="1rem"
-              w="12rem"
-              h="5rem"
-              br="1rem"
-              bc="white"
-              bs="1px 1px 10px 3px #e2e2e2"
-              border="1px solid grey"
-              fontsize="1rem"
-              hoverColor="#a2a2a2"
-              name="Egg"
-            />
+
             <Button
               mt="1rem"
               w="12rem"
@@ -203,4 +140,4 @@ const AllergiesModal = ({ layoutId, setWidgetId }) => {
   );
 };
 
-export default AllergiesModal;
+export default DietaryRestrictionsModal;

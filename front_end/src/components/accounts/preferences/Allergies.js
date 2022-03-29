@@ -72,11 +72,11 @@ const Allergies = ({setWidgetId}) => {
           <ImageContainer>
             <PLUS
               onClick={() => {
-                if (setWidgetId) setWidgetId("M02");
+                if (setWidgetId) setWidgetId("M03");
               }}
             >
               <Image src={Plus}/>
-              <ImageSub>ADD DIETS</ImageSub>
+              <ImageSub>ADD Infos</ImageSub>
             </PLUS>
           </ImageContainer>
         </Item>
