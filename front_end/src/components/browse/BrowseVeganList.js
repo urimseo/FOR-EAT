@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { getRecipeList } from "api/CategoryApi";
+import { getBrowseList } from "api/BrosweApi";
 import Card3 from "components/commons/Card3";
-
-// // test용
-// import shrimp from "assets/img/IngredientItem/shrimp.PNG"
-// import tomato from "assets/img/IngredientItem/tomato.jpg"
 
 
 
@@ -26,7 +22,7 @@ const VeganList = () => {
   const [resultList, setResultList] = useState([])
 
   const getVeganList = async () => {
-    const response = await getRecipeList(1, "One");  // one대신 vegan 넣기
+    const response = await getBrowseList(1, "Vegan");  // one대신 vegan 넣기
     setResultList(response)
   }
 
@@ -34,17 +30,12 @@ const VeganList = () => {
     getVeganList()
   }, [])
 
-  // // test용
-  // const resultList = [
-  //   { recipe_seq: "", name: "shrimp", images: shrimp, calories: 400, average_rating: 4 },
-  //   { recipe_seq: "", name: "tomato", images: tomato, calories: 500, average_rating: 4 },
-  //   { recipe_seq: "", name: "tomato", images: tomato ,calories: 500, average_rating: 4 },
-  // ]
 
 
     return (
       <div>
         <Title>Vegan Recipes</Title>
+
         <CardContainer>
           { resultList.map((result, idx) => {
             // 3개만 잘라서 보여주기
