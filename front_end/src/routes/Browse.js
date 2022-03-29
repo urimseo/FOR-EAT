@@ -5,6 +5,8 @@ import styled from "styled-components";
 import Tile from "assets/img/Tile.jpg";
 import "assets/css/Pagination.css";
 import BrowseList from "components/browse/BrowseList";
+import PopularIngredients from "components/browse/BrowsePopularIngredient"
+
 
 const Container = styled.div`
 `
@@ -35,7 +37,7 @@ const BodyContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 4rem 16rem;
+  padding: 4rem 13vw;
 `
 
 const Title = styled.p`
@@ -45,44 +47,20 @@ const Title = styled.p`
   margin: 0 0 2rem 0;
 `
 
-const Result = styled.div`
-  display: flex;
-  justify-content: center;
-  font-size: 1.5rem;
-  font-weight: 300;
-  .result {
-    padding: 1rem;
-  }
-  .count {
-    color: #ED8141;
-    padding: 1rem;
-  }
-`
-
-const CardContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-`
-
-const PageContainer = styled.div`
-  margin: 2rem 0 5rem 0;
-`
-
-
 
 const Browse = () => {
 
 
   return (
     <Container>
-      <Header />
+      {/* <Header /> */}
       <HeaderContent>
         <div class="title">Discover Recipes !</div>
         <div class="content">We want to help you and other home cooks discover and demystify dishes that pique your culinary curiosities</div>
       </HeaderContent>
       <BodyContainer>
         <Title>BROWSE</Title>
+        <PopularIngredients />
         <BrowseList />
       </BodyContainer>
     </Container>

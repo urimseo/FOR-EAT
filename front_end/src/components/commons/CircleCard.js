@@ -10,14 +10,14 @@ const Container = styled.div`
 `
 
 const CardItem = styled.div`
-  width: 6rem;
-  height: 6rem;
-  padding: 0 1rem;
+  width: 4rem;
+  height: 4rem;
+  padding: 0 0.5rem;
   margin: 1rem;
 `
 
 const ImgWrapper = styled.div`
-  width: 6rem;
+  width: 4rem;
   overflow: hidden;
   background-position: center;
   &:hover {
@@ -29,17 +29,17 @@ const ImgWrapper = styled.div`
 
 const Img = styled.img`
   border-radius: 5rem;
-  height: 6rem;
-  width: 6rem;
+  height: 4rem;
+  width: 4rem;
   cursor: pointer;
 `
 
 const TextContainer = styled.div`
   text-align: center;
   .title {
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-weight: 400;
-    margin-top: 0.5rem;
+    margin-top: 0.3rem;
   }
   .category {
     font-size: 0.87rem;
