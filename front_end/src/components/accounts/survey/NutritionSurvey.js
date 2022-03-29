@@ -41,11 +41,6 @@ const Question = styled.div`
   }
 `
 
-const BoxContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`
-
 const Item = styled.div`
   display: flex;
 `
@@ -90,7 +85,7 @@ const NutritionSurvey = () => {
             <div className='number'>2/6</div>
             <Title fs="2.5rem" fw="300" mt="2rem" mb="1rem">Select your information</Title>
             <Title fs="1.2rem" fw="200" mb="2rem">Check your nutritional interest.</Title>
-            <BoxContainer>
+            <div style={{display: "flex", justifyContent: "center"}}>
               <div>
                 <Item>
                   <img src={carbohydrates} alt="carbohydrates" style={{width: "4rem", height: "4rem", marginBottom: "1rem"}} />
@@ -114,7 +109,7 @@ const NutritionSurvey = () => {
                   <Button mt="1.5rem" ml="0.5rem" h="2rem" w="5rem" hoverColor="#a2a2a2">Low</Button>
                 </Item>
               </div>
-            </BoxContainer>
+            </div>
             <BottomButton f="left" mt="1.5rem" ml="2rem">Back</BottomButton>
             <BottomButton f="right" mt="1.5rem" mr="2rem">Continue</BottomButton>
           </div>
