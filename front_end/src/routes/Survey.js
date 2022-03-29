@@ -3,11 +3,6 @@ import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import InformationSurvey from 'components/accounts/survey/InformationSurvey';
-import NutritionSurvey from 'components/accounts/survey/NutritionSurvey';
-import DietaryRestriction from 'components/accounts/survey/DietaryRestriction';
-import GoalSurvey from 'components/accounts/survey/GoalSurvey';
-import AllergySurvey from 'components/accounts/survey/AllergySurvey';
-import LikeIngredient from 'components/accounts/survey/LikeIngredient';
 import { userInfoState } from 'atoms/atoms';
 import { getUserInfo } from 'api/SurveyApi';
 
@@ -50,11 +45,6 @@ const Survey = () => {
       <Container>
         <Title fs="2rem" fw="200" mt="3rem" mb="3rem">PERSONALIZE YOUR EXPERIENCE</Title>
         <InformationSurvey />
-        <NutritionSurvey />
-        <DietaryRestriction />
-        <AllergySurvey />
-        <LikeIngredient />
-        <GoalSurvey />
       </Container>
     </>
   )

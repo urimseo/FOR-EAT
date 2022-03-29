@@ -58,17 +58,17 @@ const Button = styled.button`
   font-size: 1rem;
   cursor: pointer;
   border-radius: 1rem;
-  box-shadow: 1px 1px 10px 3px #e2e2e2;
+  box-shadow: 1px 1px 10px 3px ${(props) => (props.boxColor ? props.boxColor : "#e2e2e2")};
   width: ${(props) => (props.w ? props.w : "")};
   height: ${(props) => (props.h ? props.h : "")};
   background-color: white;
-  border: 1px solid grey;
+  border: none;
   margin-top: ${(props) => (props.mt ? props.mt : "")};
   margin-left: ${(props) => (props.ml ? props.ml : "")};
   margin-right: ${(props) => (props.mr ? props.mr : "")};
   &:hover {
     color: ${(props) =>
-      props.hoverColor ? props.hoverColor : "#000"};
+      props.hoverColor ? props.hoverColor : "#a2a2a2"};
   }
 `
 
@@ -85,6 +85,55 @@ const BottomButton =styled.a`
 `
 
 const AllergySurvey = () => {
+  const [ wheatShow, setWheatShow ] = useState(false);
+  const [ peanutShow, setPeanutShow ] = useState(false);
+  const [ walnutShow, setWalnutShow ] = useState(false);
+  const [ appleShow, setAppleShow ] = useState(false);
+  const [ sesameShow, setSesameShow ] = useState(false);
+  const [ shellfishShow, setShellfishShow ] = useState(false);
+  const [ eggShow, setEggShow ] = useState(false);
+  const [ relevantShow, setRelevantShow ] = useState(false);
+
+  const getAllergy = (state) => {
+    if(state === "wheat") {
+      setWheatShow(!wheatShow);
+      setRelevantShow(false);
+    }
+    if(state === "peanut") {
+      setPeanutShow(!peanutShow);
+      setRelevantShow(false);
+    }
+    if(state === "walnut") {
+      setWalnutShow(!walnutShow);
+      setRelevantShow(false);
+    }
+    if(state === "apple") {
+      setAppleShow(!appleShow);
+      setRelevantShow(false);
+    }
+    if(state === "sesame") {
+      setSesameShow(!sesameShow);
+      setRelevantShow(false);
+    }
+    if(state === "shellfish") {
+      setShellfishShow(!shellfishShow);
+      setRelevantShow(false);
+    }
+    if(state === "egg") {
+      setEggShow(!eggShow);
+      setRelevantShow(false);
+    }
+    if(state === "relevant") {
+      setRelevantShow(!relevantShow);
+      setWheatShow(false);
+      setPeanutShow(false);
+      setWalnutShow(false);
+      setAppleShow(false);
+      setSesameShow(false);
+      setShellfishShow(false);
+      setEggShow(false);
+    }
+  }
   return (
     <>
     <Container>
@@ -97,57 +146,118 @@ const AllergySurvey = () => {
             <div style={{display: "flex", justifyContent: "center"}}>
               <div style={{width: "26rem"}}>
                 <SpaceBetweenContainer>
-                  <Button mt="1rem" w="12rem" h="5rem" hoverColor="#a2a2a2">
-                    <ButtonContainer>
-                      <img src={wheat} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                      <Title fs="1rem" mt="1rem" ml="1rem">Wheat</Title>
-                    </ButtonContainer>
-                  </Button>
-                  <Button mt="1rem" w="12rem" h="5rem" hoverColor="#a2a2a2">
-                    <ButtonContainer>
-                      <img src={peanut} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                      <Title fs="1rem" mt="1rem" ml="1rem">Peanut</Title>
-                    </ButtonContainer>
-                  </Button>
+                  { wheatShow ? 
+                    <Button mt="1rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getAllergy("wheat")}>
+                      <ButtonContainer>
+                        <img src={wheat} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
+                        <Title fs="1rem" mt="1rem" ml="1rem">Wheat</Title>
+                      </ButtonContainer>
+                    </Button> :
+                    <Button mt="1rem" w="12rem" h="5rem" onClick={()=>getAllergy("wheat")}>
+                      <ButtonContainer>
+                        <img src={wheat} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
+                        <Title fs="1rem" mt="1rem" ml="1rem">Wheat</Title>
+                      </ButtonContainer>
+                    </Button>
+                  }
+                  { peanutShow ? 
+                    <Button mt="1rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getAllergy("peanut")}>
+                      <ButtonContainer>
+                        <img src={peanut} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
+                        <Title fs="1rem" mt="1rem" ml="1rem">Peanut</Title>
+                      </ButtonContainer>
+                    </Button> :
+                    <Button mt="1rem" w="12rem" h="5rem" onClick={()=>getAllergy("peanut")}>
+                      <ButtonContainer>
+                        <img src={peanut} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
+                        <Title fs="1rem" mt="1rem" ml="1rem">Peanut</Title>
+                      </ButtonContainer>
+                    </Button>
+                  }
                 </SpaceBetweenContainer>
                 <SpaceBetweenContainer>
-                  <Button mt="2rem" w="12rem" h="5rem" hoverColor="#a2a2a2">
-                    <ButtonContainer>
-                      <img src={walnut} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                      <Title fs="1rem" mt="1rem" ml="1rem">Walnut</Title>
-                    </ButtonContainer>
-                  </Button>
-                  <Button mt="2rem" w="12rem" h="5rem" hoverColor="#a2a2a2">
-                    <ButtonContainer>
-                      <img src={apple} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                      <Title fs="1rem" mt="1rem" ml="1rem">Apple</Title>
-                    </ButtonContainer>
-                  </Button>
+                  { walnutShow ? 
+                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getAllergy("walnut")}>
+                      <ButtonContainer>
+                        <img src={walnut} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
+                        <Title fs="1rem" mt="1rem" ml="1rem">Walnut</Title>
+                      </ButtonContainer>
+                    </Button> :
+                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getAllergy("walnut")}>
+                      <ButtonContainer>
+                        <img src={walnut} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
+                        <Title fs="1rem" mt="1rem" ml="1rem">Walnut</Title>
+                      </ButtonContainer>
+                    </Button>
+                  }
+                  { appleShow ?
+                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getAllergy("apple")}>
+                      <ButtonContainer>
+                        <img src={apple} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
+                        <Title fs="1rem" mt="1rem" ml="1rem">Apple</Title>
+                      </ButtonContainer>
+                    </Button> :
+                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getAllergy("apple")}>
+                      <ButtonContainer>
+                        <img src={apple} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
+                        <Title fs="1rem" mt="1rem" ml="1rem">Apple</Title>
+                      </ButtonContainer>
+                    </Button>
+                  }
                 </SpaceBetweenContainer>
                 <SpaceBetweenContainer>
-                  <Button mt="2rem" w="12rem" h="5rem" hoverColor="#a2a2a2">
-                    <ButtonContainer>
-                      <img src={sesame} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                      <Title fs="1rem" mt="1rem" ml="1rem">Sesame</Title>
-                    </ButtonContainer>
-                  </Button>
-                  <Button mt="2rem" w="12rem" h="5rem" hoverColor="#a2a2a2">
-                    <ButtonContainer>
-                      <img src={shellfish} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                      <Title fs="1rem" mt="1rem" ml="1rem">Shellfish</Title>
-                    </ButtonContainer>
-                  </Button>
+                  { sesameShow ? 
+                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getAllergy("sesame")}>
+                      <ButtonContainer>
+                        <img src={sesame} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
+                        <Title fs="1rem" mt="1rem" ml="1rem">Sesame</Title>
+                      </ButtonContainer>
+                    </Button> :
+                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getAllergy("sesame")}>
+                      <ButtonContainer>
+                        <img src={sesame} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
+                        <Title fs="1rem" mt="1rem" ml="1rem">Sesame</Title>
+                      </ButtonContainer>
+                    </Button>
+                  }
+                  { shellfishShow ?
+                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getAllergy("shellfish")}>
+                      <ButtonContainer>
+                        <img src={shellfish} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
+                        <Title fs="1rem" mt="1rem" ml="1rem">Shellfish</Title>
+                      </ButtonContainer>
+                    </Button> :
+                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getAllergy("shellfish")}>
+                      <ButtonContainer>
+                        <img src={shellfish} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
+                        <Title fs="1rem" mt="1rem" ml="1rem">Shellfish</Title>
+                      </ButtonContainer>
+                    </Button>
+                  }
                 </SpaceBetweenContainer>
                 <SpaceBetweenContainer>
-                  <Button mt="2rem" w="12rem" h="5rem" hoverColor="#a2a2a2">
-                    <ButtonContainer>
-                      <img src={egg} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                      <Title fs="1rem" mt="1rem" ml="1rem">Egg</Title>
-                    </ButtonContainer>
-                  </Button>
-                  <Button mt="2rem" w="12rem" h="5rem" hoverColor="#a2a2a2">
-                    <Title fs="1rem">No interest</Title>
-                  </Button>
+                  { eggShow ? 
+                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getAllergy("egg")}>
+                      <ButtonContainer>
+                        <img src={egg} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
+                        <Title fs="1rem" mt="1rem" ml="1rem">Egg</Title>
+                      </ButtonContainer>
+                    </Button> :
+                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getAllergy("egg")}>
+                      <ButtonContainer>
+                        <img src={egg} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
+                        <Title fs="1rem" mt="1rem" ml="1rem">Egg</Title>
+                      </ButtonContainer>
+                    </Button>
+                  }
+                  { relevantShow ?
+                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getAllergy("relevant")}>
+                      <Title fs="1rem">No relevant</Title>
+                    </Button> :
+                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getAllergy("relevant")}>
+                      <Title fs="1rem">No relevant</Title>
+                    </Button>
+                  }
                 </SpaceBetweenContainer>
               </div>
             </div>

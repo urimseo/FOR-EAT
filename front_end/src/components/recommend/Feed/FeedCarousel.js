@@ -2,10 +2,10 @@ import React from 'react';
 import Carousel from 'react-material-ui-carousel'
 import styled from "styled-components";
 import { Paper, Button } from '@mui/material'
-import MainImg from "assets/img/FeedCarousel1.PNG";
-import Carousel1 from "assets/img/FeedCarousel2.PNG";
-import Carousel2 from "assets/img/FeedCarousel3.PNG";
-import Carousel3 from "assets/img/FeedCarousel4.PNG";
+import MainImg from "assets/img/RecommendCarousel1.PNG";
+import Carousel1 from "assets/img/RecommendCarousel2.PNG";
+import Carousel2 from "assets/img/RecommendCarousel3.PNG";
+import Carousel3 from "assets/img/RecommendCarousel4.PNG";
 
 
 const Header = styled.div`
