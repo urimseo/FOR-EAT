@@ -1,18 +1,26 @@
-import React, { useEffect, useState } from "react";
-import PopularIngredients from "components/browse/BrowsePopularIngredient"
-import VeganList from "components/browse/BrowseVeganList"
-import styled from "styled-components";
+import React from "react";
+import BrowseLiseItem from "components/browse/BrowseListItem";
 
-const flexContainer = styled.div`
-  display: flex;
-  flex: wrap;
-`
 
 const BrowseList = () => {
+  
+  const Data = [
+    { keyword: "Vegan", title: "Vegan Recipes" },
+    { keyword: "Kid Friendly", title: "FOR:KIDS" },
+    { keyword: "Weeknight", title: "FOR:Weeknight" },
+    { keyword: "Brunch", title: "Brunch" },
+    { keyword: "Oven", title: "WITH:OVEN" },
+    { keyword: "From Scratch", title: "From Scratch" },
+  ]
+
   return (
     <>
-      <PopularIngredients />
-      <VeganList />
+      { Data.map((item, idx) => ( 
+        <BrowseLiseItem 
+          key={idx}
+          {...item} 
+        />
+      ))}
     </>
   )
 }

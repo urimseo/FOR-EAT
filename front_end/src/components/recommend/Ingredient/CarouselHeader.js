@@ -47,52 +47,40 @@ const CarouselHeader = () => {
   {
     var items = [
       {
-        name: "Low-Fat Berry Blue Frozen Dessert",
-        description: "Probably the most random thing you have ever seen!",
-        image: MainImg,
-        recipe_seq: 1,
-      },
-      {
-        name: "Blueberry Scones",
-        description: "Hello World!",
-        image: Carousel1,
-        recipe_seq: 20
-      },
-      {
-        name: "Blueberry Scones",
-        description: "Hello World!",
+        name: "Fresh Strawberry Cake",
+        description: "Decorative, Fresh, Delicious",
         image: Carousel3,
-        recipe_seq: 20
+        recipe_seq: 4942
       },
       {
-        name: "Blueberry Scones",
-        description: "Hello World!",
+        name: "Egg Curry",
+        description: "#Beginner Cook #Indian",
         image: Carousel4,
-        recipe_seq: 20
+        recipe_seq: 5945
       },
       {
-        name: "Blueberry Scones",
-        description: "Hello World!",
+        name: "The Best Pork Chop Dinner",
+        description: "Combine soup, mushrooms, mustard, chicken broth",
         image: Carousel5,
-        recipe_seq: 20
+        recipe_seq: 1620
       },
       {
-        name: "Blueberry Scones",
-        description: "Hello World!",
+        name: "Quick Cinnamon Rolls",
+        description: "No Yeast",
         image: Carousel6,
-        recipe_seq: 20
+        recipe_seq: 44550
       },
       {
-        name: "Blueberry Scones",
-        description: "Hello World!",
+        name: "Judy's Grilled Flank Steak",
+        description: "# High Protein #Steak #Grill #Oven",
         image: Carousel7,
-        recipe_seq: 20
+        recipe_seq: 7266
       },
       {
-        name: "Blueberry Scones",
-        description: "Hello World!",
+        name: "Cajun Lobster Pasta",
+        description: "For Special Anniversary",
         image: Carousel8,
-        recipe_seq: 20
+        recipe_seq: 63070
       }
     ]
     return (

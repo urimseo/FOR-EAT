@@ -9,7 +9,7 @@ import Card3 from "components/commons/Card3";
 const Title = styled.div`
   font-size: 2rem;
   font-weight: 300;
-  margin: 1rem 0;
+  margin: 2rem 0 1rem 0;
 `
 
 const CardContainer = styled.div`
@@ -17,25 +17,23 @@ const CardContainer = styled.div`
   justify-content: center;
 `
 
-const VeganList = () => {
+const BrowseListItem = ({keyword, title}) => {
   // api 연결시
   const [resultList, setResultList] = useState([])
 
-  const getVeganList = async () => {
-    const response = await getBrowseList(1, "Vegan");  // one대신 vegan 넣기
+  const getBrowseListItem = async () => {
+    const response = await getBrowseList(1, keyword);  // one대신 vegan 넣기
     setResultList(response)
   }
 
   useEffect (() => {
-    getVeganList()
+    getBrowseListItem()
   }, [])
-
 
 
     return (
       <div>
-        <Title>Vegan Recipes</Title>
-
+        <Title>{title}</Title>
         <CardContainer>
           { resultList.map((result, idx) => {
             // 3개만 잘라서 보여주기
@@ -49,4 +47,4 @@ const VeganList = () => {
     )
 }
 
-export default VeganList;
+export default BrowseListItem;
