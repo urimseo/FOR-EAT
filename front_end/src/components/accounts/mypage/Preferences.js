@@ -22,7 +22,7 @@ const Container = styled.div`
 
 const Title = styled.div`
   font-family: Playfair Display;
-  font-size: 64px;
+  font-size: 32px;
   margin-top: 3rem;
 `
 
@@ -53,7 +53,6 @@ const overlay = {
 
 const Preferences = () => {
   const [widgetId, setWidgetId] = useState();
-
 
   const widgets = ["M01", "M02", "M03", "M04"];
 
