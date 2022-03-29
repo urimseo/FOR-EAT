@@ -52,15 +52,15 @@ const ImageSub = styled.div`
 
 `;
 
-const Diet = styled.div`
+const DislikedIngredient = styled.div`
 `
 
-const Diets = ({setWidgetId}) => {
+const DietaryRestrictions = ({setWidgetId}) => {
     return (
-      <Diet>
+      <DislikedIngredient>
         <SubTheme>
-          <SubTitle>Diets</SubTitle>
-          <Sub>Click ‘ADD DIETS’ and Select from the diets below.</Sub>
+          <SubTitle>Dietary Restrictions</SubTitle>
+          <Sub>Click ‘ADD Dietary Restrictions’ and Add ingredient that you don’t like.</Sub>
         </SubTheme>
 
         <Item>
@@ -72,18 +72,18 @@ const Diets = ({setWidgetId}) => {
           <ImageContainer>
             <PLUS
               onClick={() => {
-                if (setWidgetId) setWidgetId("M01");
+                if (setWidgetId) setWidgetId("M02");
               }}
             >
               <Image src={Plus}/>
-              <ImageSub>ADD DIETS</ImageSub>
+              <ImageSub>ADD Infos</ImageSub>
             </PLUS>
           </ImageContainer>
         </Item>
-          </Diet>
+      </DislikedIngredient>
           
       );
     }
   
-  export default Diets;
+  export default DietaryRestrictions;
   

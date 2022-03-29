@@ -65,7 +65,7 @@ const ButtonContainer = styled.div`
   margin-right: 30px;
 `
 
-const FavoriteCuisinesModal = ({ layoutId, setWidgetId  }) => {
+const InfosModal = ({ layoutId, setWidgetId }) => {
     const onClick = (event) => {
         event.stopPropagation();
       };
@@ -83,7 +83,7 @@ const FavoriteCuisinesModal = ({ layoutId, setWidgetId  }) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <Title>FavoriteCuisines</Title>
+          <Title>Information</Title>
           <ItemContainer>
             <Item>
               <ImageContainer>
@@ -144,9 +144,10 @@ const FavoriteCuisinesModal = ({ layoutId, setWidgetId  }) => {
               onClick={onButton}
             />
           </ButtonContainer>
+
         </Container>
       );
     }
   
-  export default FavoriteCuisinesModal;
+  export default InfosModal;
   
