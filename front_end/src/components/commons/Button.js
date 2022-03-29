@@ -10,7 +10,8 @@ const StyledButton = styled.button`
   margin-bottom: ${(props) => (props.mb ? props.mb : "")};
   margin-right: ${(props) => (props.mr ? props.mr : "")};
   padding: ${(props) => (props.padding ? props.padding : "")};
-  border: none;
+  box-shadow: ${(props) => (props.bs ? props.bs : "")};
+  border: ${(props) => (props.border ? props.border : "none")};
   font-weight: 600;
   border-radius: ${(props) => (props.br ? props.br : "35px")};
   font-family: "Noto Sans KR", sans-serif;
@@ -25,6 +26,10 @@ const StyledButton = styled.button`
   &:disabled {
     background-color: white;
     cursor: no-drop;
+  }
+
+  &:active{
+    box-shadow: none;
   }
 `;
 
