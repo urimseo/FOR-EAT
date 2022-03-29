@@ -4,8 +4,11 @@ import Rating from '@mui/material/Rating';
 
 
 import iconDelete from "assets/img/icon_delete.png";
+import iconUpdate from "assets/img/icon_update.png";
 import FOREAT_logo from "assets/img/FOREAT_logo.png";
 import { deleteReview } from "api/ReviewApi";
+import { useSetRecoilState } from "recoil";
+import { reviewDataState } from "atoms/atoms";
 
 const Container = styled.div`
   display: flex;
@@ -105,30 +108,43 @@ const Img = styled.img`
   object-fit: cover;
 `
 
-const ReviewCard = ({ recipeId, reviewId, memberName, imgUrl, profileImgUrl, content, ratings, lastModifiedDate }) => {
-  
+const ReviewCard = ({ recipe_seq, id, member_nickname, image_url, 
+  profile_image_url, content, ratings, last_modified_date }) => {
+  const setReviewData = useSetRecoilState(reviewDataState);
+
+
   const onClickDelete = async () => {
-    await deleteReview(reviewId)
+    await deleteReview(id)
     window.location.reload();
   }
-
+  const onClickUpdate = () => {
+    setReviewData({
+      id : id,
+      member_nickname: member_nickname,
+      profile_image_url: profile_image_url,
+      image_url: image_url,
+      content: content,
+      ratings: ratings
+    });
+  }
 
   return (
       <Container>
         <CardContainer>
           <FlexContainer>
             <ProfileImgWrapper>
-              <ProfileImg src={profileImgUrl} alt="" />
+              <ProfileImg src={profile_image_url} alt="" />
             </ProfileImgWrapper>
             <TextContainer>
               <SpaceBetweenContainer>
                 <Name>
-                  {memberName}
+                  {member_nickname}
                 </Name>
                 <FlexContainer >
                   <Date>
-                    {(lastModifiedDate).slice(0, 10)}
+                    {(last_modified_date).slice(0, 10)}
                   </Date>
+                  <Icon src={iconUpdate} onClick={onClickUpdate} />
                   <Icon src={iconDelete} onClick={onClickDelete}/>
                 </FlexContainer>
               </SpaceBetweenContainer>
@@ -142,7 +158,7 @@ const ReviewCard = ({ recipeId, reviewId, memberName, imgUrl, profileImgUrl, con
           </FlexContainer>
         </CardContainer>
         <ImgWrapper>
-          <Img src={imgUrl ? imgUrl : FOREAT_logo } alt="이미지를 찾을 수 없습니다." />
+          <Img src={image_url ? image_url : FOREAT_logo } alt="이미지를 찾을 수 없습니다." />
         </ImgWrapper>
       </Container>
   );
