@@ -4,6 +4,7 @@ const StyledTitle = styled.p`
   display: ${(props) => (props.dp ? props.dp : "inline")};
   font-family: ${(props) => (props.ff ? props.ff : "Playfair Display")};
   font-size: ${(props) => (props.fs ? props.fs : "2.2rem")};
+  font-weight: ${(props) => (props.fw ? props.fw : "")};
   color: ${(props) => (props.color ? props.color : "#000000")};
   margin-top: ${(props) => (props.mt ? props.mt : "")};
   margin-left: ${(props) => (props.ml ? props.ml : "")};

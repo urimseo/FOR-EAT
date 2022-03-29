@@ -1,20 +1,9 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
-
+import Title from "components/commons/Title"
 
 const Container = styled.div`
   min-height: 100vh;
-`
-
-const Title = styled.div`
-  display: flex;
-  justify-content: center;
-  font-size: ${(props) => (props.fs ? props.fs : "3rem")};
-  font-weight: ${(props) => (props.fw ? props.fw : "300")};
-  margin-top: ${(props) => (props.mt ? props.mt : "")};
-  margin-left: ${(props) => (props.ml ? props.ml : "")};
-  margin-bottom: ${(props) => (props.mb ? props.mb : "")};
-  margin-right: ${(props) => (props.mr ? props.mr : "")};
 `
 
 const Question = styled.div`
@@ -47,17 +36,17 @@ const Button = styled.button`
   font-size: 1rem;
   cursor: pointer;
   border-radius: 1rem;
-  box-shadow: 1px 1px 10px 3px #e2e2e2;
+  box-shadow: 1px 1px 10px 3px ${(props) => (props.boxColor ? props.boxColor : "#e2e2e2")};
   width: ${(props) => (props.w ? props.w : "")};
   height: ${(props) => (props.h ? props.h : "")};
   background-color: white;
-  border: 1px solid grey;
+  border: none;
   margin-top: ${(props) => (props.mt ? props.mt : "")};
   margin-left: ${(props) => (props.ml ? props.ml : "")};
   margin-right: ${(props) => (props.mr ? props.mr : "")};
   &:hover {
     color: ${(props) =>
-      props.hoverColor ? props.hoverColor : "#000"};
+      props.hoverColor ? props.hoverColor : "#a2a2a2"};
   }
 `
 
@@ -74,6 +63,43 @@ const BottomButton =styled.a`
 `
 
 const GoalSurvey = () => {
+  const [beginnerShow, getBeginnerShow] = useState(false);
+  const [newShow, getNewShow] = useState(false);
+  const [timeShow, getTimeShow] = useState(false);
+  const [healtyShow, getHealtyShow] = useState(false);
+  const [weightShow, getWeightShow] = useState(false);
+  const [interestShow, getInterestShow] = useState(false);
+
+  const getGoal = (state) => {
+    if (state === "beginner") {
+      getBeginnerShow(!beginnerShow);
+      getInterestShow(false);
+    }
+    if (state === "new") {
+      getNewShow(!newShow);
+      getInterestShow(false);
+    }
+    if (state === "time") {
+      getTimeShow(!timeShow);
+      getInterestShow(false);
+    }
+    if (state === "healty") {
+      getHealtyShow(!healtyShow);
+      getInterestShow(false);
+    }
+    if (state === "weight") {
+      getWeightShow(!weightShow);
+      getInterestShow(false);
+    }
+    if (state === "interest") {
+      getInterestShow(!interestShow);
+      getBeginnerShow(false);
+      getNewShow(false);
+      getTimeShow(false);
+      getHealtyShow(false);
+      getWeightShow(false);
+    }
+  }
   return (
     <>
     <Container>
@@ -81,33 +107,63 @@ const GoalSurvey = () => {
           <div className='box'>
             <div className='line'></div>
             <div className='number'>6/6</div>
-            <Title fs="2.5rem" fw="300" mt="2rem" mb="1rem">Select your information</Title>
-            <Title fs="1.2rem" fw="200" mb="1rem">Check your diet goal.</Title>
+            <Title ff="work sans" fs="2.5rem" fw="300" mt="2rem" mb="1rem" style={{display: "flex", justifyContent: "center"}}>Select your information</Title>
+            <Title ff="work sans" fs="1.2rem" fw="200" mb="1rem" style={{display: "flex", justifyContent: "center"}}>Check your diet goal.</Title>
             <div style={{display: "flex", justifyContent: "center"}}>
               <div style={{width: "26rem"}}>
                 <SpaceBetweenContainer>
-                  <Button mt="1rem" w="12rem" h="5rem" hoverColor="#a2a2a2">
-                    Beginner cook
-                  </Button>
-                  <Button mt="1rem" w="12rem" h="5rem" hoverColor="#a2a2a2">
-                    Try new cuisin
-                  </Button>
+                  { beginnerShow ?
+                    <Button mt="1rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getGoal("beginner")}>
+                      Beginner cook
+                    </Button> :
+                    <Button mt="1rem" w="12rem" h="5rem" onClick={()=>getGoal("beginner")}>
+                      Beginner cook
+                    </Button>
+                  }
+                  { newShow ?
+                    <Button mt="1rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getGoal("new")}>
+                      To new cuisine
+                    </Button> :
+                    <Button mt="1rem" w="12rem" h="5rem" onClick={()=>getGoal("new")}>
+                      To new cuisine
+                    </Button>
+                  }
                 </SpaceBetweenContainer>
                 <SpaceBetweenContainer>
-                  <Button mt="2rem" w="12rem" h="5rem" hoverColor="#a2a2a2">
-                    Save time
-                  </Button>
-                  <Button mt="2rem" w="12rem" h="5rem" hoverColor="#a2a2a2">
-                    Eat healty
-                  </Button>
+                  { timeShow ?
+                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getGoal("time")}>
+                      To save time
+                    </Button> :
+                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getGoal("time")}>
+                      To save time
+                    </Button>
+                  }
+                  { healtyShow ?
+                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getGoal("healty")}>
+                      To eat healty
+                    </Button> :
+                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getGoal("healty")}>
+                      To eat healty
+                    </Button>
+                  }
                 </SpaceBetweenContainer>
                 <SpaceBetweenContainer>
-                  <Button mt="2rem" w="12rem" h="5rem" hoverColor="#a2a2a2">
-                    Try diet
-                  </Button>
-                  <Button mt="2rem" w="12rem" h="5rem" hoverColor="#a2a2a2">
-                    No interest
-                  </Button>
+                  { weightShow ?
+                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getGoal("weight")}>
+                      To lose weight
+                    </Button> :
+                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getGoal("weight")}>
+                      To lose weight
+                    </Button>
+                  }
+                  { interestShow ?
+                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getGoal("interest")}>
+                      No interest
+                    </Button> :
+                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getGoal("interest")}>
+                      No interest
+                    </Button>
+                  }
                 </SpaceBetweenContainer>
               </div>
             </div>

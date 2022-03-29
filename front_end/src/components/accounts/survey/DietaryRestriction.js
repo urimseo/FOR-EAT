@@ -1,20 +1,10 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
+import Title from "components/commons/Title"
 
 
 const Container = styled.div`
   min-height: 100vh;
-`
-
-const Title = styled.div`
-  display: flex;
-  justify-content: center;
-  font-size: ${(props) => (props.fs ? props.fs : "3rem")};
-  font-weight: ${(props) => (props.fw ? props.fw : "300")};
-  margin-top: ${(props) => (props.mt ? props.mt : "")};
-  margin-left: ${(props) => (props.ml ? props.ml : "")};
-  margin-bottom: ${(props) => (props.mb ? props.mb : "")};
-  margin-right: ${(props) => (props.mr ? props.mr : "")};
 `
 
 const Question = styled.div`
@@ -47,17 +37,17 @@ const Button = styled.button`
   font-size: 1rem;
   cursor: pointer;
   border-radius: 1rem;
-  box-shadow: 1px 1px 10px 3px #e2e2e2;
+  box-shadow: 1px 1px 10px 3px ${(props) => (props.boxColor ? props.boxColor : "#e2e2e2")};
   width: ${(props) => (props.w ? props.w : "")};
   height: ${(props) => (props.h ? props.h : "")};
   background-color: white;
-  border: 1px solid grey;
+  border: none;
   margin-top: ${(props) => (props.mt ? props.mt : "")};
   margin-left: ${(props) => (props.ml ? props.ml : "")};
   margin-right: ${(props) => (props.mr ? props.mr : "")};
   &:hover {
     color: ${(props) =>
-      props.hoverColor ? props.hoverColor : "#000"};
+      props.hoverColor ? props.hoverColor : "#a2a2a2"};
   }
 `
 
@@ -74,6 +64,32 @@ const BottomButton =styled.a`
 `
 
 const DietaryRestriction = () => {
+  const [cholesterolShow, setCholesterolShow] = useState(false);
+  const [sodiumShow, setShdisumShow] = useState(false);
+  const [sugarShow, setSugarShow] = useState(false);
+  const [interestShow, setInterestShow] = useState(false);
+
+  const getRestriction = (state) => {
+    if (state === "cholesterol") {
+      setCholesterolShow(!cholesterolShow);
+      setInterestShow(false);
+    }
+    if (state === "sodium") {
+      setShdisumShow(!sodiumShow);
+      setInterestShow(false);
+    }
+    if (state === "sugar") {
+      setSugarShow(!sugarShow);
+      setInterestShow(false);
+    }
+    if (state === "interest") {
+      setInterestShow(!interestShow);
+      setCholesterolShow(false);
+      setShdisumShow(false);
+      setSugarShow(false);
+    }
+  }
+
   return (
     <>
     <Container>
@@ -81,25 +97,45 @@ const DietaryRestriction = () => {
           <div className='box'>
             <div className='line'></div>
             <div className='number'>3/6</div>
-            <Title fs="2.5rem" fw="300" mt="2rem" mb="1rem">Select your information</Title>
-            <Title fs="1.2rem" fw="200" mb="1rem">Check your dietary restriction.</Title>
+            <Title ff="work sans" fs="2.5rem" fw="300" mt="2rem" mb="1rem" style={{display: "flex", justifyContent: "center"}}>Select your information</Title>
+            <Title ff="work sans" fs="1.2rem" fw="200" mb="1rem" style={{display: "flex", justifyContent: "center"}}>Check your dietary restriction.</Title>
             <div style={{display: "flex", justifyContent: "center"}}>
               <div style={{width: "26rem"}}>
                 <SpaceBetweenContainer>
-                  <Button mt="1rem" w="12rem" h="5rem" hoverColor="#a2a2a2">
-                    Low cholesterol
-                  </Button>
-                  <Button mt="1rem" w="12rem" h="5rem" hoverColor="#a2a2a2">
-                    Low sodium
-                  </Button>
+                  { cholesterolShow ? 
+                    <Button mt="1rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getRestriction("cholesterol")}>
+                      Low cholesterol
+                    </Button> :
+                    <Button mt="1rem" w="12rem" h="5rem" onClick={()=>getRestriction("cholesterol")}>
+                      Low cholesterol
+                    </Button> 
+                  }
+                  { sodiumShow ? 
+                    <Button mt="1rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getRestriction("sodium")}>
+                      Low sodium
+                    </Button> :
+                    <Button mt="1rem" w="12rem" h="5rem" onClick={()=>getRestriction("sodium")}>
+                      Low sodium
+                    </Button>
+                  }
                 </SpaceBetweenContainer>
                 <SpaceBetweenContainer>
-                  <Button mt="2rem" w="12rem" h="5rem" hoverColor="#a2a2a2">
-                    Low sugar
-                  </Button>
-                  <Button mt="2rem" w="12rem" h="5rem" hoverColor="#a2a2a2">
-                    No interest
-                  </Button>
+                  { sugarShow ? 
+                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getRestriction("sugar")}>
+                      Low sugar
+                    </Button> :
+                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getRestriction("sugar")}>
+                      Low sugar
+                    </Button>
+                  }
+                  { interestShow ? 
+                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getRestriction("interest")}>
+                      No interest
+                    </Button> :
+                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getRestriction("interest")}>
+                      No interest
+                    </Button>
+                  }
                 </SpaceBetweenContainer>
               </div>
             </div>

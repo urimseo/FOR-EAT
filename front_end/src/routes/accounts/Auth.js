@@ -4,6 +4,7 @@ import { useSetRecoilState } from 'recoil';
 import { isLoginState, userInfoState } from '../../atoms/atoms';
 import { useNavigate } from 'react-router-dom';
 import { Alert } from "components/commons/Alert";
+import { setApiHeaders } from "api/Axios";
 
 
 const Auth = () => {
@@ -23,6 +24,7 @@ const Auth = () => {
           if (res) {
           setIsLoginState(true)
           setUserInfoState(res.user.member_seq);
+          setApiHeaders();
             if (res.user.isSurvey === false) {
               navigate("/survey");
             } else {
