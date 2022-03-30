@@ -15,7 +15,7 @@ from recipes.serializers import RecipeSerializer, RecipeListSerializer, ReviewLi
 from recipes.storages import FileUpload, s3_client
 from members.token import decode_token
 from recipes.models import Keyword, Recipe, Category, RecipeKeyword, Review
-from members.models import Member, LikedRecipe
+from members.models import Member, LikedRecipe, Recommend
 import json
 import re
 
@@ -234,7 +234,7 @@ class ReviewDetail(APIView):
 class RecipeLike(APIView):
     def get(self, request, pk):
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
-        member = decode_token(token)
+        member = decode_token(token.strip('"'))
         # member = Member.objects.get(member_seq=1)
         recipe = get_object_or_404(Recipe, pk=pk)
 
@@ -339,3 +339,28 @@ class BrowseRecipeList(ListAPIView, LimitOffsetPagination):
             i['images'] = json.loads(i['images'])[0]
   
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class RecommendRecipeList(ListAPIView, LimitOffsetPagination):
+
+    def get(self, request, format=None):
+        word = self.request.GET['type']
+        token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        member = decode_token(token.strip('"'))
+        # member = Member.objects.get(member_seq=1)
+        
+        if word == 'content':
+            recommends = Recommend.objects.filter(member_seq=member.member_seq).values('content_base')
+            recommend_list = json.loads(recommends[0]['content_base'])
+            print(recommend_list)
+            recipes = Recipe.objects.filter(recipe_seq__in=recommend_list)
+            print(recipes)
+            results = self.paginate_queryset(recipes)
+            serializer = RecipeListSerializer(results, many = True)
+
+            for i in serializer.data:
+
+                i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).aggregate(average_rating=Avg('review__ratings')))
+                i['liked_count'] = LikedRecipe.objects.filter(recipe_seq=i['recipe_seq']).count()
+                i['images'] = json.loads(i['images'])[0]
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
