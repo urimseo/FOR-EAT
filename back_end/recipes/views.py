@@ -115,10 +115,12 @@ class RecipeDetail(APIView):
         nutrient_recommend_serializer = RecipeListSerializer(nutrient_recommend_recipes, many=True)
 
         for i in ingredients_recommend_serializer.data:
+            i['liked_count'] = LikedRecipe.objects.filter(recipe_seq=i['recipe_seq']).count()
             i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).aggregate(average_rating=Avg('review__ratings')))
             i['images'] = json.loads(i['images'])[0]
             
         for i in nutrient_recommend_serializer.data:
+            i['liked_count'] = LikedRecipe.objects.filter(recipe_seq=i['recipe_seq']).count()
             i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).aggregate(average_rating=Avg('review__ratings')))
             i['images'] = json.loads(i['images'])[0]
 
