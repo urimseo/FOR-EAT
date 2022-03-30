@@ -10,8 +10,8 @@ const KeywordContainer = styled.div`
 
 const Keyword = styled.div`
   display: inline-flex;
-  margin: 0 1rem 0.7rem 0;
-  padding: 0.5rem 1rem;
+  margin: 0 0.6rem 0.6rem 0;
+  padding: 0.4rem 0.8rem;
   font-size: 1rem;
   border: 1px solid #ED8141;
   border-radius: 5rem;

@@ -17,9 +17,10 @@ const TextContainer = styled.div`
     font-weight: 600;
   }
   .content {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 300;
     padding: 1rem 0;
+    line-height : 1.5rem;
   }
 `
 

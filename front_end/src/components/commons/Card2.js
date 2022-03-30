@@ -101,41 +101,42 @@ const TextContent = styled.div`
 
 const Arrow = () => {
   return (
-<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg>
+  <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg>
   )
 }
 
 
 const Card2 = ({ name, images, keywords, recipe_seq }) => {
   const likeCnt = 39
+  
   return (
 
-      <Container>
-        <Link to={`/recipes/${recipe_seq}`} style={{color: 'black', textDecoration : "none"}}>
-          <CardItem>
-            <ImgWrapper className='image-wrapper'>
-              <Img src={images} className="image" />
-            </ImgWrapper>
-            <TextContainer>
-              <div style={{minHeight: "3.5rem"}}>
-                <div className='title'>{name}</div>
-                <div className="line" />
-              </div>
-              <SpaceBetweenContainer>
-              <div className="keywords">{ keywords.length === 0 ? "DELICIOUS" : keywords[0]["keyword_name"] }</div>
-              <Arrow />
-              </SpaceBetweenContainer>
-            </TextContainer>
-            <HoverText className="middle">
-              <TextContent className="text">
-                <img src={heart} alt=""/>
-                <div>{likeCnt} PEOPLE</div>
-                <div>LIKED THIS RECIPE</div>
-              </TextContent>
-            </HoverText>
-          </CardItem>
-        </Link>
-      </Container>
+    <Container >
+      <Link to={`/recipes/${recipe_seq}`} style={{color: 'black', textDecoration : "none"}}>
+        <CardItem >
+          <ImgWrapper className='image-wrapper'>
+            <Img src={images} className="image" />
+          </ImgWrapper>
+          <TextContainer>
+            <div style={{minHeight: "3.5rem"}}>
+              <div className='title'>{name}</div>
+              <div className="line" />
+            </div>
+            <SpaceBetweenContainer>
+            <div className="keywords">{ keywords.length === 0 ? "DELICIOUS" : keywords[0]["keyword_name"] }</div>
+            <Arrow />
+            </SpaceBetweenContainer>
+          </TextContainer>
+          <HoverText className="middle">
+            <TextContent className="text">
+              <img src={heart} alt=""/>
+              <div>{likeCnt} PEOPLE</div>
+              <div>LIKED THIS RECIPE</div>
+            </TextContent>
+          </HoverText>
+        </CardItem>
+      </Link>
+    </Container>
 
   );
 };
