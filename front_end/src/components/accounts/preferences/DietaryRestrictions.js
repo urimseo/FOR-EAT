@@ -55,7 +55,7 @@ const ImageSub = styled.div`
 const DislikedIngredient = styled.div`
 `
 
-const DietaryRestrictions = ({setWidgetId}) => {
+const DietaryRestrictions = ({ setWidgetId, SurveyList }) => {
     return (
       <DislikedIngredient>
         <SubTheme>
