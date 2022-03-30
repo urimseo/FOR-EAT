@@ -20,7 +20,7 @@ const StyledButton = styled.button`
 
   &:hover {
     background-color: ${(props) =>
-      props.hoverColor ? props.hoverColor : "#a2a2a2"};
+      props.hoverColor ? props.hoverColor : ""};
   }
 
   &:disabled {
