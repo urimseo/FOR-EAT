@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Button from "components/commons/Button";
+import Button2 from "components/commons/Button2";
 
 import egg from "assets/img/IngredientItem/egg.PNG";
 import wheat from "assets/img/IngredientItem/flour.jpg";
@@ -82,106 +83,34 @@ const AllergiesModal = ({ layoutId, setWidgetId }) => {
       <BoxContainer>
         <div style={{ width: "26rem" }}>
           <SpaceBetweenContainer>
-            <Button
-              mt="1rem"
-              w="12rem"
-              h="5rem"
-              br="1rem"
-              bc="white"
-              bs="1px 1px 10px 3px #e2e2e2"
-              border="1px solid grey"
-              fontsize="1rem"
-              hoverColor="#a2a2a2"
+            <Button2
               name="Wheat"
             />
-            <Button
-              mt="1rem"
-              w="12rem"
-              h="5rem"
-              br="1rem"
-              bc="white"
-              bs="1px 1px 10px 3px #e2e2e2"
-              border="1px solid grey"
-              fontsize="1rem"
-              hoverColor="#a2a2a2"
+            <Button2
               name="Peanut"
             />
           </SpaceBetweenContainer>
           <SpaceBetweenContainer>
-            <Button
-              mt="1rem"
-              w="12rem"
-              h="5rem"
-              br="1rem"
-              bc="white"
-              bs="1px 1px 10px 3px #e2e2e2"
-              border="1px solid grey"
-              fontsize="1rem"
-              hoverColor="#a2a2a2"
+            <Button2
               name="walnut"
             />
-            <Button
-              mt="1rem"
-              w="12rem"
-              h="5rem"
-              br="1rem"
-              bc="white"
-              bs="1px 1px 10px 3px #e2e2e2"
-              border="1px solid grey"
-              fontsize="1rem"
-              hoverColor="#a2a2a2"
+            <Button2
               name="Apple"
             />
           </SpaceBetweenContainer>
           <SpaceBetweenContainer>
-            <Button
-              mt="1rem"
-              w="12rem"
-              h="5rem"
-              br="1rem"
-              bc="white"
-              bs="1px 1px 10px 3px #e2e2e2"
-              border="1px solid grey"
-              fontsize="1rem"
-              hoverColor="#a2a2a2"
+            <Button2
               name="Sesame"
             />
-            <Button
-              mt="1rem"
-              w="12rem"
-              h="5rem"
-              br="1rem"
-              bc="white"
-              bs="1px 1px 10px 3px #e2e2e2"
-              border="1px solid grey"
-              fontsize="1rem"
-              hoverColor="#a2a2a2"
+            <Button2
               name="Shellfish"
             />
           </SpaceBetweenContainer>
           <SpaceBetweenContainer>
-            <Button
-              mt="1rem"
-              w="12rem"
-              h="5rem"
-              br="1rem"
-              bc="white"
-              bs="1px 1px 10px 3px #e2e2e2"
-              border="1px solid grey"
-              fontsize="1rem"
-              hoverColor="#a2a2a2"
+            <Button2
               name="Egg"
             />
-            <Button
-              mt="1rem"
-              w="12rem"
-              h="5rem"
-              br="1rem"
-              bc="white"
-              bs="1px 1px 10px 3px #e2e2e2"
-              border="1px solid grey"
-              fontsize="1rem"
-              hoverColor="#a2a2a2"
+            <Button2
               name="No interest"
             />
           </SpaceBetweenContainer>
