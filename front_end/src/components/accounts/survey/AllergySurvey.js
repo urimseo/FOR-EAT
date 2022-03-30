@@ -11,6 +11,7 @@ import sesame from "assets/img/IngredientItem/sesame.jpg";
 
 const Container = styled.div`
   min-height: 100vh;
+  margin-bottom: 10rem;
 `
 
 const Title = styled.div`
@@ -84,7 +85,7 @@ const BottomButton =styled.a`
   margin-right: ${(props) => (props.mr ? props.mr : "")};
 `
 
-const AllergySurvey = () => {
+const AllergySurvey = ({prevSteps, nextSteps}) => {
   const [ wheatShow, setWheatShow ] = useState(false);
   const [ peanutShow, setPeanutShow ] = useState(false);
   const [ walnutShow, setWalnutShow ] = useState(false);
@@ -261,8 +262,8 @@ const AllergySurvey = () => {
                 </SpaceBetweenContainer>
               </div>
             </div>
-            <BottomButton f="left" mt="1.5rem" ml="2rem">Back</BottomButton>
-            <BottomButton f="right" mt="1.5rem" mr="2rem">Continue</BottomButton>
+            <BottomButton f="left" mt="1.5rem" ml="2rem" onClick={prevSteps}>Back</BottomButton>
+            <BottomButton f="right" mt="1.5rem" mr="2rem" onClick={nextSteps}>Continue</BottomButton>
           </div>
         </Question>
       </Container>

@@ -1,4 +1,5 @@
 import { React, useEffect } from 'react';
+import styled from "styled-components";
 import { kakaoLogin } from '../../api/AuthApi';
 import { useSetRecoilState } from 'recoil';
 import { isLoginState, userInfoState } from '../../atoms/atoms';
@@ -6,6 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import { Alert } from "components/commons/Alert";
 import { setApiHeaders } from "api/Axios";
 
+const Container = styled.div`
+min-height: 100vh;
+`
 
 const Auth = () => {
   // 인가코드 받기
@@ -47,6 +51,8 @@ const Auth = () => {
 
   return (
     <>
+      <Container>
+      </Container>
     </>
   );
 };

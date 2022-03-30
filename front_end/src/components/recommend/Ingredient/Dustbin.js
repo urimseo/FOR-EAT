@@ -132,7 +132,6 @@ const Dustbin = React.memo(function Dustbin() {
         accept: ItemTypes.BOX,
         drop: (accept) => {
             setFood(foods => [...foods, accept])
-            console.log(foods.length)
         },
         collect: (monitor) => ({
             isOver: monitor.isOver(),
