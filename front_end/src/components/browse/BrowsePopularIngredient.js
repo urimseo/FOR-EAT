@@ -35,15 +35,15 @@ const Container = styled.div`
 
 const Title = styled.div`
   font-size: 2rem;
-  font-weight: 300;
-  margin: 1rem 0;
+  font-weight: 400;
+  margin: 2rem 0 0.5rem 0;
 `
 
 const CircleCardContainer = styled.div`
   display: flex; 
   flex-wrap: wrap;
   justify-content: center;
-  margin: 0 0 4rem 0;
+  margin: 0 0 2rem 0;
 `
 
 const PopularIngredients = () => {
