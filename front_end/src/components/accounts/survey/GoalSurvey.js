@@ -104,7 +104,7 @@ const GoalSurvey = ({propFunction, prevSteps}) => {
       getTimeShow(false);
       getHealtyShow(false);
       getWeightShow(false);
-      propFunction(['interest', false]);
+      propFunction(['noInterest', false]);
     }
   }
 

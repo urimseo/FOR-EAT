@@ -61,8 +61,6 @@ const Survey = () => {
     const value = Info[0]
     const info = Info[1]
 
-    console.log(value, info)
-
     if (value === 'age' || value === 'carbohydrate' || value === 'protein' || value === 'fat') {
       setForm({
         ...form,
@@ -70,11 +68,16 @@ const Survey = () => {
       })
     } 
     if (value === 'interest') {
-      setForm({
-        ...form,
-        sugar : false,
-      })
-      console.log(form)
+      form.sugar = false;
+      form.sodium = false;
+      form.cholesterol = false;
+    }
+    if (value === 'noInterest') {
+      form.beginner = false;
+      form.recipe_challenger = false;
+      form.timesaver = false;
+      form.healthy_diet = false;
+      form.lose_weight = false;
     }
     if (value === true || value === false) {
       if (value === false) {
