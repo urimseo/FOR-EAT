@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { getBrowseList } from "api/BrosweApi";
-import Card3 from "components/commons/Card3";
+import BrowseCard from "components/browse/BrowseCard";
 
 
 
 const Title = styled.div`
   font-size: 2rem;
-  font-weight: 400;
-  margin: 2rem 0 0 0;
+  font-weight: 00;
+  margin: 2rem 0 0.3rem 0.7rem;
 `
 
 const CardContainer = styled.div`
@@ -36,9 +36,14 @@ const BrowseListItem = ({keyword, title}) => {
         <Title>{title}</Title>
         <CardContainer>
           { resultList.map((result, idx) => {
-            // 3개만 잘라서 보여주기
-            if ( idx < 3 ) {
-              return <Card3 key={idx} {...result} />
+            // 5개만 잘라서 보여주기
+            if ( idx < 5 ) {
+              return (
+              <BrowseCard key={idx} {...result} 
+                card_width="15rem"
+                image_width="10rem"
+              />
+              )
             }
           })}
           

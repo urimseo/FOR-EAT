@@ -106,8 +106,7 @@ const Arrow = () => {
 }
 
 
-const Card2 = ({ name, images, keywords, recipe_seq }) => {
-  const likeCnt = 39
+const Card2 = ({ name, images, keywords, recipe_seq, liked_count }) => {
   
   return (
 
@@ -130,7 +129,7 @@ const Card2 = ({ name, images, keywords, recipe_seq }) => {
           <HoverText className="middle">
             <TextContent className="text">
               <img src={heart} alt=""/>
-              <div>{likeCnt} PEOPLE</div>
+              <div>{liked_count} PEOPLE</div>
               <div>LIKED THIS RECIPE</div>
             </TextContent>
           </HoverText>
