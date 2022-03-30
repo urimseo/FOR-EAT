@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Rating from '@mui/material/Rating';
 
@@ -77,9 +77,23 @@ const CardContainer = styled.div`
 `
 
 const RecipeInfo = ({ 
-  recipe_seq, name, like, toggleLike, categories, servings, 
+  recipe_seq, name, categories, servings, liked,
   prep_time, cook_time, calories, carbohydrate_content, protein_content, fat_content, 
   saturated_fat_content, cholesterol_content, sodium_content, fiber_content, sugar_content, average_rating }) => {
+  
+  const [ like, setLike ] = useState() 
+
+  const toggleLike = async () =>{
+    const response = await likeRecipe(recipe_seq)
+    if (response) {
+      setLike(!like)
+    }
+  }
+
+  useEffect(() => {
+    setLike(liked);
+    console.log(liked)
+  }, [])
 
   return (
     <Container>
@@ -89,7 +103,7 @@ const RecipeInfo = ({
         ta="start" dp="flex"
         mb="1rem"
         >{name}</Typography>
-        <Like src={like ? icon_filled_heart : icon_lined_heart} onClick={toggleLike} alt="" />
+        <Like src={ like ? icon_filled_heart : icon_lined_heart} onClick={toggleLike} alt="" />
       </SpaceBetweenContainer>
       <SpaceBetweenContainer>
         <CategoryTag>

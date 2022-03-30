@@ -8,8 +8,8 @@ import Card3 from "components/commons/Card3";
 
 const Title = styled.div`
   font-size: 2rem;
-  font-weight: 300;
-  margin: 2rem 0 1rem 0;
+  font-weight: 400;
+  margin: 2rem 0 0 0;
 `
 
 const CardContainer = styled.div`
