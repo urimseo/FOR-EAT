@@ -75,7 +75,7 @@ class Member(AbstractBaseUser):
 
 class LikedRecipe(models.Model):
     member_seq = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, db_column="member_seq")
-    recipe_seq = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    recipe_seq = models.ForeignKey(Recipe, on_delete=models.CASCADE, db_column="recipe_seq")
 
     class Meta:
         db_table = 'tb_liked_recipe'
@@ -126,14 +126,14 @@ class Recommend(models.Model):
 
 class LikedIngredient(models.Model):
     member_seq = models.ForeignKey(Survey, on_delete=models.CASCADE, db_column="member_seq")
-    ingredient_seq = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    ingredient_seq = models.ForeignKey(Ingredient, on_delete=models.CASCADE,db_column="ingredient_seq")
 
     class Meta:
         db_table = 'tb_member_liked_ingredient'
 
 class MemberAllergy(models.Model):
     member_seq = models.ForeignKey(Survey, on_delete=models.CASCADE, db_column="member_seq")
-    allergy_seq = models.ForeignKey(Allergy, on_delete=models.CASCADE)
+    allergy_seq = models.ForeignKey(Allergy, on_delete=models.CASCADE, db_column="allergy_seq")
 
     class Meta:
         db_table = 'tb_member_allergy'
