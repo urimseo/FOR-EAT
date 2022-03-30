@@ -31,13 +31,24 @@ const See = styled.a`
   text-decoration: none;
 `;
 
+const Sub = styled.div`
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+  font-size: 20px;
+  font-weight: bold;
+`
+
 const ReviewList = ({ ReviewList, UserInfo }) => {
   return (
     <Container>
       <Top>
-        <Title>All Reviews</Title>
+        <Title>My Reviews</Title>
+        {ReviewList.length !== 0 ?
         <See href={"/" + UserInfo + "/mypage/reviews"}>See all →</See>
+        :null}
       </Top>
+      
+      {ReviewList.length !== 0 ?
       <div
         style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
       >
@@ -51,7 +62,8 @@ const ReviewList = ({ ReviewList, UserInfo }) => {
             recipe_seq={review.recipe_seq}
           />
         ))}
-      </div>
+      </div> : <Sub>Please register your review.</Sub>
+      }
     </Container>
   );
 };

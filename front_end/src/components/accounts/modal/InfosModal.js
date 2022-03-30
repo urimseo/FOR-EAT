@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Button from "components/commons/Button";
+import Button2 from "components/commons/Button2";
+import { editSurvey } from "api/MyPageApi";
 
 const Container = styled(motion.div)`
   box-sizing: border-box;
@@ -59,7 +61,12 @@ const ButtonContainer = styled.div`
   }
 `;
 
-const InfosModal = ({ layoutId, setWidgetId }) => {
+const InfosModal = ({ on, layoutId, setWidgetId, SurveyList }) => {
+  const [womanShow, setWomanShow] = useState();
+  const [manShow, setManShow] = useState();
+
+  useEffect(() => {}, []);
+
   const onClick = (event) => {
     event.stopPropagation();
   };
@@ -68,6 +75,15 @@ const InfosModal = ({ layoutId, setWidgetId }) => {
     setWidgetId(null);
   };
 
+  const onWoman = () => {
+    setWomanShow(true);
+    setManShow(false);
+  };
+
+  const onMan = () => {
+    setWomanShow(false);
+    setManShow(true);
+  };
 
   return (
     <Container
@@ -87,30 +103,8 @@ const InfosModal = ({ layoutId, setWidgetId }) => {
       <ButtonContainers>
         <div style={{ width: "26rem" }}>
           <SpaceBetweenContainer>
-            <Button
-              mt="1rem"
-              w="12rem"
-              h="5rem"
-              br="1rem"
-              bc="white"
-              bs="1px 1px 10px 3px #e2e2e2"
-              border="1px solid grey"
-              fontsize="1rem"
-              hoverColor="#a2a2a2"
-              name="Man"
-            />
-            <Button
-              mt="1rem"
-              w="12rem"
-              h="5rem"
-              br="1rem"
-              bc="white"
-              bs="1px 1px 10px 3px #e2e2e2"
-              border="1px solid grey"
-              fontsize="1rem"
-              hoverColor="#a2a2a2"
-              name="Woman"
-            />
+            <Button2 bc={manShow ? on : ""} onClick={onMan} name="Man" />
+            <Button2 bc={womanShow ? on : ""} onClick={onWoman} name="Woman" />
           </SpaceBetweenContainer>
         </div>
       </ButtonContainers>

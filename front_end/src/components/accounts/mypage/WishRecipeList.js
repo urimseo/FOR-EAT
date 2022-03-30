@@ -37,11 +37,9 @@ const CardContainer = styled.div`
 `
 
 const Sub = styled.div`
-  font-size: 20;
-`
-
-const PageContainer = styled.div`
-  margin: 2rem 0 5rem 0;
+  margin-top: 1rem;
+  font-size: 20px;
+  font-weight: bold;
 `
 
 const WishRecipeList = ({RecipeList, UserInfo}) => {
@@ -50,7 +48,9 @@ const WishRecipeList = ({RecipeList, UserInfo}) => {
       <Container>
         <Top>
           <Title>My Wish Recipes</Title>
+        {RecipeList.length !== 0 ?
           <See href={'/' + UserInfo + '/mypage/likes'}>See all →</See>
+          :null}
         </Top>
         
       {RecipeList.length !== 0 ? 
@@ -66,7 +66,7 @@ const WishRecipeList = ({RecipeList, UserInfo}) => {
             recipeCalorie={recipe.calories}
           />
         ))}
-      </CardContainer> : <Sub>레시피를 등록해주세요</Sub>
+      </CardContainer> : <Sub>Please choose the recipe.</Sub>
       }
       </Container>
     </>

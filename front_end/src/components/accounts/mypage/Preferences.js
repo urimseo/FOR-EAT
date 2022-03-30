@@ -51,25 +51,27 @@ const overlay = {
 };
 
 
-const Preferences = () => {
+const Preferences = ({SurveyList}) => {
   const [widgetId, setWidgetId] = useState();
+
+  const on = "#a2a2a2"
 
   const widgets = ["M01", "M02", "M03", "M04"];
 
   const wid = {
-    M01: <Infos  setWidgetId={setWidgetId} />,
+    M01: <Infos SurveyList={SurveyList}  setWidgetId={setWidgetId} />,
     M02: (
-      <DietaryRestrictions setWidgetId={setWidgetId}/>
+      <DietaryRestrictions SurveyList={SurveyList} setWidgetId={setWidgetId}/>
     ),
-    M03: <Allergies setWidgetId={setWidgetId} />,
-    M04: <Goals setWidgetId={setWidgetId} />,
+    M03: <Allergies SurveyList={SurveyList} setWidgetId={setWidgetId} />,
+    M04: <Goals SurveyList={SurveyList} setWidgetId={setWidgetId} />,
   };
 
   const mod = {
-    M01: <InfosModal layoutId={widgetId} setWidgetId={setWidgetId} />,
-    M02: <DietaryRestrictionsModal layoutId={widgetId} setWidgetId={setWidgetId} />,
-    M03: <AllergiesModal layoutId={widgetId} setWidgetId={setWidgetId} />,
-    M04: <GoalsModal layoutId={widgetId} setWidgetId={setWidgetId} />,
+    M01: <InfosModal on={on} layoutId={widgetId} setWidgetId={setWidgetId} />,
+    M02: <DietaryRestrictionsModal on={on} layoutId={widgetId} setWidgetId={setWidgetId} />,
+    M03: <AllergiesModal on={on} layoutId={widgetId} setWidgetId={setWidgetId} />,
+    M04: <GoalsModal on={on} layoutId={widgetId} setWidgetId={setWidgetId} />,
   };
 
   return (

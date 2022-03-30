@@ -53,7 +53,7 @@ const ImageSub = styled.div`
 
 const Info = styled.div``;
 
-const Infos = ({ setWidgetId }) => {
+const Infos = ({ setWidgetId, SurveyList }) => {
   return (
     <Info>
       <SubTheme>
