@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from "styled-components";
 import carbohydrates from "assets/img/carbohydrates.png"
 import protein from "assets/img/protein.png"
-import province from "assets/img/province.png"
+import fat from "assets/img/province.png"
 
 
 const Container = styled.div`
@@ -77,32 +77,48 @@ const BottomButton =styled.a`
 `
 
 
-const NutritionSurvey = () => {
+const NutritionSurvey = ({propFunction, prevSteps, nextSteps}) => {
   const [carbohydratesHighShow, setCarbohydratesHighShow] = useState(false);
   const [carbohydratesAverageShow, setCarbohydratesAverageShow] = useState(false);
   const [carbohydratesLowShow, setCarbohydratesLowShow] = useState(false);
   const [proteinHighShow, setProteinHighShow] = useState(false);
   const [proteinAverageShow, setProteinAverageShow] = useState(false);
   const [proteinLowShow, setProteinLowShow] = useState(false);
-  const [provinceHighShow, setProvinceHighShow] = useState(false);
-  const [provinceAverageShow, setProvinceAverageShow] = useState(false);
-  const [provinceLowShow, setprovinceLowShow] = useState(false);
+  const [fatHighShow, setFatHighShow] = useState(false);
+  const [fatAverageShow, setFatAverageShow] = useState(false);
+  const [fatLowShow, seFatLowShow] = useState(false);
 
   const getCarbohydrates = (state) => {
     if (state === "high") {
       setCarbohydratesHighShow(!carbohydratesHighShow);
       setCarbohydratesAverageShow(false);
       setCarbohydratesLowShow(false);
+      if (carbohydratesHighShow === false) {
+        propFunction(['carbohydrate', 3]);
+      } else {
+        propFunction(['carbohydrate', 0]);
+      }
     }
     if (state === "average") {
       setCarbohydratesHighShow(false);
       setCarbohydratesAverageShow(!carbohydratesAverageShow);
       setCarbohydratesLowShow(false);
+      if (carbohydratesAverageShow === false) {
+        propFunction(['carbohydrate', 2]);
+      } else {
+        propFunction(['carbohydrate', 0]);
+      }
     }
     if (state === "low") {
       setCarbohydratesHighShow(false);
       setCarbohydratesAverageShow(false);
       setCarbohydratesLowShow(!carbohydratesLowShow);
+      if (carbohydratesLowShow === false) {
+        propFunction(['carbohydrate', 1]);
+      } else {
+        propFunction(['carbohydrate', 0]);
+      }
+      
     }
   }
 
@@ -111,34 +127,64 @@ const NutritionSurvey = () => {
       setProteinHighShow(!proteinHighShow);
       setProteinAverageShow(false);
       setProteinLowShow(false);
+      if (proteinHighShow === false) {
+        propFunction(['protein', 3]);
+      } else {
+        propFunction(['protein', 0]);
+      }
     }
     if (state === "average") {
       setProteinHighShow(false);
       setProteinAverageShow(!proteinAverageShow);
       setProteinLowShow(false);
+      if (proteinAverageShow === false){
+        propFunction(['protein', 2]);
+      } else {
+        propFunction(['protein', 0]);
+      }
     }
     if (state === "low") {
       setProteinHighShow(false);
       setProteinAverageShow(false);
       setProteinLowShow(!proteinLowShow);
+      if (proteinLowShow === false){
+        propFunction(['protein', 1]);
+      } else {
+        propFunction(['protein', 1]);
+      }
     }
   }
 
-  const getProvince = (state) => {
+  const getFat = (state) => {
     if (state === "high") {
-      setProvinceHighShow(!provinceHighShow);
-      setProvinceAverageShow(false);
-      setprovinceLowShow(false);
+      setFatHighShow(!fatHighShow);
+      setFatAverageShow(false);
+      seFatLowShow(false);
+      if (fatHighShow === false) {
+        propFunction(['fat', 3]);
+      } else {
+        propFunction(['fat', 0]);
+      }
     }
     if (state === "average") {
-      setProvinceHighShow(false);
-      setProvinceAverageShow(!provinceAverageShow);
-      setprovinceLowShow(false);
+      setFatHighShow(false);
+      setFatAverageShow(!fatAverageShow);
+      seFatLowShow(false);
+      if (fatAverageShow === false) {
+        propFunction(['fat', 2]);
+      } else {
+        propFunction(['fat', 0]);
+      }
     }
     if (state === "low") {
-      setProvinceHighShow(false);
-      setProvinceAverageShow(false);
-      setprovinceLowShow(!provinceLowShow);
+      setFatHighShow(false);
+      setFatAverageShow(false);
+      seFatLowShow(!fatLowShow);
+      if (fatLowShow === false) {
+        propFunction(['fat', 1]);
+      } else {
+        propFunction(['fat', 0]);
+      }
     }
   }
   return (
@@ -185,25 +231,25 @@ const NutritionSurvey = () => {
                   }
                 </Item>
                 <Item>
-                  <img src={province} alt="province" style={{width: "4rem", height: "4rem"}} />
-                  <Title fs="1rem" fw="300" mt="2rem" ml="1rem">Province</Title>
-                  { provinceHighShow ?
-                    <Button mt="1.5rem" ml="1rem" h="2rem" w="5rem" bc="#ED8141" color="white" onClick={()=>getProvince("high")}>High</Button> :
-                    <Button mt="1.5rem" ml="1rem" h="2rem" w="5rem" onClick={()=>getProvince("high")}>High</Button>
+                  <img src={fat} alt="province" style={{width: "4rem", height: "4rem"}} />
+                  <Title fs="1rem" fw="300" mt="2rem" ml="1rem">Fat</Title>
+                  { fatHighShow ?
+                    <Button mt="1.5rem" ml="1rem" h="2rem" w="5rem" bc="#ED8141" color="white" onClick={()=>getFat("high")}>High</Button> :
+                    <Button mt="1.5rem" ml="1rem" h="2rem" w="5rem" onClick={()=>getFat("high")}>High</Button>
                   }
-                  { provinceAverageShow ?
-                    <Button mt="1.5rem" ml="0.5rem" h="2rem" w="5rem" bc="#ED8141" color="white" onClick={()=>getProvince("average")}>Average</Button> :
-                    <Button mt="1.5rem" ml="0.5rem" h="2rem" w="5rem" onClick={()=>getProvince("average")}>Average</Button>
+                  { fatAverageShow ?
+                    <Button mt="1.5rem" ml="0.5rem" h="2rem" w="5rem" bc="#ED8141" color="white" onClick={()=>getFat("average")}>Average</Button> :
+                    <Button mt="1.5rem" ml="0.5rem" h="2rem" w="5rem" onClick={()=>getFat("average")}>Average</Button>
                   }
-                  { provinceLowShow ?
-                    <Button mt="1.5rem" ml="0.5rem" h="2rem" w="5rem" bc="#ED8141" color="white" onClick={()=>getProvince("low")}>Low</Button> :
-                    <Button mt="1.5rem" ml="0.5rem" h="2rem" w="5rem" onClick={()=>getProvince("low")}>Low</Button>
+                  { fatLowShow ?
+                    <Button mt="1.5rem" ml="0.5rem" h="2rem" w="5rem" bc="#ED8141" color="white" onClick={()=>getFat("low")}>Low</Button> :
+                    <Button mt="1.5rem" ml="0.5rem" h="2rem" w="5rem" onClick={()=>getFat("low")}>Low</Button>
                   }
                 </Item>
               </div>
             </div>
-            <BottomButton f="left" mt="1.5rem" ml="2rem">Back</BottomButton>
-            <BottomButton f="right" mt="1.5rem" mr="2rem">Continue</BottomButton>
+            <BottomButton f="left" mt="1.5rem" ml="2rem" onClick={prevSteps}>Back</BottomButton>
+            <BottomButton f="right" mt="1.5rem" mr="2rem" onClick={nextSteps}>Continue</BottomButton>
           </div>
         </Question>
       </Container>

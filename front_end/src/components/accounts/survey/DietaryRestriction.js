@@ -63,7 +63,7 @@ const BottomButton =styled.a`
   margin-right: ${(props) => (props.mr ? props.mr : "")};
 `
 
-const DietaryRestriction = () => {
+const DietaryRestriction = ({propFunction, prevSteps, nextSteps}) => {
   const [cholesterolShow, setCholesterolShow] = useState(false);
   const [sodiumShow, setShdisumShow] = useState(false);
   const [sugarShow, setSugarShow] = useState(false);
@@ -73,20 +73,24 @@ const DietaryRestriction = () => {
     if (state === "cholesterol") {
       setCholesterolShow(!cholesterolShow);
       setInterestShow(false);
+      propFunction(['cholesterol', !cholesterolShow]);
     }
     if (state === "sodium") {
       setShdisumShow(!sodiumShow);
       setInterestShow(false);
+      propFunction(['sodium', !sodiumShow]);
     }
     if (state === "sugar") {
       setSugarShow(!sugarShow);
       setInterestShow(false);
+      propFunction(['sugar', !sugarShow]);
     }
     if (state === "interest") {
       setInterestShow(!interestShow);
       setCholesterolShow(false);
       setShdisumShow(false);
       setSugarShow(false);
+      propFunction(['interest', false])
     }
   }
 
@@ -139,8 +143,8 @@ const DietaryRestriction = () => {
                 </SpaceBetweenContainer>
               </div>
             </div>
-            <BottomButton f="left" mt="1.5rem" ml="2rem">Back</BottomButton>
-            <BottomButton f="right" mt="1.5rem" mr="2rem">Continue</BottomButton>
+            <BottomButton f="left" mt="1.5rem" ml="2rem" onClick={prevSteps}>Back</BottomButton>
+            <BottomButton f="right" mt="1.5rem" mr="2rem" onClick={nextSteps}>Continue</BottomButton>
           </div>
         </Question>
       </Container>
