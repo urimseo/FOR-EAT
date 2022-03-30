@@ -41,8 +41,8 @@ export const getSurvey = async (member_seq) => {
   return response.data;
 };
 
-export const editSurvey = async (member_seq) => {
-  const response = await instance.patch(`/members/${member_seq}/survey`);
+export const editSurvey = async (member_seq, formData) => {
+  const response = await fileInstance.patch(`/members/${member_seq}/survey`, formData);
   return response.data;
 };
 

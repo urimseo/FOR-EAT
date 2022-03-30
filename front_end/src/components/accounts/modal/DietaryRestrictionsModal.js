@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import Button from "components/commons/Button";
 import Button2 from "components/commons/Button2";
+import { editSurvey } from "api/MyPageApi";
 
 const Container = styled(motion.div)`
   box-sizing: border-box;
