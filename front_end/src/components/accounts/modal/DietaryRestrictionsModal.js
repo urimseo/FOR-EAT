@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Button from "components/commons/Button";
+import Button2 from "components/commons/Button2";
+import { editSurvey } from "api/MyPageApi";
 
 const Container = styled(motion.div)`
   box-sizing: border-box;
@@ -43,13 +45,47 @@ const ButtonContainer = styled.div`
   margin-left: auto;
 `;
 
-const DietaryRestrictionsModal = ({ layoutId, setWidgetId }) => {
+const DietaryRestrictionsModal = ({
+  on,
+  layoutId,
+  setWidgetId,
+  SurveyList,
+}) => {
+  const [cholesterolShow, setCholesterolShow] = useState();
+  const [sodiumShow, setSodiumShow] = useState();
+  const [sugerShow, setSugerShow] = useState();
+  const [interestShow, setInterestShow] = useState();
+
+  useEffect(() => {}, []);
+
   const onClick = (event) => {
     event.stopPropagation();
   };
 
   const onButton = () => {
     setWidgetId(null);
+  };
+
+  const onCholesterol = () => {
+    setCholesterolShow(!cholesterolShow);
+    setInterestShow(false);
+  };
+
+  const onSodium = () => {
+    setSodiumShow(!sodiumShow);
+    setInterestShow(false);
+  };
+
+  const onSuger = () => {
+    setSugerShow(!sugerShow);
+    setInterestShow(false);
+  };
+
+  const onInterest = () => {
+    setInterestShow(true);
+    setCholesterolShow(false);
+    setSodiumShow(false);
+    setSugerShow(false);
   };
 
   return (
@@ -70,55 +106,27 @@ const DietaryRestrictionsModal = ({ layoutId, setWidgetId }) => {
       <BoxContainer>
         <div style={{ width: "26rem" }}>
           <SpaceBetweenContainer>
-            <Button
-              mt="1rem"
-              w="12rem"
-              h="5rem"
-              br="1rem"
-              bc="white"
-              bs="1px 1px 10px 3px #e2e2e2"
-              border="1px solid grey"
-              fontsize="1rem"
-              hoverColor="#a2a2a2"
+            <Button2
+              bc={cholesterolShow ? on : ""}
+              onClick={onCholesterol}
               name="Low cholesterol"
             />
-            <Button
-              mt="1rem"
-              w="12rem"
-              h="5rem"
-              br="1rem"
-              bc="white"
-              bs="1px 1px 10px 3px #e2e2e2"
-              border="1px solid grey"
-              fontsize="1rem"
-              hoverColor="#a2a2a2"
+            <Button2
+              bc={sodiumShow ? on : ""}
+              onClick={onSodium}
               name="Low sodium"
             />
           </SpaceBetweenContainer>
           <SpaceBetweenContainer>
-            <Button
-              mt="1rem"
-              w="12rem"
-              h="5rem"
-              br="1rem"
-              bc="white"
-              bs="1px 1px 10px 3px #e2e2e2"
-              border="1px solid grey"
-              fontsize="1rem"
-              hoverColor="#a2a2a2"
+            <Button2
+              bc={sugerShow ? on : ""}
+              onClick={onSuger}
               name="Low sugar"
             />
 
-            <Button
-              mt="1rem"
-              w="12rem"
-              h="5rem"
-              br="1rem"
-              bc="white"
-              bs="1px 1px 10px 3px #e2e2e2"
-              border="1px solid grey"
-              fontsize="1rem"
-              hoverColor="#a2a2a2"
+            <Button2
+              bc={interestShow ? on : ""}
+              onClick={onInterest}
               name="No interest"
             />
           </SpaceBetweenContainer>
