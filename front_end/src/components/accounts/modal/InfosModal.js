@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Button from "components/commons/Button";
@@ -60,7 +60,12 @@ const ButtonContainer = styled.div`
   }
 `;
 
-const InfosModal = ({ layoutId, setWidgetId }) => {
+const InfosModal = ({ on, layoutId, setWidgetId, SurveyList }) => {
+  const [womanShow, setWomanShow] = useState();
+  const [manShow, setManShow] = useState();
+
+  useEffect(() => {}, []);
+
   const onClick = (event) => {
     event.stopPropagation();
   };
@@ -69,6 +74,15 @@ const InfosModal = ({ layoutId, setWidgetId }) => {
     setWidgetId(null);
   };
 
+  const onWoman = () => {
+    setWomanShow(true);
+    setManShow(false);
+  };
+
+  const onMan = () => {
+    setWomanShow(false);
+    setManShow(true);
+  };
 
   return (
     <Container
@@ -88,12 +102,8 @@ const InfosModal = ({ layoutId, setWidgetId }) => {
       <ButtonContainers>
         <div style={{ width: "26rem" }}>
           <SpaceBetweenContainer>
-            <Button2
-              name="Man"
-            />
-            <Button2
-              name="Woman"
-            />
+            <Button2 bc={manShow ? on : ""} onClick={onMan} name="Man" />
+            <Button2 bc={womanShow ? on : ""} onClick={onWoman} name="Woman" />
           </SpaceBetweenContainer>
         </div>
       </ButtonContainers>

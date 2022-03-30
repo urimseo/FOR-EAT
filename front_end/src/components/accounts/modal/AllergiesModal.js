@@ -1,16 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Button from "components/commons/Button";
 import Button2 from "components/commons/Button2";
-
-import egg from "assets/img/IngredientItem/egg.PNG";
-import wheat from "assets/img/IngredientItem/flour.jpg";
-import shellfish from "assets/img/IngredientItem/seafood.PNG";
-import apple from "assets/img/IngredientItem/apple.PNG";
-import walnut from "assets/img/IngredientItem/walnut.jpg";
-import peanut from "assets/img/IngredientItem/peanut.jpg";
-import sesame from "assets/img/IngredientItem/sesame.jpg";
 
 const Container = styled(motion.div)`
   box-sizing: border-box;
@@ -46,23 +38,76 @@ const SpaceBetweenContainer = styled.div`
   justify-content: space-around;
 `;
 
-const ButtonContainers = styled.div`
-  display: flex;
-`;
-
 const ButtonContainer = styled.div`
   display: flex;
   margin: 3rem;
   margin-left: auto;
 `;
 
-const AllergiesModal = ({ layoutId, setWidgetId }) => {
+const AllergiesModal = ({ on, layoutId, setWidgetId, SurveyList }) => {
+  const [wheatShow, setWheatShow] = useState();
+  const [peanutShow, setPeanutShow] = useState();
+  const [walnutShow, setWalnutShow] = useState();
+  const [appleShow, setAppleShow] = useState();
+  const [sesameShow, setSesameShow] = useState();
+  const [shellfishShow, setShellfishShow] = useState();
+  const [eggShow, setEggShow] = useState();
+  const [interestShow, setInterestShow] = useState();
+
+  useEffect(() => {}, []);
+
   const onClick = (event) => {
     event.stopPropagation();
   };
 
   const onButton = () => {
     setWidgetId(null);
+  };
+
+  const onWheat = () => {
+    setWheatShow(!wheatShow);
+    setInterestShow(false);
+  };
+
+  const onPeanut = () => {
+    setPeanutShow(!peanutShow);
+    setInterestShow(false);
+  };
+
+  const onWalnut = () => {
+    setWalnutShow(!walnutShow);
+    setInterestShow(false);
+  };
+
+  const onApple = () => {
+    setAppleShow(!appleShow);
+    setInterestShow(false);
+  };
+
+  const onSesame = () => {
+    setSesameShow(!sesameShow);
+    setInterestShow(false);
+  };
+
+  const onShellfish = () => {
+    setShellfishShow(!shellfishShow);
+    setInterestShow(false);
+  };
+
+  const onEgg = () => {
+    setEggShow(!eggShow);
+    setInterestShow(false);
+  };
+
+  const onInterest = () => {
+    setInterestShow(true);
+    setWheatShow(false);
+    setPeanutShow(false);
+    setWalnutShow(false);
+    setAppleShow(false);
+    setSesameShow(false);
+    setShellfishShow(false);
+    setEggShow(false);
   };
 
   return (
@@ -83,34 +128,38 @@ const AllergiesModal = ({ layoutId, setWidgetId }) => {
       <BoxContainer>
         <div style={{ width: "26rem" }}>
           <SpaceBetweenContainer>
+            <Button2 bc={wheatShow ? on : ""} onClick={onWheat} name="Wheat" />
             <Button2
-              name="Wheat"
-            />
-            <Button2
+              bc={peanutShow ? on : ""}
+              onClick={onPeanut}
               name="Peanut"
             />
           </SpaceBetweenContainer>
           <SpaceBetweenContainer>
             <Button2
+              bc={walnutShow ? on : ""}
+              onClick={onWalnut}
               name="walnut"
             />
-            <Button2
-              name="Apple"
-            />
+            <Button2 bc={appleShow ? on : ""} onClick={onApple} name="Apple" />
           </SpaceBetweenContainer>
           <SpaceBetweenContainer>
             <Button2
+              bc={sesameShow ? on : ""}
+              onClick={onSesame}
               name="Sesame"
             />
             <Button2
+              bc={shellfishShow ? on : ""}
+              onClick={onShellfish}
               name="Shellfish"
             />
           </SpaceBetweenContainer>
           <SpaceBetweenContainer>
+            <Button2 bc={eggShow ? on : ""} onClick={onEgg} name="Egg" />
             <Button2
-              name="Egg"
-            />
-            <Button2
+              bc={interestShow ? on : ""}
+              onClick={onInterest}
               name="No interest"
             />
           </SpaceBetweenContainer>

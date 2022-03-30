@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Button from "components/commons/Button";
@@ -44,13 +44,47 @@ const ButtonContainer = styled.div`
   margin-left: auto;
 `;
 
-const DietaryRestrictionsModal = ({ layoutId, setWidgetId }) => {
+const DietaryRestrictionsModal = ({
+  on,
+  layoutId,
+  setWidgetId,
+  SurveyList,
+}) => {
+  const [cholesterolShow, setCholesterolShow] = useState();
+  const [sodiumShow, setSodiumShow] = useState();
+  const [sugerShow, setSugerShow] = useState();
+  const [interestShow, setInterestShow] = useState();
+
+  useEffect(() => {}, []);
+
   const onClick = (event) => {
     event.stopPropagation();
   };
 
   const onButton = () => {
     setWidgetId(null);
+  };
+
+  const onCholesterol = () => {
+    setCholesterolShow(!cholesterolShow);
+    setInterestShow(false);
+  };
+
+  const onSodium = () => {
+    setSodiumShow(!sodiumShow);
+    setInterestShow(false);
+  };
+
+  const onSuger = () => {
+    setSugerShow(!sugerShow);
+    setInterestShow(false);
+  };
+
+  const onInterest = () => {
+    setInterestShow(true);
+    setCholesterolShow(false);
+    setSodiumShow(false);
+    setSugerShow(false);
   };
 
   return (
@@ -72,18 +106,26 @@ const DietaryRestrictionsModal = ({ layoutId, setWidgetId }) => {
         <div style={{ width: "26rem" }}>
           <SpaceBetweenContainer>
             <Button2
+              bc={cholesterolShow ? on : ""}
+              onClick={onCholesterol}
               name="Low cholesterol"
             />
             <Button2
+              bc={sodiumShow ? on : ""}
+              onClick={onSodium}
               name="Low sodium"
             />
           </SpaceBetweenContainer>
           <SpaceBetweenContainer>
             <Button2
+              bc={sugerShow ? on : ""}
+              onClick={onSuger}
               name="Low sugar"
             />
 
             <Button2
+              bc={interestShow ? on : ""}
+              onClick={onInterest}
               name="No interest"
             />
           </SpaceBetweenContainer>
