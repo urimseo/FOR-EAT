@@ -1,6 +1,10 @@
 import React from "react";
+import styled from "styled-components";
 import BrowseLiseItem from "components/browse/BrowseListItem";
 
+const Container = styled.div`
+  margin: 0 0 10rem 0;
+`
 
 const BrowseList = () => {
   
@@ -14,14 +18,14 @@ const BrowseList = () => {
   ]
 
   return (
-    <>
+    <Container>
       { Data.map((item, idx) => ( 
         <BrowseLiseItem 
           key={idx}
           {...item} 
         />
       ))}
-    </>
+    </Container>
   )
 }
 

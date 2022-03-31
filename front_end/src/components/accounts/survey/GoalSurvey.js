@@ -62,7 +62,7 @@ const BottomButton =styled.a`
   margin-right: ${(props) => (props.mr ? props.mr : "")};
 `
 
-const GoalSurvey = () => {
+const GoalSurvey = ({clickSubmit, propFunction, prevSteps}) => {
   const [beginnerShow, getBeginnerShow] = useState(false);
   const [newShow, getNewShow] = useState(false);
   const [timeShow, getTimeShow] = useState(false);
@@ -70,26 +70,32 @@ const GoalSurvey = () => {
   const [weightShow, getWeightShow] = useState(false);
   const [interestShow, getInterestShow] = useState(false);
 
+  
   const getGoal = (state) => {
     if (state === "beginner") {
       getBeginnerShow(!beginnerShow);
       getInterestShow(false);
+      propFunction(['beginner', !beginnerShow]);
     }
     if (state === "new") {
       getNewShow(!newShow);
       getInterestShow(false);
+      propFunction(['recipe_challenger', !newShow]);
     }
     if (state === "time") {
       getTimeShow(!timeShow);
       getInterestShow(false);
+      propFunction(['timesaver', !timeShow]);
     }
     if (state === "healty") {
       getHealtyShow(!healtyShow);
       getInterestShow(false);
+      propFunction(['healthy_diet', !healtyShow]);
     }
     if (state === "weight") {
       getWeightShow(!weightShow);
       getInterestShow(false);
+      propFunction(['lose_weight', !weightShow]);
     }
     if (state === "interest") {
       getInterestShow(!interestShow);
@@ -98,8 +104,10 @@ const GoalSurvey = () => {
       getTimeShow(false);
       getHealtyShow(false);
       getWeightShow(false);
+      propFunction(['noInterest', false]);
     }
   }
+
   return (
     <>
     <Container>
@@ -167,8 +175,8 @@ const GoalSurvey = () => {
                 </SpaceBetweenContainer>
               </div>
             </div>
-            <BottomButton f="left" mt="1.5rem" ml="2rem">Back</BottomButton>
-            <BottomButton f="right" mt="1.5rem" mr="2rem">Submit</BottomButton>
+            <BottomButton f="left" mt="1.5rem" ml="2rem" onClick={prevSteps}>Back</BottomButton>
+            <BottomButton f="right" mt="1.5rem" mr="2rem" onClick={clickSubmit}>Submit</BottomButton>
           </div>
         </Question>
       </Container>

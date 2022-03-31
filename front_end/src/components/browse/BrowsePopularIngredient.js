@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import CircleCard from "components/commons/CircleCard";
+import CircleCard from "components/browse/CircleCard";
 import egg from "assets/img/IngredientItem/egg.PNG"
 import bacon from "assets/img/IngredientItem/bacon.jpg"
 import beef from "assets/img/IngredientItem/beef.jpg"
@@ -28,6 +28,7 @@ import lobster from "assets/img/IngredientItem/lobster.jpg"
 import orange from "assets/img/IngredientItem/orange.jpg"
 import cabbage from "assets/img/IngredientItem/cabbage.jpg"
 import radish from "assets/img/IngredientItem/radish.jpg"
+import celery from "assets/img/IngredientItem/celery.jpg"
 
 
 const Container = styled.div`
@@ -36,7 +37,7 @@ const Container = styled.div`
 const Title = styled.div`
   font-size: 2rem;
   font-weight: 400;
-  margin: 2rem 0 0.5rem 0;
+  margin: 3rem 2rem 0.5rem 0;
 `
 
 const CircleCardContainer = styled.div`
@@ -69,8 +70,12 @@ const PopularIngredients = () => {
     { name: "pork", img: pork },
     { name: "potato", img: potato },
     { name: "salmon", img: salmon },
+    { name: "turkey", img: turkey },
+    { name: "rice", img: rice },
+    { name: "noodle", img: noodle },
     { name: "shrimp", img: shrimp },
     { name: "tomato", img: tomato },
+    { name: "celery ", img: celery  },
   ]
     return (
       <Container>

@@ -70,19 +70,26 @@ const BottomButton =styled.a`
   margin-right: ${(props) => (props.mr ? props.mr : "")};
 `
 
-const InformationSurvey = () => {
-  const [womanShow, setWomanShow] = useState(false);
-  const [manShow, setManShow] = useState(false);
+const InformationSurvey = ({propFunction, nextSteps}) => {
+  const [womanShow, setWomanShow] = useState();
+  const [manShow, setManShow] = useState();
 
   const survey = (info) => {
     if (info === true) {
-      setWomanShow(true)
-      setManShow(false)
+      setWomanShow(true);
+      setManShow(false);
+      propFunction(['gender', true])
     } else {
       setManShow(true)
       setWomanShow(false)
+      propFunction(['gender', false])
     }
   }
+  
+  const handleChange = (e) => {
+    propFunction(['age', e.target.value])
+  };
+
   return (
     <>
       <Container>
@@ -118,8 +125,8 @@ const InformationSurvey = () => {
             </div>
             <div style={{display: "flex", justifyContent: "center", marginTop: "3rem"}}>
               <Title ff="work sans" mt="0.5rem" fs="1rem" mr="0.5rem">AGE</Title>
-              <SelectContent>
-                <option value="0" selected disabled>select age</option>
+              <SelectContent onChange={(e) => handleChange(e)}>
+                <option value="0" defaultValue>select age</option>
                 <option value="1">15-19 years old</option>
                 <option value="2">20-29 years old</option>
                 <option value="3">30-49 years old</option>
@@ -128,7 +135,7 @@ const InformationSurvey = () => {
                 <option value="6">75 years of age or older</option>
               </SelectContent>
             </div>
-            <BottomButton f="right" mt="1.5rem" mr="2rem">Continue</BottomButton>
+            <BottomButton f="right" mt="1.5rem" mr="2rem" onClick={nextSteps}>Continue</BottomButton>
           </div>
         </Question>
       </Container>
