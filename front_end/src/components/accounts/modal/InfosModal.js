@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Button from "components/commons/Button";
 import Button2 from "components/commons/Button2";
 import { editSurvey } from "api/MyPageApi";
+import { Alert } from "components/commons/Alert";
 
 const Container = styled(motion.div)`
   box-sizing: border-box;
@@ -56,24 +57,43 @@ const ButtonContainer = styled.div`
   display: flex;
   margin: 3rem;
   margin-left: auto;
-
-  .button {
-  }
 `;
 
-const InfosModal = ({ on, layoutId, setWidgetId, SurveyList }) => {
+const InfosModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyList }) => {
   const [womanShow, setWomanShow] = useState();
   const [manShow, setManShow] = useState();
+  const [age, setAge] = useState();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setWomanShow(surveyList.gender)
+    setManShow(!surveyList.gender)
+    setAge(surveyList.age)
+  }, []);
 
   const onClick = (event) => {
     event.stopPropagation();
   };
 
-  const onButton = () => {
+  const onCheck = async () => {
+    const formData = new FormData();
+    formData.append("gender", womanShow);
+    formData.append("age", age);
+    for (let key of formData.keys()) { console.log(key, ":", formData.get(key)); }
+    editSurvey(UserInfo, formData)
+    setWomanShow(surveyList.gender)
+    setManShow(!surveyList.gender)
+    setAge(surveyList.age)
+    setWidgetId(null);
+    setFlag(true)
+  };
+
+  const onClose = () => {
     setWidgetId(null);
   };
+
+  const onChange = (e) => {
+    setAge(e.target.value)
+  }
 
   const onWoman = () => {
     setWomanShow(true);
@@ -112,10 +132,7 @@ const InfosModal = ({ on, layoutId, setWidgetId, SurveyList }) => {
         <Title mt="0.5rem" fs="1rem" mr="0.5rem">
           AGE
         </Title>
-        <SelectContent>
-          <option value="0" selected disabled>
-            select age
-          </option>
+        <SelectContent defaultValue={surveyList.age} onChange={onChange}>
           <option value="1">15-19 years old</option>
           <option value="2">20-29 years old</option>
           <option value="3">30-49 years old</option>
@@ -125,14 +142,14 @@ const InfosModal = ({ on, layoutId, setWidgetId, SurveyList }) => {
         </SelectContent>
       </SelectContainer>
       <ButtonContainer>
-        <Button name="Check" onClick={onButton} />
+        <Button name="Check" onClick={onCheck} />
 
         <Button
           name="Cancel"
           bc="#C4C4C4"
           hoverColor="#a2a2a2"
           ml="3rem"
-          onClick={onButton}
+          onClick={onClose}
         />
       </ButtonContainer>
     </Container>

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Button from "components/commons/Button";
 import Button2 from "components/commons/Button2";
 import { editSurvey } from "api/MyPageApi";
+import { Alert } from "components/commons/Alert";
 
 const Container = styled(motion.div)`
   box-sizing: border-box;
@@ -45,7 +46,7 @@ const ButtonContainer = styled.div`
   margin-left: auto;
 `;
 
-const AllergiesModal = ({ on, layoutId, setWidgetId, SurveyList }) => {
+const AllergiesModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyList }) => {
   const [wheatShow, setWheatShow] = useState();
   const [peanutShow, setPeanutShow] = useState();
   const [walnutShow, setWalnutShow] = useState();
@@ -54,50 +55,112 @@ const AllergiesModal = ({ on, layoutId, setWidgetId, SurveyList }) => {
   const [shellfishShow, setShellfishShow] = useState();
   const [eggShow, setEggShow] = useState();
   const [interestShow, setInterestShow] = useState();
-
-  useEffect(() => {}, []);
+  const [allergyList, setAllergyList] = useState([]);
+  console.log(surveyList)
+  useEffect(() => {
+    surveyList.allergy.map(item => {
+    if (item.allergy_seq === 1) {setWheatShow(true); setAllergyList(allergyList => [...allergyList, 1])}
+    if (item.allergy_seq === 2) {setPeanutShow(true); setAllergyList(allergyList => [...allergyList, 2])}
+    if (item.allergy_seq === 3) {setWalnutShow(true); setAllergyList(allergyList => [...allergyList, 3])}
+    if (item.allergy_seq === 4) {setAppleShow(true); setAllergyList(allergyList => [...allergyList, 4])}
+    if (item.allergy_seq === 5) {setSesameShow(true); setAllergyList(allergyList => [...allergyList, 5])}
+    if (item.allergy_seq === 6) {setShellfishShow(true); setAllergyList(allergyList => [...allergyList, 6])}
+    if (item.allergy_seq === 7) {setEggShow(true); setAllergyList(allergyList => [...allergyList, 7])}
+    })
+  }, []);
 
   const onClick = (event) => {
     event.stopPropagation();
   };
 
-  const onButton = () => {
+  const onCheck = async () => {
+    if(allergyList.length === 0) Alert("🧡 Please Check your diet goal.")
+    else{
+      console.log(allergyList)
+      console.log(allergyList.length)
+
+      // let allergylist = JSON.stringify(allergyList);
+      const formData = new FormData();
+      let temp = []
+      for (let i=0; i< allergyList.length; i++){
+        temp.push(Number(allergyList[i]))
+        // formData.append('allergy', allergyList[i]);
+        // console.log(allergyList[i]);
+        // console.log(typeof(allergyList[i]));
+      }
+      console.log(temp)
+      formData.append('allergy', temp);
+      // formData.append('allergy', allergyList);
+      console.log(formData)
+    // formData.append("allergy", JSON.stringify(allergyList));
+    for (let key of formData.keys()) { console.log(key, ":", formData.get(key)); }
+    editSurvey(UserInfo, formData)
+    allergyList.map(item => {
+      if (item === 1) {setWheatShow(true)  }
+      if (item === 2) {setPeanutShow(true)  }
+      if (item === 3) {setWalnutShow(true)  }
+      if (item === 4) {setAppleShow(true)  }
+      if (item === 5) {setSesameShow(true)  }
+      if (item === 6) {setShellfishShow(true)  }
+      if (item === 7) {setEggShow(true)  }
+      })
+      console.log(typeof (allergyList))
+    setWidgetId(null);
+    setFlag(true)
+    }
+  };
+
+  const onClose = () => {
     setWidgetId(null);
   };
 
   const onWheat = () => {
     setWheatShow(!wheatShow);
     setInterestShow(false);
+    if (allergyList.includes(1)) setAllergyList(allergyList.filter(item => item !== 1))
+    else setAllergyList(allergy => [...allergy, 1])
   };
 
   const onPeanut = () => {
     setPeanutShow(!peanutShow);
     setInterestShow(false);
+    if (allergyList.includes(2)) setAllergyList(allergyList.filter(item => item !== 2))
+    else setAllergyList(allergy => [...allergy, 2])
   };
 
   const onWalnut = () => {
     setWalnutShow(!walnutShow);
     setInterestShow(false);
+    if (allergyList.includes(3)) setAllergyList(allergyList.filter(item => item !== 3))
+    else setAllergyList(allergy => [...allergy, 3])
   };
 
   const onApple = () => {
     setAppleShow(!appleShow);
     setInterestShow(false);
+    if (allergyList.includes(4)) setAllergyList(allergyList.filter(item => item !== 4))
+    else setAllergyList(allergy => [...allergy, 4])
   };
 
   const onSesame = () => {
     setSesameShow(!sesameShow);
     setInterestShow(false);
+    if (allergyList.includes(5)) setAllergyList(allergyList.filter(item => item !== 5))
+    else setAllergyList(allergy => [...allergy, 5])
   };
 
   const onShellfish = () => {
     setShellfishShow(!shellfishShow);
     setInterestShow(false);
+    if (allergyList.includes(6)) setAllergyList(allergyList.filter(item => item !== 6))
+    else setAllergyList(allergy => [...allergy, 6])
   };
 
   const onEgg = () => {
     setEggShow(!eggShow);
     setInterestShow(false);
+    if (allergyList.includes(7)) setAllergyList(allergyList.filter(item => item !== 7))
+    else setAllergyList(allergy => [...allergy, 7])
   };
 
   const onInterest = () => {
@@ -168,14 +231,14 @@ const AllergiesModal = ({ on, layoutId, setWidgetId, SurveyList }) => {
       </BoxContainer>
 
       <ButtonContainer>
-        <Button name="Check" onClick={onButton} />
+        <Button name="Check" onClick={onCheck} />
 
         <Button
           name="Cancel"
           bc="#C4C4C4"
           hoverColor="#a2a2a2"
           ml="3rem"
-          onClick={onButton}
+          onClick={onClose}
         />
       </ButtonContainer>
     </Container>
