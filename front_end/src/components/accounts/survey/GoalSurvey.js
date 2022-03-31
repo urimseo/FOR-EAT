@@ -62,7 +62,7 @@ const BottomButton =styled.a`
   margin-right: ${(props) => (props.mr ? props.mr : "")};
 `
 
-const GoalSurvey = ({propFunction, prevSteps}) => {
+const GoalSurvey = ({clickSubmit, propFunction, prevSteps}) => {
   const [beginnerShow, getBeginnerShow] = useState(false);
   const [newShow, getNewShow] = useState(false);
   const [timeShow, getTimeShow] = useState(false);
@@ -176,7 +176,7 @@ const GoalSurvey = ({propFunction, prevSteps}) => {
               </div>
             </div>
             <BottomButton f="left" mt="1.5rem" ml="2rem" onClick={prevSteps}>Back</BottomButton>
-            <BottomButton f="right" mt="1.5rem" mr="2rem">Submit</BottomButton>
+            <BottomButton f="right" mt="1.5rem" mr="2rem" onClick={clickSubmit}>Submit</BottomButton>
           </div>
         </Question>
       </Container>

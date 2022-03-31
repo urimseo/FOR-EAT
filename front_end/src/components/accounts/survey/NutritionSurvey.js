@@ -93,7 +93,7 @@ const NutritionSurvey = ({propFunction, prevSteps, nextSteps}) => {
       setCarbohydratesHighShow(!carbohydratesHighShow);
       setCarbohydratesAverageShow(false);
       setCarbohydratesLowShow(false);
-      if (carbohydratesHighShow === false) {
+      if (carbohydratesHighShow === true) {
         propFunction(['carbohydrate', 3]);
       } else {
         propFunction(['carbohydrate', 0]);
@@ -103,7 +103,7 @@ const NutritionSurvey = ({propFunction, prevSteps, nextSteps}) => {
       setCarbohydratesHighShow(false);
       setCarbohydratesAverageShow(!carbohydratesAverageShow);
       setCarbohydratesLowShow(false);
-      if (carbohydratesAverageShow === false) {
+      if (carbohydratesAverageShow === true) {
         propFunction(['carbohydrate', 2]);
       } else {
         propFunction(['carbohydrate', 0]);
@@ -113,7 +113,7 @@ const NutritionSurvey = ({propFunction, prevSteps, nextSteps}) => {
       setCarbohydratesHighShow(false);
       setCarbohydratesAverageShow(false);
       setCarbohydratesLowShow(!carbohydratesLowShow);
-      if (carbohydratesLowShow === false) {
+      if (carbohydratesLowShow === true) {
         propFunction(['carbohydrate', 1]);
       } else {
         propFunction(['carbohydrate', 0]);
@@ -127,7 +127,7 @@ const NutritionSurvey = ({propFunction, prevSteps, nextSteps}) => {
       setProteinHighShow(!proteinHighShow);
       setProteinAverageShow(false);
       setProteinLowShow(false);
-      if (proteinHighShow === false) {
+      if (proteinHighShow === true) {
         propFunction(['protein', 3]);
       } else {
         propFunction(['protein', 0]);
@@ -137,7 +137,7 @@ const NutritionSurvey = ({propFunction, prevSteps, nextSteps}) => {
       setProteinHighShow(false);
       setProteinAverageShow(!proteinAverageShow);
       setProteinLowShow(false);
-      if (proteinAverageShow === false){
+      if (proteinAverageShow === true){
         propFunction(['protein', 2]);
       } else {
         propFunction(['protein', 0]);
@@ -147,7 +147,7 @@ const NutritionSurvey = ({propFunction, prevSteps, nextSteps}) => {
       setProteinHighShow(false);
       setProteinAverageShow(false);
       setProteinLowShow(!proteinLowShow);
-      if (proteinLowShow === false){
+      if (proteinLowShow === true){
         propFunction(['protein', 1]);
       } else {
         propFunction(['protein', 1]);
@@ -160,7 +160,7 @@ const NutritionSurvey = ({propFunction, prevSteps, nextSteps}) => {
       setFatHighShow(!fatHighShow);
       setFatAverageShow(false);
       seFatLowShow(false);
-      if (fatHighShow === false) {
+      if (fatHighShow === true) {
         propFunction(['fat', 3]);
       } else {
         propFunction(['fat', 0]);
@@ -170,7 +170,7 @@ const NutritionSurvey = ({propFunction, prevSteps, nextSteps}) => {
       setFatHighShow(false);
       setFatAverageShow(!fatAverageShow);
       seFatLowShow(false);
-      if (fatAverageShow === false) {
+      if (fatAverageShow === true) {
         propFunction(['fat', 2]);
       } else {
         propFunction(['fat', 0]);
@@ -180,7 +180,7 @@ const NutritionSurvey = ({propFunction, prevSteps, nextSteps}) => {
       setFatHighShow(false);
       setFatAverageShow(false);
       seFatLowShow(!fatLowShow);
-      if (fatLowShow === false) {
+      if (fatLowShow === true) {
         propFunction(['fat', 1]);
       } else {
         propFunction(['fat', 0]);
