@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Button from "components/commons/Button";
 import Button2 from "components/commons/Button2";
 import { editSurvey } from "api/MyPageApi";
+import { Alert } from "components/commons/Alert";
 
 const Container = styled(motion.div)`
   box-sizing: border-box;
@@ -45,24 +46,42 @@ const ButtonContainer = styled.div`
   margin-left: auto;
 `;
 
-const DietaryRestrictionsModal = ({
-  on,
-  layoutId,
-  setWidgetId,
-  SurveyList,
-}) => {
+const DietaryRestrictionsModal = ({setFlag, on, UserInfo, layoutId, setWidgetId, surveyList }) => {
   const [cholesterolShow, setCholesterolShow] = useState();
   const [sodiumShow, setSodiumShow] = useState();
   const [sugerShow, setSugerShow] = useState();
   const [interestShow, setInterestShow] = useState();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setCholesterolShow(surveyList.cholesterol)
+    setSodiumShow(surveyList.sodium)
+    setSugerShow(surveyList.suger)
+    if (surveyList.cholesterol === false && surveyList.sodium === false
+      && surveyList.suger === false) {setInterestShow(true)}
+  }, []);
 
   const onClick = (event) => {
     event.stopPropagation();
   };
 
-  const onButton = () => {
+  const onCheck = async () => {
+    if(cholesterolShow === false && sodiumShow === false && sugerShow === false && interestShow === false) Alert("🧡 Please Check your diet goal.")
+    else{
+    const formData = new FormData();
+    formData.append("cholesterol", cholesterolShow);
+    formData.append("sodium", sodiumShow);
+    formData.append("suger", sugerShow);
+    for (let key of formData.keys()) { console.log(key, ":", formData.get(key)); }
+    editSurvey(UserInfo, formData)
+    setCholesterolShow(surveyList.cholesterol)
+    setSodiumShow(surveyList.sodium)
+    setSugerShow(surveyList.suger)
+    setWidgetId(null);
+    setFlag(true)
+    }
+  };
+
+  const onClose = () => {
     setWidgetId(null);
   };
 
@@ -134,14 +153,14 @@ const DietaryRestrictionsModal = ({
       </BoxContainer>
 
       <ButtonContainer>
-        <Button name="Check" onClick={onButton} />
+        <Button name="Check" onClick={onCheck} />
 
         <Button
           name="Cancel"
           bc="#C4C4C4"
           hoverColor="#a2a2a2"
           ml="3rem"
-          onClick={onButton}
+          onClick={onClose}
         />
       </ButtonContainer>
     </Container>
