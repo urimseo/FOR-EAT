@@ -49,15 +49,15 @@ const ButtonContainer = styled.div`
 const DietaryRestrictionsModal = ({setFlag, on, UserInfo, layoutId, setWidgetId, surveyList }) => {
   const [cholesterolShow, setCholesterolShow] = useState();
   const [sodiumShow, setSodiumShow] = useState();
-  const [sugerShow, setSugerShow] = useState();
+  const [sugarShow, setsugarShow] = useState();
   const [interestShow, setInterestShow] = useState();
 
   useEffect(() => {
     setCholesterolShow(surveyList.cholesterol)
     setSodiumShow(surveyList.sodium)
-    setSugerShow(surveyList.suger)
+    setsugarShow(surveyList.sugar)
     if (surveyList.cholesterol === false && surveyList.sodium === false
-      && surveyList.suger === false) {setInterestShow(true)}
+      && surveyList.sugar === false) {setInterestShow(true)}
   }, []);
 
   const onClick = (event) => {
@@ -65,17 +65,17 @@ const DietaryRestrictionsModal = ({setFlag, on, UserInfo, layoutId, setWidgetId,
   };
 
   const onCheck = async () => {
-    if(cholesterolShow === false && sodiumShow === false && sugerShow === false && interestShow === false) Alert("🧡 Please Check your diet goal.")
+    if(cholesterolShow === false && sodiumShow === false && sugarShow === false && interestShow === false) Alert("🧡 Please Check your diet goal.")
     else{
     const formData = new FormData();
     formData.append("cholesterol", cholesterolShow);
     formData.append("sodium", sodiumShow);
-    formData.append("suger", sugerShow);
+    formData.append("sugar", sugarShow);
     for (let key of formData.keys()) { console.log(key, ":", formData.get(key)); }
     editSurvey(UserInfo, formData)
     setCholesterolShow(surveyList.cholesterol)
     setSodiumShow(surveyList.sodium)
-    setSugerShow(surveyList.suger)
+    setsugarShow(surveyList.sugar)
     setWidgetId(null);
     setFlag(true)
     }
@@ -95,8 +95,8 @@ const DietaryRestrictionsModal = ({setFlag, on, UserInfo, layoutId, setWidgetId,
     setInterestShow(false);
   };
 
-  const onSuger = () => {
-    setSugerShow(!sugerShow);
+  const onsugar = () => {
+    setsugarShow(!sugarShow);
     setInterestShow(false);
   };
 
@@ -104,7 +104,7 @@ const DietaryRestrictionsModal = ({setFlag, on, UserInfo, layoutId, setWidgetId,
     setInterestShow(true);
     setCholesterolShow(false);
     setSodiumShow(false);
-    setSugerShow(false);
+    setsugarShow(false);
   };
 
   return (
@@ -138,8 +138,8 @@ const DietaryRestrictionsModal = ({setFlag, on, UserInfo, layoutId, setWidgetId,
           </SpaceBetweenContainer>
           <SpaceBetweenContainer>
             <Button2
-              bc={sugerShow ? on : ""}
-              onClick={onSuger}
+              bc={sugarShow ? on : ""}
+              onClick={onsugar}
               name="Low sugar"
             />
 
