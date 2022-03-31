@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import egg from "assets/img/IngredientItem/egg.PNG";
 import wheat from "assets/img/IngredientItem/flour.jpg";
 import shellfish from "assets/img/IngredientItem/seafood.PNG";
@@ -14,9 +14,22 @@ const Container = styled.div`
   margin-bottom: 10rem;
 `
 
+const gradient = keyframes`
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+`
+
 const Title = styled.div`
   display: flex;
   justify-content: center;
+  color: black;
   font-size: ${(props) => (props.fs ? props.fs : "3rem")};
   font-weight: ${(props) => (props.fw ? props.fw : "300")};
   margin-top: ${(props) => (props.mt ? props.mt : "")};
@@ -32,10 +45,13 @@ const Question = styled.div`
     width: 66.7%;
     height: 1.2rem;
     background-color: #ED8141;
+    background: linear-gradient(-45deg, #ED8141, #ED8141, #f0e140, #ea0ba7);
+    background-size: 400% 400%;
+    animation: ${gradient} 5s ease infinite;
   }
   .box {
     width: 50rem;
-    height: 44rem;
+    height: 48rem;
     border: 0px solid grey;
     box-shadow: 3px 5px 5px 5px #d3d3d3;
   }
@@ -180,7 +196,7 @@ const AllergySurvey = ({propFunction, prevSteps, nextSteps}) => {
             <div className='number'>4/6</div>
             <Title fs="2.5rem" fw="300" mt="2rem" mb="1rem">Select your information</Title>
             <Title fs="1.2rem" fw="200" mb="1rem">Check your allergy information.</Title>
-            <div style={{display: "flex", justifyContent: "center"}}>
+            <div style={{display: "flex", justifyContent: "center", marginTop: "3rem"}}>
               <div style={{width: "26rem"}}>
                 <SpaceBetweenContainer>
                   { wheatShow ? 
@@ -298,8 +314,8 @@ const AllergySurvey = ({propFunction, prevSteps, nextSteps}) => {
                 </SpaceBetweenContainer>
               </div>
             </div>
-            <BottomButton f="left" mt="1.5rem" ml="2rem" onClick={prevSteps}>Back</BottomButton>
-            <BottomButton f="right" mt="1.5rem" mr="2rem" onClick={nextSteps}>Continue</BottomButton>
+            <BottomButton f="left" mt="3.5rem" ml="2rem" onClick={prevSteps}>Back</BottomButton>
+            <BottomButton f="right" mt="3.5rem" mr="2rem" onClick={nextSteps}>Continue</BottomButton>
           </div>
         </Question>
       </Container>

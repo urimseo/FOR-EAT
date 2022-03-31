@@ -11,15 +11,23 @@ import GoalSurvey from 'components/accounts/survey/GoalSurvey';
 import { userInfoState } from 'atoms/atoms';
 import { getUserInfo, submitSurvey } from 'api/SurveyApi';
 import { Alert } from "components/commons/Alert";
+import logo from "assets/img/logo.png"
 
 
 const Container = styled.div`
   min-height: 100vh;
 `
 
+const ImgContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 3rem 0 0.5rem 0;
+`
+
 const Title = styled.div`
   display: flex;
   justify-content: center;
+  font-family: ${(props) => (props.ff ? props.ff : "work sans")};
   font-size: ${(props) => (props.fs ? props.fs : "3rem")};
   font-weight: ${(props) => (props.fw ? props.fw : "300")};
   margin-top: ${(props) => (props.mt ? props.mt : "")};
@@ -88,8 +96,7 @@ const Survey = () => {
         const element = ingredientInformation[index];
         if (element === info) {
           if (value === false) {
-            const list = [{name: 'seafood'}]
-            setIngredient(ingredient => [...ingredient, list]);
+            setIngredient(ingredient => [...ingredient, info]);
           } else {
             setIngredient(ingredient.filter(item => item !== info));
           }
@@ -180,7 +187,11 @@ const Survey = () => {
   return (
     <>
       <Container>
-        <Title fs="2rem" fw="200" mt="3rem" mb="3rem">PERSONALIZE YOUR EXPERIENCE</Title>
+        <ImgContainer>
+          <img src={logo} alt="logo" />
+        </ImgContainer>
+        <Title ff="Playfair Display" fs="2rem" fw="300">FOR:EAT</Title>
+        <Title fs="1.5rem" fw="200" mt="1rem" mb="3rem">PERSONALIZE YOUR EXPERIENCE</Title>
         { step === 1 ? <InformationSurvey propFunction={getInformation} nextSteps={nextSteps} /> : null}
         { step === 2 ? <NutritionSurvey propFunction={getInformation} prevSteps={prevSteps} nextSteps={nextSteps} />: null}
         { step === 3 ? <DietaryRestriction propFunction={getInformation} prevSteps={prevSteps} nextSteps={nextSteps} /> : null}
