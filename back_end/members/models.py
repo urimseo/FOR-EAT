@@ -94,7 +94,7 @@ class Survey(models.Model):
     # 식이제한 - True, False
     cholesterol = models.BooleanField(null=True, blank=True)
     sodium = models.BooleanField(null=True, blank=True)
-    suger = models.BooleanField(null=True, blank=True)
+    sugar = models.BooleanField(null=True, blank=True)
     
     # goal
     beginner = models.BooleanField(null=True, blank=True)
