@@ -1,20 +1,25 @@
+from re import template
 from venv import create
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.db.models import Avg
+from django.db.models import Func
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.pagination import LimitOffsetPagination
+from datetime import datetime,timedelta
 import json
 import requests
+from collections import Counter
 from decouple import config
 from members.models import LikedIngredient, Member, Survey, LikedRecipe, Recommend
-from recipes.models import Allergy, Ingredient, Review, Recipe
-from recipes.serializers import RecipeListSerializer, ReviewListSerializer
+from recipes.models import Allergy, Ingredient, Review, Recipe, Category
+from recipes.serializers import RecipeListSerializer, ReviewListSerializer, CategorySerializer, RecipeSerializer
 from .serializers import KaKaoMemberSerializer, GoogleMemberSerializer, SurveySimpleSerializer, SurveySerializer, MemberInfoSerializer
 from .token import generate_token, decode_token
 from .ingredients import get_ingredient_list
@@ -343,12 +348,14 @@ class MemberSurveyProfile(APIView):
             }
             return Response(data=data, status=status.HTTP_401_UNAUTHORIZED)
 
-
         else:
             # get ingredient seq 
             liked_ingredient = get_ingredient_list(member_survey['liked_ingredient'])
             serializer = SurveySerializer(data=member_survey)
-
+            
+            if member_survey['allergy'] is None:
+                member_survey['allergy'] = []
+                
             # Create a member survey from the above data
             if serializer.is_valid(raise_exception=True):
                 serializer.save(member_seq=Member.objects.get(member_seq=pk),
@@ -538,4 +545,98 @@ class MemberLikeRecipeList(APIView, LimitOffsetPagination):
             }
             return Response(data=data, status=status.HTTP_404_NOT_FOUND)
 
-        
+
+
+class WeeklyReport(APIView):
+
+    class Round(Func):
+            function='ROUND'
+            template=('%(function)s(%(expressions)s,2)')
+
+    def get(self, request, pk):
+        token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        # check jwt token valid
+        try:
+            get_member = Member.objects.get(pk=pk)
+            jwt_member = decode_token(token.strip('"'))
+            if jwt_member == None or pk!= jwt_member.member_seq: 
+                member_valid = None
+            member_valid = get_member
+        except:
+            member_valid = None
+
+        member = Member.objects.get(pk=pk)
+        if member_valid == member:
+        # if True:
+            try: # get user survey
+                survey = Survey.objects.get(pk=pk)
+                user = {
+                    'age': survey.age,
+                    'gender': survey.gender
+                }
+                # user=None
+            except:
+                user = None 
+
+            # get weekly review
+            before_week = datetime.now() - timedelta(weeks=1)
+            weekly_review = list(Review.objects.filter(member=pk, 
+                create_date__range=[before_week, datetime.now()]).values_list('recipe', flat=True))
+            print(weekly_review)
+            # average nutrients in a week's recipe
+            weekly_nutrition = Recipe.objects.filter(recipe_seq__in=weekly_review).aggregate(
+                calories=self.Round(Avg('calories')),
+                fat=self.Round(Avg('fat_content')),
+                saturated_fat=self.Round(Avg('saturated_fat_content')),
+                cholesterol=self.Round(Avg('cholesterol_content')),
+                sodium=self.Round(Avg('sodium_content')),
+                carbohydrate=self.Round(Avg('carbohydrate_content')),
+                fiber=self.Round(Avg('fiber_content')),
+                sugar=self.Round(Avg('sugar_content')),
+                protein=self.Round(Avg('protein_content')),
+                )
+            
+            # category of recipes eaten in a week
+            category = list(Category.objects.filter(recipes__in=weekly_review).
+                values_list('category_name', flat=True))
+            category_cnt = Counter(category).most_common(4)
+            print(category_cnt)
+            
+            # member filter age, gender , get liked recipes
+            
+            if user is None:
+                weekly_recipe = list(Review.objects.filter(
+                    create_date__range=[before_week, datetime.now()]).values_list('recipe', flat=True))
+                weekly_recipe_cnt = Counter(weekly_recipe).most_common()
+            else:
+                # recipe filter age, gender , get liked recipes
+                similar_member = Survey.objects.filter(
+                    Q(age=survey.age) & 
+                    Q(gender=survey.gender) &
+                    ~Q(member_seq=pk)).values('member_seq')
+                weekly_recipe_review = list(Review.objects.filter(
+                    member__in=similar_member,
+                    create_date__range=[before_week, datetime.now()]).values_list('recipe', flat=True))
+                weekly_recipe_review_cnt = Counter(weekly_recipe_review).most_common()
+
+                weekly_liked_recipe = LikedRecipe.objects.filter(
+                    member__in=similar_member,
+                    create_date__range=[before_week, datetime.now()]).values_list('recipe', flat=True)
+                print(weekly_liked_recipe)
+            # get most popular recipe seq list
+            popular_recipe_list = [i[0] for i in weekly_recipe_cnt if i[0] not in weekly_review]
+            recipe_all = Recipe.objects.filter(recipe_seq__in=popular_recipe_list)
+            recipe_serializer = RecipeListSerializer(recipe_all, many=True)
+            for recipe in recipe_serializer.data:
+                recipe['images'] = json.loads(recipe['images'])[0]
+
+            data = {
+                'user': user,
+                'nutrient' : weekly_nutrition,
+                'category' : category_cnt,
+                'popular_recipe': recipe_serializer.data
+            }
+            return Response(data=data,status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
