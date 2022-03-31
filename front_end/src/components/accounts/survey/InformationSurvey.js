@@ -126,7 +126,7 @@ const InformationSurvey = ({propFunction, nextSteps}) => {
             <div style={{display: "flex", justifyContent: "center", marginTop: "3rem"}}>
               <Title ff="work sans" mt="0.5rem" fs="1rem" mr="0.5rem">AGE</Title>
               <SelectContent onChange={(e) => handleChange(e)}>
-                <option value="0" defaultValue disabled>select age</option>
+                <option value="0" defaultValue>select age</option>
                 <option value="1">15-19 years old</option>
                 <option value="2">20-29 years old</option>
                 <option value="3">30-49 years old</option>

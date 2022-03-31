@@ -85,7 +85,7 @@ const BottomButton =styled.a`
   margin-right: ${(props) => (props.mr ? props.mr : "")};
 `
 
-const AllergySurvey = ({prevSteps, nextSteps}) => {
+const AllergySurvey = ({propFunction, prevSteps, nextSteps}) => {
   const [ wheatShow, setWheatShow ] = useState(false);
   const [ peanutShow, setPeanutShow ] = useState(false);
   const [ walnutShow, setWalnutShow ] = useState(false);
@@ -99,30 +99,65 @@ const AllergySurvey = ({prevSteps, nextSteps}) => {
     if(state === "wheat") {
       setWheatShow(!wheatShow);
       setRelevantShow(false);
+      if (wheatShow === true) {
+        propFunction([true, 1]);
+      } else {
+        propFunction([false, 1]);
+      }
     }
     if(state === "peanut") {
       setPeanutShow(!peanutShow);
       setRelevantShow(false);
+      if (peanutShow === true) {
+        propFunction([true, 2]);
+      } else {
+        propFunction([false, 2]);
+      }
     }
     if(state === "walnut") {
       setWalnutShow(!walnutShow);
       setRelevantShow(false);
+      if (walnutShow === true) {
+        propFunction([true, 3]);
+      } else {
+        propFunction([false, 3]);
+      }
     }
     if(state === "apple") {
       setAppleShow(!appleShow);
       setRelevantShow(false);
+      if (appleShow === true) {
+        propFunction([true, 4]);
+      } else {
+        propFunction([false, 4]);
+      }
     }
     if(state === "sesame") {
       setSesameShow(!sesameShow);
       setRelevantShow(false);
+      if (sesameShow === true) {
+        propFunction([true, 5]);
+      } else {
+        propFunction([false, 5]);
+      }
     }
     if(state === "shellfish") {
       setShellfishShow(!shellfishShow);
       setRelevantShow(false);
+      if (shellfishShow === true) {
+        propFunction([true, 6]);
+      } else {
+        propFunction([false, 6]);
+      }
     }
     if(state === "egg") {
       setEggShow(!eggShow);
       setRelevantShow(false);
+      if (eggShow === true) {
+        propFunction([true, 7]);
+      } else {
+        propFunction([false, 7]);
+      }
     }
     if(state === "relevant") {
       setRelevantShow(!relevantShow);
@@ -133,6 +168,7 @@ const AllergySurvey = ({prevSteps, nextSteps}) => {
       setSesameShow(false);
       setShellfishShow(false);
       setEggShow(false);
+      propFunction(["relevant", false]);
     }
   }
   return (
