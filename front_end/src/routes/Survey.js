@@ -10,6 +10,7 @@ import LikeIngredient from 'components/accounts/survey/LikeIngredient';
 import GoalSurvey from 'components/accounts/survey/GoalSurvey';
 import { userInfoState } from 'atoms/atoms';
 import { getUserInfo, submitSurvey } from 'api/SurveyApi';
+import { Alert } from "components/commons/Alert";
 
 
 const Container = styled.div`
@@ -38,13 +39,13 @@ const Survey = () => {
 
   const[form, setForm] = useState(
     {
-        age : '',
-        gender : '',
+        age : null,
+        gender : null,
         liked_ingredient : [],
         allergy : [],
-        carbohydrate : '',
-        protein : '',
-        fat : '',
+        carbohydrate : 0,
+        protein : 0,
+        fat : 0,
         cholesterol : false,
         sodium :false,
         sugar : false,
@@ -79,7 +80,6 @@ const Survey = () => {
           } else {
             setAllergyItem(allergyItem.filter(item => item !== info));
           }
-          form.allergy = allergyItem;
         } else {
           continue;
         }
@@ -88,11 +88,11 @@ const Survey = () => {
         const element = ingredientInformation[index];
         if (element === info) {
           if (value === false) {
-            setIngredient(ingredient => [...ingredient, info]);
+            const list = [{name: 'seafood'}]
+            setIngredient(ingredient => [...ingredient, list]);
           } else {
             setIngredient(ingredient.filter(item => item !== info));
           }
-          form.liked_ingredient = ingredient;
         } else {
           continue;
         }
@@ -111,7 +111,9 @@ const Survey = () => {
       form.lose_weight = false;
     }
     else if (value === 'relevant') {
-      form.allergy = [];
+      setAllergyItem([]);
+      form.allergy = null;
+      // form.allergy = allergyItem;
     }
     else {
       setForm({
@@ -121,11 +123,18 @@ const Survey = () => {
     }
   }
 
+  useEffect(() => { 
+    setIngredient(ingredient) 
+    setAllergyItem(allergyItem)
+  }, [])
+
+  form.liked_ingredient = ingredient
+  form.allergy = allergyItem
 
   const getUserSurveyInfo = async (UserInfo) => {
     const response = await getUserInfo(UserInfo);
       if (response.isSurvey === true) {
-        navigate('/recommend')
+        // navigate('/recommend')
       } 
   }
   useEffect(() => {
@@ -135,16 +144,36 @@ const Survey = () => {
   }, []);
 
   const nextSteps =()=>{
-    setStep(step + 1)
+    if (step === 1) {
+      if (form.age === null || form.gender === null) {
+        Alert("✅ Select all options.");
+      } else {
+        setStep(step + 1);
+      }
+    }
+    if (step === 5) {
+      if (form.liked_ingredient.length === 0) {
+        Alert("✅ Select one option or multiple options.")
+      } else {
+        setStep(step + 1);
+      }
+    }
+    if (step === 2 || step === 3 || step === 4) {
+      setStep(step+1);
+    }
   } 
   const prevSteps =()=>{
     setStep(step - 1)
   }
 
   const clickSubmit = async () => {
-    const response = await submitSurvey(UserInfo, form);
-    if (response.status === 201) {
-      navigate('/recommend')
+    if (form.beginner === null && form.recipe_challenger === null && form.timesaver === null && form.healthy_diet === null && form.lose_weight === null) {
+        Alert("✅ Select an ingredient.")
+    } else {
+      const response = await submitSurvey(UserInfo, form);
+      if (response.status === 201) {
+        navigate('/recommend')
+      }
     }
   }
 
