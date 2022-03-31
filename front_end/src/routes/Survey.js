@@ -9,7 +9,7 @@ import AllergySurvey from 'components/accounts/survey/AllergySurvey';
 import LikeIngredient from 'components/accounts/survey/LikeIngredient';
 import GoalSurvey from 'components/accounts/survey/GoalSurvey';
 import { userInfoState } from 'atoms/atoms';
-import { getUserInfo } from 'api/SurveyApi';
+import { getUserInfo, submitSurvey } from 'api/SurveyApi';
 
 
 const Container = styled.div`
@@ -34,6 +34,7 @@ const Survey = () => {
   const navigate = useNavigate();
   const[step, setStep] = useState(1)
   const[ingredient, setIngredient] = useState([])
+  const[allergyItem, setAllergyItem] = useState([])
 
   const[form, setForm] = useState(
     {
@@ -58,8 +59,10 @@ const Survey = () => {
   const { age, gender, liked_ingredient, allergy, carbohydrate, protein, fat, cholesterol, sodium, sugar, beginner, recipe_challenger, timesaver, healthy_diet, lose_weight } = form
   
   const getInformation = (Info)=>{
-    const value = Info[0]
-    const info = Info[1]
+    const allergyInformation = [1, 2, 3, 4, 5, 6, 7];
+    const ingredientInformation = ["beef", "chicken", "pork", "seafood", "rice", "noodle", "cheese", "potato", "tomato", "mushroom"]
+    const value = Info[0];
+    const info = Info[1];
 
     if (value === 'age' || value === 'carbohydrate' || value === 'protein' || value === 'fat') {
       setForm({
@@ -67,28 +70,48 @@ const Survey = () => {
         [value] : Number(info)
       })
     } 
-    if (value === 'interest') {
+    else if (value === true || value === false) {
+      for (let index = 0; index < allergyInformation.length; index++) {
+        const element = allergyInformation[index];
+        if (element === info) {
+          if (value === false) {
+            setAllergyItem(allergyItem => [...allergyItem, info]);
+          } else {
+            setAllergyItem(allergyItem.filter(item => item !== info));
+          }
+          form.allergy = allergyItem;
+        } else {
+          continue;
+        }
+      }
+      for (let index = 0; index < ingredientInformation.length; index++) {
+        const element = ingredientInformation[index];
+        if (element === info) {
+          if (value === false) {
+            setIngredient(ingredient => [...ingredient, info]);
+          } else {
+            setIngredient(ingredient.filter(item => item !== info));
+          }
+          form.liked_ingredient = ingredient;
+        } else {
+          continue;
+        }
+      }
+    }
+    else if (value === 'interest') {
       form.sugar = false;
       form.sodium = false;
       form.cholesterol = false;
     }
-    if (value === 'noInterest') {
+    else if (value === 'noInterest') {
       form.beginner = false;
       form.recipe_challenger = false;
       form.timesaver = false;
       form.healthy_diet = false;
       form.lose_weight = false;
     }
-    if (value === true || value === false) {
-      if (value === false) {
-        setIngredient(ingredient => [...ingredient, info]);
-      } else {
-        setIngredient(ingredient.filter(item => item !== info));
-      }
-      setForm({
-        ...form,
-        liked_ingredient : ingredient
-      })
+    else if (value === 'relevant') {
+      form.allergy = [];
     }
     else {
       setForm({
@@ -118,6 +141,13 @@ const Survey = () => {
     setStep(step - 1)
   }
 
+  const clickSubmit = async () => {
+    const response = await submitSurvey(UserInfo, form);
+    if (response.status === 201) {
+      navigate('/recommend')
+    }
+  }
+
   return (
     <>
       <Container>
@@ -127,7 +157,7 @@ const Survey = () => {
         { step === 3 ? <DietaryRestriction propFunction={getInformation} prevSteps={prevSteps} nextSteps={nextSteps} /> : null}
         { step === 4 ? <AllergySurvey propFunction={getInformation} prevSteps={prevSteps} nextSteps={nextSteps} /> : null}
         { step === 5 ? <LikeIngredient propFunction={getInformation} prevSteps={prevSteps} nextSteps={nextSteps} /> : null}
-        { step === 6 ? <GoalSurvey propFunction={getInformation} prevSteps={prevSteps}/> : null}
+        { step === 6 ? <GoalSurvey propFunction={getInformation} prevSteps={prevSteps} clickSubmit={clickSubmit} /> : null}
       </Container>
     </>
   )
