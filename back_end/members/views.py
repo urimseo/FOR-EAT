@@ -406,7 +406,8 @@ class MemberSurveyProfile(APIView):
                         }
                         return Response(data=data, status=status.HTTP_201_CREATED)
                     elif 'allergy' in member_survey.keys():
-                        serializer.save(allergy=Allergy.objects.filter(allergy_seq__in=member_survey['allergy']))
+                        allergy_list = list(map(int, request.data['allergy'].split(',')))
+                        serializer.save(allergy=Allergy.objects.filter(allergy_seq__in=allergy_list))
                         data = {
                             "msg": "유저 설문 수정 성공",
                             "status": 201,
