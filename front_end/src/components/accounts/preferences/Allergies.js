@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Plus from "assets/img/Plus.png"
 import Rosemary from "assets/img/Ingredient_rosemary.jpg"
+import Button2 from "components/commons/Button2";
 
 const SubTheme = styled.div`
   margin-top: 3rem;
@@ -55,7 +56,18 @@ const ImageSub = styled.div`
 const Allergie = styled.div`
 `
 
-const Allergies = ({ setWidgetId, UserInfo, surveyList }) => {
+const BoxContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const SpaceBetweenContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+
+
+const Allergies = ({ on, setWidgetId, surveyList }) => {
     return (
       <Allergie>
         <SubTheme>
