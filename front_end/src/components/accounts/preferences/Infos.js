@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Plus from "assets/img/Plus.png";
 import Rosemary from "assets/img/Ingredient_rosemary.jpg";
+import Button2 from "components/commons/Button2";
 
 const SubTheme = styled.div`
   margin-top: 3rem;
@@ -51,9 +52,32 @@ const ImageSub = styled.div`
   font-weight: bold;
 `;
 
+const SpaceBetweenContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+
+const ButtonContainers = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const Info = styled.div``;
 
-const Infos = ({ setWidgetId, UserInfo, surveyList }) => {
+const Infos = ({ on, setWidgetId, surveyList }) => {
+  const [womanShow, setWomanShow] = useState();
+  const [manShow, setManShow] = useState();
+  const [age, setAge] = useState();
+    console.log(surveyList)
+
+    useEffect(() => {
+      if (surveyList){
+      setWomanShow(surveyList.gender)
+      setManShow(!surveyList.gender)
+      setAge(surveyList.age)
+      }
+    }, []);
+
   return (
     <Info>
       <SubTheme>
@@ -62,21 +86,22 @@ const Infos = ({ setWidgetId, UserInfo, surveyList }) => {
       </SubTheme>
 
       <Item>
-        <ImageContainer>
-          <Image src={Rosemary} />
-          <ImageSub>VEGETARIAN</ImageSub>
-        </ImageContainer>
-
-        <ImageContainer>
-          <PLUS
+      <ButtonContainers>
+        <div style={{ width: "40rem" }}>
+          <SpaceBetweenContainer>
+            <Button2 bc={manShow ? on : ""} name="Man" />
+            <Button2 bc={womanShow ? on : ""} name="Woman" />
+            <PLUS
             onClick={() => {
               if (setWidgetId) setWidgetId("M01");
             }}
           >
-            <Image src={Plus} />
-            <ImageSub>ADD Infos</ImageSub>
-          </PLUS>
-        </ImageContainer>
+          <Image src={Plus} />
+          <ImageSub>ADD Infos</ImageSub>
+        </PLUS>
+          </SpaceBetweenContainer>
+        </div>
+      </ButtonContainers>
       </Item>
     </Info>
   );
