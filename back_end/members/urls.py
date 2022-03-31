@@ -16,4 +16,5 @@ urlpatterns = [
     path('<int:pk>/mypage', views.MemberProfilePage.as_view()),
     path('<int:pk>/mypage/reviews', views.MemberReviewList.as_view()),
     path('<int:pk>/mypage/likes', views.MemberLikeRecipeList.as_view()),
+    path('<int:pk>/mypage/report', views.WeeklyReport.as_view()),
 ]
