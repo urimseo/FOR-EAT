@@ -55,7 +55,7 @@ const ImageSub = styled.div`
 const Goal = styled.div`
 `
 
-const Goals = ({ setWidgetId, SurveyList }) => {
+const Goals = ({ setWidgetId, UserInfo, surveyList }) => {
     return (
       <Goal>
         <SubTheme>

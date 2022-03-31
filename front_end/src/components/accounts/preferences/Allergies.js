@@ -55,7 +55,7 @@ const ImageSub = styled.div`
 const Allergie = styled.div`
 `
 
-const Allergies = ({ setWidgetId, SurveyList }) => {
+const Allergies = ({ setWidgetId, UserInfo, surveyList }) => {
     return (
       <Allergie>
         <SubTheme>

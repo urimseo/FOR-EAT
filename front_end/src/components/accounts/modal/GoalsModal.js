@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Button from "components/commons/Button";
 import Button2 from "components/commons/Button2";
 import { editSurvey } from "api/MyPageApi";
+import { Alert } from "components/commons/Alert";
 
 const Container = styled(motion.div)`
   box-sizing: border-box;
@@ -45,7 +46,7 @@ const ButtonContainer = styled.div`
   margin-left: auto;
 `;
 
-const GoalsModal = ({ on, layoutId, setWidgetId, SurveyList }) => {
+const GoalsModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyList }) => {
   const [beginnerShow, setBeginnerShow] = useState();
   const [newCuisinShow, setNewCuisinShow] = useState();
   const [saveTimeShow, setSaveTimeShow] = useState();
@@ -53,13 +54,43 @@ const GoalsModal = ({ on, layoutId, setWidgetId, SurveyList }) => {
   const [dietShow, setDietShow] = useState();
   const [interestShow, setInterestShow] = useState();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setBeginnerShow(surveyList.beginner)
+    setNewCuisinShow(surveyList.recipe_challenger)
+    setSaveTimeShow(surveyList.timesaver)
+    setHealthyShow(surveyList.healthy_diet)
+    setDietShow(surveyList.lose_weight)
+    if (surveyList.beginner === false && surveyList.recipe_challenger === false && surveyList.timesaver === false &&
+      surveyList.healthy_diet === false && surveyList.lose_weight === false) {setInterestShow(true)}
+  }, []);
 
   const onClick = (event) => {
     event.stopPropagation();
   };
 
-  const onButton = () => {
+  const onCheck = async () => {
+    if(beginnerShow === false && newCuisinShow === false && saveTimeShow === false &&
+      healthyShow === false && dietShow === false &&interestShow === false) Alert("🧡 Please Check your diet goal.")
+    else{
+    const formData = new FormData();
+    formData.append("beginner", beginnerShow);
+    formData.append("recipe_challenger", newCuisinShow);
+    formData.append("timesaver", saveTimeShow);
+    formData.append("healthy_diet", healthyShow);
+    formData.append("lose_weight", dietShow);
+    for (let key of formData.keys()) { console.log(key, ":", formData.get(key)); }
+    editSurvey(UserInfo, formData)
+    setBeginnerShow(surveyList.beginner)
+    setNewCuisinShow(surveyList.recipe_challenger)
+    setSaveTimeShow(surveyList.timesaver)
+    setHealthyShow(surveyList.healthy_diet)
+    setDietShow(surveyList.lose_weight)
+    setWidgetId(null);
+    setFlag(true)
+    }
+  };
+
+  const onClose = () => {
     setWidgetId(null);
   };
 
@@ -153,14 +184,14 @@ const GoalsModal = ({ on, layoutId, setWidgetId, SurveyList }) => {
       </BoxContainer>
 
       <ButtonContainer>
-        <Button name="Check" onClick={onButton} />
+        <Button name="Check" onClick={onCheck} />
 
         <Button
           name="Cancel"
           bc="#C4C4C4"
           hoverColor="#a2a2a2"
           ml="3rem"
-          onClick={onButton}
+          onClick={onClose}
         />
       </ButtonContainer>
     </Container>
