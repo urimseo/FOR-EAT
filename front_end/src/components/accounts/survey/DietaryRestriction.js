@@ -1,10 +1,22 @@
 import React, { useState } from 'react';
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import Title from "components/commons/Title"
 
 
 const Container = styled.div`
   min-height: 100vh;
+`
+
+const gradient = keyframes`
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 `
 
 const Question = styled.div`
@@ -14,10 +26,13 @@ const Question = styled.div`
     width: 50%;
     height: 1.2rem;
     background-color: #ED8141;
+    background: linear-gradient(-45deg, #ED8141, #ED8141, #f0e140, #ea0ba7);
+    background-size: 400% 400%;
+    animation: ${gradient} 5s ease infinite;
   }
   .box {
     width: 50rem;
-    height: 30rem;
+    height: 34rem;
     border: 0px solid grey;
     box-shadow: 3px 5px 5px 5px #d3d3d3;
   }
@@ -103,7 +118,7 @@ const DietaryRestriction = ({propFunction, prevSteps, nextSteps}) => {
             <div className='number'>3/6</div>
             <Title ff="work sans" fs="2.5rem" fw="300" mt="2rem" mb="1rem" style={{display: "flex", justifyContent: "center"}}>Select your information</Title>
             <Title ff="work sans" fs="1.2rem" fw="200" mb="1rem" style={{display: "flex", justifyContent: "center"}}>Check your dietary restriction.</Title>
-            <div style={{display: "flex", justifyContent: "center"}}>
+            <div style={{display: "flex", justifyContent: "center", marginTop: "3rem"}}>
               <div style={{width: "26rem"}}>
                 <SpaceBetweenContainer>
                   { cholesterolShow ? 
@@ -143,8 +158,8 @@ const DietaryRestriction = ({propFunction, prevSteps, nextSteps}) => {
                 </SpaceBetweenContainer>
               </div>
             </div>
-            <BottomButton f="left" mt="1.5rem" ml="2rem" onClick={prevSteps}>Back</BottomButton>
-            <BottomButton f="right" mt="1.5rem" mr="2rem" onClick={nextSteps}>Continue</BottomButton>
+            <BottomButton f="left" mt="3.5rem" ml="2rem" onClick={prevSteps}>Back</BottomButton>
+            <BottomButton f="right" mt="3.5rem" mr="2rem" onClick={nextSteps}>Continue</BottomButton>
           </div>
         </Question>
       </Container>
