@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { getBrowseList } from "api/BrosweApi";
-import BrowseCard from "components/browse/BrowseCard";
+import Card4 from "components/commons/Card4";
 
 
 
@@ -39,9 +39,7 @@ const BrowseListItem = ({keyword, title}) => {
             // 5개만 잘라서 보여주기
             if ( idx < 5 ) {
               return (
-              <BrowseCard key={idx} {...result} 
-                card_width="15rem"
-                image_width="10rem"
+              <Card4 key={idx} {...result} 
               />
               )
             }
