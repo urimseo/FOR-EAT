@@ -241,17 +241,15 @@ class RecipeLike(APIView):
         if recipe.members.filter(member_seq=member.member_seq).exists():
             recipe.members.remove(member)
             data = {
-                    "msg": "찜하기 취소",
-                    "status": 202
-                }
+                "msg": "찜하기 취소",
+                "status": 202
+            }
             return Response(data= data, status=status.HTTP_202_ACCEPTED)
         else:
             recipe.members.add(member)
             data = {
-                "data": {
-                    "msg": "찜하기 성공",
-                    "status": 201
-                }
+                "msg": "찜하기 성공",
+                "status": 201
             }
             return Response(data= data, status=status.HTTP_201_CREATED)
 
