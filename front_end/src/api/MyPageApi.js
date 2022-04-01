@@ -50,3 +50,9 @@ export const createSurvey = async (member_seq) => {
   const response = await fileInstance.post(`/members/${member_seq}/survey`);
   return response.data;
 };
+
+
+export const getReportDetail = async (member_seq) => {
+  const response = await instance.get(`/members/${member_seq}/mypage/report`);
+  return response.data;
+}
