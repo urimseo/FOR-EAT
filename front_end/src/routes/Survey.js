@@ -118,7 +118,7 @@ const Survey = () => {
     else if (value === 'interest') {
       setForm ({
         ...form,
-        carbohydrate: false,
+        cholesterol: false,
         sugar: false,
         sodium: false,
       })
