@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import FeedCarousel from "components/recommend/Feed/FeedCarousel"
-import Title from "components/commons/Title"
+import FeedCarousel from "components/recommend/Feed/FeedCarousel";
+import Title from "components/commons/Title";
+import { getRecommendRecipeList } from "api/RecommendApi";
+import Card from "components/commons/Card";
 
 
 const Container = styled.div`
@@ -38,16 +40,21 @@ const BorderLine = styled.div`
 
 const Feed = () => {
   const [forYouRecipe, setForYouRecipe] = useState(true);
-  const [likeYouRecipe, setLikeYouRecipe] = useState(false);
+  const [youLikeRecipe, setYouLikeRecipe] = useState(false);
+  const [recipeList, setRecipeList] = useState([]);
 
-  const getForYouRecipe = () => {
-    setForYouRecipe(true);
-    setLikeYouRecipe(false);
-  }
-
-  const getLikeYouRecipe = () => {
-    setForYouRecipe(false);
-    setLikeYouRecipe(true);
+  const getRecipeList = async (type, page) => {
+    if (type === "foryou") {
+      setForYouRecipe(true);
+      setYouLikeRecipe(false);
+      const response = await getRecommendRecipeList(type, page);
+      setRecipeList(response);
+    } else {
+      setForYouRecipe(false);
+      setYouLikeRecipe(true);
+      const response = await getRecommendRecipeList(type, page);
+      setRecipeList(response);
+    }
   }
 
   useEffect(() => {   
@@ -62,16 +69,31 @@ const Feed = () => {
           <Title mt="3rem">Recommend</Title>
           <div style={{display: "flex", justifyContent: "center", marginTop: "1rem"}}>
             <div>
-              <CategoryButton fs="1.3rem" fw="300" mr="1rem" onClick={getForYouRecipe}>FOR:YOU</CategoryButton>
+              <CategoryButton fs="1.3rem" fw="300" mr="1rem" onClick={()=>getRecipeList("foryou")}>FOR:YOU</CategoryButton>
               {forYouRecipe ? <BorderLine /> : null}
             </div>
             <div>
-              <CategoryButton fs="1.3rem" fw="300" ml="1rem" onClick={getLikeYouRecipe}>YOU:LIKE</CategoryButton>
-              {likeYouRecipe ? <BorderLine ml="1.1rem" /> : null}
+              <CategoryButton fs="1.3rem" fw="300" ml="1rem" onClick={()=>getRecipeList("likeyou")}>YOU:LIKE</CategoryButton>
+              {youLikeRecipe ? <BorderLine ml="1.1rem" /> : null}
             </div>
           </div>
+          {/* { recipeList.member_type === 0 ?           
+            <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans">Write a survey and reviews to get more accurate recipe recommendations.</Title> : null 
+          }
+          { recipeList.member_type === 1 ?
+            <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans">Write a survey to get more accurate recipe recommendations.</Title> : null
+          } 
+          { recipeList.member_type === 2 ?
+            <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans">Write reviews to get more accurate recipe recommendations.</Title> : null
+          }
           <CardContainer>
-          </CardContainer>
+            { recipeList.data.map((recipe, index) => (
+              <Card 
+                key={index}
+                {...recipe} 
+              />
+            ))}
+          </CardContainer> */}
         </div>
       </Container>
     </>
