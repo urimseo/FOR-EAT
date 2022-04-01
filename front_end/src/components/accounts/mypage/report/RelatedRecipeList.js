@@ -42,7 +42,7 @@ const RelatedRecipeList = () => {
   return (
     <Container>
       <TextContainer>
-        <div className="title">Top 3 recipes that women in your age ate the most this week</div>
+        <div className="title">Women in her 10's</div>
       </TextContainer>
       <CardContainer>
           {/* { resultList.map((result, idx) => {
@@ -54,6 +54,24 @@ const RelatedRecipeList = () => {
               )
             }
           })} */}
+          <Card4 
+            recipe_seq={recipe_seq} name={name}
+            calories={calories} images={images}
+            average_rating={average_rating} liked_count={liked_count}
+            keywords={keywords}
+          />
+          <Card4 
+            recipe_seq={recipe_seq} name={name}
+            calories={calories} images={images}
+            average_rating={average_rating} liked_count={liked_count}
+            keywords={keywords}
+          />
+          <Card4 
+            recipe_seq={recipe_seq} name={name}
+            calories={calories} images={images}
+            average_rating={average_rating} liked_count={liked_count}
+            keywords={keywords}
+          />
           <Card4 
             recipe_seq={recipe_seq} name={name}
             calories={calories} images={images}

@@ -102,7 +102,6 @@ const MyPage = () => {
       console.log(err)
       )
       
-    // getReport(UserInfo)
 
     
   },[]);
@@ -129,7 +128,7 @@ const MyPage = () => {
         </SpaceBetweenContainer>
           {savedRecipes ? <SavedRecipeList RecipeList={RecipeList} ReviewList={ReviewList} UserInfo={UserInfo} /> : null}
           {preferences ? <Preferences SurveyList={SurveyList} /> : null}
-          {report ? <Report report={report} /> : null}
+          {report ? <Report /> : null}
       </Container>
     </>
   );

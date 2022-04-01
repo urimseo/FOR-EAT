@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+
+import { useRecoilValue } from 'recoil';
+import { userInfoState } from 'atoms/atoms';
 import BarChart from "./BarChart";
 import Restriction from "./Restriction";
 import Habit from "./Habit";
 import DoughnutChart from "./DoughnutChart";
 import RelatedRecipeList from "./RelatedRecipeList";
+
+import { getReportDetail } from "api/MyPageApi";
 
 
 const Container = styled.div`
@@ -35,6 +40,19 @@ const FlexContainer = styled.div`
 `
 
 const Report = () => {
+  const member_seq = useRecoilValue(userInfoState);
+  const [ report, setReport ] = useState([])
+
+  const getReport = async () => {
+    const result = await getReportDetail(member_seq);
+    setReport(result);
+    console.log(result)
+  }
+
+  useEffect(()=> {
+    getReport()
+  }, [member_seq])
+
     return (
       <Container>
         <BackgroundContainer>
@@ -44,12 +62,12 @@ const Report = () => {
               Collects your choices by a survey and gives you the recipes that you are looking for. FOR:EAT recommends thousands of international recipes based on your preferences. Collects your choices by a survey and gives you the recipes that you are looking for.</h5>
           </TextContainer>
           <FlexContainer>
-            <BarChart />
-            <Restriction />
+            <BarChart nutrient={report.nutrient || {}} />
+            <Restriction nutrient={report.nutrient || {}}/>
           </FlexContainer>
           <FlexContainer>
-            <Habit />
             <DoughnutChart />
+            <Habit nutrient={report.nutrient || {}}/>
           </FlexContainer>
           <RelatedRecipeList />
         </BackgroundContainer>
