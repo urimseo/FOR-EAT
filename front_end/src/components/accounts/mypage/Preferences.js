@@ -50,10 +50,10 @@ const overlay = {
 };
 
 
-const Preferences = () => {
+const Preferences = ({SurveyList}) => {
   const [widgetId, setWidgetId] = useState();
   const [flag, setFlag] = useState();
-  const [surveyList, setSurveyList] = useState();
+  const [surveyList, setSurveyList] = useState(SurveyList);
   
   const UserInfo = useRecoilValue(userInfoState);
 

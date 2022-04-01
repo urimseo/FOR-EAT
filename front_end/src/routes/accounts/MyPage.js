@@ -57,6 +57,7 @@ const MyPage = () => {
   const [nickname, setNickname] = useState();
   const [RecipeList, setRecipeList] = useState([]);
   const [ReviewList, setReviewList] = useState([]);
+  const [SurveyList, setSurveyList] = useState([]);
   const UserInfo = useRecoilValue(userInfoState);
 
   const showSavedRecipes = async() => {
@@ -84,6 +85,7 @@ const MyPage = () => {
       console.log(1, res)
       setRecipeList(res.liked_recipe)
       setReviewList(res.review)
+      setSurveyList(res.member_survey)
      })
     .catch((err) => 
       console.log(err)
@@ -126,7 +128,7 @@ const MyPage = () => {
           </BoxContainer>
         </SpaceBetweenContainer>
           {savedRecipes ? <SavedRecipeList RecipeList={RecipeList} ReviewList={ReviewList} UserInfo={UserInfo} /> : null}
-          {preferences ? <Preferences /> : null}
+          {preferences ? <Preferences SurveyList={SurveyList} /> : null}
           {report ? <Report report={report} /> : null}
       </Container>
     </>
