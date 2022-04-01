@@ -6,6 +6,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.db.models import Avg
 from django.db.models import Func
+from django.contrib.auth.models import update_last_login
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
@@ -131,7 +132,7 @@ def kakao_login(request):
             "nickname": nickname,
         }
         access_token = generate_token(payload, "access")
-
+        update_last_login(None, member)
         data = {
             "user": {
                 "member_seq": member_seq,
@@ -144,6 +145,7 @@ def kakao_login(request):
             "msg":'카카오 로그인 성공'                                                      
 
         }
+
         return Response(data=data, status=status.HTTP_200_OK)
 
     except Member.DoesNotExist:
@@ -201,7 +203,7 @@ def google_signup(request):
 def google_login(request):
     token = request.data['data']['access_token']
     member = decode_token(token)
-    
+    update_last_login(None, member)
     # check if there is user survey data
     try :
         isSurvey = Survey.objects.get(member_seq=member.member_seq)
@@ -336,7 +338,7 @@ class MemberSurveyProfile(APIView):
 
     # crete member survey
     def post(self, request, pk):
-        member_survey = request.data
+        member_survey = request.data['form']
         member_survey['ingredient_keywords'] = str(member_survey['liked_ingredient'])
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
         member = self.get_member_survey(pk, token)
@@ -583,7 +585,7 @@ class WeeklyReport(APIView):
             before_week = datetime.now() - timedelta(weeks=1)
             weekly_review = list(Review.objects.filter(member=pk, 
                 create_date__range=[before_week, datetime.now()]).values_list('recipe', flat=True))
-            print(weekly_review)
+
             # average nutrients in a week's recipe
             weekly_nutrition = Recipe.objects.filter(recipe_seq__in=weekly_review).aggregate(
                 calories=self.Round(Avg('calories')),
@@ -601,7 +603,6 @@ class WeeklyReport(APIView):
             category = list(Category.objects.filter(recipes__in=weekly_review).
                 values_list('category_name', flat=True))
             category_cnt = Counter(category).most_common(4)
-            print(category_cnt)
             
             # member filter age, gender , get liked recipes
             
@@ -615,22 +616,26 @@ class WeeklyReport(APIView):
                     Q(age=survey.age) & 
                     Q(gender=survey.gender) &
                     ~Q(member_seq=pk)).values('member_seq')
+
+                # weekly review list
                 weekly_recipe_review = list(Review.objects.filter(
                     member__in=similar_member,
                     create_date__range=[before_week, datetime.now()]).values_list('recipe', flat=True))
-                weekly_recipe_review_cnt = Counter(weekly_recipe_review).most_common()
+                # weekly liked recipe list
+                weekly_liked_recipe = list(LikedRecipe.objects.filter(
+                    member_seq__in=similar_member,
+                    create_date__range=[before_week, datetime.now()]).values_list('recipe_seq', flat=True))
 
-                weekly_liked_recipe = LikedRecipe.objects.filter(
-                    member__in=similar_member,
-                    create_date__range=[before_week, datetime.now()]).values_list('recipe', flat=True)
-                print(weekly_liked_recipe)
-            # get most popular recipe seq list
-            popular_recipe_list = [i[0] for i in weekly_recipe_cnt if i[0] not in weekly_review]
+                weekly_popular_recipe = Counter(weekly_recipe_review+weekly_liked_recipe).most_common()
+                
+            # most popular recipe seq list
+            popular_recipe_list = [i[0] for i in weekly_popular_recipe if i[0] not in weekly_review]
+
             recipe_all = Recipe.objects.filter(recipe_seq__in=popular_recipe_list)
             recipe_serializer = RecipeListSerializer(recipe_all, many=True)
             for recipe in recipe_serializer.data:
                 recipe['images'] = json.loads(recipe['images'])[0]
-
+            
             data = {
                 'user': user,
                 'nutrient' : weekly_nutrition,
