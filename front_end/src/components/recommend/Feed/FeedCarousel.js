@@ -32,7 +32,8 @@ const HeaderContent = styled.div`
   top: 11rem;
   left:50%;
   transform: translate(-50%, -50%);                                                                   
-  font-size: 1rem;
+  font-size: 1.3rem;
+  font-weight: 400;
   color: white;
   z-index: 2;
   text-align: center;
@@ -43,28 +44,28 @@ const FeedCarousel = () => {
   {
     var items = [
       {
-        name: "Low-Fat Berry Blue Frozen Dessert",
-        description: "Probably the most random thing you have ever seen!",
+        name: "Fusilli With Spinach and Asiago Cheese",
+        description: "#Fusilli #Tomato #Vegan",
         image: MainImg,
-        recipe_seq: 1,
+        recipe_seq: 49322
       },
       {
-        name: "Blueberry Scones",
-        description: "Hello World!",
+        name: "Fast Fruit Tarts",
+        description: "Fresh Tarts Topped With Any Fruits",
         image: Carousel1,
-        recipe_seq: 20
+        recipe_seq: 1939
       },
       {
-        name: "Blueberry Scones",
-        description: "Hello World!",
+        name: "Cool Veggie Pizza",
+        description: "A Little Step To Save The Planet : Adding Plant-Based Diet On Table Movement",
         image: Carousel2,
-        recipe_seq: 20
+        recipe_seq: 863
       },
       {
-        name: "Blueberry Scones",
-        description: "Hello World!",
+        name: "Sagebrush Slush",
+        description: "Crush, Fresh, Slush, Punch",
         image: Carousel3,
-        recipe_seq: 20
+        recipe_seq: 55682
       },
     ]
     return (
