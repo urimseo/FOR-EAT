@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled, {keyframes} from "styled-components";
-import carbohydrates from "assets/img/carbohydrates.png"
-import protein from "assets/img/protein.png"
-import fat from "assets/img/province.png"
+import carbohydrateImg from "assets/img/carbohydrates.png"
+import proteinImg from "assets/img/protein.png"
+import fatImg from "assets/img/province.png"
 
 
 const Container = styled.div`
@@ -37,7 +37,8 @@ const Question = styled.div`
   justify-content: center;
   .line {
     width: 33%;
-    height: 1.2rem;
+    height: 1.7rem;
+    box-shadow: 0px 5px 5px 0px #d3d3d3;
     background-color: #ED8141;
     background: linear-gradient(-45deg, #ED8141, #ED8141, #f0e140, #ea0ba7);
     background-size: 400% 400%;
@@ -92,43 +93,46 @@ const BottomButton =styled.a`
 `
 
 
-const NutritionSurvey = ({propFunction, prevSteps, nextSteps}) => {
-  const [carbohydratesHighShow, setCarbohydratesHighShow] = useState(false);
-  const [carbohydratesAverageShow, setCarbohydratesAverageShow] = useState(false);
-  const [carbohydratesLowShow, setCarbohydratesLowShow] = useState(false);
-  const [proteinHighShow, setProteinHighShow] = useState(false);
-  const [proteinAverageShow, setProteinAverageShow] = useState(false);
-  const [proteinLowShow, setProteinLowShow] = useState(false);
-  const [fatHighShow, setFatHighShow] = useState(false);
-  const [fatAverageShow, setFatAverageShow] = useState(false);
-  const [fatLowShow, seFatLowShow] = useState(false);
+const NutritionSurvey = ({form, propFunction, prevSteps, nextSteps}) => {
+  const { carbohydrate, protein, fat } = form;
+
+  const [carbohydrateHighShow, setCarbohydrateHighShow] = useState((carbohydrate === 3 ? true : false));
+  const [carbohydrateAverageShow, setCarbohydrateAverageShow] = useState((carbohydrate === 2 ? true : false));
+  const [carbohydrateLowShow, setCarbohydrateLowShow] = useState(((carbohydrate === 1 ? true : false)));
+  const [proteinHighShow, setProteinHighShow] = useState((protein === 3 ? true : false));
+  const [proteinAverageShow, setProteinAverageShow] = useState((protein === 2 ? true : false));
+  const [proteinLowShow, setProteinLowShow] = useState((protein === 1 ? true : false));
+  const [fatHighShow, setFatHighShow] = useState((fat === 3 ? true : false));
+  const [fatAverageShow, setFatAverageShow] = useState((fat === 2 ? true : false));
+  const [fatLowShow, seFatLowShow] = useState((fat === 1 ? true : false));
+
 
   const getCarbohydrates = (state) => {
     if (state === "high") {
-      setCarbohydratesHighShow(!carbohydratesHighShow);
-      setCarbohydratesAverageShow(false);
-      setCarbohydratesLowShow(false);
-      if (carbohydratesHighShow === false) {
+      setCarbohydrateHighShow(!carbohydrateHighShow);
+      setCarbohydrateAverageShow(false);
+      setCarbohydrateLowShow(false);
+      if (carbohydrateHighShow === false) {
         propFunction(['carbohydrate', 3]);
       } else {
         propFunction(['carbohydrate', 0]);
       }
     }
     if (state === "average") {
-      setCarbohydratesHighShow(false);
-      setCarbohydratesAverageShow(!carbohydratesAverageShow);
-      setCarbohydratesLowShow(false);
-      if (carbohydratesAverageShow === false) {
+      setCarbohydrateHighShow(false);
+      setCarbohydrateAverageShow(!carbohydrateAverageShow);
+      setCarbohydrateLowShow(false);
+      if (carbohydrateAverageShow === false) {
         propFunction(['carbohydrate', 2]);
       } else {
         propFunction(['carbohydrate', 0]);
       }
     }
     if (state === "low") {
-      setCarbohydratesHighShow(false);
-      setCarbohydratesAverageShow(false);
-      setCarbohydratesLowShow(!carbohydratesLowShow);
-      if (carbohydratesLowShow === false) {
+      setCarbohydrateHighShow(false);
+      setCarbohydrateAverageShow(false);
+      setCarbohydrateLowShow(!carbohydrateLowShow);
+      if (carbohydrateLowShow === false) {
         propFunction(['carbohydrate', 1]);
       } else {
         propFunction(['carbohydrate', 0]);
@@ -165,7 +169,7 @@ const NutritionSurvey = ({propFunction, prevSteps, nextSteps}) => {
       if (proteinLowShow === false){
         propFunction(['protein', 1]);
       } else {
-        propFunction(['protein', 1]);
+        propFunction(['protein', 0]);
       }
     }
   }
@@ -214,23 +218,23 @@ const NutritionSurvey = ({propFunction, prevSteps, nextSteps}) => {
             <div style={{display: "flex", justifyContent: "center", marginTop: "3rem"}}>
               <div>
                 <Item>
-                  <img src={carbohydrates} alt="carbohydrates" style={{width: "4rem", height: "4rem", marginBottom: "1rem"}} />
+                  <img src={carbohydrateImg} alt="carbohydrates" style={{width: "4rem", height: "4rem", marginBottom: "1rem"}} />
                   <Title fs="1rem" fw="300" mt="1.2rem" ml="1rem">Carbohydrates</Title>
-                  { carbohydratesHighShow ? 
+                  { carbohydrateHighShow ? 
                     <Button mt="0.7rem" ml="1rem" h="2rem" w="5rem" bc="#ED8141" color="white" onClick={()=>getCarbohydrates("high")}>High</Button> :
                     <Button mt="0.7rem" ml="1rem" h="2rem" w="5rem" onClick={()=>getCarbohydrates("high")}>High</Button>
                   }
-                  { carbohydratesAverageShow ? 
+                  { carbohydrateAverageShow ? 
                   <Button mt="0.7rem" ml="0.5rem" h="2rem" w="5rem" bc="#ED8141" color="white" onClick={()=>getCarbohydrates("average")}>Average</Button> :
                   <Button mt="0.7rem" ml="0.5rem" h="2rem" w="5rem" onClick={()=>getCarbohydrates("average")}>Average</Button>
                   }
-                  { carbohydratesLowShow ? 
+                  { carbohydrateLowShow ? 
                     <Button mt="0.7rem" ml="0.5rem" h="2rem" w="5rem" bc="#ED8141" color="white" onClick={()=>getCarbohydrates("low")}>Low</Button> :
                     <Button mt="0.7rem" ml="0.5rem" h="2rem" w="5rem" onClick={()=>getCarbohydrates("low")}>Low</Button>
                   }
                 </Item>
                 <Item>
-                  <img src={protein} alt="protein" style={{width: "4rem", height: "4rem", marginBottom: "1rem"}} />
+                  <img src={proteinImg} alt="protein" style={{width: "4rem", height: "4rem", marginBottom: "1rem"}} />
                   <Title fs="1rem" fw="300" mt="1.5rem" ml="1rem">Protein</Title>
                   { proteinHighShow ? 
                     <Button mt="1rem" ml="4.5rem" h="2rem" w="5rem" bc="#ED8141" color="white" onClick={()=>getProtein("high")}>High</Button> :
@@ -246,7 +250,7 @@ const NutritionSurvey = ({propFunction, prevSteps, nextSteps}) => {
                   }
                 </Item>
                 <Item>
-                  <img src={fat} alt="province" style={{width: "4rem", height: "4rem"}} />
+                  <img src={fatImg} alt="province" style={{width: "4rem", height: "4rem"}} />
                   <Title fs="1rem" fw="300" mt="2rem" ml="1rem">Fat</Title>
                   { fatHighShow ?
                     <Button mt="1.5rem" ml="6.4rem" h="2rem" w="5rem" bc="#ED8141" color="white" onClick={()=>getFat("high")}>High</Button> :

@@ -37,13 +37,18 @@ const BowlContainer = styled.div`
 `
 
 const MixButton = styled.button`
-  font-size: 1rem;
+  font-size: 1.3rem;
+  font-family: playfair Display;
   margin: 2.5rem 0 0 0.5rem;
   width: 8rem;
   background-color: white;
   cursor: pointer;
   border: none;
-
+  &:hover {
+    transform:scale(1.1);
+    -webkit-transform:scale(1.1);
+    -moz-transform:scale(1.1);
+  }
 `
 
 const firstBall = keyframes`

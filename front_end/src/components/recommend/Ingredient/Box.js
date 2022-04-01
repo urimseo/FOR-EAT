@@ -7,8 +7,9 @@ const style = {
   float: 'left',
   width: '5.5rem',
   height: '5.5rem',
-  borderRadius: '55%'
+  borderRadius: '55%',
 };
+
 
 const Box = ({ src, title }) =>  {
     const [{ isDragging }, drag] = useDrag(() => ({

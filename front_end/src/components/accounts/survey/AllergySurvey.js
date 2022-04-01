@@ -43,7 +43,8 @@ const Question = styled.div`
   justify-content: center;
   .line {
     width: 66.7%;
-    height: 1.2rem;
+    height: 1.7rem;
+    box-shadow: 0px 5px 5px 0px #d3d3d3;
     background-color: #ED8141;
     background: linear-gradient(-45deg, #ED8141, #ED8141, #f0e140, #ea0ba7);
     background-size: 400% 400%;
@@ -101,15 +102,17 @@ const BottomButton =styled.a`
   margin-right: ${(props) => (props.mr ? props.mr : "")};
 `
 
-const AllergySurvey = ({propFunction, prevSteps, nextSteps}) => {
-  const [ wheatShow, setWheatShow ] = useState(false);
-  const [ peanutShow, setPeanutShow ] = useState(false);
-  const [ walnutShow, setWalnutShow ] = useState(false);
-  const [ appleShow, setAppleShow ] = useState(false);
-  const [ sesameShow, setSesameShow ] = useState(false);
-  const [ shellfishShow, setShellfishShow ] = useState(false);
-  const [ eggShow, setEggShow ] = useState(false);
-  const [ relevantShow, setRelevantShow ] = useState(false);
+const AllergySurvey = ({form, flag, propFunction, prevSteps, nextSteps}) => {
+  const { allergy } = form;
+  const { relevant } = flag;
+  const [ wheatShow, setWheatShow ] = useState((allergy.includes(1)));
+  const [ peanutShow, setPeanutShow ] = useState((allergy.includes(2)));
+  const [ walnutShow, setWalnutShow ] = useState((allergy.includes(3)));
+  const [ appleShow, setAppleShow ] = useState((allergy.includes(4)));
+  const [ sesameShow, setSesameShow ] = useState((allergy.includes(5)));
+  const [ shellfishShow, setShellfishShow ] = useState((allergy.includes(6)));
+  const [ eggShow, setEggShow ] = useState((allergy.includes(7)));
+  const [ relevantShow, setRelevantShow ] = useState(relevant);
 
   const getAllergy = (state) => {
     if(state === "wheat") {
@@ -184,7 +187,7 @@ const AllergySurvey = ({propFunction, prevSteps, nextSteps}) => {
       setSesameShow(false);
       setShellfishShow(false);
       setEggShow(false);
-      propFunction(["relevant", false]);
+      propFunction(["relevant", !relevantShow]);
     }
   }
   return (

@@ -45,9 +45,9 @@ const Survey = () => {
   const[ingredient, setIngredient] = useState([])
   const[allergyItem, setAllergyItem] = useState([])
 
-  const[form, setForm] = useState(
+  const [form, setForm] = useState(
     {
-        age : null,
+        age : 0,
         gender : null,
         liked_ingredient : [],
         allergy : [],
@@ -65,7 +65,13 @@ const Survey = () => {
     }
   )
 
-  const { age, gender, liked_ingredient, allergy, carbohydrate, protein, fat, cholesterol, sodium, sugar, beginner, recipe_challenger, timesaver, healthy_diet, lose_weight } = form
+  const [flag, setFlag] = useState(
+    {
+      interest: null,
+      relevant: null,
+      noInterest: null,
+    }
+  )
   
   const getInformation = (Info)=>{
     const allergyInformation = [1, 2, 3, 4, 5, 6, 7];
@@ -85,6 +91,10 @@ const Survey = () => {
         if (element === info) {
           if (value === false) {
             setAllergyItem(allergyItem => [...allergyItem, info]);
+            setFlag({
+              ...flag,
+              relevant : false,
+            })
           } else {
             setAllergyItem(allergyItem.filter(item => item !== info));
           }
@@ -106,20 +116,30 @@ const Survey = () => {
       }
     }
     else if (value === 'interest') {
-      form.sugar = false;
-      form.sodium = false;
-      form.cholesterol = false;
+      setForm ({
+        ...form,
+        carbohydrate: false,
+        sugar: false,
+        sodium: false,
+      })
+      flag.interest = info;
     }
     else if (value === 'noInterest') {
-      form.beginner = false;
-      form.recipe_challenger = false;
-      form.timesaver = false;
-      form.healthy_diet = false;
-      form.lose_weight = false;
+      setForm ({
+        ...form,
+        beginner: false,
+        recipe_challenger: false,
+        timesaver: false,
+        healthy_diet: false,
+        lose_weight: false,
+        noInterest: false,
+      })
+      flag.noInterest = info;
     }
     else if (value === 'relevant') {
       setAllergyItem([]);
       form.allergy = null;
+      flag.relevant = info;
       // form.allergy = allergyItem;
     }
     else {
@@ -127,6 +147,17 @@ const Survey = () => {
           ...form,
           [value] : info
       })
+      if (value === 'carbohydrate' || value === 'sodium' || value === 'sugar') {
+        setFlag({
+          ...flag,
+          interest : false,
+        })
+      } else if (value === 'beginner' || value === 'recipe_challenger' || value === 'timesaver' || value === 'healthy_diet' || value === 'lose_weight') {
+        setFlag({
+          ...flag,
+          noInterest: false,
+        })
+      }
     }
   }
 
@@ -141,7 +172,7 @@ const Survey = () => {
   const getUserSurveyInfo = async (UserInfo) => {
     const response = await getUserInfo(UserInfo);
       if (response.isSurvey === true) {
-        // navigate('/recommend')
+        navigate('/recommend')
       } 
   }
   useEffect(() => {
@@ -152,7 +183,7 @@ const Survey = () => {
 
   const nextSteps =()=>{
     if (step === 1) {
-      if (form.age === null || form.gender === null) {
+      if (form.age === 0 || form.gender === null) {
         Alert("✅ Select all options.");
       } else {
         setStep(step + 1);
@@ -192,12 +223,12 @@ const Survey = () => {
         </ImgContainer>
         <Title ff="Playfair Display" fs="2rem" fw="300">FOR:EAT</Title>
         <Title fs="1.5rem" fw="200" mt="1rem" mb="3rem">PERSONALIZE YOUR EXPERIENCE</Title>
-        { step === 1 ? <InformationSurvey propFunction={getInformation} nextSteps={nextSteps} /> : null}
-        { step === 2 ? <NutritionSurvey propFunction={getInformation} prevSteps={prevSteps} nextSteps={nextSteps} />: null}
-        { step === 3 ? <DietaryRestriction propFunction={getInformation} prevSteps={prevSteps} nextSteps={nextSteps} /> : null}
-        { step === 4 ? <AllergySurvey propFunction={getInformation} prevSteps={prevSteps} nextSteps={nextSteps} /> : null}
-        { step === 5 ? <LikeIngredient propFunction={getInformation} prevSteps={prevSteps} nextSteps={nextSteps} /> : null}
-        { step === 6 ? <GoalSurvey propFunction={getInformation} prevSteps={prevSteps} clickSubmit={clickSubmit} /> : null}
+        { step === 1 ? <InformationSurvey form={form} propFunction={getInformation} nextSteps={nextSteps} /> : null}
+        { step === 2 ? <NutritionSurvey form={form} propFunction={getInformation} prevSteps={prevSteps} nextSteps={nextSteps} />: null}
+        { step === 3 ? <DietaryRestriction form={form} flag={flag} propFunction={getInformation} prevSteps={prevSteps} nextSteps={nextSteps} /> : null}
+        { step === 4 ? <AllergySurvey form={form} flag={flag} propFunction={getInformation} prevSteps={prevSteps} nextSteps={nextSteps} /> : null}
+        { step === 5 ? <LikeIngredient form={form} propFunction={getInformation} prevSteps={prevSteps} nextSteps={nextSteps} /> : null}
+        { step === 6 ? <GoalSurvey form={form} flag={flag} propFunction={getInformation} prevSteps={prevSteps} clickSubmit={clickSubmit} /> : null}
       </Container>
     </>
   )
