@@ -10,6 +10,8 @@ import pork from "assets/img/IngredientItem/pork.jpg"
 import potato from "assets/img/IngredientItem/potato.jpg"
 import tomato from "assets/img/IngredientItem/tomato.jpg"
 import seafood from "assets/img/IngredientItem/seafood.PNG"
+import BottomButton from "components/accounts/survey/BottomButton";
+
 
 
 
@@ -79,6 +81,7 @@ const Button = styled.button`
   font-size: 1rem;
   cursor: pointer;
   border-radius: 1rem;
+  font-family: work sans;
   box-shadow: 1px 1px 10px 3px ${(props) => (props.boxColor ? props.boxColor : "#e2e2e2")};
   width: ${(props) => (props.w ? props.w : "")};
   height: ${(props) => (props.h ? props.h : "")};
@@ -93,17 +96,7 @@ const Button = styled.button`
   }
 `
 
-const BottomButton =styled.a`
-  font-size: 1.2rem;
-  font-weight: 300;
-  cursor: pointer;
-  border: none;
-  float: ${(props) => (props.f ? props.f : "")};
-  margin-top: ${(props) => (props.mt ? props.mt : "")};
-  margin-bottom: ${(props) => (props.mb ? props.mb : "")};
-  margin-left: ${(props) => (props.ml ? props.ml : "")};
-  margin-right: ${(props) => (props.mr ? props.mr : "")};
-`
+
 
 const LikeIngredient = ({form, propFunction, prevSteps, nextSteps}) => {
   const { liked_ingredient } = form;
@@ -208,163 +201,83 @@ const LikeIngredient = ({form, propFunction, prevSteps, nextSteps}) => {
             <div className='line'></div>
             <div className='number'>5/6</div>
             <Title ff="work sans" fs="2.5rem" fw="300" mt="2rem" mb="1rem" style={{display: "flex", justifyContent: "center"}}>Select your information</Title>
-            <Title ff="work sans" fs="1.2rem" fw="200" mb="1rem" style={{display: "flex", justifyContent: "center"}}>Check your favorite ingredient.</Title>
+            <Title ff="work sans" fs="1.2rem" fw="300" mb="1rem" style={{display: "flex", justifyContent: "center"}}>Check your favorite ingredient.</Title>
             <div style={{display: "flex", justifyContent: "center", marginTop: "3rem"}}>
               <div style={{width: "26rem"}}>
                 <SpaceBetweenContainer>
-                  { beefShow ? 
-                    <Button mt="1rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getLikeIngredient("beef")}>
-                      <ButtonContainer>
-                        <img src={beef} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                          <Title fs="1rem" mt="1rem" ml="1rem">Beef</Title>
-                      </ButtonContainer>
-                    </Button> :
-                    <Button mt="1rem" w="12rem" h="5rem" onClick={()=>getLikeIngredient("beef")}>
-                      <ButtonContainer>
-                        <img src={beef} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                          <Title fs="1rem" mt="1rem" ml="1rem">Beef</Title>
-                      </ButtonContainer>
-                    </Button>  
-                  }
-                  { chickenShow ? 
-                    <Button mt="1rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getLikeIngredient("chicken")}>
-                      <ButtonContainer>
-                        <img src={chicken} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                          <Title fs="1rem" mt="1rem" ml="1rem">Chicken</Title>
-                      </ButtonContainer>
-                    </Button> :
-                    <Button mt="1rem" w="12rem" h="5rem" onClick={()=>getLikeIngredient("chicken")}>
-                      <ButtonContainer>
-                        <img src={chicken} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                          <Title fs="1rem" mt="1rem" ml="1rem">Chicken</Title>
-                      </ButtonContainer>
-                    </Button>  
-                  }
+                  <Button mt="1rem" w="12rem" h="5rem" boxColor={beefShow ? "#ED8141" : null } onClick={()=>getLikeIngredient("beef")}>
+                    <ButtonContainer>
+                      <img src={beef} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
+                        <Title fs="1rem" mt="1rem" ml="1rem" fw="400">Beef</Title>
+                    </ButtonContainer>
+                  </Button>
+                  <Button mt="1rem" w="12rem" h="5rem" boxColor={chickenShow ? "#ED8141" : null } onClick={()=>getLikeIngredient("chicken")}>
+                    <ButtonContainer>
+                      <img src={chicken} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
+                        <Title fs="1rem" mt="1rem" ml="1rem" fw="400">Chicken</Title>
+                    </ButtonContainer>
+                  </Button> 
                 </SpaceBetweenContainer>
                 <SpaceBetweenContainer>
-                  { porkShow ? 
-                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getLikeIngredient("pork")}>
-                      <ButtonContainer>
-                        <img src={pork} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                          <Title fs="1rem" mt="1rem" ml="1rem">Pork</Title>
-                      </ButtonContainer>
-                    </Button> :
-                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getLikeIngredient("pork")}>
-                      <ButtonContainer>
-                        <img src={pork} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                          <Title fs="1rem" mt="1rem" ml="1rem">Pork</Title>
-                      </ButtonContainer>
-                    </Button>  
-                  }
-                  { seafoodShow ? 
-                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getLikeIngredient("seafood")}>
-                      <ButtonContainer>
-                        <img src={seafood} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                          <Title fs="1rem" mt="1rem" ml="1rem">Seafood</Title>
-                      </ButtonContainer>
-                    </Button> :
-                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getLikeIngredient("seafood")}>
-                      <ButtonContainer>
-                        <img src={seafood} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                          <Title fs="1rem" mt="1rem" ml="1rem">Seafood</Title>
-                      </ButtonContainer>
-                    </Button>  
-                  }
+                  <Button mt="2rem" w="12rem" h="5rem" boxColor={porkShow ? "#ED8141" : null } onClick={()=>getLikeIngredient("pork")}>
+                    <ButtonContainer>
+                      <img src={pork} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
+                        <Title fs="1rem" mt="1rem" ml="1rem" fw="400">Pork</Title>
+                    </ButtonContainer>
+                  </Button>
+                  <Button mt="2rem" w="12rem" h="5rem" boxColor={seafoodShow ? "#ED8141" : null } onClick={()=>getLikeIngredient("seafood")}>
+                    <ButtonContainer>
+                      <img src={seafood} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
+                        <Title fs="1rem" mt="1rem" ml="1rem" fw="400">Seafood</Title>
+                    </ButtonContainer>
+                  </Button>
                 </SpaceBetweenContainer>
                 <SpaceBetweenContainer>
-                  { riceShow ? 
-                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getLikeIngredient("rice")}>
-                      <ButtonContainer>
-                        <img src={rice} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                          <Title fs="1rem" mt="1rem" ml="1rem">Rice</Title>
-                      </ButtonContainer>
-                    </Button> :
-                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getLikeIngredient("rice")}>
-                      <ButtonContainer>
-                        <img src={rice} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                          <Title fs="1rem" mt="1rem" ml="1rem">Rice</Title>
-                      </ButtonContainer>
-                    </Button>  
-                  }
-                  { noodleShow ? 
-                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getLikeIngredient("noodle")}>
-                      <ButtonContainer>
-                        <img src={noodle} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                          <Title fs="1rem" mt="1rem" ml="1rem">Noodle</Title>
-                      </ButtonContainer>
-                    </Button> :
-                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getLikeIngredient("noodle")}>
-                      <ButtonContainer>
-                        <img src={noodle} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                          <Title fs="1rem" mt="1rem" ml="1rem">Noodle</Title>
-                      </ButtonContainer>
-                    </Button>  
-                  }
+                  <Button mt="2rem" w="12rem" h="5rem" boxColor={riceShow ? "#ED8141" : null } onClick={()=>getLikeIngredient("rice")}>
+                    <ButtonContainer>
+                      <img src={rice} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
+                        <Title fs="1rem" mt="1rem" ml="1rem" fw="400">Rice</Title>
+                    </ButtonContainer>
+                  </Button>
+                  <Button mt="2rem" w="12rem" h="5rem" boxColor={noodleShow ? "#ED8141" : null } onClick={()=>getLikeIngredient("noodle")}>
+                    <ButtonContainer>
+                      <img src={noodle} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
+                        <Title fs="1rem" mt="1rem" ml="1rem" fw="400">Noodle</Title>
+                    </ButtonContainer>
+                  </Button>
                 </SpaceBetweenContainer>
                 <SpaceBetweenContainer>
-                  { cheeseShow ? 
-                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getLikeIngredient("cheese")}>
-                      <ButtonContainer>
-                        <img src={cheese} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                          <Title fs="1rem" mt="1rem" ml="1rem">Cheese</Title>
-                      </ButtonContainer>
-                    </Button> :
-                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getLikeIngredient("cheese")}>
-                      <ButtonContainer>
-                        <img src={cheese} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                          <Title fs="1rem" mt="1rem" ml="1rem">Cheese</Title>
-                      </ButtonContainer>
-                    </Button>  
-                  }
-                  { potatoShow ? 
-                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getLikeIngredient("potato")}>
-                      <ButtonContainer>
-                        <img src={potato} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                          <Title fs="1rem" mt="1rem" ml="1rem">Potato</Title>
-                      </ButtonContainer>
-                    </Button> :
-                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getLikeIngredient("potato")}>
-                      <ButtonContainer>
-                        <img src={potato} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                          <Title fs="1rem" mt="1rem" ml="1rem">Potato</Title>
-                      </ButtonContainer>
-                    </Button>  
-                  }
+                  <Button mt="2rem" w="12rem" h="5rem" boxColor={cheeseShow ? "#ED8141" : null } onClick={()=>getLikeIngredient("cheese")}>
+                    <ButtonContainer>
+                      <img src={cheese} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
+                        <Title fs="1rem" mt="1rem" ml="1rem" fw="400">Cheese</Title>
+                    </ButtonContainer>
+                  </Button>
+                  <Button mt="2rem" w="12rem" h="5rem" boxColor={potatoShow ? "#ED8141" : null } onClick={()=>getLikeIngredient("potato")}>
+                    <ButtonContainer>
+                      <img src={potato} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
+                        <Title fs="1rem" mt="1rem" ml="1rem" fw="400">Potato</Title>
+                    </ButtonContainer>
+                  </Button>
                 </SpaceBetweenContainer>
                 <SpaceBetweenContainer>
-                { tomatoShow ? 
-                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getLikeIngredient("tomato")}>
-                      <ButtonContainer>
-                        <img src={tomato} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                          <Title fs="1rem" mt="1rem" ml="1rem">Tomato</Title>
-                      </ButtonContainer>
-                    </Button> :
-                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getLikeIngredient("tomato")}>
-                      <ButtonContainer>
-                        <img src={tomato} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                          <Title fs="1rem" mt="1rem" ml="1rem">Tomato</Title>
-                      </ButtonContainer>
-                    </Button>  
-                  }
-                  { mushroomShow ? 
-                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getLikeIngredient("mushroom")}>
-                      <ButtonContainer>
-                        <img src={mushroom} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                          <Title fs="1rem" mt="1rem" ml="1rem">Mushroom</Title>
-                      </ButtonContainer>
-                    </Button> :
-                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getLikeIngredient("mushroom")}>
-                      <ButtonContainer>
-                        <img src={mushroom} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
-                          <Title fs="1rem" mt="1rem" ml="1rem">Mushroom</Title>
-                      </ButtonContainer>
-                    </Button>  
-                  }
+                  <Button mt="2rem" w="12rem" h="5rem" boxColor={tomatoShow ? "#ED8141" : null } onClick={()=>getLikeIngredient("tomato")}>
+                    <ButtonContainer>
+                      <img src={tomato} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
+                        <Title fs="1rem" mt="1rem" ml="1rem" fw="400">Tomato</Title>
+                    </ButtonContainer>
+                  </Button>
+                  <Button mt="2rem" w="12rem" h="5rem" boxColor={mushroomShow ? "#ED8141" : null } onClick={()=>getLikeIngredient("mushroom")}>
+                    <ButtonContainer>
+                      <img src={mushroom} alt="beef" style={{width: "3rem", height: "3rem", marginLeft:"1.2rem", borderRadius: "10rem"}} />
+                        <Title fs="1rem" mt="1rem" ml="1rem" fw="400">Mushroom</Title>
+                    </ButtonContainer>
+                  </Button>
                 </SpaceBetweenContainer>
               </div>
             </div>
-            <BottomButton f="left" mt="3.5rem" ml="2rem" onClick={prevSteps}>Back</BottomButton>
-            <BottomButton f="right" mt="3.5rem" mr="2rem" onClick={nextSteps}>Continue</BottomButton>
+            <BottomButton f="left" mt="3.5rem" ml="2rem" name="Back" onClick={prevSteps}>Back</BottomButton>
+            <BottomButton f="right" mt="3.5rem" mr="2rem" name="Continue" onClick={nextSteps}>Continue</BottomButton>
           </div>
         </Question>
       </Container>

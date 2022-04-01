@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from "styled-components";
 import Title from "components/commons/Title"
+import BottomButton from "components/accounts/survey/BottomButton";
+import Button from "components/accounts/survey/Button";
+
 
 
 const Container = styled.div`
@@ -48,24 +51,6 @@ const SpaceBetweenContainer = styled.div`
   justify-content: space-around;
 `
 
-const Button = styled.button`
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 1rem;
-  box-shadow: 1px 1px 10px 3px ${(props) => (props.boxColor ? props.boxColor : "#e2e2e2")};
-  width: ${(props) => (props.w ? props.w : "")};
-  height: ${(props) => (props.h ? props.h : "")};
-  background-color: white;
-  border: none;
-  margin-top: ${(props) => (props.mt ? props.mt : "")};
-  margin-left: ${(props) => (props.ml ? props.ml : "")};
-  margin-right: ${(props) => (props.mr ? props.mr : "")};
-  &:hover {
-    color: ${(props) =>
-      props.hoverColor ? props.hoverColor : "#a2a2a2"};
-  }
-`
-
 const SelectContent = styled.select`
   width: 20rem;
   height: 2rem;
@@ -73,21 +58,10 @@ const SelectContent = styled.select`
   font-family: Work Sans;
 `
 
-const BottomButton =styled.a`
-  font-size: 1.2rem;
-  font-weight: 300;
-  cursor: pointer;
-  border: none;
-  float: ${(props) => (props.f ? props.f : "")};
-  margin-top: ${(props) => (props.mt ? props.mt : "")};
-  margin-bottom: ${(props) => (props.mb ? props.mb : "")};
-  margin-left: ${(props) => (props.ml ? props.ml : "")};
-  margin-right: ${(props) => (props.mr ? props.mr : "")};
-`
+
 
 const InformationSurvey = ({form, propFunction, nextSteps}) => {
-  const{ age, gender } = form  // 필요한 키들만 비구조할당으로 선언
-  console.log(age)
+  const{ gender } = form  // 필요한 키들만 비구조할당으로 선언
   const [womanShow, setWomanShow] = useState(gender);
   const [manShow, setManShow] = useState((gender === null ? false : !gender));
 
@@ -115,34 +89,18 @@ const InformationSurvey = ({form, propFunction, nextSteps}) => {
             <div className='line'></div>
             <div className='number'>1/6</div>
             <Title ff="work sans" fs="2.5rem" fw="300" mt="2rem" mb="1rem" style={{display: "flex", justifyContent: "center"}}>Select your information</Title>
-            <Title ff="work sans" fs="1.2rem" fw="200" mt="3.5rem" style={{display: "flex", justifyContent: "center"}}>
+            <Title ff="work sans" fs="1.2rem" fw="300" mt="3.5rem" style={{display: "flex", justifyContent: "center"}}>
               Please check your gender.
             </Title >
             <div style={{display: "flex", justifyContent: "center"}}>
               <div style={{width: "26rem"}}>
                 <SpaceBetweenContainer>
-                  {manShow ?
-                    <Button mt="1rem" w="12rem" h="5rem" boxColor="#ED8141">
-                      Man
-                    </Button>
-                    :
-                    <Button mt="1rem" w="12rem" h="5rem" onClick={()=>survey(false)}>
-                      Man
-                    </Button>
-                  }
-                  {womanShow ?
-                    <Button mt="1rem" w="12rem" h="5rem" boxColor="#ED8141">
-                      Woman
-                    </Button>
-                    :
-                    <Button mt="1rem" w="12rem" h="5rem" onClick={()=>survey(true)}>
-                      Woman
-                    </Button>
-                  }
+                  <Button mt="1rem" w="12rem" h="5rem" name="man" boxColor={manShow ? "#ED8141" : null} onClick={()=>survey(false)} />
+                  <Button mt="1rem" w="12rem" h="5rem" name="woman" boxColor={womanShow ? "#ED8141" : null} onClick={()=>survey(true)} />
                 </SpaceBetweenContainer>
               </div>
             </div>
-            <Title ff="work sans" fs="1.2rem" fw="200" mt="3.5rem" style={{display: "flex", justifyContent: "center"}}>
+            <Title ff="work sans" fs="1.2rem" fw="300" mt="3.5rem" style={{display: "flex", justifyContent: "center"}}>
               Please check your age.
             </Title >
             <div style={{display: "flex", justifyContent: "center", marginTop: "1rem"}}>
@@ -157,7 +115,7 @@ const InformationSurvey = ({form, propFunction, nextSteps}) => {
                 <option value="6">75 years of age or older</option>
               </SelectContent>
             </div>
-            <BottomButton f="right" mt="3rem" mr="2rem" onClick={nextSteps}>Continue</BottomButton>
+            <BottomButton f="right" mt="3rem" mr="2rem" name="Continue" onClick={nextSteps} />
           </div>
         </Question>
       </Container>

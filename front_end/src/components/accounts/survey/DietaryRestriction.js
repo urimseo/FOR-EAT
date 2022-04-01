@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import styled, {keyframes} from "styled-components";
 import Title from "components/commons/Title"
+import BottomButton from "components/accounts/survey/BottomButton";
+import Button from "components/accounts/survey/Button";
+
 
 
 const Container = styled.div`
@@ -49,35 +52,6 @@ const SpaceBetweenContainer = styled.div`
   justify-content: space-around;
 `
 
-const Button = styled.button`
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 1rem;
-  box-shadow: 1px 1px 10px 3px ${(props) => (props.boxColor ? props.boxColor : "#e2e2e2")};
-  width: ${(props) => (props.w ? props.w : "")};
-  height: ${(props) => (props.h ? props.h : "")};
-  background-color: white;
-  border: none;
-  margin-top: ${(props) => (props.mt ? props.mt : "")};
-  margin-left: ${(props) => (props.ml ? props.ml : "")};
-  margin-right: ${(props) => (props.mr ? props.mr : "")};
-  &:hover {
-    color: ${(props) =>
-      props.hoverColor ? props.hoverColor : "#a2a2a2"};
-  }
-`
-
-const BottomButton =styled.a`
-  font-size: 1.2rem;
-  font-weight: 300;
-  cursor: pointer;
-  border: none;
-  float: ${(props) => (props.f ? props.f : "")};
-  margin-top: ${(props) => (props.mt ? props.mt : "")};
-  margin-bottom: ${(props) => (props.mb ? props.mb : "")};
-  margin-left: ${(props) => (props.ml ? props.ml : "")};
-  margin-right: ${(props) => (props.mr ? props.mr : "")};
-`
 
 const DietaryRestriction = ({form, flag, propFunction, prevSteps, nextSteps}) => {
   const { cholesterol, sodium, sugar } = form;
@@ -120,49 +94,21 @@ const DietaryRestriction = ({form, flag, propFunction, prevSteps, nextSteps}) =>
             <div className='line'></div>
             <div className='number'>3/6</div>
             <Title ff="work sans" fs="2.5rem" fw="300" mt="2rem" mb="1rem" style={{display: "flex", justifyContent: "center"}}>Select your information</Title>
-            <Title ff="work sans" fs="1.2rem" fw="200" mb="1rem" style={{display: "flex", justifyContent: "center"}}>Check your dietary restriction.</Title>
+            <Title ff="work sans" fs="1.2rem" fw="300" mb="1rem" style={{display: "flex", justifyContent: "center"}}>Check your dietary restriction.</Title>
             <div style={{display: "flex", justifyContent: "center", marginTop: "3rem"}}>
               <div style={{width: "26rem"}}>
                 <SpaceBetweenContainer>
-                  { cholesterolShow ? 
-                    <Button mt="1rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getRestriction("cholesterol")}>
-                      Low cholesterol
-                    </Button> :
-                    <Button mt="1rem" w="12rem" h="5rem" onClick={()=>getRestriction("cholesterol")}>
-                      Low cholesterol
-                    </Button> 
-                  }
-                  { sodiumShow ? 
-                    <Button mt="1rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getRestriction("sodium")}>
-                      Low sodium
-                    </Button> :
-                    <Button mt="1rem" w="12rem" h="5rem" onClick={()=>getRestriction("sodium")}>
-                      Low sodium
-                    </Button>
-                  }
+                  <Button mt="1rem" w="12rem" h="5rem" name="Low cholesterol" boxColor={cholesterolShow ? "#ED8141" : null } onClick={()=>getRestriction("cholesterol")} />
+                  <Button mt="1rem" w="12rem" h="5rem" name="Low sodium" boxColor={sodiumShow ? "#ED8141" : null } onClick={()=>getRestriction("sodium")} />
                 </SpaceBetweenContainer>
                 <SpaceBetweenContainer>
-                  { sugarShow ? 
-                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getRestriction("sugar")}>
-                      Low sugar
-                    </Button> :
-                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getRestriction("sugar")}>
-                      Low sugar
-                    </Button>
-                  }
-                  { interestShow ? 
-                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getRestriction("interest")}>
-                      No interest
-                    </Button> :
-                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getRestriction("interest")}>
-                      No interest
-                    </Button>
-                  }
+                  <Button mt="2rem" w="12rem" h="5rem" name="Low sugar" boxColor={sugarShow ? "#ED8141" : null } onClick={()=>getRestriction("sugar")} />
+                  <Button mt="2rem" w="12rem" h="5rem" name="No interest" boxColor={interestShow ? "#ED8141" : null } onClick={()=>getRestriction("interest")} />
                 </SpaceBetweenContainer>
               </div>
             </div>
-            <BottomButton f="left" mt="3.5rem" ml="2rem" onClick={prevSteps}>Back</BottomButton>
-            <BottomButton f="right" mt="3.5rem" mr="2rem" onClick={nextSteps}>Continue</BottomButton>
+            <BottomButton f="left" mt="3.5rem" ml="2rem" name="Back" onClick={prevSteps}>Back</BottomButton>
+            <BottomButton f="right" mt="3.5rem" mr="2rem" name="Continue" onClick={nextSteps}>Continue</BottomButton>
           </div>
         </Question>
       </Container>
