@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import styled, {keyframes} from "styled-components";
 import Title from "components/commons/Title"
+import BottomButton from "components/accounts/survey/BottomButton";
+import Button from "components/accounts/survey/Button";
+
 
 const Container = styled.div`
   min-height: 100vh;
@@ -49,35 +52,7 @@ const SpaceBetweenContainer = styled.div`
   justify-content: space-around;
 `
 
-const Button = styled.button`
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 1rem;
-  box-shadow: 1px 1px 10px 3px ${(props) => (props.boxColor ? props.boxColor : "#e2e2e2")};
-  width: ${(props) => (props.w ? props.w : "")};
-  height: ${(props) => (props.h ? props.h : "")};
-  background-color: white;
-  border: none;
-  margin-top: ${(props) => (props.mt ? props.mt : "")};
-  margin-left: ${(props) => (props.ml ? props.ml : "")};
-  margin-right: ${(props) => (props.mr ? props.mr : "")};
-  &:hover {
-    color: ${(props) =>
-      props.hoverColor ? props.hoverColor : "#a2a2a2"};
-  }
-`
 
-const BottomButton =styled.a`
-  font-size: 1.2rem;
-  font-weight: 300;
-  cursor: pointer;
-  border: none;
-  float: ${(props) => (props.f ? props.f : "")};
-  margin-top: ${(props) => (props.mt ? props.mt : "")};
-  margin-bottom: ${(props) => (props.mb ? props.mb : "")};
-  margin-left: ${(props) => (props.ml ? props.ml : "")};
-  margin-right: ${(props) => (props.mr ? props.mr : "")};
-`
 
 const GoalSurvey = ({form, flag, clickSubmit, propFunction, prevSteps}) => {
   const {beginner, recipe_challenger, timesaver, healthy_diet, lose_weight} = form;
@@ -135,67 +110,25 @@ const GoalSurvey = ({form, flag, clickSubmit, propFunction, prevSteps}) => {
             <div className='line'></div>
             <div className='number'>6/6</div>
             <Title ff="work sans" fs="2.5rem" fw="300" mt="2rem" mb="1rem" style={{display: "flex", justifyContent: "center"}}>Select your information</Title>
-            <Title ff="work sans" fs="1.2rem" fw="200" mb="1rem" style={{display: "flex", justifyContent: "center"}}>Check your diet goal.</Title>
+            <Title ff="work sans" fs="1.2rem" fw="300" mb="1rem" style={{display: "flex", justifyContent: "center"}}>Check your diet goal.</Title>
             <div style={{display: "flex", justifyContent: "center", marginTop: "3rem"}}>
               <div style={{width: "26rem"}}>
                 <SpaceBetweenContainer>
-                  { beginnerShow ?
-                    <Button mt="1rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getGoal("beginner")}>
-                      Beginner cook
-                    </Button> :
-                    <Button mt="1rem" w="12rem" h="5rem" onClick={()=>getGoal("beginner")}>
-                      Beginner cook
-                    </Button>
-                  }
-                  { newShow ?
-                    <Button mt="1rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getGoal("new")}>
-                      To new cuisine
-                    </Button> :
-                    <Button mt="1rem" w="12rem" h="5rem" onClick={()=>getGoal("new")}>
-                      To new cuisine
-                    </Button>
-                  }
+                  <Button mt="1rem" w="12rem" h="5rem" name="Beginner cook" boxColor={beginnerShow ? "#ED8141" : null } onClick={()=>getGoal("beginner")} />
+                  <Button mt="1rem" w="12rem" h="5rem" name="To new cuisine" boxColor={newShow ? "#ED8141" : null } onClick={()=>getGoal("new")} />
                 </SpaceBetweenContainer>
                 <SpaceBetweenContainer>
-                  { timeShow ?
-                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getGoal("time")}>
-                      To save time
-                    </Button> :
-                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getGoal("time")}>
-                      To save time
-                    </Button>
-                  }
-                  { healtyShow ?
-                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getGoal("healty")}>
-                      To eat healty
-                    </Button> :
-                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getGoal("healty")}>
-                      To eat healty
-                    </Button>
-                  }
+                  <Button mt="2rem" w="12rem" h="5rem" name="To save time" boxColor={timeShow ? "#ED8141" : null } onClick={()=>getGoal("time")} />
+                  <Button mt="2rem" w="12rem" h="5rem" name="To eat healty" boxColor={healtyShow ? "#ED8141" : null } onClick={()=>getGoal("healty")} />
                 </SpaceBetweenContainer>
                 <SpaceBetweenContainer>
-                  { weightShow ?
-                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getGoal("weight")}>
-                      To lose weight
-                    </Button> :
-                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getGoal("weight")}>
-                      To lose weight
-                    </Button>
-                  }
-                  { interestShow ?
-                    <Button mt="2rem" w="12rem" h="5rem" boxColor="#ED8141" onClick={()=>getGoal("interest")}>
-                      No interest
-                    </Button> :
-                    <Button mt="2rem" w="12rem" h="5rem" onClick={()=>getGoal("interest")}>
-                      No interest
-                    </Button>
-                  }
+                  <Button mt="2rem" w="12rem" h="5rem" name="To lose weight" boxColor={weightShow ? "#ED8141" : null } onClick={()=>getGoal("weight")} />
+                  <Button mt="2rem" w="12rem" h="5rem" name="No interest" boxColor={interestShow ? "#ED8141" : null } onClick={()=>getGoal("interest")} />
                 </SpaceBetweenContainer>
               </div>
             </div>
-            <BottomButton f="left" mt="3.5rem" ml="2rem" onClick={prevSteps}>Back</BottomButton>
-            <BottomButton f="right" mt="3.5rem" mr="2rem" onClick={clickSubmit}>Submit</BottomButton>
+            <BottomButton f="left" mt="3.5rem" ml="2rem" name="Back" onClick={prevSteps}>Back</BottomButton>
+            <BottomButton f="right" mt="3.5rem" mr="2rem" name="Submit" onClick={clickSubmit}>Submit</BottomButton>
           </div>
         </Question>
       </Container>

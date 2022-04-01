@@ -3,6 +3,10 @@ import styled, {keyframes} from "styled-components";
 import carbohydrateImg from "assets/img/carbohydrates.png"
 import proteinImg from "assets/img/protein.png"
 import fatImg from "assets/img/province.png"
+import BottomButton from "components/accounts/survey/BottomButton";
+import Button from "components/accounts/survey/Button";
+
+
 
 
 const Container = styled.div`
@@ -59,37 +63,6 @@ const Question = styled.div`
 
 const Item = styled.div`
   display: flex;
-`
-
-const Button = styled.button`
-  font-size: 0.8rem;
-  cursor: pointer;
-  border-radius: 10rem;
-  width: ${(props) => (props.w ? props.w : "")};
-  height: ${(props) => (props.h ? props.h : "")};
-  background-color: ${(props) => (props.bc ? props.bc : "white")};
-  color: ${(props) => (props.color ? props.color : "black")};
-  border: none;
-  box-shadow: 1px 1px 10px 3px ${(props) => (props.boxColor ? props.boxColor : "#e2e2e2")};
-  margin-top: ${(props) => (props.mt ? props.mt : "")};
-  margin-left: ${(props) => (props.ml ? props.ml : "")};
-  margin-right: ${(props) => (props.mr ? props.mr : "")};
-  &:hover {
-    color: ${(props) =>
-      props.hoverColor ? props.hoverColor : "#a2a2a2"};
-  }
-`
-
-const BottomButton =styled.a`
-  font-size: 1.2rem;
-  font-weight: 300;
-  cursor: pointer;
-  border: none;
-  float: ${(props) => (props.f ? props.f : "")};
-  margin-top: ${(props) => (props.mt ? props.mt : "")};
-  margin-bottom: ${(props) => (props.mb ? props.mb : "")};
-  margin-left: ${(props) => (props.ml ? props.ml : "")};
-  margin-right: ${(props) => (props.mr ? props.mr : "")};
 `
 
 
@@ -214,61 +187,34 @@ const NutritionSurvey = ({form, propFunction, prevSteps, nextSteps}) => {
             <div className='line'></div>
             <div className='number'>2/6</div>
             <Title ff="work sans" fs="2.5rem" fw="300" mt="2rem" mb="1rem" style={{display: "flex", justifyContent: "center"}}>Select your information</Title>
-            <Title ff="work sans" fs="1.2rem" fw="200" mb="2rem" style={{display: "flex", justifyContent: "center"}}>Check your nutritional interest.</Title>
+            <Title ff="work sans" fs="1.2rem" fw="300" mb="2rem" style={{display: "flex", justifyContent: "center"}}>Check your nutritional interest.</Title>
             <div style={{display: "flex", justifyContent: "center", marginTop: "3rem"}}>
               <div>
                 <Item>
                   <img src={carbohydrateImg} alt="carbohydrates" style={{width: "4rem", height: "4rem", marginBottom: "1rem"}} />
                   <Title fs="1rem" fw="300" mt="1.2rem" ml="1rem">Carbohydrates</Title>
-                  { carbohydrateHighShow ? 
-                    <Button mt="0.7rem" ml="1rem" h="2rem" w="5rem" bc="#ED8141" color="white" onClick={()=>getCarbohydrates("high")}>High</Button> :
-                    <Button mt="0.7rem" ml="1rem" h="2rem" w="5rem" onClick={()=>getCarbohydrates("high")}>High</Button>
-                  }
-                  { carbohydrateAverageShow ? 
-                  <Button mt="0.7rem" ml="0.5rem" h="2rem" w="5rem" bc="#ED8141" color="white" onClick={()=>getCarbohydrates("average")}>Average</Button> :
-                  <Button mt="0.7rem" ml="0.5rem" h="2rem" w="5rem" onClick={()=>getCarbohydrates("average")}>Average</Button>
-                  }
-                  { carbohydrateLowShow ? 
-                    <Button mt="0.7rem" ml="0.5rem" h="2rem" w="5rem" bc="#ED8141" color="white" onClick={()=>getCarbohydrates("low")}>Low</Button> :
-                    <Button mt="0.7rem" ml="0.5rem" h="2rem" w="5rem" onClick={()=>getCarbohydrates("low")}>Low</Button>
-                  }
+                  <Button fs="0.9rem" mt="0.7rem" ml="1rem" h="2rem" w="5rem" name="High" bc={carbohydrateHighShow ? "#ED8141" : null } color={carbohydrateHighShow ? "white" : null } onClick={()=>getCarbohydrates("high")} />
+                  <Button fs="0.9rem" mt="0.7rem" ml="0.5rem" h="2rem" w="5rem" name="Average" bc={carbohydrateAverageShow ? "#ED8141" : null } color={carbohydrateAverageShow ? "white" : null } onClick={()=>getCarbohydrates("average")} />
+                  <Button fs="0.9rem" mt="0.7rem" ml="0.5rem" h="2rem" w="5rem" name="Low" bc={carbohydrateLowShow ? "#ED8141" : null } color={carbohydrateLowShow ? "white" : null } onClick={()=>getCarbohydrates("low")} />
                 </Item>
                 <Item>
                   <img src={proteinImg} alt="protein" style={{width: "4rem", height: "4rem", marginBottom: "1rem"}} />
                   <Title fs="1rem" fw="300" mt="1.5rem" ml="1rem">Protein</Title>
-                  { proteinHighShow ? 
-                    <Button mt="1rem" ml="4.5rem" h="2rem" w="5rem" bc="#ED8141" color="white" onClick={()=>getProtein("high")}>High</Button> :
-                    <Button mt="1rem" ml="4.5rem" h="2rem" w="5rem" onClick={()=>getProtein("high")}>High</Button>
-                  }
-                  { proteinAverageShow ?
-                    <Button mt="1rem" ml="0.5rem" h="2rem" w="5rem" bc="#ED8141" color="white" onClick={()=>getProtein("average")}>Average</Button> :
-                    <Button mt="1rem" ml="0.5rem" h="2rem" w="5rem" onClick={()=>getProtein("average")}>Average</Button>
-                  }
-                  { proteinLowShow ?
-                    <Button mt="1rem" ml="0.5rem" h="2rem" w="5rem" bc="#ED8141" color="white" onClick={()=>getProtein("low")}>Low</Button> :
-                    <Button mt="1rem" ml="0.5rem" h="2rem" w="5rem" onClick={()=>getProtein("low")}>Low</Button>
-                  }
+                  <Button fs="0.9rem" mt="1rem" ml="4.5rem" h="2rem" w="5rem" name="High" bc={proteinHighShow ? "#ED8141" : null } color={proteinHighShow ? "white" : null } onClick={()=>getProtein("high")} />
+                  <Button fs="0.9rem" mt="1rem" ml="0.5rem" h="2rem" w="5rem" name="Average" bc={proteinAverageShow ? "#ED8141" : null } color={proteinAverageShow ? "white" : null} onClick={()=>getProtein("average")} />
+                  <Button fs="0.9rem" mt="1rem" ml="0.5rem" h="2rem" w="5rem" name="Low" bc={proteinLowShow ? "#ED8141" : null} color={proteinLowShow ? "white" : null } onClick={()=>getProtein("low")} />
                 </Item>
                 <Item>
                   <img src={fatImg} alt="province" style={{width: "4rem", height: "4rem"}} />
                   <Title fs="1rem" fw="300" mt="2rem" ml="1rem">Fat</Title>
-                  { fatHighShow ?
-                    <Button mt="1.5rem" ml="6.4rem" h="2rem" w="5rem" bc="#ED8141" color="white" onClick={()=>getFat("high")}>High</Button> :
-                    <Button mt="1.5rem" ml="6.4rem" h="2rem" w="5rem" onClick={()=>getFat("high")}>High</Button>
-                  }
-                  { fatAverageShow ?
-                    <Button mt="1.5rem" ml="0.5rem" h="2rem" w="5rem" bc="#ED8141" color="white" onClick={()=>getFat("average")}>Average</Button> :
-                    <Button mt="1.5rem" ml="0.5rem" h="2rem" w="5rem" onClick={()=>getFat("average")}>Average</Button>
-                  }
-                  { fatLowShow ?
-                    <Button mt="1.5rem" ml="0.5rem" h="2rem" w="5rem" bc="#ED8141" color="white" onClick={()=>getFat("low")}>Low</Button> :
-                    <Button mt="1.5rem" ml="0.5rem" h="2rem" w="5rem" onClick={()=>getFat("low")}>Low</Button>
-                  }
+                  <Button fs="0.9rem" mt="1.5rem" ml="6.4rem" h="2rem" w="5rem" name="High" bc={fatHighShow ? "#ED8141" : null } color={fatHighShow ? "white" : null } onClick={()=>getFat("high")} />
+                  <Button fs="0.9rem" mt="1.5rem" ml="0.5rem" h="2rem" w="5rem" name="Average" bc={fatAverageShow ? "#ED8141" : null} color={fatAverageShow ? "white" : null } onClick={()=>getFat("average")} />
+                  <Button fs="0.9rem" mt="1.5rem" ml="0.5rem" h="2rem" w="5rem" name="Low" bc={fatLowShow ? "#ED8141" : null } color={fatLowShow ? "white" : null } onClick={()=>getFat("low")} />
                 </Item>
               </div>
             </div>
-            <BottomButton f="left" mt="3.5rem" ml="2rem" onClick={prevSteps}>Back</BottomButton>
-            <BottomButton f="right" mt="3.5rem" mr="2rem" onClick={nextSteps}>Continue</BottomButton>
+            <BottomButton f="left" mt="3.5rem" ml="2rem" name="Back" onClick={prevSteps}>Back</BottomButton>
+            <BottomButton f="right" mt="3.5rem" mr="2rem" name="Continue" onClick={nextSteps}>Continue</BottomButton>
           </div>
         </Question>
       </Container>
