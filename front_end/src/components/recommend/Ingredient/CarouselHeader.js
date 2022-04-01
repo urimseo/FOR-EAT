@@ -36,7 +36,8 @@ const HeaderContent = styled.div`
   top: 11rem;
   left:50%;
   transform: translate(-50%, -50%);                                                                   
-  font-size: 1rem;
+  font-size: 1.3rem;
+  font-weight: 400;
   color: white;
   z-index: 2;
   text-align: center;
@@ -54,7 +55,7 @@ const CarouselHeader = () => {
       },
       {
         name: "Egg Curry",
-        description: "#Beginner Cook #Indian",
+        description: "#Beginner_Cook #Indian",
         image: Carousel4,
         recipe_seq: 5945
       },
