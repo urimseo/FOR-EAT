@@ -4,6 +4,7 @@ import Title from "components/commons/Title"
 
 const Container = styled.div`
   min-height: 100vh;
+  margin-bottom: 10rem;
 `
 
 const gradient = keyframes`
@@ -23,7 +24,8 @@ const Question = styled.div`
   justify-content: center;
   .line {
     width: 100%;
-    height: 1.2rem;
+    height: 1.7rem;
+    box-shadow: 0px 5px 5px 0px #d3d3d3;
     background-color: #ED8141;
     background: linear-gradient(-45deg, #ED8141, #ED8141, #f0e140, #ea0ba7);
     background-size: 400% 400%;
@@ -77,13 +79,15 @@ const BottomButton =styled.a`
   margin-right: ${(props) => (props.mr ? props.mr : "")};
 `
 
-const GoalSurvey = ({clickSubmit, propFunction, prevSteps}) => {
-  const [beginnerShow, getBeginnerShow] = useState(false);
-  const [newShow, getNewShow] = useState(false);
-  const [timeShow, getTimeShow] = useState(false);
-  const [healtyShow, getHealtyShow] = useState(false);
-  const [weightShow, getWeightShow] = useState(false);
-  const [interestShow, getInterestShow] = useState(false);
+const GoalSurvey = ({form, flag, clickSubmit, propFunction, prevSteps}) => {
+  const {beginner, recipe_challenger, timesaver, healthy_diet, lose_weight} = form;
+  const {noInterest} = flag;
+  const [beginnerShow, getBeginnerShow] = useState(beginner);
+  const [newShow, getNewShow] = useState(recipe_challenger);
+  const [timeShow, getTimeShow] = useState(timesaver);
+  const [healtyShow, getHealtyShow] = useState(healthy_diet);
+  const [weightShow, getWeightShow] = useState(lose_weight);
+  const [interestShow, getInterestShow] = useState(noInterest);
 
   
   const getGoal = (state) => {
@@ -119,7 +123,7 @@ const GoalSurvey = ({clickSubmit, propFunction, prevSteps}) => {
       getTimeShow(false);
       getHealtyShow(false);
       getWeightShow(false);
-      propFunction(['noInterest', false]);
+      propFunction(['noInterest', !interestShow]);
     }
   }
 

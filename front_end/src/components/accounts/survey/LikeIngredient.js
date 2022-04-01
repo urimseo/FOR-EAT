@@ -35,7 +35,8 @@ const Question = styled.div`
   justify-content: center;
   .line {
     width: 83%;
-    height: 1.2rem;
+    height: 1.7rem;
+    box-shadow: 0px 5px 5px 0px #d3d3d3;
     background-color: #ED8141;
     background: linear-gradient(-45deg, #ED8141, #ED8141, #f0e140, #ea0ba7);
     background-size: 400% 400%;
@@ -104,17 +105,18 @@ const BottomButton =styled.a`
   margin-right: ${(props) => (props.mr ? props.mr : "")};
 `
 
-const LikeIngredient = ({propFunction, prevSteps, nextSteps}) => {
-  const [beefShow, getBeefShow] = useState(false);
-  const [chickenShow, getChickenShow] = useState(false);
-  const [porkShow, getPorkShow] = useState(false);
-  const [seafoodShow, getSeafoodShow] = useState(false);
-  const [riceShow, getRiceShow] = useState(false);
-  const [noodleShow, getNoodleShow] = useState(false);
-  const [cheeseShow, getCheeseShow] = useState(false);
-  const [potatoShow, getPotatoShow] = useState(false);
-  const [tomatoShow, getTomatoShow] = useState(false);
-  const [mushroomShow, getMushroomShow] = useState(false);
+const LikeIngredient = ({form, propFunction, prevSteps, nextSteps}) => {
+  const { liked_ingredient } = form;
+  const [beefShow, getBeefShow] = useState((liked_ingredient.includes('beef')));
+  const [chickenShow, getChickenShow] = useState((liked_ingredient.includes('chicken')));
+  const [porkShow, getPorkShow] = useState((liked_ingredient.includes('pork')));
+  const [seafoodShow, getSeafoodShow] = useState((liked_ingredient.includes('seafood')));
+  const [riceShow, getRiceShow] = useState((liked_ingredient.includes('rice')));
+  const [noodleShow, getNoodleShow] = useState((liked_ingredient.includes('noodle')));
+  const [cheeseShow, getCheeseShow] = useState((liked_ingredient.includes('cheese')));
+  const [potatoShow, getPotatoShow] = useState((liked_ingredient.includes('potato')));
+  const [tomatoShow, getTomatoShow] = useState((liked_ingredient.includes('tomato')));
+  const [mushroomShow, getMushroomShow] = useState((liked_ingredient.includes('mushroom')));
 
   const getLikeIngredient = (state) => {
     if (state === "beef") {
