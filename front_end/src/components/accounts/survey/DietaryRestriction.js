@@ -24,7 +24,8 @@ const Question = styled.div`
   justify-content: center;
   .line {
     width: 50%;
-    height: 1.2rem;
+    height: 1.7rem;
+    box-shadow: 0px 5px 5px 0px #d3d3d3;
     background-color: #ED8141;
     background: linear-gradient(-45deg, #ED8141, #ED8141, #f0e140, #ea0ba7);
     background-size: 400% 400%;
@@ -78,11 +79,13 @@ const BottomButton =styled.a`
   margin-right: ${(props) => (props.mr ? props.mr : "")};
 `
 
-const DietaryRestriction = ({propFunction, prevSteps, nextSteps}) => {
-  const [cholesterolShow, setCholesterolShow] = useState(false);
-  const [sodiumShow, setShdisumShow] = useState(false);
-  const [sugarShow, setSugarShow] = useState(false);
-  const [interestShow, setInterestShow] = useState(false);
+const DietaryRestriction = ({form, flag, propFunction, prevSteps, nextSteps}) => {
+  const { cholesterol, sodium, sugar } = form;
+  const { interest } = flag;
+  const [cholesterolShow, setCholesterolShow] = useState(cholesterol);
+  const [sodiumShow, setShdisumShow] = useState(sodium);
+  const [sugarShow, setSugarShow] = useState(sugar);
+  const [interestShow, setInterestShow] = useState(interest);
 
   const getRestriction = (state) => {
     if (state === "cholesterol") {
@@ -105,7 +108,7 @@ const DietaryRestriction = ({propFunction, prevSteps, nextSteps}) => {
       setCholesterolShow(false);
       setShdisumShow(false);
       setSugarShow(false);
-      propFunction(['interest', false])
+      propFunction(['interest', !interestShow])
     }
   }
 

@@ -66,7 +66,7 @@ const Feed = () => {
               {forYouRecipe ? <BorderLine /> : null}
             </div>
             <div>
-              <CategoryButton fs="1.3rem" fw="300" ml="1rem" onClick={getLikeYouRecipe}>LIKE:YOU</CategoryButton>
+              <CategoryButton fs="1.3rem" fw="300" ml="1rem" onClick={getLikeYouRecipe}>YOU:LIKE</CategoryButton>
               {likeYouRecipe ? <BorderLine ml="1.1rem" /> : null}
             </div>
           </div>

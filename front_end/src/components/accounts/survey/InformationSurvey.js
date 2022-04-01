@@ -24,7 +24,8 @@ const Question = styled.div`
   justify-content: center;
   .line {
     width: 16.6%;
-    height: 1.2rem;
+    height: 1.7rem;
+    box-shadow: 0px 5px 5px 0px #d3d3d3;
     background: linear-gradient(-45deg, #ED8141, #ED8141, #f0e140, #ea0ba7);
     background-size: 400% 400%;
     animation: ${gradient} 5s ease infinite;
@@ -84,9 +85,11 @@ const BottomButton =styled.a`
   margin-right: ${(props) => (props.mr ? props.mr : "")};
 `
 
-const InformationSurvey = ({propFunction, nextSteps}) => {
-  const [womanShow, setWomanShow] = useState();
-  const [manShow, setManShow] = useState();
+const InformationSurvey = ({form, propFunction, nextSteps}) => {
+  const{ age, gender } = form  // 필요한 키들만 비구조할당으로 선언
+  console.log(age)
+  const [womanShow, setWomanShow] = useState(gender);
+  const [manShow, setManShow] = useState((gender === null ? false : !gender));
 
   const survey = (info) => {
     if (info === true) {
