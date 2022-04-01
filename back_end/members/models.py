@@ -76,7 +76,8 @@ class Member(AbstractBaseUser):
 class LikedRecipe(models.Model):
     member_seq = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, db_column="member_seq")
     recipe_seq = models.ForeignKey(Recipe, on_delete=models.CASCADE, db_column="recipe_seq")
-
+    create_date = models.DateTimeField(auto_now_add=True, null=True)
+    
     class Meta:
         db_table = 'tb_liked_recipe'
 
