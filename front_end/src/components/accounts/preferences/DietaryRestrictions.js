@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Plus from "assets/img/Plus.png"
 import Rosemary from "assets/img/Ingredient_rosemary.jpg"
+import Button2 from "components/commons/Button2";
 
 const SubTheme = styled.div`
   margin-top: 3rem;
@@ -55,7 +56,32 @@ const ImageSub = styled.div`
 const DislikedIngredient = styled.div`
 `
 
-const DietaryRestrictions = ({ setWidgetId, UserInfo, surveyList }) => {
+const BoxContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const SpaceBetweenContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+
+const DietaryRestrictions = ({ on, setWidgetId, surveyList }) => {
+  const [cholesterolShow, setCholesterolShow] = useState();
+  const [sodiumShow, setSodiumShow] = useState();
+  const [sugarShow, setsugarShow] = useState();
+  const [interestShow, setInterestShow] = useState();
+
+  useEffect(() => {
+    if (surveyList){ // 이거 빼면 undefined 뜸,getsurvey에서 값 수정, userinfo 다시 내려 받기
+    setCholesterolShow(surveyList.cholesterol)
+    setSodiumShow(surveyList.sodium)
+    setsugarShow(surveyList.sugar)
+    if (surveyList.cholesterol === false && surveyList.sodium === false
+      && surveyList.sugar === false) {setInterestShow(true)}
+    }
+  }, [])
+
     return (
       <DislikedIngredient>
         <SubTheme>
@@ -64,10 +90,31 @@ const DietaryRestrictions = ({ setWidgetId, UserInfo, surveyList }) => {
         </SubTheme>
 
         <Item>
-          <ImageContainer>
-            <Image src={Rosemary}/>
-            <ImageSub>VEGETARIAN</ImageSub>
-          </ImageContainer>
+        <BoxContainer>
+        <div style={{ width: "26rem" }}>
+          <SpaceBetweenContainer>
+            <Button2
+              bc={cholesterolShow ? on : ""}
+              name="Low cholesterol"
+            />
+            <Button2
+              bc={sodiumShow ? on : ""}
+              name="Low sodium"
+            />
+          </SpaceBetweenContainer>
+          <SpaceBetweenContainer>
+            <Button2
+              bc={sugarShow ? on : ""}
+              name="Low sugar"
+            />
+
+            <Button2
+              bc={interestShow ? on : ""}
+              name="No interest"
+            />
+          </SpaceBetweenContainer>
+        </div>
+      </BoxContainer>
             
           <ImageContainer>
             <PLUS

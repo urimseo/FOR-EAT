@@ -56,8 +56,10 @@ const AllergiesModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyLi
   const [eggShow, setEggShow] = useState();
   const [interestShow, setInterestShow] = useState();
   const [allergyList, setAllergyList] = useState([]);
-  console.log(surveyList)
+  
   useEffect(() => {
+    if (surveyList.allergy.length === 0) {setInterestShow(true)}
+    else{
     surveyList.allergy.map(item => {
     if (item.allergy_seq === 1) {setWheatShow(true); setAllergyList(allergyList => [...allergyList, 1])}
     if (item.allergy_seq === 2) {setPeanutShow(true); setAllergyList(allergyList => [...allergyList, 2])}
@@ -67,6 +69,7 @@ const AllergiesModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyLi
     if (item.allergy_seq === 6) {setShellfishShow(true); setAllergyList(allergyList => [...allergyList, 6])}
     if (item.allergy_seq === 7) {setEggShow(true); setAllergyList(allergyList => [...allergyList, 7])}
     })
+  }
   }, []);
 
   const onClick = (event) => {
@@ -74,37 +77,40 @@ const AllergiesModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyLi
   };
 
   const onCheck = async () => {
-    if(allergyList.length === 0) Alert("🧡 Please Check your diet goal.")
+    const formData = new FormData();
+    let temp = []
+    console.log(allergyList)
+    if(allergyList.length === 0) {
+      console.log(interestShow)
+      if(interestShow === true)
+      {
+        setInterestShow(true)
+        formData.append('allergy', temp);
+        editSurvey(UserInfo, formData)
+        setWidgetId(null)
+        setFlag(true)
+      }
+      else Alert("🧡 Please Check your diet goal.")
+    }
     else{
-      console.log(allergyList)
-      console.log(allergyList.length)
-
-      // let allergylist = JSON.stringify(allergyList);
-      const formData = new FormData();
-      let temp = []
       for (let i=0; i< allergyList.length; i++){
         temp.push(Number(allergyList[i]))
-        // formData.append('allergy', allergyList[i]);
-        // console.log(allergyList[i]);
-        // console.log(typeof(allergyList[i]));
       }
       console.log(temp)
       formData.append('allergy', temp);
-      // formData.append('allergy', allergyList);
       console.log(formData)
-    // formData.append("allergy", JSON.stringify(allergyList));
     for (let key of formData.keys()) { console.log(key, ":", formData.get(key)); }
     editSurvey(UserInfo, formData)
     allergyList.map(item => {
-      if (item === 1) {setWheatShow(true)  }
-      if (item === 2) {setPeanutShow(true)  }
-      if (item === 3) {setWalnutShow(true)  }
-      if (item === 4) {setAppleShow(true)  }
-      if (item === 5) {setSesameShow(true)  }
-      if (item === 6) {setShellfishShow(true)  }
-      if (item === 7) {setEggShow(true)  }
+      if (item === 1) setWheatShow(true)
+      if (item === 2) setPeanutShow(true)
+      if (item === 3) setWalnutShow(true)
+      if (item === 4) setAppleShow(true)
+      if (item === 5) setSesameShow(true)
+      if (item === 6) setShellfishShow(true)
+      if (item === 7) setEggShow(true)
       })
-      console.log(typeof (allergyList))
+      
     setWidgetId(null);
     setFlag(true)
     }
@@ -164,6 +170,7 @@ const AllergiesModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyLi
   };
 
   const onInterest = () => {
+    setAllergyList([''])
     setInterestShow(true);
     setWheatShow(false);
     setPeanutShow(false);
