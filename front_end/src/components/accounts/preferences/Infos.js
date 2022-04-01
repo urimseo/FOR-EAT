@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Plus from "assets/img/Plus.png";
-import Rosemary from "assets/img/Ingredient_rosemary.jpg";
 import Button2 from "components/commons/Button2";
 
 const SubTheme = styled.div`
@@ -22,14 +21,6 @@ const Sub = styled.div`
 const Item = styled.div`
   display: flex;
   flex-direction: row;
-`;
-
-const ImageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 4rem;
 `;
 
 const PLUS = styled(motion.div)`
@@ -68,15 +59,12 @@ const Infos = ({ on, setWidgetId, surveyList }) => {
   const [womanShow, setWomanShow] = useState();
   const [manShow, setManShow] = useState();
   const [age, setAge] = useState();
-    console.log(surveyList)
 
     useEffect(() => {
-      if (surveyList){
       setWomanShow(surveyList.gender)
       setManShow(!surveyList.gender)
       setAge(surveyList.age)
-      }
-    }, []);
+    }, [surveyList]);
 
   return (
     <Info>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Plus from "assets/img/Plus.png"
-import Rosemary from "assets/img/Ingredient_rosemary.jpg"
 import Button2 from "components/commons/Button2";
 
 const SubTheme = styled.div`
@@ -23,14 +22,6 @@ const Item = styled.div`
   display: flex;
   flex-direction: row;
 `
-
-const ImageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 4rem;
-`;
 
 const PLUS = styled(motion.div)`
   display: flex;
@@ -67,20 +58,18 @@ const SpaceBetweenContainer = styled.div`
 `;
 
 const DietaryRestrictions = ({ on, setWidgetId, surveyList }) => {
-  const [cholesterolShow, setCholesterolShow] = useState();
-  const [sodiumShow, setSodiumShow] = useState();
-  const [sugarShow, setsugarShow] = useState();
+  const [cholesterolShow, setCholesterolShow] = useState(surveyList.cholesterol);
+  const [sodiumShow, setSodiumShow] = useState(surveyList.sodium);
+  const [sugarShow, setsugarShow] = useState(surveyList.sugar);
   const [interestShow, setInterestShow] = useState();
 
   useEffect(() => {
-    if (surveyList){ // 이거 빼면 undefined 뜸,getsurvey에서 값 수정, userinfo 다시 내려 받기
     setCholesterolShow(surveyList.cholesterol)
     setSodiumShow(surveyList.sodium)
     setsugarShow(surveyList.sugar)
     if (surveyList.cholesterol === false && surveyList.sodium === false
       && surveyList.sugar === false) {setInterestShow(true)}
-    }
-  }, [])
+  }, [surveyList])
 
     return (
       <DislikedIngredient>
@@ -91,7 +80,7 @@ const DietaryRestrictions = ({ on, setWidgetId, surveyList }) => {
 
         <Item>
         <BoxContainer>
-        <div style={{ width: "26rem" }}>
+        <div style={{ width: "40rem" }}>
           <SpaceBetweenContainer>
             <Button2
               bc={cholesterolShow ? on : ""}
@@ -101,22 +90,16 @@ const DietaryRestrictions = ({ on, setWidgetId, surveyList }) => {
               bc={sodiumShow ? on : ""}
               name="Low sodium"
             />
-          </SpaceBetweenContainer>
-          <SpaceBetweenContainer>
-            <Button2
+                        <Button2
               bc={sugarShow ? on : ""}
               name="Low sugar"
             />
-
+          </SpaceBetweenContainer>
+          <SpaceBetweenContainer>
             <Button2
               bc={interestShow ? on : ""}
               name="No interest"
             />
-          </SpaceBetweenContainer>
-        </div>
-      </BoxContainer>
-            
-          <ImageContainer>
             <PLUS
               onClick={() => {
                 if (setWidgetId) setWidgetId("M02");
@@ -125,7 +108,11 @@ const DietaryRestrictions = ({ on, setWidgetId, surveyList }) => {
               <Image src={Plus}/>
               <ImageSub>ADD Infos</ImageSub>
             </PLUS>
-          </ImageContainer>
+
+
+          </SpaceBetweenContainer>
+        </div>
+      </BoxContainer>
         </Item>
       </DislikedIngredient>
           

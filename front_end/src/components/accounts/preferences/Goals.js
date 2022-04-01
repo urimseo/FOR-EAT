@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Plus from "assets/img/Plus.png"
-import Rosemary from "assets/img/Ingredient_rosemary.jpg"
 import Button2 from "components/commons/Button2";
 
 const SubTheme = styled.div`
@@ -23,14 +22,6 @@ const Item = styled.div`
   display: flex;
   flex-direction: row;
 `
-
-const ImageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 4rem;
-`;
 
 const PLUS = styled(motion.div)`
   display: flex;
@@ -67,6 +58,24 @@ const SpaceBetweenContainer = styled.div`
 `;
 
 const Goals = ({ on, setWidgetId, surveyList }) => {
+  const [beginnerShow, setBeginnerShow] = useState(surveyList.beginner);
+  const [newCuisinShow, setNewCuisinShow] = useState(surveyList.recipe_challenger);
+  const [saveTimeShow, setSaveTimeShow] = useState(surveyList.timesaver);
+  const [healthyShow, setHealthyShow] = useState(surveyList.healthy_diet);
+  const [dietShow, setDietShow] = useState(surveyList.lose_weight);
+  const [interestShow, setInterestShow] = useState();
+
+  useEffect(() => {
+    setBeginnerShow(surveyList.beginner)
+    setNewCuisinShow(surveyList.recipe_challenger)
+    setSaveTimeShow(surveyList.timesaver)
+    setHealthyShow(surveyList.healthy_diet)
+    setDietShow(surveyList.lose_weight)
+    if (surveyList.beginner === false && surveyList.recipe_challenger === false && surveyList.timesaver === false &&
+      surveyList.healthy_diet === false && surveyList.lose_weight === false) {setInterestShow(true)}
+      else{setInterestShow(false)}
+  }, [surveyList]);
+
     return (
       <Goal>
         <SubTheme>
@@ -75,12 +84,37 @@ const Goals = ({ on, setWidgetId, surveyList }) => {
         </SubTheme>
 
         <Item>
-          <ImageContainer>
-            <Image src={Rosemary}/>
-            <ImageSub>VEGETARIAN</ImageSub>
-          </ImageContainer>
-            
-          <ImageContainer>
+          <BoxContainer>
+        <div style={{ width: "40rem" }}>
+          <SpaceBetweenContainer>
+            <Button2
+              bc={beginnerShow ? on : ""}
+              name="Beginner cook"
+            />
+
+            <Button2
+              bc={newCuisinShow ? on : ""}
+              name="Try new cuisin"
+            />
+          </SpaceBetweenContainer>
+          <SpaceBetweenContainer>
+            <Button2
+              bc={saveTimeShow ? on : ""}
+              name="Save time"
+            />
+
+            <Button2
+              bc={healthyShow ? on : ""}
+              name="Eat healty"
+            />
+          </SpaceBetweenContainer>
+          <SpaceBetweenContainer>
+            <Button2 bc={dietShow ? on : ""} name="Try diet" />
+
+            <Button2
+              bc={interestShow ? on : ""}
+              name="No interest"
+            />
             <PLUS
               onClick={() => {
                 if (setWidgetId) setWidgetId("M04");
@@ -89,7 +123,9 @@ const Goals = ({ on, setWidgetId, surveyList }) => {
               <Image src={Plus}/>
               <ImageSub>ADD Infos</ImageSub>
             </PLUS>
-          </ImageContainer>
+          </SpaceBetweenContainer>
+        </div>
+      </BoxContainer>
         </Item>
       </Goal>
           
