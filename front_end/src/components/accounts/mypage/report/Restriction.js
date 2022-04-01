@@ -24,30 +24,84 @@ const TextContainer = styled.div`
 `
 
 const Card = styled.div`
-  width: ${(props) => (props.width ? props.width : "13rem")};
-  height: ${(props) => (props.height ? props.height : "2rem")};
-  margin: ${(props) => (props.m ? props.m : "1rem 0 0 0")};
+  display: flex;
+  justify-content: space-between;
+  align-items: ${(props) => (props.align ? props.align : "center")};
+  width: ${(props) => (props.width ? props.width : "11.5rem")};
+  height: ${(props) => (props.height ? props.height : "1.3rem")};
+  margin: ${(props) => (props.m ? props.m : "0.8rem 0 0 0")};
   text-align: start;
+  color: ${(props) => (props.color ? props.color : "#FFFFFF")};
+  font-size: ${(props) => (props.fs ? props.fs : "1.2rem")};
+  line-height: ${(props) => (props.lh ? props.lh : "1.4rem")};
+  font-weight: ${(props) => (props.fw ? props.fw : "500")};
   vertical-align: center;
-  padding: ${(props) => (props.p ? props.p : "1rem")};
+  padding: ${(props) => (props.p ? props.p : "1rem 1.5rem 1rem 1.5rem")};
   background-color: ${(props) => (props.bc ? props.bc : "#ED8141")};
   border-radius: 0.5rem;
   word-break:break-all;
+  .item {
+    display: contents;
+    font-weight: 600;
+    font-style: italic;
+  }
 `
 
-const Restriction = () => {
-  
+const Restriction = ({ nutrient }) => {
+  const data = ( nutrient ? [ 
+    [ "Sodium", checkRestriction(nutrient.sodium, 667)],
+    [ "Cholesterol", checkRestriction(nutrient.cholesterol, 100)],
+    [ "Sugar", checkRestriction(nutrient.sugar, 16.7)],
+  ] : null )
+
+  //내가 먹은 값/평균값*100 > 110 : 초과
+  function checkRestriction(ate, avg) {
+    const result = ((ate/avg)*100).toFixed()
+    if ( result > 110 ) {
+      return [ "#ED8141", "Over" ]
+    }
+    else if ( 110 > result > 90 ) {
+      return ["#FFE78F", "Sufficient"]
+    }
+    else {
+      return ["#97BB97", "Low"]
+    }
+  }
+
   return (
     <Container>
       <TextContainer>
         <h1>Restriction</h1>
-        <Card>Sodium</Card>
-        <Card bc="#FFE78F"></Card>
-        <Card bc="#97BB97">제한</Card>
-        <Card bc="#FFFFFF" p="1rem 0" m="0" width="14.5rem" height="3rem">
-          FOR:EAT recommends thousands of international recipes based on your preferences.
-          FOR:EAT recommends thousands of international recipes based on your preferences.
+          { data ? data.map((item, idx) => ( 
+              <Card key={idx} bc={ item[1][0] }>
+                <div>
+                  { item[0] } 
+                </div>
+                <div>
+                  { item[1][1] }
+                </div>
+              </Card>
+            ))
+          : null}
+        {/* 1. 3개 중 하나라도  over이면 2. 다 low라면 else: 섞여잇다면 */}
+        { data[0][1][1] === "Over" || data[1][1][1] === "Over" || data[2][1][1] === "Over" ? 
+          <Card bc="#FFFFFF" p="0.8rem 0.2rem 0 0.2rem" m="0" width="14.5rem" height="8rem" align="start" color="#000" fw="400" fs="1rem">
+            You've taken more
+            <div className="item">{data[0][1][1] ==="Over" ? ` ${data[0][0]} ` : ""}</div>
+            <div className="item">{data[1][1][1] ==="Over" ? ` ${data[1][0]} ` : ""}</div>
+            <div className="item">{data[2][1][1] ==="Over" ? ` ${data[2][0]} ` : ""}</div>
+            than you should have taken. We recommends you to reduce it for your healthy diet.<br />
+            Challenge eating fresh meals of FOR:EAT that could help keep you energetic.
+          </Card> :
+          data[0][1][1] === "Low" || data[1][1][1] === "Low" || data[2][1][1] === "Low" ? 
+          <Card bc="#FFFFFF" p="0.8rem 0.2rem 0 0.2rem" m="0" width="14.5rem" height="8rem" align="start" color="#000" fw="400" fs="1rem">
+            You are the best owner for your own body. You've been eating in moderation with all three of the factors you should limit your intake.<br />
+            Keep Going and make your body healthier.
+          </Card> :
+          <Card bc="#FFFFFF" p="0.8rem 0.2rem 0 0.2rem" m="0" width="14.5rem" height="8rem" align="start" color="#000" fw="400" fs="1rem">
+            You are trying to do your best to reduce intake of these factors. Cheer up! you can do better next time. We provide information of each nutrient that you can easily check on the Recipe. 
           </Card>
+        }
       </TextContainer>
     </Container>
   )

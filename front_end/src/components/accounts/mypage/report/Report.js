@@ -62,9 +62,8 @@ const Report = () => {
               Collects your choices by a survey and gives you the recipes that you are looking for. FOR:EAT recommends thousands of international recipes based on your preferences. Collects your choices by a survey and gives you the recipes that you are looking for.</h5>
           </TextContainer>
           <FlexContainer>
-            <BarChart />
-            <Restriction />
             <BarChart nutrient={report.nutrient} />
+            <Restriction nutrient={report.nutrient}/>
           </FlexContainer>
           <FlexContainer>
             <Habit />
