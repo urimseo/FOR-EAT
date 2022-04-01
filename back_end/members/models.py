@@ -10,8 +10,6 @@ from foreat import settings
 # Create your models here.
 class MemberManager(BaseUserManager):
     def create_user(self, nickname, email=None, password=None, profile_image_url=None, kakao_id=None, google_id=None):
-        # if not email:
-        #     raise ValueError('Users must have an email address')
 
         user = self.model(
             nickname = nickname,
