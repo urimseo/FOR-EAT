@@ -9,9 +9,8 @@ const Container = styled.div`
 `
 
 const BarChart = ({ nutrient }) => {
-
-  console.log(77, nutrient)
-  const data = ( nutrient ? [
+  
+  const data = [
     { x: 'Calories', y: Ratio(nutrient.calories, 667) },
     { x: 'Carbohydrate', y: Ratio(nutrient.carbohydrate, 81), }, 
     { x: 'Protein', y: Ratio(nutrient.protein, 35), fillColor: '#EB8C87', strokeColor: '#C23829' }, 
@@ -21,8 +20,7 @@ const BarChart = ({ nutrient }) => {
     { x: 'Cholesterol', y: Ratio(nutrient.cholesterol, 100) },
     { x: 'Sugar', y: Ratio(nutrient.sugar, 16.7) },
     { x: 'Fiber', y: Ratio(nutrient.fiber, 8.3) },
-  ] : null)
-
+  ]
   
   function Ratio(ate, avg) {
     // % = 내가 먹은 값/평균값

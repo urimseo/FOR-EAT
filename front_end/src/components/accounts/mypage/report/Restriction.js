@@ -48,12 +48,14 @@ const Card = styled.div`
 `
 
 const Restriction = ({ nutrient }) => {
-  const data = ( nutrient ? [ 
+  // 부모컴포넌트에서 props 보낼 때 || {}로 보내주면 자식에서 신경 안 써도 됨.
+
+  const data = [ 
     [ "Sodium", checkRestriction(nutrient.sodium, 667)],
     [ "Cholesterol", checkRestriction(nutrient.cholesterol, 100)],
     [ "Sugar", checkRestriction(nutrient.sugar, 16.7)],
-  ] : null )
-
+  ] 
+  
   //내가 먹은 값/평균값*100 > 110 : 초과
   function checkRestriction(ate, avg) {
     const result = ((ate/avg)*100).toFixed()
@@ -72,7 +74,7 @@ const Restriction = ({ nutrient }) => {
     <Container>
       <TextContainer>
         <h1>Restriction</h1>
-          { data ? data.map((item, idx) => ( 
+          { data.map((item, idx) => ( 
               <Card key={idx} bc={ item[1][0] }>
                 <div>
                   { item[0] } 
@@ -82,8 +84,8 @@ const Restriction = ({ nutrient }) => {
                 </div>
               </Card>
             ))
-          : null}
-        {/* 1. 3개 중 하나라도  over이면 2. 다 low라면 else: 섞여잇다면 */}
+          }
+        {/* 1. 3개 중 하나라도  over이면 2. 다 low라면 else: 섞여있다면 */}
         { data[0][1][1] === "Over" || data[1][1][1] === "Over" || data[2][1][1] === "Over" ? 
           <Card bc="#FFFFFF" p="0.8rem 0.2rem 0 0.2rem" m="0" width="14.5rem" height="8rem" align="start" color="#000" fw="400" fs="1rem">
             You've taken more
