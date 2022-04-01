@@ -66,8 +66,8 @@ const Report = () => {
             <Restriction nutrient={report.nutrient || {}}/>
           </FlexContainer>
           <FlexContainer>
-            <Habit />
             <DoughnutChart />
+            <Habit nutrient={report.nutrient || {}}/>
           </FlexContainer>
           <RelatedRecipeList />
         </BackgroundContainer>
