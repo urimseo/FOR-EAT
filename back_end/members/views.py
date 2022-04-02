@@ -280,14 +280,16 @@ class MemberSurveyProfile(APIView):
     def post(self, request, pk):
         if request.member.member_seq == pk:
             member_survey = request.data['form']
+            member_survey['ingredient_keywords'] = str(member_survey['liked_ingredient'])
             liked_ingredient = get_ingredient_list(member_survey['liked_ingredient'])
             serializer = SurveySerializer(data=member_survey)
-            
+
             if member_survey['allergy'] is None:
                 member_survey['allergy'] = []
-                
+            
             # Create a member survey from the above data
             if serializer.is_valid(raise_exception=True):
+                
                 serializer.save(member_seq=Member.objects.get(member_seq=pk),
                 liked_ingredients=Ingredient.objects.filter(ingredient_seq__in=liked_ingredient),
                 allergy=Allergy.objects.filter(allergy_seq__in=member_survey['allergy']))
