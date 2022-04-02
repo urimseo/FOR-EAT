@@ -34,9 +34,9 @@ const LoginGoogle = () => {
         setUserInfoState(result.user.member_seq);
         setApiHeaders();
         if (result.user.isSurvey === false) {
-          navigate("/recommend");
+          navigate("/survey");
         } else {
-          navigate("/category");
+          navigate("/recommend");
         }
       }
       catch {
