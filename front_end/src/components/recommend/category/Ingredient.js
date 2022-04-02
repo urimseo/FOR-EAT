@@ -6,6 +6,10 @@ import Card from "components/commons/Card";
 import Pagination from "react-js-pagination";
 import "assets/css/Pagination.css";
 
+const Container = styled.div`
+  margin: 1rem 0;
+`
+
 const IngredientButton = styled.button`
   display: inline-block;
   font-size: 1rem;
@@ -20,9 +24,9 @@ const IngredientButton = styled.button`
 `
 
 const CardContainer = styled.div`
-  display: flex;
-  justify-content: space-around;
-  flex-flow: wrap;
+  display: grid;
+  grid-template-columns: 21.5rem 21.5rem 21.5rem 21.5rem;
+  justify-content: center;
 `
 
 const PageContainer = styled.div`
@@ -94,7 +98,7 @@ const Ingredient = forwardRef((props, ref) => {
   }
   
   return (
-    <>
+    <Container>
       <div>
         {meatShow ? <IngredientButton onClick={getMeatRecipe} style={{backgroundColor: "#ED8141", color: "white"}}>MEAT</IngredientButton> : <IngredientButton onClick={getMeatRecipe}>MEAT</IngredientButton>}
         {seafoodShow ? <IngredientButton onClick={()=>getSeafoodRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>SEAFOOD</IngredientButton> : <IngredientButton onClick={getSeafoodRecipe}>SEAFOOD</IngredientButton>}
@@ -130,7 +134,7 @@ const Ingredient = forwardRef((props, ref) => {
           />
         </PageContainer> : null 
       }
-    </>
+    </Container>
   );
 });
 
