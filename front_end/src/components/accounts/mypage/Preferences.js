@@ -22,6 +22,7 @@ const Container = styled.div`
 const Title = styled.div`
   font-family: Playfair Display;
   font-size: 32px;
+  font-weight: 600;
   margin-top: 3rem;
 `
 
@@ -42,6 +43,25 @@ const Overlay = styled(motion.div)`
   left: 0;
   z-index: 10;
 `;
+
+const Sub = styled.div`
+  font-size: 32px;
+  font-weight: 500;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+`
+
+const Nothing = styled.div`
+margin-top: 3rem;
+  margin-bottom: 3rem;
+
+`
+
+const Nothing_a = styled.a`
+  margin-top: 3rem;
+  text-decoration: none;
+  color: #ed8141;
+`
 
 const overlay = {
   hidden: { backgroundColor: "rgba(0, 0, 0, 0)" },
@@ -87,6 +107,7 @@ const Preferences = ({SurveyList}) => {
       <Container>
         <Title>My Preferences</Title>
 
+      {SurveyList?
         <SurveyContainer>
           <Container>
             {widgets.map((widget) => wid[widget])}
@@ -106,6 +127,12 @@ const Preferences = ({SurveyList}) => {
       </AnimatePresence>
            
         </SurveyContainer>
+        :<Sub> 
+        <Nothing>It is only available if you fill out a survey.</Nothing>
+        <Nothing>Please fill out a survey.</Nothing>
+        <Nothing_a href="/survey">Go to fill out a survey.</Nothing_a>
+        </Sub>
+        }
       </Container>
     </>
   );
