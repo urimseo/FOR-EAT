@@ -41,15 +41,12 @@ const Navbar = () => {
 
   return (
     <Container>
-      <div style={{display: "grid", gridTemplateColumns: "1fr 1fr 1fr", marginTop: "1.5rem"}}>
-        <div></div>
+      <div style={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "1.5rem"}}>
         <Typography ff="Philosopher" fs="3rem" cursor="pointer" onClick={() => navigate("/recommend")} >FOR:EAT</Typography>
-
       </div>
       <Typography ff="Playfair Display" fs="0.8rem" fw="500" pb="1rem">ONLY FOR YOU</Typography>
       
       <div style={{display: "grid", gridTemplateColumns: "1fr 2fr 1fr", marginTop: "1.5rem"}}>
-        
       <div></div>
       <TabContainer>
         <NavItem 
