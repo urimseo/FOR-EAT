@@ -172,7 +172,7 @@ const Survey = () => {
   const getUserSurveyInfo = async (UserInfo) => {
     const response = await getUserInfo(UserInfo);
       if (response.isSurvey === true) {
-        // navigate('/recommend')
+        navigate('/recommend')
       } 
   }
   useEffect(() => {
