@@ -459,7 +459,7 @@ class WeeklyReport(APIView):
             # get weekly review
             before_week = datetime.now() - timedelta(weeks=1)
             weekly_review = list(Review.objects.filter(member=pk, 
-                create_date__range=[before_week, datetime.now()]))
+                create_date__range=[before_week, datetime.now()]).values_list('recipe', flat=True))
             # print(weekly_review)
             # average nutrients in a week's recipe
             weekly_nutrition = Recipe.objects.filter(recipe_seq__in=weekly_review).aggregate(
