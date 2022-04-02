@@ -441,10 +441,10 @@ class WeeklyReport(APIView):
             function='ROUND'
             template=('%(function)s(%(expressions)s,2)')
 
-    # @login_decorator
+    @login_decorator
     def get(self, request, pk):
-        if True:
-        # if request.member.member_seq == pk:
+        # if True:
+        if request.member.member_seq == pk:
             try: # get user survey
                 survey = Survey.objects.get(pk=pk)
                 user = {

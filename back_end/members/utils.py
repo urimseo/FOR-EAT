@@ -15,7 +15,7 @@ def login_decorator(func):
             }
             return Response(data=data, status=status.HTTP_401_UNAUTHORIZED)
         
-        encode_token = request.headers["Authorization"][7:]
+        encode_token = request.headers["Authorization"][7:].strip('"')
 
         # google token decode
         try:
