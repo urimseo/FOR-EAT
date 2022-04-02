@@ -215,12 +215,15 @@ class MemberInfo(APIView):
     @login_decorator
     def get(self, request, pk, format=None):
         if request.member.member_seq == pk:
+            isSurvey = False
             try :
-                isSurvey = Survey.objects.get(member_seq=request.member.member_seq)
+                isSurvey = Survey.objects.get(member_seq=pk)
                 isSurvey = True
             except:
-                isSurvey = False
+                pass
+                
             serializer = MemberInfoSerializer(request.member)
+            
             data = serializer.data
             data['isSurvey'] = isSurvey
             return Response(data=data, status=status.HTTP_200_OK) 
@@ -416,9 +419,9 @@ class MemberLikeRecipeList(APIView, LimitOffsetPagination):
     @login_decorator
     def get(self, request, pk, format=None):
         if request.member.member_seq == pk:
-            likes = LikedRecipe.objects.filter(member_seq=pk)
-            recipe_seq = likes.values('recipe_seq')
-            likes_recipe = Recipe.objects.filter(recipe_seq__in=recipe_seq)
+
+            likes = LikedRecipe.objects.select_related('recipe_seq').filter(member_seq=pk)
+            likes_recipe = Recipe.objects.filter(recipe_seq__in=likes)
             results = self.paginate_queryset(likes_recipe, request)
             like_serializer_all = RecipeListSerializer(results, many=True)
             for recipe in like_serializer_all.data:
@@ -443,7 +446,7 @@ class WeeklyReport(APIView):
 
     @login_decorator
     def get(self, request, pk):
-        # if True:
+        
         if request.member.member_seq == pk:
             try: # get user survey
                 survey = Survey.objects.get(pk=pk)
@@ -456,8 +459,8 @@ class WeeklyReport(APIView):
             # get weekly review
             before_week = datetime.now() - timedelta(weeks=1)
             weekly_review = list(Review.objects.filter(member=pk, 
-                create_date__range=[before_week, datetime.now()]).values_list('recipe', flat=True))
-            print(weekly_review)
+                create_date__range=[before_week, datetime.now()]))
+            # print(weekly_review)
             # average nutrients in a week's recipe
             weekly_nutrition = Recipe.objects.filter(recipe_seq__in=weekly_review).aggregate(
                 calories=self.Round(Avg('calories')),
@@ -489,7 +492,6 @@ class WeeklyReport(APIView):
                     Q(age=survey.age) & 
                     Q(gender=survey.gender) &
                     ~Q(member_seq=pk)).values('member_seq')
-                print(similar_member)
                 # weekly review list
                 weekly_recipe_review = list(Review.objects.filter(
                     member__in=similar_member,
@@ -500,10 +502,8 @@ class WeeklyReport(APIView):
                     member_seq__in=similar_member,
                     create_date__range=[before_week, datetime.now()]).exclude(
                     recipe_seq__in=weekly_review).values_list('recipe_seq', flat=True))
+                weekly_popular_recipe = Counter(weekly_recipe_review+weekly_liked_recipe).most_common(5)
 
-                weekly_popular_recipe = Counter(weekly_recipe_review+weekly_liked_recipe).most_common()
-
-            # print(len(weekly_popular_recipe))
             # if length of weekly_popular_recipe less then five,
             # add monthly popular list
             # most popular recipe list
