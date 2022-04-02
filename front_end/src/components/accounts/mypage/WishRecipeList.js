@@ -18,7 +18,10 @@ const Top = styled.div`
 const Title = styled.div`
   display: flex;
   font-family: Playfair Display;
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
   font-size: 32px;
+  font-weight: 600;
 `
 
 const See = styled.a`
@@ -27,16 +30,19 @@ const See = styled.a`
   font-size: 20px;
   margin-left: auto;
   text-decoration: none;
+  color: #ed8141;
+  font-family : Work Sans;
 `
 
 const CardContainer = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: start;
   flex-flow: wrap;
   min-width: 10vh;
 `
 
 const Sub = styled.div`
+  height: 26rem;
   margin-top: 1rem;
   font-size: 20px;
   font-weight: bold;
