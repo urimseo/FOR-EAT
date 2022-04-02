@@ -5,6 +5,10 @@ import Card from "components/commons/Card";
 import "assets/css/Pagination.css";
 import Pagination from "react-js-pagination";
 
+const Container = styled.div`
+  margin: 1rem 0;
+`
+
 const TimeButton = styled.button`
   display: inline-block;
   font-size: 1rem;
@@ -19,9 +23,9 @@ const TimeButton = styled.button`
 `
 
 const CardContainer = styled.div`
-  display: flex;
-  justify-content: space-around;
-  flex-flow: wrap;
+  display: grid;
+  grid-template-columns: 21.5rem 21.5rem 21.5rem 21.5rem;
+  justify-content: center;
 `
 
 const PageContainer = styled.div`
@@ -144,7 +148,7 @@ const Time = forwardRef((props, ref) => {
   }
   
   return (
-    <>
+    <Container>
       <div>
         {time30minShow ? <TimeButton onClick={()=>get30minRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>30MIN</TimeButton> : <TimeButton onClick={get30minRecipe}>30MIN</TimeButton>}
         {time60minShow ? <TimeButton onClick={()=>get60minRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>1HOURS</TimeButton> : <TimeButton onClick={get60minRecipe}>1HOURS</TimeButton>}
@@ -179,7 +183,7 @@ const Time = forwardRef((props, ref) => {
           />
         </PageContainer> : null
       }
-    </>
+    </Container>
   );
 });
 

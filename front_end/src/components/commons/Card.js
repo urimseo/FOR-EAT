@@ -7,15 +7,14 @@ import heart from "assets/img/icon_filled_heart.png"
 
 const Container = styled.div`
   display: flex;
-  flex-flow: wrap;
-  margin: 1rem 0 1rem 0;
+  margin: 1rem;
   padding: 0.2rem;
   border: 1px solid #C4C4C4;
 `
 
 const CardItem = styled.div`
-  width: 20rem;
-  height: 26rem;
+  width: 19rem;
+  height: 24rem;
   position: relative;
   opacity: 1;
   display: block;
