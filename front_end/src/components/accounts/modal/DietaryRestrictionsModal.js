@@ -43,7 +43,6 @@ const SpaceBetweenContainer = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   margin: 3rem;
-  margin-left: auto;
 `;
 
 const DietaryRestrictionsModal = ({setFlag, on, UserInfo, layoutId, setWidgetId, surveyList }) => {
@@ -129,11 +128,13 @@ const DietaryRestrictionsModal = ({setFlag, on, UserInfo, layoutId, setWidgetId,
               bc={cholesterolShow ? on : ""}
               onClick={onCholesterol}
               name="Low cholesterol"
+               mr="0px"
             />
             <Button2
               bc={sodiumShow ? on : ""}
               onClick={onSodium}
               name="Low sodium"
+               mr="0px"
             />
           </SpaceBetweenContainer>
           <SpaceBetweenContainer>
@@ -141,12 +142,14 @@ const DietaryRestrictionsModal = ({setFlag, on, UserInfo, layoutId, setWidgetId,
               bc={sugarShow ? on : ""}
               onClick={onsugar}
               name="Low sugar"
+              mr="0px"
             />
 
             <Button2
               bc={interestShow ? on : ""}
               onClick={onInterest}
               name="No interest"
+              mr="0px"
             />
           </SpaceBetweenContainer>
         </div>

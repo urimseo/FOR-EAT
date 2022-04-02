@@ -31,7 +31,7 @@ const PLUS = styled(motion.div)`
   border: 5px solid #c4c4c4;
   border-radius: 5rem;
   transition: 0.2s;
-  cursor: default;
+  cursor: pointer;
   width: 8.5rem;
   height: 8.5rem;
   background-color: white;

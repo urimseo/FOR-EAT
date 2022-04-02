@@ -9,16 +9,16 @@ import { getRecipeDetail } from "api/RecipeDetailApi";
 
 const Container = styled.div`
   display: flex;
-  width: 80%;
-  height: 15rem;
+  justify-content: center;
+  width: 60rem;
   margin: 1rem;
 `;
 
 const CardContainer = styled.div`
   background-color: #f2f2f2;
-  padding: 2.5rem;
+  padding: 2rem;
   display: flex;
-  width: 50%;
+  width: 53%;
 `;
 
 const FlexContainer = styled.div`
@@ -29,44 +29,48 @@ const SpaceBetweenContainer = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-const ImgWrapper = styled.div`
-  width: 30%;
-  overflow: hidden;
-  background-position: center;
-`;
 
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 30rem;
+  padding-left: 1.5rem;
 `;
 
 const Name = styled.div`
   display: flex;
   font-weight: bold;
-  font-size: 1.3rem;
-  font-weight: 300;
-  padding-left: 0.1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem 0 0.5rem 0.1rem;
 `;
 
 const Date = styled.div`
-  margin-top: 0.3rem;
-  font-size: 1rem;
+  font-size: 0.8rem;
   color: #999999;
-  padding: 1rem 0 1rem 0.1rem;
+  margin: 0.1rem 0.5rem 0 0;
 `;
 
 const Contents = styled.div`
-  margin-top: 1rem;
-  font-size: 18px;
-  color: #4a4a4a;
-  text-overflow: ellipsis;
-  overflow: hidden;
+  margin: 0.5rem 0.3rem 0 0;
+  padding: 0 0.8rem 0 0.2rem;
+  font-size: 1rem;
+  text-align: justify;
   word-wrap: break-word;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-`;
+  color: #4A4A4A;
+  width: 29rem;
+  height: 5rem;
+  overflow-x: hidden;
+  overflow-y:scroll;
+  ::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #7e7e7e;
+    border-radius: 10px;
+  }
+
+`
+
 const Icon = styled.img`
   width: 1rem;
   height: 1rem;
@@ -74,6 +78,12 @@ const Icon = styled.img`
   &:hover {
     cursor: pointer;
   }
+`;
+
+const ImgWrapper = styled.div`
+  width: 20%;
+  overflow: hidden;
+  background-position: center;
 `;
 
 const Img = styled.img`
@@ -91,11 +101,10 @@ const ReviewCard = ({
 }) => {
   const [recipeImg, setRecipeImg] = useState([]);
   const [recipeName, setRecipeName] = useState([]);
-  const [flag, setFlag] = useState(0);
 
   const onClickDelete = async () => {
     await deleteReview(reviewId);
-    setFlag(1);
+    window.location.reload();
   };
   useEffect(() => {
     getRecipeDetail(recipe_seq).then((res) => {
@@ -112,10 +121,10 @@ const ReviewCard = ({
             <SpaceBetweenContainer>
               <Name>{recipeName}</Name>
               <FlexContainer>
+                <Date>{lastModifiedDate.slice(0, 10)}</Date>
                 <Icon src={iconDelete} onClick={onClickDelete} />
               </FlexContainer>
             </SpaceBetweenContainer>
-            <Date>{lastModifiedDate.slice(0, 10)}</Date>
             <FlexContainer style={{ justifyContent: "space-between" }}>
               <Rating name="read-only" value={ratings} readOnly size="small" />
             </FlexContainer>

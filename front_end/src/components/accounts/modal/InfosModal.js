@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import Button from "components/commons/Button";
 import Button2 from "components/commons/Button2";
 import { editSurvey } from "api/MyPageApi";
-import { Alert } from "components/commons/Alert";
 
 const Container = styled(motion.div)`
   box-sizing: border-box;
@@ -56,7 +55,6 @@ const SelectContent = styled.select`
 const ButtonContainer = styled.div`
   display: flex;
   margin: 3rem;
-  margin-left: auto;
 `;
 
 const InfosModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyList }) => {
@@ -123,8 +121,8 @@ const InfosModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyList }
       <ButtonContainers>
         <div style={{ width: "26rem" }}>
           <SpaceBetweenContainer>
-            <Button2 bc={manShow ? on : ""} onClick={onMan} name="Man" />
-            <Button2 bc={womanShow ? on : ""} onClick={onWoman} name="Woman" />
+            <Button2 bc={manShow ? on : ""} mt="0px" mr="0px" onClick={onMan} name="Man" />
+            <Button2 bc={womanShow ? on : ""} mt="0px" mr="0px" onClick={onWoman} name="Woman" />
           </SpaceBetweenContainer>
         </div>
       </ButtonContainers>

@@ -43,7 +43,6 @@ const SpaceBetweenContainer = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   margin: 3rem;
-  margin-left: auto;
 `;
 
 const AllergiesModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyList }) => {
@@ -199,9 +198,10 @@ const AllergiesModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyLi
       <BoxContainer>
         <div style={{ width: "26rem" }}>
           <SpaceBetweenContainer>
-            <Button2 bc={wheatShow ? on : ""} onClick={onWheat} name="Wheat" />
+            <Button2 bc={wheatShow ? on : ""} mr="0px" onClick={onWheat} name="Wheat" />
             <Button2
               bc={peanutShow ? on : ""}
+              mr="0px" 
               onClick={onPeanut}
               name="Peanut"
             />
@@ -209,27 +209,31 @@ const AllergiesModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyLi
           <SpaceBetweenContainer>
             <Button2
               bc={walnutShow ? on : ""}
+              mr="0px" 
               onClick={onWalnut}
               name="walnut"
             />
-            <Button2 bc={appleShow ? on : ""} onClick={onApple} name="Apple" />
+            <Button2 bc={appleShow ? on : ""}mr="0px"  onClick={onApple} name="Apple" />
           </SpaceBetweenContainer>
           <SpaceBetweenContainer>
             <Button2
               bc={sesameShow ? on : ""}
+              mr="0px" 
               onClick={onSesame}
               name="Sesame"
             />
             <Button2
               bc={shellfishShow ? on : ""}
+              mr="0px" 
               onClick={onShellfish}
               name="Shellfish"
             />
           </SpaceBetweenContainer>
           <SpaceBetweenContainer>
-            <Button2 bc={eggShow ? on : ""} onClick={onEgg} name="Egg" />
+            <Button2 bc={eggShow ? on : ""} mr="0px" onClick={onEgg} name="Egg" />
             <Button2
               bc={interestShow ? on : ""}
+              mr="0px" 
               onClick={onInterest}
               name="No interest"
             />
