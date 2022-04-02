@@ -9,5 +9,5 @@ export const getRecommendRecipeList = async (type, page) => {
         offset: 15*(page-1)
       },
   });
-  return response;
+  return response.data;
 };
