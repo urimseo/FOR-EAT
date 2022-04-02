@@ -5,6 +5,10 @@ import Card from "components/commons/Card";
 import Pagination from "react-js-pagination";
 import "assets/css/Pagination.css";
 
+const Container = styled.div`
+  margin: 1rem 0;
+`
+
 const RegionButton = styled.button`
   display: inline-block;
   font-size: 1rem;
@@ -19,10 +23,9 @@ const RegionButton = styled.button`
 `
 
 const CardContainer = styled.div`
-  display: flex;
-  justify-content: space-around;
-  flex-flow: wrap;
-  min-width: 10vh;
+  display: grid;
+  grid-template-columns: 21.5rem 21.5rem 21.5rem 21.5rem;
+  justify-content: center;
 `
 
 const PageContainer = styled.div`
@@ -146,7 +149,7 @@ const Region = forwardRef((props, ref) => {
   }
   
   return (
-    <>
+    <Container>
       <div>
         {europeShow ? <RegionButton onClick={()=>{getEuropeRecipe(1)}} style={{backgroundColor: "#ED8141", color: "white"}}>EUROPE</RegionButton> : <RegionButton onClick={getEuropeRecipe}>EUROPE</RegionButton>}
         {asiaShow ? <RegionButton onClick={()=>getAsiaRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>ASIA</RegionButton> : <RegionButton onClick={getAsiaRecipe}>ASIA</RegionButton>}
@@ -181,7 +184,7 @@ const Region = forwardRef((props, ref) => {
           />
         </PageContainer> : null
       }
-    </>
+    </Container>
   );
 });
 

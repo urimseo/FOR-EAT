@@ -20,6 +20,11 @@ const SpaceBetweenContainer = styled.div`
   justify-content: space-between;
   margin-top: 2rem;
 `
+const CenterContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+`
 
 const Title = styled.div`
   font-family: Playfair Display;
@@ -160,7 +165,7 @@ const Category = () => {
           </BoxContainer>
         </SpaceBetweenContainer>
         <BorderLine />
-        <SpaceBetweenContainer>
+        <CenterContainer>
           <div>
             {servignsShow ? <Servings ref={childServings} /> : null}
             {regionShow ? <Region ref={childRegion}/> : null}
@@ -168,7 +173,7 @@ const Category = () => {
             {typeShow ? <Type ref={childType}/> : null}
             {ingredientShow ? <Ingredient ref={childIngredient}/> : null}
           </div>
-        </SpaceBetweenContainer>
+        </CenterContainer>
       </Container>
     </>
   );
