@@ -1,3 +1,4 @@
+from ast import operator
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.db.models import Avg, Count
@@ -8,14 +9,16 @@ from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.pagination import LimitOffsetPagination
+from functools import reduce
 
 from recipes.serializers import RecipeSerializer, RecipeListSerializer, ReviewListSerializer, ReviewSerializer, IngredientChoiceListSerializer
 from recipes.storages import FileUpload, s3_client
 from members.models import Member, LikedRecipe, Recommend, Survey
 from recipes.models import Keyword, Recipe, Category, RecipeKeyword, Review
+from members.utils import login_decorator
 import json
 import re
-from members.utils import login_decorator
+import operator
 
 
 
@@ -349,10 +352,11 @@ class RecommendRecipeList(ListAPIView, LimitOffsetPagination):
                 if is_survey and not is_review:
                     temp = Survey.objects.filter(member_seq=request.member.member_seq).values()
                     ingredinet_keywords = json.loads(temp[0]['ingredient_keywords'])
-                    recipes = Recipe.objects.filter(
-                        categories__in=Category.objects.filter(category_name__in=ingredinet_keywords).values('category_seq')
-                    ).annotate(
-                        average_rating=Avg('review__ratings'), review_cnt=Count('review')).order_by('-average_rating', '-review_cnt')[:75]
+
+                    recipes = Recipe.objects.filter(reduce(operator.and_, (
+                        Q(ingredient_raw__icontains=x) for x in ingredinet_keywords)))\
+                        .annotate(average_rating=Avg('review__ratings'), review_cnt=Count('review'))\
+                        .order_by('-average_rating', '-review_cnt')[:75]
 
                 else:
                     recipes = Recipe.objects.annotate(
