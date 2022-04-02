@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 
 import { getSearchList } from "api/SearchApi";
@@ -14,7 +14,7 @@ const SearchContainer = styled.form`
 `
 const Input = styled.input`
   display: inline-flex;
-  width: 17rem;
+  width: 15rem;
   height: 1.5rem;
   font-size: 0.7rem;
   margin: 0;
@@ -34,7 +34,7 @@ const ReadingGlassesImg = styled.img`
   height: 1.5rem;
 `
 
-const SearchInput = () => {
+const SearchInput = ({onProfile, profileShow}) => {
 
   const [ word, setWord ] = useState(null);  // api
   const navigate = useNavigate();
@@ -72,7 +72,7 @@ const SearchInput = () => {
           onClick={onClickSearch}
         />
       </SearchImgWrapper>
-      <Profile />
+      <Profile onProfile={onProfile} profileShow={profileShow} />
     </SearchContainer>
     );
   };
