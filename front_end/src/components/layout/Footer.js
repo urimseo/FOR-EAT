@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import Typography from "components/commons/Typography";
 import logo from 'assets/img/logo.png'
 import notion from 'assets/img/Notion.png'
@@ -22,12 +21,6 @@ const LeftContainer = styled.div`
   width: 20%;
   padding: 60px 0;
 `;
-
-const Logo = styled.img`
-  background: url(${logo}) no-repeat;
-  width: 90px;
-  height: 30px;
-  `;
 
 const RightContainer = styled.div`
   display: flex;
@@ -87,26 +80,11 @@ const Back = styled.div`
   margin-top: 30px;
 `;
 
-const Link = styled.div`
+const Links = styled.div`
   display: flex;
   flex-direction: row;
   width: 20%;
   margin-top: 50px;
-`;
-
-const Gitlab = styled.div`
-  background: url(${gitlab}) no-repeat;
-  width: 10%;
-  height: 30%;
-  cursor: pointer;
-`;
-
-const Notion = styled.div`
-  background: url(${notion}) no-repeat;
-  width: 10%;
-  height: 30%;
-  margin-left: 30px;
-  cursor: pointer;
 `;
 
 const Hr = styled.div`
@@ -126,12 +104,17 @@ const RightBottomContainer = styled.div`
 `;
 
 const Footer = () => {
-  const navigate = useNavigate();
+  const onGitlab = () => {
+    document.location.href = "https://lab.ssafy.com/s06-bigdata-rec-sub2/S06P22A103"
+  }
 
+  const onNotion = () => {
+    document.location.href = "https://bittersweet-talos-845.notion.site/FOR-EAT-e294d1ecbda54887aa3d1930119d6e95"
+  }
   return (
     <Container>
       <LeftContainer>
-        <Logo />
+        <img src={logo} />
         <Typography ff="Philosopher" fs="3rem">FOR:EAT</Typography>
         <Typography ff="Playfair Display" fs="0.8rem" fw="500" pb="1rem">personalized recipes</Typography>
       </LeftContainer>
@@ -163,10 +146,10 @@ const Footer = () => {
             </PersonName>
           </Team>
 
-          <Link>
-            <Gitlab />
-            <Notion />
-          </Link>
+          <Links>
+            <img src={gitlab} style={{width : "10%" , height:"30%", cursor:"pointer"}} onClick={onGitlab} />
+            <img src={notion} style={{width : "10%" , height:"30%", cursor:"pointer", marginLeft:"30px"}} onClick={onNotion} />
+          </Links>
         </RightTopContainer>
 
         <Hr />

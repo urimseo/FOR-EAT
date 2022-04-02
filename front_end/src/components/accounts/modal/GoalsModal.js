@@ -43,7 +43,6 @@ const SpaceBetweenContainer = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   margin: 3rem;
-  margin-left: auto;
 `;
 
 const GoalsModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyList }) => {
@@ -148,12 +147,14 @@ const GoalsModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyList }
           <SpaceBetweenContainer>
             <Button2
               bc={beginnerShow ? on : ""}
+              mr="0px" 
               onClick={onBeginner}
               name="Beginner cook"
             />
 
             <Button2
               bc={newCuisinShow ? on : ""}
+              mr="0px" 
               onClick={onNewCuisin}
               name="Try new cuisin"
             />
@@ -161,21 +162,24 @@ const GoalsModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyList }
           <SpaceBetweenContainer>
             <Button2
               bc={saveTimeShow ? on : ""}
+              mr="0px" 
               onClick={onSaveTime}
               name="Save time"
             />
 
             <Button2
               bc={healthyShow ? on : ""}
+              mr="0px" 
               onClick={onHealthy}
               name="Eat healty"
             />
           </SpaceBetweenContainer>
           <SpaceBetweenContainer>
-            <Button2 bc={dietShow ? on : ""} onClick={onDiet} name="Try diet" />
+            <Button2 bc={dietShow ? on : ""} mr="0px" onClick={onDiet} name="Try diet" />
 
             <Button2
               bc={interestShow ? on : ""}
+              mr="0px" 
               onClick={onInterest}
               name="No interest"
             />
