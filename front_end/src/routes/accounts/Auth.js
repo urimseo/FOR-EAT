@@ -30,9 +30,9 @@ const Auth = () => {
           setUserInfoState(res.user.member_seq);
           setApiHeaders();
             if (res.user.isSurvey === false) {
-              navigate("/recommend");
+              navigate("/survey");
             } else {
-              navigate("/category");
+              navigate("/recommend");
             }
           }
           else {
