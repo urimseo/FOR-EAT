@@ -4,6 +4,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Typography from "components/commons/Typography";
 import SearchInput from "components/search/SearchInput"
 import NavItem from "components/layout/NavItem"
+import { useRecoilValue } from 'recoil';
+import { userInfoState } from '../../atoms/atoms';
 
 const Container = styled.div`
   display: flex;
@@ -22,18 +24,14 @@ const TabContainer = styled.div`
 const Navbar = () => {
   const location = useLocation();
   const [isSelected, setIsSelected] = useState("/home");
-  const [profileShow, setProfileShow] = useState();
   const navigate = useNavigate();
+
+  const UserInfo = useRecoilValue(userInfoState);
   
   const onClick = (url) => {
     navigate(url);
     setIsSelected(url);
-    setProfileShow(false);
   };
-
-  const onProfile = () => {
-    setProfileShow(true);
-  }
 
   useEffect(() => {
     setIsSelected("/" + location.pathname.split("/")[1]);
@@ -75,7 +73,11 @@ const Navbar = () => {
         />
 
       </TabContainer>
-      <SearchInput onProfile={onProfile} profileShow={profileShow}/>
+      <SearchInput
+      url = {"/" + UserInfo + "/mypage"}
+      onClick={onClick}
+      isSelected={isSelected}
+    />
       </div>
     </Container>
   );

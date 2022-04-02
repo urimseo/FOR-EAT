@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import {React, useState } from "react";
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 
 import { getSearchList } from "api/SearchApi";
@@ -34,8 +34,7 @@ const ReadingGlassesImg = styled.img`
   height: 1.5rem;
 `
 
-const SearchInput = ({onProfile, profileShow}) => {
-
+const SearchInput = ({ onClick, url, isSelected }) => {
   const [ word, setWord ] = useState(null);  // api
   const navigate = useNavigate();
 
@@ -72,7 +71,10 @@ const SearchInput = ({onProfile, profileShow}) => {
           onClick={onClickSearch}
         />
       </SearchImgWrapper>
-      <Profile onProfile={onProfile} profileShow={profileShow} />
+      <Profile
+      url = {url}
+      onClick={onClick}
+      isSelected={isSelected} />
     </SearchContainer>
     );
   };
