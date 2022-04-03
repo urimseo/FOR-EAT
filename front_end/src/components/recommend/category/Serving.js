@@ -116,6 +116,7 @@ const Servings = forwardRef((props, ref) => {
     const Recipe = await getRecipeList(page, "Party");
     if (Recipe) {
       setRecipeList(Recipe)
+      console.log(Recipe)
     }
   }
 
@@ -138,6 +139,7 @@ const Servings = forwardRef((props, ref) => {
             recipeKeywords={(Recipe.keywords.length > 1 ? [Recipe.keywords[0].keyword_name, Recipe.keywords[1].keyword_name] : Recipe.keywords[0].keyword_name)}
             recipeCalorie={Recipe.calories}
             recipeRating={Recipe.average_rating}
+            likedCount={Recipe.liked_count}
           />
         ))}
       </CardContainer>

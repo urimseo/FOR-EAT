@@ -96,8 +96,8 @@ const TextContent = styled.div`
   }
 `
 
-const Card = ({ recipeImg, recipeName, recipeCalorie, recipeSeq, recipeKeywords, recipeRating}) => {
-  const likeCnt = 39
+const Card = ({ recipeImg, recipeName, recipeCalorie, recipeSeq, recipeKeywords, recipeRating, likedCount}) => {
+
   return (
 
       <Container>
@@ -117,7 +117,7 @@ const Card = ({ recipeImg, recipeName, recipeCalorie, recipeSeq, recipeKeywords,
             <HoverText className="middle">
               <TextContent className="text">
                 <img src={heart} alt=""/>
-                <div>{likeCnt} PEOPLE</div>
+                <div>{likedCount} PEOPLE</div>
                 <div>LIKED THIS RECIPE</div>
               </TextContent>
             </HoverText>
@@ -135,6 +135,7 @@ Card.propTypes = {
   recipeCalorie: PropTypes.number.isRequired,
   recipeSeq: PropTypes.number.isRequired,
   recipeKeywords: PropTypes.array.isRequired,
+  likedCount: PropTypes.number.isRequired
 };
 
 
