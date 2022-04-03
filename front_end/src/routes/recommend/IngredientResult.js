@@ -38,6 +38,7 @@ const IngredientResult = () => {
   const [page, setPage] = useState(1); 
 
   const handlePageChange = (page) => { 
+    window.scrollTo(0, 0)
     setPage(page); 
     getRecipeList(page);
   }

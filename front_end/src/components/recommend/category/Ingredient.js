@@ -24,8 +24,9 @@ const IngredientButton = styled.button`
 `
 
 const CardContainer = styled.div`
-  display: grid;
-  grid-template-columns: 21.5rem 21.5rem 21.5rem 21.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  /* grid-template-columns: 21.5rem 21.5rem 21.5rem 21.5rem; */
   justify-content: center;
 `
 
@@ -50,6 +51,7 @@ const Ingredient = forwardRef((props, ref) => {
   const [page, setPage] = useState(1); 
 
   const handlePageChange = (page) => { 
+    window.scrollTo(0, 0)
     setPage(page); 
     if (seafoodShow === true) {
       getSeafoodRecipe(page);
