@@ -11,8 +11,7 @@ const Container = styled.div`
 `
 
 const BarChart = ({ nutrient, user }) => {
-  // const [ age, setAge ] = useState("")
-  // const [ gender, setGender ] = useState("")
+
   const age = user.age
   const gender = user.gender
   const [ standard, setStandard ] = useState({
@@ -83,39 +82,35 @@ const BarChart = ({ nutrient, user }) => {
         110 > Ratio(nutrient.fat, standard.fat) >= 90 ? '#008FFB' : 
         90 > Ratio(nutrient.fat, standard.fat) ? "#FEC25C": null)
       },
+      // 적게 먹을수록 좋은 것들 : 100% 이상이면 빨간그래프, 미만이면 ok
       { x: 'Saturated Fat', 
         y: Ratio(nutrient.saturated_fat, standard.saturated_fat),
-        fillColor: (Ratio(nutrient.saturated_fat, standard.saturated_fat) >= 110 ?'#EB8C87':
-        110 > Ratio(nutrient.saturated_fat, standard.saturated_fat) >= 90 ? '#008FFB' : 
-        90 > Ratio(nutrient.saturated_fat, standard.saturated_fat) ? "#FEC25C": null)
+        fillColor: (Ratio(nutrient.saturated_fat, standard.saturated_fat) > 100 ?'#EB8C87':
+        100 >= Ratio(nutrient.saturated_fat, standard.saturated_fat) ? "#008FFB": null)
       },
       { x: 'Sodium', 
         y: Ratio(nutrient.sodium, standard.sodium),
-        fillColor: (Ratio(nutrient.sodium, standard.sodium) > 110 ? '#EB8C87': 
-        110 > Ratio(nutrient.sodium, standard.sodium) >= 90 ? '#008FFB' : 
-        90 > Ratio(nutrient.sodium, standard.sodium) ? "#FEC25C": null)
+        fillColor: (Ratio(nutrient.sodium, standard.sodium) > 100 ? '#EB8C87': 
+        100 >= Ratio(nutrient.sodium, standard.sodium) ? "#008FFB": null)
       },
       { x: 'Cholesterol', 
         y: Ratio(nutrient.cholesterol, standard.cholesterol), 
-        fillColor: (Ratio(nutrient.cholesterol, standard.cholesterol) >= 110 ?'#EB8C87':
-        110 > Ratio(nutrient.cholesterol, standard.cholesterol) >= 90 ? '#008FFB' : 
-        90 > Ratio(nutrient.cholesterol, standard.cholesterol) ? "#FEC25C": null)
+        fillColor: (Ratio(nutrient.cholesterol, standard.cholesterol) > 100 ?'#EB8C87':
+        100 >= Ratio(nutrient.cholesterol, standard.cholesterol) ? "#008FFB": null)
       },
       { x: 'Sugar', 
         y: Ratio(nutrient.sugar, standard.sugar), 
-        fillColor: (Ratio(nutrient.sugar, standard.sugar) >= 110 ?'#EB8C87' :
-        110 > Ratio(nutrient.sugar, standard.sugar) >= 90 ? '#008FFB' : 
-        90 > Ratio(nutrient.sugar, standard.sugar) ? "#FEC25C": null)
+        fillColor: (Ratio(nutrient.sugar, standard.sugar) > 100 ?'#EB8C87' :
+        100 >= Ratio(nutrient.sugar, standard.sugar) ? "#008FFB": null)
       },
+      // 많이 먹을수록 좋은 것: 100이상이면 적정, 미만이면 부족
       { x: 'Fiber', 
         y: Ratio(nutrient.fiber, standard.fiber), 
-        fillColor: (Ratio(nutrient.fiber, standard.fiber) < 100 ?'#fec25c': '#008FFB')  //  FIBER(+) : 100이상이면 적정, 미만이면 부족
+        fillColor: (Ratio(nutrient.fiber, standard.fiber) < 100 ? '#fec25c': '#008FFB')  
       },
     ])
   }
   
-  useEffect(() => {
-  }, [age, gender])
 
   useEffect(() => {
     getNutrientInfo()
@@ -154,6 +149,21 @@ const BarChart = ({ nutrient, user }) => {
               categories: [ "Calories", "Carbohydrate", "Protein", "Fat", "Saturated Fat", 
               'Sodium', 'Cholesterol', 'Sugar', "Fiber"],
             },
+            yaxis: {
+              title: {
+                text: "% : ( (Intake / Standard Intake) * 100 )",
+                rotate: -90,
+                offsetX: 0,
+                offsetY: 0,
+                style: {
+                    color: undefined,
+                    fontSize: '12px',
+                    fontFamily: 'Work Sans',
+                    fontWeight: 500,
+                    cssClass: 'apexcharts-yaxis-title',
+                },
+              },
+            },
             // fill: {
             //   colors: "#fec25c",
             // },
@@ -169,6 +179,13 @@ const BarChart = ({ nutrient, user }) => {
                 fontWeight:  'bold',
                 fontFamily:  undefined,
                 color:  '#263238'
+              },
+            },
+            tooltip: {
+              y: {
+                formatter: function (val) {
+                  return  val + " %"
+                }
               },
             }
           }}
