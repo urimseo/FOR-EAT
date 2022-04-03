@@ -41,26 +41,58 @@ const FeedRecipeList = () => {
   const [youLikeRecipe, setYouLikeRecipe] = useState();
   const [recipeList, setRecipeList] = useState([]);
   const [memberType, setMemberType] = useState();
+  const [number, setNumber] = useState(2);
 
-  const getRecipeList = async (type, page) => {
+
+  const getRecipeList = async(type, page) => {
     if (type === "foryou") {
+      if (page === 1) {
+        setNumber(2);
+        setRecipeList([]);
+      }
       setForYouRecipe(true);
       setYouLikeRecipe(false);
       const response = await getRecommendRecipeList(type, page);
-      setRecipeList(response.data);
+      setRecipeList(recipeList => [...recipeList, response.data])
       setMemberType(response.member_type)
     } else {
-      setForYouRecipe(false);
-      setYouLikeRecipe(true);
-      const response = await getRecommendRecipeList(type, page);
-      setRecipeList(response.data);
-      setMemberType(response.member_type)
+      if (page === 1) {
+        setNumber(2);
+        setRecipeList([]);
+      }
+      if (page !== 0) {
+        setForYouRecipe(false);
+        setYouLikeRecipe(true);
+        const response = await getRecommendRecipeList(type, page);
+        setRecipeList(recipeList => [...recipeList, response.data])
+        setMemberType(response.member_type)
+      }
     }
   }
 
   useEffect(() => {   
-    getRecipeList("foryou", 0);
+    getRecipeList("foryou", 1);
   }, [])
+
+  const handleScroll = () => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+    if(scrollTop + clientHeight >= scrollHeight) {
+      setNumber( number + 1 );
+      if (forYouRecipe === true && number <= 4 ) {
+        getRecipeList("foryou", number);
+      }
+      else if (youLikeRecipe === true && number <= 4) {
+        getRecipeList("likeyou", number);
+      }
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+      return () => {window.removeEventListener('scroll', handleScroll)}
+  })
 
   
 return (
@@ -85,18 +117,21 @@ return (
         <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans">Write reviews to get more accurate recipe recommendations.</Title> : null
       }
       <CardContainer>
-        {recipeList.map((Recipe, index) => ( 
-          <Card
-            key={Recipe.recipe_seq}
-            recipeSeq={Recipe.recipe_seq}
-            index={index}
-            recipeImg={Recipe.images}
-            recipeName={Recipe.name}
-            recipeKeywords={(Recipe.keywords.length > 1 ? [Recipe.keywords[0].keyword_name, Recipe.keywords[1].keyword_name] : Recipe.keywords[0].keyword_name)}
-            recipeCalorie={Recipe.calories}
-            recipeRating={Recipe.average_rating}
-          />
-        ))}
+        {recipeList.map((recipe, idx) => 
+          ( recipe.map((recipeItem, index) => ( 
+            <Card
+              key={recipeItem.recipe_seq}
+              recipeSeq={recipeItem.recipe_seq}
+              index={index}
+              recipeImg={recipeItem.images}
+              recipeName={recipeItem.name}
+              recipeKeywords={(recipeItem.keywords.length > 1 ? [recipeItem.keywords[0].keyword_name, recipeItem.keywords[1].keyword_name] : recipeItem.keywords[0].keyword_name)}
+              recipeCalorie={recipeItem.calories}
+              recipeRating={recipeItem.average_rating}
+              likedCount={recipeItem.liked_count}
+            />
+          ))) 
+        )}
       </CardContainer>
     </>
   )

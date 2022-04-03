@@ -61,7 +61,7 @@ const SelectContent = styled.select`
 
 
 const InformationSurvey = ({form, propFunction, nextSteps}) => {
-  const{ gender } = form  // 필요한 키들만 비구조할당으로 선언
+  const { age, gender } = form  // 필요한 키들만 비구조할당으로 선언
   const [womanShow, setWomanShow] = useState(gender);
   const [manShow, setManShow] = useState((gender === null ? false : !gender));
 
@@ -105,7 +105,7 @@ const InformationSurvey = ({form, propFunction, nextSteps}) => {
             </Title >
             <div style={{display: "flex", justifyContent: "center", marginTop: "1rem"}}>
               <Title ff="work sans" mt="0.5rem" fs="1rem" mr="0.5rem">AGE</Title>
-              <SelectContent onChange={(e) => handleChange(e)}>
+              <SelectContent defaultValue={age} onChange={(e) => handleChange(e)}>
                 <option value="0" defaultValue>select age</option>
                 <option value="1">15-19 years old</option>
                 <option value="2">20-29 years old</option>
