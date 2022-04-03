@@ -64,10 +64,10 @@ const Report = () => {
           <FlexContainer>
             <BarChart nutrient={report.nutrient || {}}
               user={report.user || {}}
-              // age={report.nutrient || {}}
-              // gender={report.user.gender || {}}
             />
-            <Restriction nutrient={report.nutrient || {}}/>
+            <Restriction nutrient={report.nutrient || {}} 
+              user={report.user || {}}
+            />
           </FlexContainer>
           <FlexContainer>
             <Habit nutrient={report.nutrient || {}}/>
