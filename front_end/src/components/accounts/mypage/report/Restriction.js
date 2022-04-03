@@ -54,23 +54,13 @@ const Restriction = ({ nutrient, user }) => {
   // 부모컴포넌트에서 props 보낼 때 || {}로 보내주면 자식에서 신경 안 써도 됨.
   const age = user.age
   const gender = user.gender
-  const [ standard, setStandard ] = useState({
-    "calories": 900,
-    "fat": 33,
-    "saturated_fat": 6,
-    "cholesterol": 100,
-    "sodium": 500,
-    "carbohydrate": 77,
-    "fiber": 10,
-    "sugar": 36,
-    "protein": 48
-  }) // 초기값 
+  const [ standard, setStandard ] = useState([])
 
   const [ data, setData ] = useState([ 
     [ "Sodium", checkRestriction(nutrient.sodium, 667)],
     [ "Cholesterol", checkRestriction(nutrient.cholesterol, 100)],
     [ "Sugar", checkRestriction(nutrient.sugar, 16.7)],
-  ]) // 초기데이터
+  ]) // 초기데이터 필요(return 부분에 data.map 있음)
   
 
   //내가 먹은 값/평균값*100 > 110 : 초과
@@ -87,7 +77,7 @@ const Restriction = ({ nutrient, user }) => {
     }
   }
 
-  // 나이와 성별에 따라 standard 세팅
+  // 나이와 성별에 따라 기준치 세팅
   const getNutrientInfo = () => {
     if ( age ) {
       if ( gender ) {
@@ -113,7 +103,7 @@ const Restriction = ({ nutrient, user }) => {
   
   useEffect(() => {
     getData()
-  }, standard)
+  }, [standard])
 
   return (
     <Container>

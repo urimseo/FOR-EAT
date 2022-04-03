@@ -14,31 +14,8 @@ const BarChart = ({ nutrient, user }) => {
 
   const age = user.age
   const gender = user.gender
-  const [ standard, setStandard ] = useState({
-    "calories": 900,
-    "fat": 33,
-    "saturated_fat": 6,
-    "cholesterol": 100,
-    "sodium": 500,
-    "carbohydrate": 77,
-    "fiber": 10,
-    "sugar": 36,
-    "protein": 48
-  }) // 초기값 
-
-  const [ data, setData ] = useState(
-    [
-      { x: 'Calories', y: Ratio(nutrient.calories, 667) },
-      { x: 'Carbohydrate', y: Ratio(nutrient.carbohydrate,  57), }, 
-      { x: 'Protein', y: Ratio(nutrient.protein, 35), fillColor: '#EB8C87', strokeColor: '#C23829' }, 
-      { x: 'Fat', y: Ratio(nutrient.fat, 25) },
-      { x: 'Saturated Fat', y: Ratio(nutrient.saturated_fat, 4) },
-      { x: 'Sodium', y: Ratio(nutrient.sodium, 500) },
-      { x: 'Cholesterol', y: Ratio(nutrient.cholesterol, 100) },
-      { x: 'Sugar', y: Ratio(nutrient.sugar, 27) },
-      { x: 'Fiber', y: Ratio(nutrient.fiber, 8) },
-    ]
-  )
+  const [ standard, setStandard ] = useState([])
+  const [ data, setData ] = useState([])
 
 
   function Ratio(ate, avg) {
