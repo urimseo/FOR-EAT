@@ -53,7 +53,8 @@ class RecipeList(ListAPIView, LimitOffsetPagination):
             elif time == 24:
                 time *= 60
                 object_list = Recipe.objects.filter(total_time__gt=180, total_time__lte=time)
-        
+        object_list = object_list.annotate(
+                        average_rating=Avg('review__ratings'), review_cnt=Count('review')).order_by('-average_rating', '-review_cnt')
         return object_list
 
     def get(self, request, format=None):
