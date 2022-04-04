@@ -81,10 +81,9 @@ class RecipeDetail(APIView):
         except Recipe.DoesNotExist:
             raise Http404
 
-    # @login_decorator
+    @login_decorator
     def get(self, request, pk):
         recipe = self.get_object(pk)
-        member = Member.objects.get(member_seq=1)
         serializer = RecipeSerializer(recipe)
         response_data = serializer.data
         response_data.update(recipe.review_set.all().aggregate(average_rating=Avg('ratings')))
@@ -104,10 +103,8 @@ class RecipeDetail(APIView):
         response_data['images'] = json.loads(response_data['images'])[0]
         response_data['liked'] = False
 
-        # if request.member:
-        if member:
-            # if request.member.liked_recipes.filter(recipe_seq=response_data['recipe_seq']):
-            if member.liked_recipes.filter(recipe_seq=response_data['recipe_seq']):
+        if request.member:
+            if request.member.liked_recipes.filter(recipe_seq=response_data['recipe_seq']):
                 response_data['liked'] = True
 
         ingredients_recommend_list = json.loads(serializer.data['ingredients_recommend'])
@@ -154,12 +151,10 @@ class ReviewList(APIView, LimitOffsetPagination):
         response_data.update({'count':count})
         return Response(response_data, status=status.HTTP_200_OK)
 
-    # @login_decorator
+    @login_decorator
     def post(self, request, pk, format=None):
-        member = Member.objects.get(member_seq=100)
         recipe=Recipe.objects.get(recipe_seq=pk)
-        # if Review.objects.filter(member=request.member, recipe=recipe):
-        if Review.objects.filter(member=member, recipe=recipe):
+        if Review.objects.filter(member=request.member, recipe=recipe):
             data = {
                     "msg": "이미 리뷰를 작성한 회원입니다",
                     "status": 202
@@ -175,8 +170,7 @@ class ReviewList(APIView, LimitOffsetPagination):
         serializer = ReviewSerializer(data=request.data)
 
         if serializer.is_valid():
-            # serializer.save(member=request.member, recipe=recipe)
-            serializer.save(member=member, recipe=recipe)
+            serializer.save(member=request.member, recipe=recipe)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
             
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -188,14 +182,12 @@ class ReviewDetail(APIView):
         except Review.DoesNotExist:
             raise Http404
 
-    # @login_decorator
+    @login_decorator
     def delete(self, request, id, format=None):
-        member = Member.objects.get(member_seq=100)
         review = self.get_object(id)
         review_writer = Member.objects.get(member_seq=review.member.member_seq)
 
-        # if review_writer == request.member:
-        if review_writer == member:
+        if review_writer == request.member:
             Review.objects.get(id=id).delete()
             data = {
                     "msg": "리뷰를 삭제했습니다",
