@@ -46,7 +46,6 @@ const SubIngredient = forwardRef((props, ref) => {
   const [beafShow, setBeafShow] = useState(true);
   const [porkShow, setporkShow] = useState(false);
   const [lambShow, setLambShow] = useState(false);
-  const [poultryShow, setPoultryShow] = useState(false);
   const [chickenShow, setChickenShow] = useState(false);
   const [RecipeList, setRecipeList] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
@@ -65,9 +64,6 @@ const SubIngredient = forwardRef((props, ref) => {
     if (lambShow === true) {
       getLambRecipe(page);
     }
-    if (poultryShow === true) {
-      getPoultryRecipe(page);
-    }
     if (chickenShow === true) {
       getChickenRecipe(page);
     }
@@ -78,7 +74,6 @@ const SubIngredient = forwardRef((props, ref) => {
     setBeafShow(true);
     setporkShow(false);
     setLambShow(false);
-    setPoultryShow(false);
     setChickenShow(false);
     if (isNaN(page) === true) {
       setPage(1); 
@@ -97,7 +92,6 @@ const SubIngredient = forwardRef((props, ref) => {
     setBeafShow(false);
     setporkShow(true);
     setLambShow(false);
-    setPoultryShow(false);
     setChickenShow(false);
     if (isNaN(page) === true) {
       setPage(1); 
@@ -116,7 +110,6 @@ const SubIngredient = forwardRef((props, ref) => {
     setBeafShow(false);
     setporkShow(false);
     setLambShow(true);
-    setPoultryShow(false);
     setChickenShow(false);
     if (isNaN(page) === true) {
       setPage(1); 
@@ -130,31 +123,11 @@ const SubIngredient = forwardRef((props, ref) => {
     }
   }
 
-  const getPoultryRecipe = async(page) => {
-    setIsLoading(true);
-    setBeafShow(false);
-    setporkShow(false);
-    setLambShow(false);
-    setPoultryShow(true);
-    setChickenShow(false);
-    if (isNaN(page) === true) {
-      setPage(1); 
-      page = 1;
-    }
-    const Recipe = await getRecipeList(page, "Poultry");
-    if (Recipe) {
-      setRecipeList(Recipe.data);
-      setIsLoading(false);
-      setTotalCount(Recipe.total_count);
-    }
-  }
-
   const getChickenRecipe = async(page) => {
     setIsLoading(true);
     setBeafShow(false);
     setporkShow(false);
     setLambShow(false);
-    setPoultryShow(false);
     setChickenShow(true);
     if (isNaN(page) === true) {
       setPage(1); 
@@ -174,7 +147,6 @@ const SubIngredient = forwardRef((props, ref) => {
         {beafShow ? <SubIngredientButton onClick={()=>getBeefRecipe(1)} style={{color: "#ED8141"}}>BEEF</SubIngredientButton> : <SubIngredientButton onClick={getBeefRecipe}>BEEF</SubIngredientButton>}
         {porkShow ? <SubIngredientButton onClick={()=>getPorkRecipe(1)} style={{color: "#ED8141"}}>PORK</SubIngredientButton> : <SubIngredientButton onClick={getPorkRecipe}>PORK</SubIngredientButton>}
         {lambShow? <SubIngredientButton onClick={()=>getLambRecipe(1)} style={{color: "#ED8141"}}>LAMB</SubIngredientButton> : <SubIngredientButton onClick={getLambRecipe}>LAMB</SubIngredientButton>}
-        {poultryShow ? <SubIngredientButton onClick={()=>getPoultryRecipe(1)} style={{color: "#ED8141"}}>POULTRY</SubIngredientButton> : <SubIngredientButton onClick={getPoultryRecipe}>POULTRY</SubIngredientButton>}
         {chickenShow ? <SubIngredientButton onClick={()=>getChickenRecipe(1)} style={{color: "#ED8141"}}>CHICKEN</SubIngredientButton> : <SubIngredientButton onClick={getChickenRecipe}>CHICKEN</SubIngredientButton>}
       </div>
       {isLoading ? <div style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}><CircularProgress /></div> :
