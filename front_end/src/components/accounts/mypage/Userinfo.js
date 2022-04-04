@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import edit from "assets/img/edit.png";
 import profileImg from "assets/img/Ingredient_rosemary.jpg";
@@ -113,15 +113,7 @@ const Userinfo = ({image, nickname, email, UserInfo}) => {
 			setSaveNickname(e.target.value)
       formData.append("nickname", e.target.value)
 			setShowNickname(true)
-
       editMember(UserInfo, formData)
-      .then((res) => 
-      {console.log(res)
-      })
-      .catch((err) => 
-        {console.log(err)
-          console.log(formData)
-        })
 		}
   };
 

@@ -111,7 +111,6 @@ const ReviewForm = ({ recipeId }) => {
 
   
   const onFileUpload = (event) => { 
-    // 파일 이미지 크기 제한해야됨?!
     const file = event.target.files[0]
     if (file.size > 1048576) {
       event.preventDefault();
@@ -141,7 +140,6 @@ const ReviewForm = ({ recipeId }) => {
     const response = await createReview(recipeId, formData)
     if (response) {
       const result = await getReviewList(recipeId)
-      console.log(result)
       setReviews(result.data)
       // 리뷰 작성 후 입력 값 초기화
       setRatings(0)
@@ -152,7 +150,6 @@ const ReviewForm = ({ recipeId }) => {
   useEffect(() => {
     getMember(UserInfo)
     .then((res) => {
-      console.log(res)
       setProfileImage(res.profile_image_url)
      })
     .catch((err) => 
@@ -161,7 +158,6 @@ const ReviewForm = ({ recipeId }) => {
 
     getReviewList(recipeId).then((res) => {
       setReviews(res.data)
-      console.log(res)
     })
     .catch((err) => {
       console.log(err)
@@ -171,7 +167,6 @@ const ReviewForm = ({ recipeId }) => {
   useEffect(()=> {
     getReviewList(recipeId).then((res) => {
       setReviews(res.data)
-      console.log(res)
     })
     .catch((err) => {
       console.log(err)

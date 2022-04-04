@@ -34,7 +34,6 @@ const KeywordList = ({ keywords }) => {
             onClick={
               async (e) => {
                 const response = await getSearchList(1, keyword.keyword_name)
-                console.log(response)
                 if (response) {
                   navigate('/recipes/search', { state: [keyword.keyword_name, response] })
                 }

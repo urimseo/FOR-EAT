@@ -9,8 +9,8 @@ import Ingredients from "components/recipeDetail/Ingredients";
 import Instructions from "components/recipeDetail/Instructions";
 import ReviewList from "components/recipeDetail/ReviewList";
 import KeywordList from "components/recipeDetail/KeywordList";
-import { getRecipeDetail, likeRecipe } from "api/RecipeDetailApi";
-import { setApiHeaders } from "api/Axios";
+import { getRecipeDetail } from "api/RecipeDetailApi";
+
 
 const Container = styled.div`
   padding: 6rem 10rem;
@@ -53,7 +53,6 @@ const RecipeDetail = (props) => {
   const getRecipe = async () => {
     const result = await getRecipeDetail(recipeId);
     setRecipe(result)
-    // console.log("getRecipeDetail", result)
   }
 
 

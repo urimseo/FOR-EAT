@@ -110,7 +110,6 @@ const ReviewCard = ({
     getRecipeDetail(recipe_seq).then((res) => {
       setRecipeImg(res.images);
       setRecipeName(res.name);
-      console.log("getRecipeDetail", res);
     });
   }, []);
   return (

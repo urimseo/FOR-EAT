@@ -86,13 +86,7 @@ const Habit = ({ nutrient, user }) => {
       (parseInt(Ratio(nutrient.calories, standard.calories)) +
       parseInt(Ratio(nutrient.carbohydrate, standard.carbohydrate)) +
       parseInt(Ratio(nutrient.protein, standard.protein)) +
-      parseInt(Ratio(nutrient.fat, standard.fat)))/4
-      // parseInt(Ratio(nutrient.saturated_fat, standard.saturated_fat)) +
-      // parseInt(Ratio(nutrient.sodium, standard.sodium)) +
-      // parseInt(Ratio(nutrient.cholesterol, standard.cholesterol)) +
-      // parseInt(Ratio(nutrient.sugar, standard.sugar)) +
-      // parseInt(Ratio(nutrient.fiber, standard.fiber))
-      
+      parseInt(Ratio(nutrient.fat, standard.fat)))/4  
     )
   }
 

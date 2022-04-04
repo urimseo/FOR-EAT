@@ -78,9 +78,7 @@ const AllergiesModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyLi
   const onCheck = async () => {
     const formData = new FormData();
     let temp = []
-    console.log(allergyList)
     if(allergyList.length === 0) {
-      console.log(interestShow)
       if(interestShow === true)
       {
         setInterestShow(true)
@@ -95,10 +93,8 @@ const AllergiesModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyLi
       for (let i=0; i< allergyList.length; i++){
         temp.push(Number(allergyList[i]))
       }
-      console.log(temp)
       formData.append('allergy', temp);
-      console.log(formData)
-    for (let key of formData.keys()) { console.log(key, ":", formData.get(key)); }
+    // for (let key of formData.keys()) { console.log(key, ":", formData.get(key)); }
     editSurvey(UserInfo, formData)
     allergyList.map(item => {
       if (item === 1) setWheatShow(true)
