@@ -64,7 +64,6 @@ const SearchInput = ({ onClick, url, isSelected }) => {
         value={word || ''}
         type="text"
         onChange={onChange}
-        // onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }} // enter 입력 방지
         onKeyPress={onKeyPress}
       />
       <input type="text" style={{ display: "none"}} />

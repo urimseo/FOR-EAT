@@ -19,11 +19,11 @@ const CardContainer = styled.div`
 `
 
 const BrowseListItem = ({keyword, title}) => {
-  // api 연결시
+
   const [resultList, setResultList] = useState([])
   const [isLoading, setIsLoading] = useState(true);
   const getBrowseListItem = async () => {
-    const response = await getBrowseList(1, keyword);  // one대신 vegan 넣기
+    const response = await getBrowseList(1, keyword);
     setResultList(response)
     setIsLoading(false);
   }

@@ -141,9 +141,6 @@ const BarChart = ({ nutrient, user }) => {
                 },
               },
             },
-            // fill: {
-            //   colors: "#fec25c",
-            // },
             title: {
               text: "Intake Proportion of Nutriton",
               align: 'left',

@@ -111,7 +111,6 @@ const ReviewForm = ({ recipeId }) => {
 
   
   const onFileUpload = (event) => { 
-    // 파일 이미지 크기 제한해야됨?!
     const file = event.target.files[0]
     if (file.size > 1048576) {
       event.preventDefault();
