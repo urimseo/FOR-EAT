@@ -36,19 +36,20 @@ const AppRouter = () => {
             <>
         <Routes>
           <Route path="/" element={<Home />}>
+          <Route path="" exact element={<Navigate replace to="/recommend" />} />
             <Route path="/recommend" element={<Feed />} />
             <Route path="/category" element={<Category />} />
             <Route path="/ingredient" element={<Ingredient />} />
             <Route path="/search/ingredient" element={<IngredientResult />} />
             <Route path="/recipes/search" element={<Search />} />
             <Route path="/browse" element={<Browse />} />
-            <Route path="/members/kakao/login" element={<Auth />} />
             <Route path="/recipes/:recipe_seq" element={<RecipeDetail />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/survey" element={<Survey />} />
             <Route path="/:member_seq/mypage" element={<MyPage />} />
             <Route path="/:member_seq/mypage/likes" element={<WishRecipes />} />
             <Route path="/:member_seq/mypage/reviews" element={<ReviewRecipes />} />
+            <Route path="/*" element={<Navigate replace to="/" />} />
           </Route>
             </Routes>
             </>
@@ -56,6 +57,7 @@ const AppRouter = () => {
            <> 
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/members/kakao/login" element={<Auth />} />
           <Route path="/*" element={<Navigate replace to="/" />} />
           </Routes>
           </>
