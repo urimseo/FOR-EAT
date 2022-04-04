@@ -27,7 +27,6 @@ import { useRecoilValue } from 'recoil';
 
 const AppRouter = () => {
   const isLogged = useRecoilValue(isLoginState);
-  console.log(isLogged)
   return (
     <Router>
       <>

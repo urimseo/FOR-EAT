@@ -113,15 +113,7 @@ const Userinfo = ({image, nickname, email, UserInfo}) => {
 			setSaveNickname(e.target.value)
       formData.append("nickname", e.target.value)
 			setShowNickname(true)
-
       editMember(UserInfo, formData)
-      .then((res) => 
-      {console.log(res)
-      })
-      .catch((err) => 
-        {console.log(err)
-          console.log(formData)
-        })
 		}
   };
 

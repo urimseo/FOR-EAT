@@ -69,10 +69,8 @@ const WishRecipeAll = () => {
 
   const handlePageChange = async(page) => {
     window.scrollTo(0, 0)
-    console.log(page)
     setPage(page);
     const result = await getWish(page, UserInfo);
-    console.log(result)
     setResultList(result.likes_list);
   }
 

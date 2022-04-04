@@ -77,12 +77,10 @@ const MyPage = () => {
   };
 
   useEffect(() => {
-    // showSavedRecipes();
-    showReport();
+    showSavedRecipes();
 
     getMypage(UserInfo)
     .then((res) => {
-      console.log(1, res)
       setRecipeList(res.liked_recipe)
       setReviewList(res.review)
       setSurveyList(res.member_survey)

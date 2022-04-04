@@ -70,7 +70,7 @@ const DietaryRestrictionsModal = ({setFlag, on, UserInfo, layoutId, setWidgetId,
     formData.append("cholesterol", cholesterolShow);
     formData.append("sodium", sodiumShow);
     formData.append("sugar", sugarShow);
-    for (let key of formData.keys()) { console.log(key, ":", formData.get(key)); }
+
     editSurvey(UserInfo, formData)
     setCholesterolShow(surveyList.cholesterol)
     setSodiumShow(surveyList.sodium)

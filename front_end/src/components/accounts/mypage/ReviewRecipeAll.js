@@ -78,7 +78,6 @@ const ReviewRecipeAll = () => {
       .then((res) => {
         setCount(res.review_count);
         setResultList(res.review_list);
-        console.log(res);
       })
       .catch((err) => {
         console.log(err);

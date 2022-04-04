@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Card4 from "components/commons/Card4";
 
@@ -29,9 +29,6 @@ const CardContainer = styled.div`
 
 const RelatedRecipeList = ({popular_recipe, user}) => {
 
-  // useEffect(()=> {
-  //   console.log(age, gender)
-  // })
   return (
     <Container>
       <TextContainer>
