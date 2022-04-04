@@ -137,7 +137,7 @@ const Allergies = ({ setWidgetId, surveyList }) => {
             {shellfishShow ? <Selected bc="rgba(196, 196, 196, 0.3)" cursor="default">Shellfish</Selected> : ""}
             {eggShow ? <Selected bc="rgba(196, 196, 196, 0.3)" cursor="default">Egg</Selected> : ""}
             {interestShow ? (
-              <Selected cursor="default">No interest</Selected>
+              <Selected cursor="default">No relevant</Selected>
             ) : (
               ""
             )}
