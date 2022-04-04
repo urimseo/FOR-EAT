@@ -2,6 +2,7 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
+  Navigate,
 } from "react-router-dom";
 
 import ScrollToTop from "./commons/ScrollRestoration";
@@ -20,14 +21,20 @@ import Browse from "routes/Browse";
 import WishRecipes from "components/accounts/mypage/WishRecipeAll"
 import ReviewRecipes from "components/accounts/mypage/ReviewRecipeAll"
 
+import {isLoginState} from 'atoms/atoms'
+import { useRecoilValue } from 'recoil';
+
 
 const AppRouter = () => {
+  const isLogged = useRecoilValue(isLoginState);
+  console.log(isLogged)
   return (
     <Router>
       <>
         <ScrollToTop />
+          {isLogged ?(
+            <>
         <Routes>
-          <Route path="" element={<Landing />} />
           <Route path="/" element={<Home />}>
             <Route path="/recommend" element={<Feed />} />
             <Route path="/category" element={<Category />} />
@@ -43,7 +50,16 @@ const AppRouter = () => {
             <Route path="/:member_seq/mypage/likes" element={<WishRecipes />} />
             <Route path="/:member_seq/mypage/reviews" element={<ReviewRecipes />} />
           </Route>
-        </Routes>
+            </Routes>
+            </>
+          ):(
+           <> 
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/*" element={<Navigate replace to="/" />} />
+          </Routes>
+          </>
+          )}
       </>
     </Router>
   );
