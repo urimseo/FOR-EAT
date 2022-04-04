@@ -136,18 +136,19 @@ const ReviewForm = ({ recipeId }) => {
   
   const onClickSave = async (event) => {
     event.preventDefault();
-    console.log(content)
     const formData = new FormData();
     formData.append("image", image_url);
     formData.append("content", content);
     formData.append("ratings", ratings);
 
-    for (let key of formData.keys()) { console.log(key, ":", formData.get(key)); }
     const response = await createReview(recipeId, formData)
     if (response) {
       const result = await getReviewList(recipeId)
       console.log(result)
       setReviews(result.data)
+      // 리뷰 작성 후 입력 값 초기화
+      setRatings(0)
+      setContent("")
     }
   }
 
