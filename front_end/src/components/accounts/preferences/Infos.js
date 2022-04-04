@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Plus from "assets/img/Plus.png";
-import Button2 from "components/commons/Button2";
 
 const SubTheme = styled.div`
   margin-top: 3rem;
@@ -25,6 +24,7 @@ const Item = styled.div`
 
 const PLUS = styled(motion.div)`
   display: flex;
+  font-family: "Work Sans";
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -38,6 +38,25 @@ const PLUS = styled(motion.div)`
   margin-top: 1rem;
 `;
 
+const Selected = styled.div`
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 5px solid #c4c4c4;
+  border-radius: 5rem;
+  transition: 0.2s;
+  width: 8.5rem;
+  height: 8.5rem;
+  background-color: white;
+  margin-top: 1rem;
+  margin-right: 3rem;
+  font-family: "Work Sans";
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: "default";
+`;
+
 const Image = styled.img`
   border-radius: 4rem;
   height: 3rem;
@@ -49,7 +68,6 @@ const ImageSub = styled.div`
   display: grid;
   grid-template-columns: min-content;
   text-align: center;
-  font-family: "Work Sans";
   font-weight: 500;
   font-size: 0.9rem;
   margin-top: 1rem;
@@ -67,7 +85,7 @@ const ButtonContainers = styled.div`
 
 const Info = styled.div``;
 
-const Infos = ({ on, setWidgetId, surveyList }) => {
+const Infos = ({ setWidgetId, surveyList }) => {
   const [womanShow, setWomanShow] = useState();
   const [manShow, setManShow] = useState();
   const [age, setAge] = useState();
@@ -98,9 +116,9 @@ const Infos = ({ on, setWidgetId, surveyList }) => {
       <Item>
         <ButtonContainers>
           <SpaceBetweenContainer>
-            {manShow ? <Button2 cursor="default" name="Man" /> : ""}
-            {womanShow ? <Button2 cursor="default" name="Woman" /> : ""}
-            <Button2 cursor="default" name={ages[age]} />
+            {manShow ? <Selected cursor="default">Man</Selected> : ""}
+            {womanShow ? <Selected cursor="default">Woman</Selected> : ""}
+            <Selected cursor="default">{ages[age]}</Selected>
             <PLUS
               onClick={() => {
                 if (setWidgetId) setWidgetId("M01");

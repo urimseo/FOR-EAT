@@ -235,7 +235,7 @@ const AllergiesModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyLi
               bc={interestShow ? on : ""}
               mr="0px" 
               onClick={onInterest}
-              name="No interest"
+              name="No relevant"
             />
           </SpaceBetweenContainer>
         </div>
