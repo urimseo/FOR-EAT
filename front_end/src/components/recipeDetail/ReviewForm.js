@@ -109,26 +109,7 @@ const ReviewForm = ({ recipeId }) => {
   const [ fileName, setFileName ] = useState();
   const [ reviews, setReviews] = useState([]); 
 
-
-  useEffect(() => {
-
-    getMember(UserInfo)
-    .then((res) => {
-      console.log(res)
-      setProfileImage(res.profile_image_url)
-     })
-    .catch((err) => 
-      console.log(err)
-      )
-
-    getReviewList(recipeId).then((res) => {
-      setReviews(res.data)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  },[]);
-
+  
   const onFileUpload = (event) => { 
     // 파일 이미지 크기 제한해야됨?!
     const file = event.target.files[0]
@@ -167,7 +148,36 @@ const ReviewForm = ({ recipeId }) => {
       setContent("")
     }
   }
+  
+  useEffect(() => {
+    getMember(UserInfo)
+    .then((res) => {
+      console.log(res)
+      setProfileImage(res.profile_image_url)
+     })
+    .catch((err) => 
+      console.log(err)
+      )
 
+    getReviewList(recipeId).then((res) => {
+      setReviews(res.data)
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  },[]);
+
+  useEffect(()=> {
+    getReviewList(recipeId).then((res) => {
+      setReviews(res.data)
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }, [reviews])
+  
   return (
     <Container>
       <div style={{display: "flex", justifyContent: "center"}}>
@@ -209,7 +219,7 @@ const ReviewForm = ({ recipeId }) => {
       </div>
       <CardContainer>
         <div style={{display:"flex", justifyContent:"center", flexWrap:"wrap" }}>
-            { reviews.map((review) => ( 
+            { reviews.length ? reviews.map((review) => ( 
               <ReviewCard
                 key={review.id}
                 reviewId={review.id}
@@ -221,7 +231,7 @@ const ReviewForm = ({ recipeId }) => {
                 ratings={review.ratings}
                 lastModifiedDate={review.last_modified_date}
               />
-            ))}
+            )): null}
           </div>
       </CardContainer>
     </Container>

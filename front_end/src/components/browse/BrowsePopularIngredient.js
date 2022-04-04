@@ -2,17 +2,17 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import CircleCard from "components/browse/CircleCard";
-import egg from "assets/img/IngredientItem/egg.PNG"
+import egg from "assets/img/IngredientItem/egg.png"
 import bacon from "assets/img/IngredientItem/bacon.jpg"
 import beef from "assets/img/IngredientItem/beef.jpg"
 import rice from "assets/img/IngredientItem/rice.jpg"
-import carrot from "assets/img/IngredientItem/carrot.PNG"
+import carrot from "assets/img/IngredientItem/carrot.png"
 import chicken from "assets/img/IngredientItem/chicken.jpg"
 import noodle from "assets/img/IngredientItem/noodle3.jpg"
 import pork from "assets/img/IngredientItem/pork.jpg"
 import potato from "assets/img/IngredientItem/potato.jpg"
 import salmon from "assets/img/IngredientItem/salmon.jpg"
-import shrimp from "assets/img/IngredientItem/shrimp.PNG"
+import shrimp from "assets/img/IngredientItem/shrimp.png"
 import tomato from "assets/img/IngredientItem/tomato.jpg"
 import turkey from "assets/img/IngredientItem/turkey.png"
 import avocado from "assets/img/IngredientItem/avocado.jpg"

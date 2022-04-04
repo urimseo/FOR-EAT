@@ -36,19 +36,9 @@ const Header = styled.div`
   }
 `
 
-const CircularProgressContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
-`
 
 const Browse = () => {
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(()=>{
-    let timer = setTimeout(()=>{ setIsLoading(false) }, 4000);
-    // console.log(timer);
-  }, [ isLoading ]);
   return (
 
     <Container sx={{marginTop: "4rem"}}>
@@ -63,9 +53,7 @@ const Browse = () => {
         </div>
       </Header>
       <BrowseArticle />
-      <CircularProgressContainer>
-        {isLoading ? <CircularProgress /> : <PopularIngredients />}
-      </CircularProgressContainer>
+      <PopularIngredients />
       <BrowseList />
     </Container>
   )

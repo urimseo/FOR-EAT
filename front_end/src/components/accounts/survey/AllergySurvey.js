@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled, {keyframes} from "styled-components";
-import egg from "assets/img/IngredientItem/egg.PNG";
+import egg from "assets/img/IngredientItem/egg.png";
 import wheat from "assets/img/IngredientItem/flour.jpg";
 import shellfish from "assets/img/IngredientItem/seafood.PNG";
-import apple from "assets/img/IngredientItem/apple.PNG";
+import apple from "assets/img/IngredientItem/apple.png";
 import walnut from "assets/img/IngredientItem/walnut.jpg";
 import peanut from "assets/img/IngredientItem/peanut.jpg";
 import sesame from "assets/img/IngredientItem/sesame.jpg";
