@@ -26,9 +26,8 @@ const IngredientButton = styled.button`
 `
 
 const CardContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  /* grid-template-columns: 21.5rem 21.5rem 21.5rem 21.5rem; */
+  display: grid;
+  grid-template-columns: 21.5rem 21.5rem 21.5rem 21.5rem;
   justify-content: center;
 `
 
@@ -50,6 +49,7 @@ const Ingredient = forwardRef((props, ref) => {
   const [seafoodShow, setSeafoodShow] = useState(false);
   const [vegetableShow, setVegetableShow] = useState(false);
   const [RecipeList, setRecipeList] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1); 
 
@@ -85,8 +85,9 @@ const Ingredient = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Seafood");
     if (Recipe) {
-      setRecipeList(Recipe);
+      setRecipeList(Recipe.data);
       setIsLoading(false);
+      setTotalCount(Recipe.total_count);
     }
   }
 
@@ -101,8 +102,9 @@ const Ingredient = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Vegetable");
     if (Recipe) {
-      setRecipeList(Recipe);
+      setRecipeList(Recipe.data);
       setIsLoading(false);
+      setTotalCount(Recipe.total_count);
     }
   }
   
@@ -115,9 +117,9 @@ const Ingredient = forwardRef((props, ref) => {
         {meatShow ? <SubIngredient ref={childSubIngredient}/> : null}
       </div>
       { meatShow ? null : 
+        (isLoading ? <div style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}><CircularProgress /></div> :
         <CardContainer>
-          {isLoading ? <CircularProgress style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}/> :
-          (RecipeList.map((Recipe, index) => ( 
+          {RecipeList.map((Recipe, index) => (
             <Card
               key={Recipe.recipe_seq}
               recipeSeq={Recipe.recipe_seq}
@@ -129,23 +131,24 @@ const Ingredient = forwardRef((props, ref) => {
               recipeRating={Recipe.average_rating}
               likedCount={Recipe.liked_count}
             />
-          )))
-          }
+          ))}
         </CardContainer>
+        )
       }
       {isLoading ? null :       
-        (RecipeList.length !== 0 ?      
-        <PageContainer>
-          <Pagination 
-            activePage={page} 
-            itemsCountPerPage={10} 
-            totalItemsCount={250} 
-            pageRangeDisplayed={5} 
-            prevPageText={"‹"} 
-            nextPageText={"›"} 
-            onChange={handlePageChange}
-          />
-        </PageContainer> : null
+        ( meatShow ?   
+          null :   
+          <PageContainer>
+            <Pagination 
+              activePage={page} 
+              itemsCountPerPage={24} 
+              totalItemsCount={totalCount} 
+              pageRangeDisplayed={5} 
+              prevPageText={"‹"} 
+              nextPageText={"›"} 
+              onChange={handlePageChange}
+            />
+          </PageContainer>
         )}
     </Container>
   );

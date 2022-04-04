@@ -25,9 +25,8 @@ const TimeButton = styled.button`
 `
 
 const CardContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  /* grid-template-columns: 21.5rem 21.5rem 21.5rem 21.5rem; */
+  display: grid;
+  grid-template-columns: 21.5rem 21.5rem 21.5rem 21.5rem;
   justify-content: center;
 `
 
@@ -50,6 +49,7 @@ const Time = forwardRef((props, ref) => {
   const [time24hoursShow, set24hoursShow] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [RecipeList, setRecipeList] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [page, setPage] = useState(1); 
 
   const handlePageChange = (page) => { 
@@ -85,8 +85,9 @@ const Time = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "30min");
     if (Recipe) {
-      setRecipeList(Recipe);
+      setRecipeList(Recipe.data);
       setIsLoading(false);
+      setTotalCount(Recipe.total_count);
     }
   }
 
@@ -103,8 +104,9 @@ const Time = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "60min");
     if (Recipe) {
-      setRecipeList(Recipe);
+      setRecipeList(Recipe.data);
       setIsLoading(false);
+      setTotalCount(Recipe.total_count);
     }
   }
 
@@ -121,8 +123,9 @@ const Time = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "120min");
     if (Recipe) {
-      setRecipeList(Recipe);
+      setRecipeList(Recipe.data);
       setIsLoading(false);
+      setTotalCount(Recipe.total_count);
     }
   }
 
@@ -139,8 +142,9 @@ const Time = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "180min");
     if (Recipe) {
-      setRecipeList(Recipe);
+      setRecipeList(Recipe.data);
       setIsLoading(false);
+      setTotalCount(Recipe.total_count);
     }
   }
 
@@ -171,9 +175,9 @@ const Time = forwardRef((props, ref) => {
         {time180minShow ? <TimeButton onClick={()=>get180minRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>3HOURS</TimeButton> : <TimeButton onClick={get180minRecipe}>3HOURS</TimeButton>}
         {time24hoursShow ? <TimeButton onClick={()=>get24hoursRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>24HOURS</TimeButton> : <TimeButton onClick={get24hoursRecipe}>24HOURS</TimeButton>}
       </div>  
-      <CardContainer>
-      {isLoading ? <CircularProgress style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}/> :
-          (RecipeList.map((Recipe, index) => ( 
+      {isLoading ? <div style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}><CircularProgress /></div> :
+        <CardContainer>
+          {RecipeList.map((Recipe, index) => (
             <Card
               key={Recipe.recipe_seq}
               recipeSeq={Recipe.recipe_seq}
@@ -185,16 +189,16 @@ const Time = forwardRef((props, ref) => {
               recipeRating={Recipe.average_rating}
               likedCount={Recipe.liked_count}
             />
-          )))
-        }
-      </CardContainer>
+          ))}
+        </CardContainer>
+      }
       {isLoading ? null :       
       (RecipeList.length !== 0 ?      
         <PageContainer>
           <Pagination 
             activePage={page} 
-            itemsCountPerPage={10} 
-            totalItemsCount={250} 
+            itemsCountPerPage={24} 
+            totalItemsCount={totalCount} 
             pageRangeDisplayed={5} 
             prevPageText={"‹"} 
             nextPageText={"›"} 
