@@ -27,25 +27,25 @@ const CardContainer = styled.div`
   justify-content: center;
 `
 
-const RelatedRecipeList = () => {
-  // api 연결시
-  const [resultList, setResultList] = useState([])
-
-  const recipe_seq = 2259
-  const name="Vanilla Cream Pie"
-  const calories = 389
-  const images = "https://img.sndimg.com/food/image/upload/w_555,h_416,c_fit,fl_progressive,q_95/v1/img/recipes/18/74/0/hDs8RxdQMK13opyS1XZD_untitled-1942.jpg"
-  const average_rating = 4
-  const liked_count = 100
-  const keywords = []
+const RelatedRecipeList = ({popular_recipe, user}) => {
+  const age = user.age
+  const gender = user.gender
 
   return (
     <Container>
       <TextContainer>
-        <div className="title">Women in her 10's</div>
+        <div className="title">
+          { gender ? "Women": "Men"} in their 
+          { age === 1 ? " 10" :
+            age === 2 ? " 20" :
+            age === 3 ? " 30~40" :
+            age === 4 ? " 50~64" :
+            age === 5 ? " 65~70" : " 75"
+          }'s
+        </div>
       </TextContainer>
       <CardContainer>
-          {/* { resultList.map((result, idx) => {
+          { popular_recipe ? popular_recipe.map((result, idx) => {
             // 5개만 잘라서 보여주기
             if ( idx < 5 ) {
               return (
@@ -53,31 +53,7 @@ const RelatedRecipeList = () => {
               />
               )
             }
-          })} */}
-          <Card4 
-            recipe_seq={recipe_seq} name={name}
-            calories={calories} images={images}
-            average_rating={average_rating} liked_count={liked_count}
-            keywords={keywords}
-          />
-          <Card4 
-            recipe_seq={recipe_seq} name={name}
-            calories={calories} images={images}
-            average_rating={average_rating} liked_count={liked_count}
-            keywords={keywords}
-          />
-          <Card4 
-            recipe_seq={recipe_seq} name={name}
-            calories={calories} images={images}
-            average_rating={average_rating} liked_count={liked_count}
-            keywords={keywords}
-          />
-          <Card4 
-            recipe_seq={recipe_seq} name={name}
-            calories={calories} images={images}
-            average_rating={average_rating} liked_count={liked_count}
-            keywords={keywords}
-          />
+          }): null}
         </CardContainer>
     </Container>
   )
