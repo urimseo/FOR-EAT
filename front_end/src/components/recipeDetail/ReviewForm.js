@@ -7,6 +7,8 @@ import { getMember } from "api/MyPageApi";
 import { getReviewList } from "api/RecipeDetailApi";
 import { createReview } from "api/ReviewApi";
 import ReviewCard from "components/recipeDetail/ReviewCard"
+import { Alert } from "components/commons/Alert";
+
 
 const Container = styled.div`
   display: flex;
@@ -130,12 +132,26 @@ const ReviewForm = ({ recipeId }) => {
   const onFileUpload = (event) => { 
     // 파일 이미지 크기 제한해야됨?!
     const file = event.target.files[0]
-    setImageUrl(file);
-    setFileName(file.name)
+    if (file.size > 1048576) {
+      event.preventDefault();
+      Alert("❌ File Size Is Too Big. Max 1MB.")
+      return;
+    } else {
+      setImageUrl(file);
+      setFileName(file.name)
+    }
   };
   
   const onClickSave = async (event) => {
     event.preventDefault();
+    if (!ratings) {
+      Alert("❌ Please Rate The Recipe.")
+      return;
+    }
+    if (!content) {
+      Alert("❌ Please Write A Comment.")
+      return;
+    }
     const formData = new FormData();
     formData.append("image", image_url);
     formData.append("content", content);

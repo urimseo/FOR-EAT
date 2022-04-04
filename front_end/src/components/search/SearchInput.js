@@ -45,7 +45,6 @@ const SearchInput = ({ onClick, url, isSelected }) => {
 
 
   const onClickSearch = async (e) => {
-    e.preventDefault()
     const response = await getSearchList(1, word)
     if (response) {
       // 검색 결과 페이지로 이동. 데이터랑 같이 보내줌.
@@ -53,16 +52,22 @@ const SearchInput = ({ onClick, url, isSelected }) => {
       setWord("")
     }
   }
-
+  const onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      onClickSearch();
+    }
+  }
   return (
-    <SearchContainer>
+    <SearchContainer onSubmit={false}>
       <Input 
         placeholder=" search in result"
         value={word || ''}
         type="text"
         onChange={onChange}
-        onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
+        // onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }} // enter 입력 방지
+        onKeyPress={onKeyPress}
       />
+      <input type="text" style={{ display: "none"}} />
       <SearchImgWrapper>
         <ReadingGlassesImg 
           src={reading_glasses} 
