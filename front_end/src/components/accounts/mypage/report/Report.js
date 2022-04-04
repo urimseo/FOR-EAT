@@ -75,7 +75,7 @@ const Report = () => {
             />
             <DoughnutChart category={report.category}/>
           </FlexContainer>
-          <RelatedRecipeList popular_recipe={report.popular_recipe}/>
+          <RelatedRecipeList popular_recipe={report.popular_recipe} user={report.user} />
         </BackgroundContainer>
       </Container>
     )

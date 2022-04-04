@@ -25,9 +25,8 @@ const ServingsButton = styled.button`
 `
 
 const CardContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  /* grid-template-columns: 21.5rem 21.5rem 21.5rem 21.5rem; */
+  display: grid;
+  grid-template-columns: 21.5rem 21.5rem 21.5rem 21.5rem;
   justify-content: center;
 `
 
@@ -47,6 +46,7 @@ const Servings = forwardRef((props, ref) => {
   const [fourRecipeShow, setFourRecipeShow] = useState(false);
   const [partyRecipeShow, setPartyRecipeShow] = useState(false);
   const [RecipeList, setRecipeList] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1); 
 
@@ -79,8 +79,9 @@ const Servings = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "One");
     if (Recipe) {
-      setRecipeList(Recipe);
+      setRecipeList(Recipe.data);
       setIsLoading(false);
+      setTotalCount(Recipe.total_count);
     }
   }
 
@@ -96,8 +97,9 @@ const Servings = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Two");
     if (Recipe) {
-      setRecipeList(Recipe);
+      setRecipeList(Recipe.data);
       setIsLoading(false);
+      setTotalCount(Recipe.total_count);
     }
   }
 
@@ -113,8 +115,9 @@ const Servings = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Four");
     if (Recipe) {
-      setRecipeList(Recipe);
+      setRecipeList(Recipe.data);
       setIsLoading(false);
+      setTotalCount(Recipe.total_count);
     }
   }
   
@@ -130,8 +133,9 @@ const Servings = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Party");
     if (Recipe) {
-      setRecipeList(Recipe);
+      setRecipeList(Recipe.data);
       setIsLoading(false);
+      setTotalCount(Recipe.total_count);
     }
   }
 
@@ -143,30 +147,30 @@ const Servings = forwardRef((props, ref) => {
         {fourRecipeShow ? <ServingsButton onClick={()=>getFourRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>FOUR</ServingsButton> : <ServingsButton onClick={getFourRecipe}>FOUR</ServingsButton>}
         {partyRecipeShow ? <ServingsButton onClick={()=>getPartyRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>PARTY</ServingsButton> : <ServingsButton onClick={getPartyRecipe}>PARTY</ServingsButton>}
       </div> 
-      <CardContainer>
-      {isLoading ? <CircularProgress style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}/> :
-        (RecipeList.map((Recipe, index) => ( 
-          <Card
-            key={Recipe.recipe_seq}
-            recipeSeq={Recipe.recipe_seq}
-            index={index}
-            recipeImg={Recipe.images}
-            recipeName={Recipe.name}
-            recipeKeywords={(Recipe.keywords.length > 1 ? [Recipe.keywords[0].keyword_name, Recipe.keywords[1].keyword_name] : Recipe.keywords[0].keyword_name)}
-            recipeCalorie={Recipe.calories}
-            recipeRating={Recipe.average_rating}
-            likedCount={Recipe.liked_count}
-          />
-        )))
+      {isLoading ? <div style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}><CircularProgress /></div> :
+        <CardContainer>
+          {RecipeList.map((Recipe, index) => (
+            <Card
+              key={Recipe.recipe_seq}
+              recipeSeq={Recipe.recipe_seq}
+              index={index}
+              recipeImg={Recipe.images}
+              recipeName={Recipe.name}
+              recipeKeywords={(Recipe.keywords.length > 1 ? [Recipe.keywords[0].keyword_name, Recipe.keywords[1].keyword_name] : Recipe.keywords[0].keyword_name)}
+              recipeCalorie={Recipe.calories}
+              recipeRating={Recipe.average_rating}
+              likedCount={Recipe.liked_count}
+            />
+          ))}
+        </CardContainer>
       }
-      </CardContainer>
       {isLoading ? null :       
       (RecipeList.length !== 0 ?      
         <PageContainer>
           <Pagination 
             activePage={page} 
-            itemsCountPerPage={10} 
-            totalItemsCount={250} 
+            itemsCountPerPage={24} 
+            totalItemsCount={totalCount} 
             pageRangeDisplayed={5} 
             prevPageText={"‹"} 
             nextPageText={"›"} 
