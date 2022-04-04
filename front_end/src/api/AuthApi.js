@@ -16,3 +16,7 @@ export const googleLogin = async (data, token) => {
   }
   return response.data;
 };
+
+export const logout = () => {
+  localStorage.removeItem('access_token')
+}
