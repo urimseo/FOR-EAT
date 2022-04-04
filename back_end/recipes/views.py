@@ -20,7 +20,7 @@ import json
 import re
 import operator
 
-
+from members.token import generate_token, decode_token
 
 # Create your views here.
 
@@ -61,13 +61,16 @@ class RecipeList(ListAPIView, LimitOffsetPagination):
         recipes = self.get_queryset()
         results = self.paginate_queryset(recipes)
         serializer = RecipeListSerializer(results, many = True)
+        response_data = dict()
+        response_data['data'] = serializer.data
+        response_data['total_count'] = recipes.count()
 
-        for i in serializer.data:
+        for i in response_data['data']:
             i['liked_count'] = LikedRecipe.objects.filter(recipe_seq=i['recipe_seq']).count()
             i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).aggregate(average_rating=Avg('review__ratings')))
             i['images'] = json.loads(i['images'])[0]
   
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(response_data, status=status.HTTP_200_OK)
 
 
 class RecipeDetail(APIView):
@@ -334,14 +337,23 @@ class BrowseRecipeList(ListAPIView, LimitOffsetPagination):
 
 
 class RecommendRecipeList(ListAPIView, LimitOffsetPagination):
-    @login_decorator
+    # @login_decorator
     def get(self, request, format=None):
+        # token = request.data['data']['access_token']
+        # member = decode_token(token)
+        member = Member.objects.get(member_seq=1)
+
         word = self.request.GET['type']
-        is_survey = Survey.objects.filter(member_seq=request.member.member_seq)
-        is_review = Review.objects.filter(member=request.member)
+
+        # is_survey = Survey.objects.filter(member_seq=request.member.member_seq)
+        is_survey = Survey.objects.filter(member_seq=member)
+        # is_review = Review.objects.filter(member=request.member)
+        is_review = Review.objects.filter(member=member)
 
         if word == 'foryou':
-            recommends = Recommend.objects.filter(member_seq=request.member.member_seq).values('content_base')
+
+            # recommends = Recommend.objects.filter(member_seq=request.member.member_seq).values('content_base')
+            recommends = Recommend.objects.filter(member_seq=member).values('content_base')
 
             if recommends[0]['content_base']:
                 recommend_list = json.loads(recommends[0]['content_base'])
@@ -351,7 +363,10 @@ class RecommendRecipeList(ListAPIView, LimitOffsetPagination):
 
             else:
                 if is_survey and not is_review:
-                    temp = Survey.objects.filter(member_seq=request.member.member_seq).values()
+
+                    # temp = Survey.objects.filter(member_seq=request.member.member_seq).values()
+                    temp = Survey.objects.filter(member_seq=member).values()
+
                     ingredinet_keywords = json.loads(temp[0]['ingredient_keywords'])
 
                     recipes = Recipe.objects.filter(reduce(operator.and_, (
@@ -372,7 +387,9 @@ class RecommendRecipeList(ListAPIView, LimitOffsetPagination):
                 i['images'] = json.loads(i['images'])[0]
         
         elif word == 'likeyou':
-            recommends = Recommend.objects.filter(member_seq=request.member.member_seq).values('collaborate_base', 'survey_base')
+
+            # recommends = Recommend.objects.filter(member_seq=request.member.member_seq).values('collaborate_base', 'survey_base')
+            recommends = Recommend.objects.filter(member_seq=member).values('collaborate_base', 'survey_base')
             
             if recommends[0]['collaborate_base']:
                 recommend_list = json.loads(recommends[0]['collaborate_base'])
