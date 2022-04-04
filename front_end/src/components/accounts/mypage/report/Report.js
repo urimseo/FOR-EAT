@@ -70,10 +70,12 @@ const Report = () => {
             />
           </FlexContainer>
           <FlexContainer>
-            <Habit nutrient={report.nutrient || {}}/>
-            <DoughnutChart category={report.category || {}}/>
+            <Habit nutrient={report.nutrient || {}} 
+              user={report.user || {}}
+            />
+            <DoughnutChart category={report.category}/>
           </FlexContainer>
-          <RelatedRecipeList popular_recipe={report.popular_recipe || {}}/>
+          <RelatedRecipeList popular_recipe={report.popular_recipe}/>
         </BackgroundContainer>
       </Container>
     )
