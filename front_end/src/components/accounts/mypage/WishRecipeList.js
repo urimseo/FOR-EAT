@@ -1,8 +1,6 @@
 import React from "react";
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Card from "components/commons/Card";
-import Pagination from "react-js-pagination";
 import "assets/css/Pagination.css";
 
 const Container = styled.div`

@@ -76,7 +76,6 @@ const InfosModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyList }
     const formData = new FormData();
     formData.append("gender", womanShow);
     formData.append("age", age);
-    for (let key of formData.keys()) { console.log(key, ":", formData.get(key)); }
     editSurvey(UserInfo, formData)
     setWomanShow(surveyList.gender)
     setManShow(!surveyList.gender)

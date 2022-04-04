@@ -3,14 +3,12 @@ import Carousel from 'react-material-ui-carousel'
 import styled from "styled-components";
 import { Paper, Button } from '@mui/material'
 import MainImg from "assets/img/IngredientMain.jpg";
-import Carousel1 from "assets/img/Carousel1.png";
 import Carousel3 from "assets/img/Carousel3.jpg";
 import Carousel4 from "assets/img/Carousel4.jpg";
 import Carousel5 from "assets/img/Carousel5.jpg";
 import Carousel6 from "assets/img/Carousel6.jpg";
 import Carousel7 from "assets/img/Carousel7.jpg";
 import Carousel8 from "assets/img/Carousel8.jpg";
-import { borderRadius } from '@mui/system';
 
 const Header = styled.div`
   height: 20rem;

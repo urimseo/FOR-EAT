@@ -46,7 +46,6 @@ const Report = () => {
   const getReport = async () => {
     const result = await getReportDetail(member_seq);
     setReport(result);
-    console.log("getReport :", result)
   }
 
   useEffect(()=> {

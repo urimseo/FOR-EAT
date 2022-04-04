@@ -10,7 +10,6 @@ import Report from "components/accounts/mypage/report/Report"
 import { Container } from "@mui/material";
 import { getMember } from "api/MyPageApi";
 import { getMypage } from "api/MyPageApi";
-import { set } from "react-hook-form";
 
 
 const SpaceBetweenContainer = styled.div`
@@ -77,12 +76,10 @@ const MyPage = () => {
   };
 
   useEffect(() => {
-    // showSavedRecipes();
-    showReport();
+    showSavedRecipes();
 
     getMypage(UserInfo)
     .then((res) => {
-      console.log(1, res)
       setRecipeList(res.liked_recipe)
       setReviewList(res.review)
       setSurveyList(res.member_survey)

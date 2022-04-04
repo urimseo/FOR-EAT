@@ -52,13 +52,6 @@ const TextContainer = styled.div`
   }
 `
 
-const SpaceBetweenContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-`
-
-
 
 const CircleCard = ({ name, img }) => {
 

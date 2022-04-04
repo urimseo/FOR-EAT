@@ -77,7 +77,7 @@ const GoalsModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyList }
     formData.append("timesaver", saveTimeShow);
     formData.append("healthy_diet", healthyShow);
     formData.append("lose_weight", dietShow);
-    for (let key of formData.keys()) { console.log(key, ":", formData.get(key)); }
+    // for (let key of formData.keys()) { console.log(key, ":", formData.get(key)); }
     editSurvey(UserInfo, formData)
     setBeginnerShow(surveyList.beginner)
     setNewCuisinShow(surveyList.recipe_challenger)

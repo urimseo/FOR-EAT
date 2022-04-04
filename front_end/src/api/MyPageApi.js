@@ -16,7 +16,6 @@ export const getMypage = async (member_seq) => {
 };
 
 export const getWish = async (page, member_seq) => {
-  console.log(page);
   const response = await instance.get(`/members/${member_seq}/mypage/likes`, {
     params: {
       limit: 12,
