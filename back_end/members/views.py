@@ -422,7 +422,7 @@ class MemberLikeRecipeList(APIView, LimitOffsetPagination):
     def get(self, request, pk, format=None):
         if request.member.member_seq == pk:
 
-            likes = LikedRecipe.objects.select_related('recipe_seq').filter(member_seq=pk)
+            likes = list(LikedRecipe.objects.filter(member_seq=request.member).values('recipe_seq'))
             likes_recipe = Recipe.objects.filter(recipe_seq__in=likes)
             results = self.paginate_queryset(likes_recipe, request)
             like_serializer_all = RecipeListSerializer(results, many=True)
