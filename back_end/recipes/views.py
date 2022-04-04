@@ -58,7 +58,10 @@ class RecipeList(ListAPIView, LimitOffsetPagination):
         return object_list
 
     def get(self, request, format=None):
-        recipes = self.get_queryset()
+        try:
+            recipes = self.get_queryset()
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
         results = self.paginate_queryset(recipes)
         serializer = RecipeListSerializer(results, many = True)
         response_data = dict()

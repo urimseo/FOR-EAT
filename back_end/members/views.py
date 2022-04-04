@@ -427,6 +427,7 @@ class MemberLikeRecipeList(APIView, LimitOffsetPagination):
             results = self.paginate_queryset(likes_recipe, request)
             like_serializer_all = RecipeListSerializer(results, many=True)
             for recipe in like_serializer_all.data:
+                recipe['liked_count'] = LikedRecipe.objects.filter(recipe_seq=recipe['recipe_seq']).count()
                 recipe['images'] = json.loads(recipe['images'])[0]
             data = {
                 "likes_count" : len(likes),
