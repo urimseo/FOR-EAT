@@ -37,24 +37,28 @@ const BarChart = ({ nutrient, user }) => {
     setData([
       { x: 'Calories', 
         y: Ratio(nutrient.calories, standard.calories), 
-        fillColor: (Ratio(nutrient.protein, standard.protein) >= 110 ? '#EB8C87' : 
-        110 > Ratio(nutrient.protein, standard.protein) >= 90 ? '#008FFB': 
-        90 > Ratio(nutrient.protein, standard.protein) ? "#FEC25C" : null)
+        z: Math.round(nutrient.calories),
+        fillColor: (Ratio(nutrient.calories, standard.calories) >= 110 ? '#EB8C87' : 
+        110 > Ratio(nutrient.calories, standard.calories) >= 90 ? '#008FFB': 
+        90 > Ratio(nutrient.calories, standard.calories) ? "#FEC25C" : null)
       },
       { x: 'Carbohydrate', 
-        y: Ratio(nutrient.carbohydrate, standard.carbohydrate), 
+        y: Ratio(nutrient.carbohydrate, standard.carbohydrate),
+        z: Math.round(nutrient.carbohydrate),
         fillColor: (Ratio(nutrient.carbohydrate, standard.carbohydrate) >= 110 ? '#EB8C87': 
         110 > Ratio(nutrient.carbohydrate, standard.carbohydrate) >= 90 ? '#008FFB' : 
         90 > Ratio(nutrient.carbohydrate, standard.carbohydrate) ? "#FEC25C": null)
       }, 
       { x: 'Protein', 
-        y: Ratio(nutrient.protein, standard.protein), 
+        y: Ratio(nutrient.protein, standard.protein),
+        z: Math.round(nutrient.protein),
         fillColor: (Ratio(nutrient.protein, standard.protein) >= 110 ? '#EB8C87': 
         110 > Ratio(nutrient.protein, standard.protein) >= 90 ? '#008FFB' :
         90 > Ratio(nutrient.protein, standard.protein) ? "#FEC25C": null)
       }, 
       { x: 'Fat', 
-        y: Ratio(nutrient.fat, standard.fat), 
+        y: Ratio(nutrient.fat, standard.fat),
+        z: Math.round(nutrient.fat),
         fillColor: (Ratio(nutrient.fat, standard.fat) >= 110 ? '#EB8C87':
         110 > Ratio(nutrient.fat, standard.fat) >= 90 ? '#008FFB' : 
         90 > Ratio(nutrient.fat, standard.fat) ? "#FEC25C": null)
@@ -62,27 +66,32 @@ const BarChart = ({ nutrient, user }) => {
       // 적게 먹을수록 좋은 것들 : 100% 이상이면 빨간그래프, 미만이면 ok
       { x: 'Saturated Fat', 
         y: Ratio(nutrient.saturated_fat, standard.saturated_fat),
+        z: Math.round(nutrient.saturated_fat),
         fillColor: (Ratio(nutrient.saturated_fat, standard.saturated_fat) > 100 ?'#EB8C87':
         100 >= Ratio(nutrient.saturated_fat, standard.saturated_fat) ? "#008FFB": null)
       },
       { x: 'Sodium', 
         y: Ratio(nutrient.sodium, standard.sodium),
+        z: Math.round(nutrient.sodium),
         fillColor: (Ratio(nutrient.sodium, standard.sodium) > 100 ? '#EB8C87': 
         100 >= Ratio(nutrient.sodium, standard.sodium) ? "#008FFB": null)
       },
       { x: 'Cholesterol', 
-        y: Ratio(nutrient.cholesterol, standard.cholesterol), 
+        y: Ratio(nutrient.cholesterol, standard.cholesterol),
+        z: Math.round(nutrient.cholesterol),
         fillColor: (Ratio(nutrient.cholesterol, standard.cholesterol) > 100 ?'#EB8C87':
         100 >= Ratio(nutrient.cholesterol, standard.cholesterol) ? "#008FFB": null)
       },
       { x: 'Sugar', 
-        y: Ratio(nutrient.sugar, standard.sugar), 
+        y: Ratio(nutrient.sugar, standard.sugar),
+        z: Math.round(nutrient.sugar),
         fillColor: (Ratio(nutrient.sugar, standard.sugar) > 100 ?'#EB8C87' :
         100 >= Ratio(nutrient.sugar, standard.sugar) ? "#008FFB": null)
       },
       // 많이 먹을수록 좋은 것: 100이상이면 적정, 미만이면 부족
-      { x: 'Fiber', 
-        y: Ratio(nutrient.fiber, standard.fiber), 
+      { x: 'Fiber',   
+        y: Ratio(nutrient.fiber, standard.fiber),
+        z: Math.round(nutrient.fiber),
         fillColor: (Ratio(nutrient.fiber, standard.fiber) < 100 ? '#fec25c': '#008FFB')  
       },
     ])
@@ -122,11 +131,12 @@ const BarChart = ({ nutrient, user }) => {
               colors: "#fec25c",
               fontSize: "12px",
             },
-            xaxis: {
-              categories: [ "Calories", "Carbohydrate", "Protein", "Fat", "Saturated Fat", 
-              'Sodium', 'Cholesterol', 'Sugar', "Fiber"],
-            },
             yaxis: {
+              labels: {
+                formatter: function (val) {
+                  return val + "%";
+                }
+              },
               title: {
                 text: "% : ( (Intake / Standard Intake) * 100 )",
                 rotate: -90,
@@ -159,7 +169,12 @@ const BarChart = ({ nutrient, user }) => {
               y: {
                 formatter: function (val) {
                   return  val + " %"
-                }
+                },
+              },
+              z : {
+                formatter: function (val) {
+                  return  val + "g"
+                },
               },
             }
           }}
