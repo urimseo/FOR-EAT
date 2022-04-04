@@ -2,11 +2,11 @@ import React, { memo } from 'react';
 import Dustbin from './Dustbin';
 import Box from './Box';
 import styled from "styled-components";
-import egg from "assets/img/IngredientItem/egg.png"
+import egg from "assets/img/IngredientItem/egg.PNG"
 import bacon from "assets/img/IngredientItem/bacon.jpg"
 import beef from "assets/img/IngredientItem/beef.jpg"
 import rice from "assets/img/IngredientItem/rice.jpg"
-import carrot from "assets/img/IngredientItem/carrot.png"
+import carrot from "assets/img/IngredientItem/carrot.PNG"
 import cheese from "assets/img/IngredientItem/cheese.jpg"
 import chicken from "assets/img/IngredientItem/chicken.jpg"
 import chocolate from "assets/img/IngredientItem/chocolate.jpg"
@@ -19,7 +19,7 @@ import onion from "assets/img/IngredientItem/onion.jpg"
 import pork from "assets/img/IngredientItem/pork.jpg"
 import potato from "assets/img/IngredientItem/potato.jpg"
 import salmon from "assets/img/IngredientItem/salmon.jpg"
-import shrimp from "assets/img/IngredientItem/shrimp.png"
+import shrimp from "assets/img/IngredientItem/shrimp.PNG"
 import tomato from "assets/img/IngredientItem/tomato.jpg"
 import turkey from "assets/img/IngredientItem/turkey.png"
 import zucchini from "assets/img/IngredientItem/zucchini.jpg"
