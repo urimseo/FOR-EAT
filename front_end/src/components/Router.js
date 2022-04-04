@@ -36,6 +36,7 @@ const AppRouter = () => {
             <>
         <Routes>
           <Route path="/" element={<Home />}>
+          <Route path="" exact element={<Navigate replace to="/recommend" />} />
             <Route path="/recommend" element={<Feed />} />
             <Route path="/category" element={<Category />} />
             <Route path="/ingredient" element={<Ingredient />} />
@@ -49,6 +50,7 @@ const AppRouter = () => {
             <Route path="/:member_seq/mypage" element={<MyPage />} />
             <Route path="/:member_seq/mypage/likes" element={<WishRecipes />} />
             <Route path="/:member_seq/mypage/reviews" element={<ReviewRecipes />} />
+            <Route path="/*" element={<Navigate replace to="/" />} />
           </Route>
             </Routes>
             </>
