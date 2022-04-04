@@ -422,7 +422,7 @@ class MemberLikeRecipeList(APIView, LimitOffsetPagination):
     def get(self, request, pk, format=None):
         if request.member.member_seq == pk:
 
-            likes = list(LikedRecipe.objects.filter(member_seq=request.member).values('recipe_seq'))
+            likes = LikedRecipe.objects.filter(member_seq=request.member).values('recipe_seq')
             likes_recipe = Recipe.objects.filter(recipe_seq__in=likes)
             results = self.paginate_queryset(likes_recipe, request)
             like_serializer_all = RecipeListSerializer(results, many=True)
@@ -462,7 +462,7 @@ class WeeklyReport(APIView):
             before_week = datetime.now() - timedelta(weeks=1)
             weekly_review = list(Review.objects.filter(member=pk, 
                 create_date__range=[before_week, datetime.now()]).values_list('recipe', flat=True))
-            # print(weekly_review)
+
             # average nutrients in a week's recipe
             weekly_nutrition = Recipe.objects.filter(recipe_seq__in=weekly_review).aggregate(
                 calories=self.Round(Avg('calories')),
@@ -527,13 +527,7 @@ class WeeklyReport(APIView):
 
             for recipe in recipe_serializer.data:
                 recipe['images'] = json.loads(recipe['images'])[0]
-            # else:
-            #     common_popular_recipe = Recipe.objects.filter(
-            #         create_date__range=[before_week, datetime.now()]).annotate(
-            #         average_rating=Avg('review__ratings'), 
-            #         review_cnt=Count('review')).order_by('-average_rating', '-review_cnt')
-                
-            #     print(common_popular_recipe)
+
             data = {
                 'user': user,
                 'nutrient' : weekly_nutrition,
