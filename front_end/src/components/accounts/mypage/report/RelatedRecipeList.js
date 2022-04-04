@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Card4 from "components/commons/Card4";
 
@@ -28,19 +28,21 @@ const CardContainer = styled.div`
 `
 
 const RelatedRecipeList = ({popular_recipe, user}) => {
-  const age = user.age
-  const gender = user.gender
 
+  // useEffect(()=> {
+  //   console.log(age, gender)
+  // })
   return (
     <Container>
       <TextContainer>
         <div className="title">
-          { gender ? "Women": "Men"} in their 
-          { age === 1 ? " 10" :
-            age === 2 ? " 20" :
-            age === 3 ? " 30~40" :
-            age === 4 ? " 50~64" :
-            age === 5 ? " 65~70" : " 75"
+          { user ?  user.gender ? "Women": "Men" : "Men"} in their 
+          { user ? 
+            user.age === 1 ? " 10" :
+            user.age === 2 ? " 20" :
+            user.age === 3 ? " 30~40" :
+            user.age === 4 ? " 50~64" :
+            user.age === 5 ? " 65~70" : " 75" : " 75"
           }'s
         </div>
       </TextContainer>
