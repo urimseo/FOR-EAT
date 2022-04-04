@@ -115,7 +115,7 @@ const RecipeInfo = ({
         <CategoryTag>
           <div id="flag">{(categories.length === 0 ? "DELICIOUS" : categories[0]["category_name"] )}</div>
         </CategoryTag>
-        <Rating name="read-only" value={average_rating} readOnly />
+        <Rating name="read-only" value={average_rating ? average_rating : null} readOnly />
       </SpaceBetweenContainer>
       <hr />
         <TextContainer>
