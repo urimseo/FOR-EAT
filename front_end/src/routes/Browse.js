@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import "assets/css/Pagination.css";
@@ -6,7 +6,6 @@ import BrowseList from "components/browse/BrowseList";
 import BrowseArticle from "components/browse/BrowseAricle";
 import PopularIngredients from "components/browse/BrowsePopularIngredient";
 import { Container } from "@mui/material";
-import { CircularProgress } from "@mui/material";
 
 
 const Header = styled.div`

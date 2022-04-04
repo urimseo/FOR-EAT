@@ -10,7 +10,6 @@ import Report from "components/accounts/mypage/report/Report"
 import { Container } from "@mui/material";
 import { getMember } from "api/MyPageApi";
 import { getMypage } from "api/MyPageApi";
-import { set } from "react-hook-form";
 
 
 const SpaceBetweenContainer = styled.div`
