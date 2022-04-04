@@ -47,7 +47,7 @@ const Ingredient = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(()=>{
-    let timer = setTimeout(()=>{ setIsLoading(false) }, 3000);
+    let timer = setTimeout(()=>{ setIsLoading(false) }, 3500);
     // console.log(timer);
  }, [ isLoading ]);
 
