@@ -64,6 +64,7 @@ const WishRecipeList = ({RecipeList, UserInfo}) => {
             key={recipe.recipe_seq}
             recipeSeq={recipe.recipe_seq}
             index={index}
+            likedCount={recipe.liked_count}
             recipeImg={recipe.images}
             recipeName={recipe.name}
             recipeKeywords={(recipe.keywords.length > 1 ? [recipe.keywords[0].keyword_name, recipe.keywords[1].keyword_name] : recipe.keywords[0].keyword_name)}
