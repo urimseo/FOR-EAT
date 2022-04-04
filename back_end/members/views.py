@@ -309,7 +309,7 @@ class MemberSurveyProfile(APIView):
                 "msg": "유저와 토큰이 일치하지 않습니다.",
                 "status": 403,
             }
-            return Response(data=data, status=status.HTTP_403_FORBIDDEN)  
+            return Response(data=data, status=status.HTTP_403_FORBIDDEN)
 
     # update member suvey 
     @login_decorator
@@ -494,24 +494,37 @@ class WeeklyReport(APIView):
                     Q(age=survey.age) & 
                     Q(gender=survey.gender) &
                     ~Q(member_seq=pk)).values('member_seq')
-                # weekly review list
-                weekly_recipe_review = list(Review.objects.filter(
-                    member__in=similar_member,
+
+                if len(similar_member) == 0:
+                    weekly_recipe_review = list(Review.objects.filter(
                     create_date__range=[before_week, datetime.now()]).exclude(
                     recipe__in=weekly_review).values_list('recipe', flat=True))
-                # weekly liked recipe list
-                weekly_liked_recipe = list(LikedRecipe.objects.filter(
-                    member_seq__in=similar_member,
-                    create_date__range=[before_week, datetime.now()]).exclude(
-                    recipe_seq__in=weekly_review).values_list('recipe_seq', flat=True))
-                weekly_popular_recipe = Counter(weekly_recipe_review+weekly_liked_recipe).most_common(5)
-
+                    # weekly liked recipe list
+                    weekly_liked_recipe = list(LikedRecipe.objects.filter(
+                        create_date__range=[before_week, datetime.now()]).exclude(
+                        recipe_seq__in=weekly_review).values_list('recipe_seq', flat=True))
+                    weekly_popular_recipe = Counter(weekly_recipe_review+weekly_liked_recipe).most_common(5)
+                else:
+                    # weekly review list
+                    weekly_recipe_review = list(Review.objects.filter(
+                        member__in=similar_member,
+                        create_date__range=[before_week, datetime.now()]).exclude(
+                        recipe__in=weekly_review).values_list('recipe', flat=True))
+                    # weekly liked recipe list
+                    weekly_liked_recipe = list(LikedRecipe.objects.filter(
+                        member_seq__in=similar_member,
+                        create_date__range=[before_week, datetime.now()]).exclude(
+                        recipe_seq__in=weekly_review).values_list('recipe_seq', flat=True))
+                    weekly_popular_recipe = Counter(weekly_recipe_review+weekly_liked_recipe).most_common(5)
+            
             # if length of weekly_popular_recipe less then five,
             # add monthly popular list
             # most popular recipe list
             popular_recipe_list = [i[0] for i in weekly_popular_recipe]
-            recipe_all = Recipe.objects.filter(recipe_seq__in=popular_recipe_list)
+            recipe_all = list(Recipe.objects.filter(recipe_seq__in=popular_recipe_list))
+            recipe_all = sorted(recipe_all, key=lambda x: popular_recipe_list.index(x.recipe_seq))
             recipe_serializer = RecipeListSerializer(recipe_all, many=True)
+
             for recipe in recipe_serializer.data:
                 recipe['images'] = json.loads(recipe['images'])[0]
             # else:

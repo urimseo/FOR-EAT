@@ -1,6 +1,8 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import IngredientSelect from "components/recommend/Ingredient/IngredientSelect"
+import { CircularProgress } from "@mui/material";
+
 
 
 const Container = styled.div`
@@ -35,7 +37,22 @@ const SpaceBetweenContainer = styled.div`
   justify-content: start;
 `
 
+const CircularProgressContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+`
+
 const Ingredient = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(()=>{
+    let timer = setTimeout(()=>{ setIsLoading(false) }, 3000);
+    // console.log(timer);
+ }, [ isLoading ]);
+
+ 
+
   return (
     <>
       <Container>
@@ -52,7 +69,11 @@ const Ingredient = () => {
           What materials do you have? Put the ingredients in the box by drag and drop.
           </div>
         </TextContainer>
-        <IngredientSelect />
+        <CircularProgressContainer>
+          {isLoading ? <CircularProgress style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}/> :
+            <IngredientSelect /> 
+          }
+        </CircularProgressContainer>
       </Container>
     </>
   );

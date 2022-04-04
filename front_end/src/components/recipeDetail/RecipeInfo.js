@@ -132,7 +132,7 @@ const RecipeInfo = ({
             <NutritionCard title="PROTEIN" grams={Math.ceil(protein_content)} ratio={Math.ceil(protein_content/35*100)} />
             <NutritionCard title="FAT" grams={Math.ceil(fat_content)} ratio={Math.ceil(fat_content/18.5*100)} />
             <NutritionCard title="SATURATED FAT" grams={Math.ceil(saturated_fat_content)} ratio={Math.ceil(saturated_fat_content/5*100)} />
-            <NutritionCard title="SODIUM" grams={Math.ceil(sodium_content)} ratio={Math.ceil(sodium_content/667*100)} />
+            <NutritionCard title="SODIUM" grams={Math.ceil(sodium_content)} ratio={Math.ceil(sodium_content/833*100)} />
             <NutritionCard title="SUGAR" grams={Math.ceil(sugar_content)} ratio={Math.ceil(sugar_content/16.7*100)} />
             <NutritionCard title="FIBER" grams={Math.ceil(fiber_content)} ratio={Math.ceil(fiber_content/8.3*100)} />
             <NutritionCard title="CHOLESTEROL" grams={Math.ceil(cholesterol_content)} ratio={Math.ceil(cholesterol_content/100*100)} />

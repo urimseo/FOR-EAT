@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { getBrowseList } from "api/BrosweApi";
 import Card4 from "components/commons/Card4";
+import { CircularProgress } from "@mui/material";
 
 
 
@@ -20,21 +21,23 @@ const CardContainer = styled.div`
 const BrowseListItem = ({keyword, title}) => {
   // api 연결시
   const [resultList, setResultList] = useState([])
-
+  const [isLoading, setIsLoading] = useState(true);
   const getBrowseListItem = async () => {
     const response = await getBrowseList(1, keyword);  // one대신 vegan 넣기
     setResultList(response)
+    setIsLoading(false);
   }
 
   useEffect (() => {
     getBrowseListItem()
-  }, [])
+  }, [isLoading])
 
 
     return (
       <div>
         <Title>{title}</Title>
         <CardContainer>
+          {isLoading ? <CircularProgress /> : null}
           { resultList.map((result, idx) => {
             // 5개만 잘라서 보여주기
             if ( idx < 5 ) {

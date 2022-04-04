@@ -4,6 +4,8 @@ import { getRecipeList } from "api/CategoryApi";
 import Card from "components/commons/Card";
 import Pagination from "react-js-pagination";
 import "assets/css/Pagination.css";
+import { CircularProgress } from "@mui/material";
+
 
 const Container = styled.div`
   margin: 1rem 0;
@@ -46,6 +48,7 @@ const Type = forwardRef((props, ref) => {
   const [pastaShow, setPastaShow] = useState(false);
   const [dessertShow, setDessertShow] = useState(false);
   const [RecipeList, setRecipeList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1); 
 
   const handlePageChange = (page) => { 
@@ -66,6 +69,7 @@ const Type = forwardRef((props, ref) => {
   };
 
   const getBreadRecipe = async(page) => {
+    setIsLoading(true);
     setBreadShow(true);
     setRiceShow(false);
     setPastaShow(false);
@@ -76,11 +80,13 @@ const Type = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Bread");
     if (Recipe) {
-      setRecipeList(Recipe)
+      setRecipeList(Recipe);
+      setIsLoading(false);
     }
   }
 
   const getRiceRecipe = async(page) => {
+    setIsLoading(true);
     setBreadShow(false);
     setRiceShow(true);
     setPastaShow(false);
@@ -91,11 +97,13 @@ const Type = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Rice");
     if (Recipe) {
-      setRecipeList(Recipe)
+      setRecipeList(Recipe);
+      setIsLoading(false);
     }
   }
 
   const getPastaRecipe = async(page) => {
+    setIsLoading(true);
     setBreadShow(false);
     setRiceShow(false);
     setPastaShow(true);
@@ -106,11 +114,13 @@ const Type = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Pasta");
     if (Recipe) {
-      setRecipeList(Recipe)
+      setRecipeList(Recipe);
+      setIsLoading(false);
     }
   }
 
   const getDessertRecipe = async(page) => {
+    setIsLoading(true);
     setBreadShow(false);
     setRiceShow(false);
     setPastaShow(false);
@@ -121,7 +131,8 @@ const Type = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Dessert");
     if (Recipe) {
-      setRecipeList(Recipe)
+      setRecipeList(Recipe);
+      setIsLoading(false);
     }
   }
 
@@ -134,21 +145,24 @@ const Type = forwardRef((props, ref) => {
         {dessertShow ? <TypeButton onClick={()=>getDessertRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>DESSERT</TypeButton> : <TypeButton onClick={getDessertRecipe}>DESSERT</TypeButton>}
       </div>  
       <CardContainer>
-        {RecipeList.map((Recipe, index) => ( 
-          <Card
-            key={Recipe.recipe_seq}
-            recipeSeq={Recipe.recipe_seq}
-            index={index}
-            recipeImg={Recipe.images}
-            recipeName={Recipe.name}
-            recipeKeywords={(Recipe.keywords.length > 1 ? [Recipe.keywords[0].keyword_name, Recipe.keywords[1].keyword_name] : Recipe.keywords[0].keyword_name)}
-            recipeCalorie={Recipe.calories}
-            recipeRating={Recipe.average_rating}
-            likedCount={Recipe.liked_count}
-          />
-        ))}
+      {isLoading ? <CircularProgress style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}/> :
+          (RecipeList.map((Recipe, index) => ( 
+            <Card
+              key={Recipe.recipe_seq}
+              recipeSeq={Recipe.recipe_seq}
+              index={index}
+              recipeImg={Recipe.images}
+              recipeName={Recipe.name}
+              recipeKeywords={(Recipe.keywords.length > 1 ? [Recipe.keywords[0].keyword_name, Recipe.keywords[1].keyword_name] : Recipe.keywords[0].keyword_name)}
+              recipeCalorie={Recipe.calories}
+              recipeRating={Recipe.average_rating}
+              likedCount={Recipe.liked_count}
+            />
+          )))
+        }
       </CardContainer>
-      {RecipeList.length !== 0 ?      
+      {isLoading ? null :       
+      (RecipeList.length !== 0 ?      
         <PageContainer>
           <Pagination 
             activePage={page} 
@@ -160,8 +174,7 @@ const Type = forwardRef((props, ref) => {
             onChange={handlePageChange}
           />
         </PageContainer> : null
-      }
-
+      )}
     </Container>
   );
 });

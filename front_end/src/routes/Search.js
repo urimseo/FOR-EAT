@@ -77,6 +77,7 @@ const SearchResult = () => {
   const [ page, setPage ] = useState(1);
 
   const handlePageChange = async(page) => {
+    window.scrollTo(0, 0)
     setPage(page); 
     const response = await getSearchList(page, word);
     if (response) {

@@ -46,7 +46,7 @@ const Report = () => {
   const getReport = async () => {
     const result = await getReportDetail(member_seq);
     setReport(result);
-    console.log(result)
+    console.log("getReport :", result)
   }
 
   useEffect(()=> {
@@ -62,14 +62,20 @@ const Report = () => {
               Collects your choices by a survey and gives you the recipes that you are looking for. FOR:EAT recommends thousands of international recipes based on your preferences. Collects your choices by a survey and gives you the recipes that you are looking for.</h5>
           </TextContainer>
           <FlexContainer>
-            <BarChart nutrient={report.nutrient || {}} />
-            <Restriction nutrient={report.nutrient || {}}/>
+            <BarChart nutrient={report.nutrient || {}}
+              user={report.user || {}}
+            />
+            <Restriction nutrient={report.nutrient || {}} 
+              user={report.user || {}}
+            />
           </FlexContainer>
           <FlexContainer>
-            <DoughnutChart />
-            <Habit nutrient={report.nutrient || {}}/>
+            <Habit nutrient={report.nutrient || {}} 
+              user={report.user || {}}
+            />
+            <DoughnutChart category={report.category}/>
           </FlexContainer>
-          <RelatedRecipeList />
+          <RelatedRecipeList popular_recipe={report.popular_recipe}/>
         </BackgroundContainer>
       </Container>
     )
