@@ -371,12 +371,14 @@ class RecommendRecipeList(ListAPIView, LimitOffsetPagination):
                     temp = Survey.objects.filter(member_seq=request.member).values()
                     # temp = Survey.objects.filter(member_seq=member).values()
 
-                    ingredinet_keywords = json.loads(temp[0]['ingredient_keywords'])
-
-                    recipes = Recipe.objects.filter(reduce(operator.and_, (
-                        Q(ingredient_raw__icontains=x) for x in ingredinet_keywords)))\
+                    print(temp[0]['ingredient_keywords'])
+                    ingredient_keywords = temp[0]['ingredient_keywords'][1:-1].replace("'", '').split(', ')
+                    print(ingredient_keywords)
+                    recipes = Recipe.objects.filter(reduce(operator.or_, (
+                        Q(ingredient_raw__icontains=x) for x in ingredient_keywords)))\
                         .annotate(average_rating=Avg('review__ratings'), review_cnt=Count('review'))\
                         .order_by('-average_rating', '-review_cnt')[:75]
+                    print(recipes)
 
                 else:
                     recipes = Recipe.objects.annotate(
@@ -410,7 +412,7 @@ class RecommendRecipeList(ListAPIView, LimitOffsetPagination):
             else:
                 recipes = Recipe.objects.prefetch_related('review_set')\
                     .annotate(average_rating=Avg('review__ratings'), review_cnt=Count('review'))\
-                    .order_by('-average_rating', '-review_cnt')[:75]
+                    .order_by('-review_cnt', '-average_rating')[:75]
             results = self.paginate_queryset(recipes)
             serializer = RecipeListSerializer(results, many = True)
 
