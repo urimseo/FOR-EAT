@@ -7,7 +7,7 @@ export const getSearchList = async (page, word) => {
     params: {
       word: word,
       limit: 18,
-      offset: 24*(page-1)
+      offset: 18*(page-1)
     }
   });
   return response.data;

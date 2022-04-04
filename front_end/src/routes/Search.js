@@ -62,18 +62,10 @@ const PageContainer = styled.div`
 
 const SearchResult = () => {
   const location = useLocation();
-
-  // const [ word, setWord ] = location.state[0]
   const word = location.state[0]
+  const count = location.state[1].count
+  const recipes = location.state[1].data
   const [ resultList, setResultList ] = useState([])
-
-  useEffect(() => {   
-    setResultList(location.state[1]["data"])
-
-  }, location.state[1]["data"])
-
-  const count = location.state[1]["count"]
-
   const [ page, setPage ] = useState(1);
 
   const handlePageChange = async(page) => {
@@ -82,9 +74,12 @@ const SearchResult = () => {
     const response = await getSearchList(page, word);
     if (response) {
       setResultList(response.data)
-      console.log(response.data)
     }
   }
+
+  useEffect(() => {   
+    setResultList(recipes)
+  }, [recipes])
 
   return (
     <Container>
@@ -96,9 +91,9 @@ const SearchResult = () => {
           <div className="count">{count}</div>
         </Result>
         <CardContainer>
-          { resultList.map((result) => ( 
+          { resultList.map((result, idx) => ( 
             <Card3
-              key={result.recipe_seq}
+              key={idx}
               {...result} 
             />
           ))}
@@ -108,9 +103,9 @@ const SearchResult = () => {
           <PageContainer>
             <Pagination 
               activePage={page} 
-              itemsCountPerPage={10} 
-              totalItemsCount={250} 
-              pageRangeDisplayed={5} 
+              itemsCountPerPage={18} 
+              totalItemsCount={location.state[1].count} 
+              // pageRangeDisplayed={5} 
               prevPageText={"‹"} 
               nextPageText={"›"} 
               onChange={handlePageChange}

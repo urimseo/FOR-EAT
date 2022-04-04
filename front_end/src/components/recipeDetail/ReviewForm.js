@@ -170,41 +170,43 @@ const ReviewForm = ({ recipeId }) => {
 
   return (
     <Container>
-      <Form enctype="multipart/form-data">
-        <ImgWrapper>
-          <Img src={profileImage} alt="" />
-        </ImgWrapper>
-        <div style={{padding: "0.5rem 0"}}>
-          <Rating
-            name="simple-controlled"
-            value={ratings}
-            onChange={(event, newRatings) => {
-              setRatings(newRatings);
-            }}
-          />
-          <InputContent placeholder="WRITE YOUR REVIEW HERE"
-            value={content}
-            maxLength="1000"
-            onChange={
-              (e)=> setContent(e.target.value)
-            }/>
-          <ButtonContainer>
-          <FileLabel>{ fileName }</FileLabel>
-          <label htmlFor="input-file">
-            UPLOAD
-          </label>
-            <input 
-              type="file"
-              id="input-file" 
-              onChange={onFileUpload}
-              multiple="multiple"
-              accept="image/jpg, image/png, image/jpeg"
-              style={{display: "none"}}
+      <div style={{display: "flex", justifyContent: "center"}}>
+        <Form enctype="multipart/form-data">
+          <ImgWrapper>
+            <Img src={profileImage} alt="" />
+          </ImgWrapper>
+          <div style={{padding: "0.5rem 0"}}>
+            <Rating
+              name="simple-controlled"
+              value={ratings}
+              onChange={(event, newRatings) => {
+                setRatings(newRatings);
+              }}
             />
-            <Button onClick={onClickSave}>SAVE</Button>
-          </ButtonContainer>
-        </div>
-      </Form>
+            <InputContent placeholder="WRITE YOUR REVIEW HERE"
+              value={content}
+              maxLength="1000"
+              onChange={
+                (e)=> setContent(e.target.value)
+              }/>
+            <ButtonContainer>
+            <FileLabel>{ fileName }</FileLabel>
+            <label htmlFor="input-file">
+              UPLOAD
+            </label>
+              <input 
+                type="file"
+                id="input-file" 
+                onChange={onFileUpload}
+                multiple="multiple"
+                accept="image/jpg, image/png, image/jpeg"
+                style={{display: "none"}}
+              />
+              <Button onClick={onClickSave}>SAVE</Button>
+            </ButtonContainer>
+          </div>
+        </Form>
+      </div>
       <CardContainer>
         <div style={{display:"flex", justifyContent:"center", flexWrap:"wrap" }}>
             { reviews.map((review) => ( 
