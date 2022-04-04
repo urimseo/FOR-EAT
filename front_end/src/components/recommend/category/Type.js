@@ -25,9 +25,8 @@ const TypeButton = styled.button`
 `
 
 const CardContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  /* grid-template-columns: 21.5rem 21.5rem 21.5rem 21.5rem; */
+  display: grid;
+  grid-template-columns: 21.5rem 21.5rem 21.5rem 21.5rem;
   justify-content: center;
 `
 
@@ -48,6 +47,7 @@ const Type = forwardRef((props, ref) => {
   const [pastaShow, setPastaShow] = useState(false);
   const [dessertShow, setDessertShow] = useState(false);
   const [RecipeList, setRecipeList] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1); 
 
@@ -80,8 +80,9 @@ const Type = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Bread");
     if (Recipe) {
-      setRecipeList(Recipe);
+      setRecipeList(Recipe.data);
       setIsLoading(false);
+      setTotalCount(Recipe.total_count);
     }
   }
 
@@ -97,8 +98,9 @@ const Type = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Rice");
     if (Recipe) {
-      setRecipeList(Recipe);
+      setRecipeList(Recipe.data);
       setIsLoading(false);
+      setTotalCount(Recipe.total_count);
     }
   }
 
@@ -114,8 +116,9 @@ const Type = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Pasta");
     if (Recipe) {
-      setRecipeList(Recipe);
+      setRecipeList(Recipe.data);
       setIsLoading(false);
+      setTotalCount(Recipe.total_count);
     }
   }
 
@@ -131,8 +134,9 @@ const Type = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Dessert");
     if (Recipe) {
-      setRecipeList(Recipe);
+      setRecipeList(Recipe.data);
       setIsLoading(false);
+      setTotalCount(Recipe.total_count);
     }
   }
 
@@ -144,9 +148,9 @@ const Type = forwardRef((props, ref) => {
         {pastaShow ? <TypeButton onClick={()=>getPastaRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>PASTA</TypeButton> : <TypeButton onClick={getPastaRecipe}>PASTA</TypeButton>}
         {dessertShow ? <TypeButton onClick={()=>getDessertRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>DESSERT</TypeButton> : <TypeButton onClick={getDessertRecipe}>DESSERT</TypeButton>}
       </div>  
-      <CardContainer>
-      {isLoading ? <CircularProgress style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}/> :
-          (RecipeList.map((Recipe, index) => ( 
+      {isLoading ? <div style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}><CircularProgress /></div> :
+        <CardContainer>
+          {RecipeList.map((Recipe, index) => (
             <Card
               key={Recipe.recipe_seq}
               recipeSeq={Recipe.recipe_seq}
@@ -158,16 +162,16 @@ const Type = forwardRef((props, ref) => {
               recipeRating={Recipe.average_rating}
               likedCount={Recipe.liked_count}
             />
-          )))
-        }
-      </CardContainer>
+          ))}
+        </CardContainer>
+      }
       {isLoading ? null :       
       (RecipeList.length !== 0 ?      
         <PageContainer>
           <Pagination 
             activePage={page} 
-            itemsCountPerPage={10} 
-            totalItemsCount={250} 
+            itemsCountPerPage={24} 
+            totalItemsCount={totalCount} 
             pageRangeDisplayed={5} 
             prevPageText={"‹"} 
             nextPageText={"›"} 
