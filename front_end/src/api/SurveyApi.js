@@ -8,7 +8,6 @@ export const getUserInfo = async (member_seq) => {
 
 
 export const submitSurvey = async (member_sep, form) => {
-  console.log(form)
   const response = await instance.post(`members/${member_sep}/survey`, {form: form});
   return response
 }
