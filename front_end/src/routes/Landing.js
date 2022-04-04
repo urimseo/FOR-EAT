@@ -4,7 +4,6 @@ import styled from "styled-components";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import "animate.css/animate.min.css";
-import { AnimationOnScroll } from 'react-animation-on-scroll';
 
 import Typography from "components/commons/Typography";
 import LoginModal from 'components/accounts/login/LoginModal';
@@ -47,7 +46,7 @@ const TextContainer = styled.div`
   flex-direction: column;
   width: ${(props) => (props.w ? props.w : "50%")};
   .text__wrapper {
-    padding: 26rem 4rem 4rem 4rem; 
+    padding: 24rem 4rem 4rem 4rem; 
   }
   .point { 
     height: 2rem;
@@ -94,17 +93,17 @@ const TextContainer = styled.div`
 `
 const SignUpButton = styled.a`
   display: inline-block;
-  color: black;
+  color: #ED8141;
   cursor: pointer;
   text-decoration: none;
-  font-size: 1.1rem;
-  font-weight: 400;
+  font-size: 1.5rem;
+  font-weight: 500;
   margin: 1rem 0;
   .right {
     padding-left: 20rem;
   };  
   &:hover {
-    color: #ED8141; 
+    color: black; 
   }
 `
 
@@ -130,6 +129,11 @@ const Landing = () => {
   const closeModal = () => {
     setModalOpen(false);
   };
+  const Arrow = () => {
+    return (
+    <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg>
+    )
+  }
   return (
     <>
       <div>
@@ -160,7 +164,7 @@ const Landing = () => {
                 Collects your choices by a survey and gives you the recipes that you are looking for.
               </div>
               <div style={{alignItems: "end"}}>
-              <SignUpButton onClick={openModal}>SIGN UP</SignUpButton>
+              <SignUpButton onClick={openModal}>SIGN IN</SignUpButton>
               <LoginModal open={modalOpen} close={closeModal}
               >
               </LoginModal>
@@ -189,7 +193,7 @@ const Landing = () => {
                 <div className="content">
                   Enjoy your meal:)
                 </div>
-                <SignUpButton onClick={openModal}>SIGN UP</SignUpButton>
+                <SignUpButton onClick={openModal}>SIGN IN</SignUpButton>
               </div>
             </div>
           </TextContainer>
@@ -270,7 +274,7 @@ const Landing = () => {
                     <br />
                     Collects your choices by a survey and gives you the recipes that you are looking for.
                   </div>
-                  <SignUpButton onClick={openModal}>SIGN UP</SignUpButton>
+                  <SignUpButton onClick={openModal}>SIGN IN</SignUpButton>
                 </TextContainer>
                 <TextContainer style={{display: "flex", paddingRight:"3rem"}}>
                   <div className="content__2">
