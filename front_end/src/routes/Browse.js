@@ -6,6 +6,7 @@ import BrowseList from "components/browse/BrowseList";
 import BrowseArticle from "components/browse/BrowseAricle";
 import PopularIngredients from "components/browse/BrowsePopularIngredient";
 import { Container } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 
 
 const Header = styled.div`
@@ -35,9 +36,19 @@ const Header = styled.div`
   }
 `
 
+const CircularProgressContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+`
 
 const Browse = () => {
+  const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(()=>{
+    let timer = setTimeout(()=>{ setIsLoading(false) }, 4000);
+    // console.log(timer);
+  }, [ isLoading ]);
   return (
 
     <Container sx={{marginTop: "4rem"}}>
@@ -52,7 +63,9 @@ const Browse = () => {
         </div>
       </Header>
       <BrowseArticle />
-      <PopularIngredients />
+      <CircularProgressContainer>
+        {isLoading ? <CircularProgress /> : <PopularIngredients />}
+      </CircularProgressContainer>
       <BrowseList />
     </Container>
   )

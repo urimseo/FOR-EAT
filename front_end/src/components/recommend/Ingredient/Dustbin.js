@@ -105,8 +105,9 @@ const Foodimg3 = styled.img`
 const FoodContainer = styled.div`
   display: flex-wrap;
   margin: 2rem 0 2rem 0;
-  padding: 0 9rem;
+  /* padding: 0 5rem; */
   min-height: 10vh;
+  width: 55rem;
 `
 
 const FoodButton = styled.button`
