@@ -3,14 +3,24 @@ import styled from "styled-components";
 import Title from "components/commons/Title";
 import { getRecommendRecipeList } from "api/RecommendApi";
 import Card from "components/commons/Card";
+import { CircularProgress } from "@mui/material";
 
+
+
+const Container = styled.div`
+  margin-bottom: 10rem;
+`
+
+const CircularProgressContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+`
 
 const CardContainer = styled.div`
-  display: flex;
-  justify-content: space-around;
-  flex-flow: wrap;
-  min-width: 10vh;
-  margin: 1rem 0 6rem 0;
+  display: grid;
+  grid-template-columns: 21.5rem 21.5rem 21.5rem;
+  justify-content: center;
 `
 
 const CategoryButton = styled.button`
@@ -39,12 +49,14 @@ const BorderLine = styled.div`
 const FeedRecipeList = () => { 
   const [forYouRecipe, setForYouRecipe] = useState();
   const [youLikeRecipe, setYouLikeRecipe] = useState();
+  const [isLoading, setIsLoading] = useState(true);
   const [recipeList, setRecipeList] = useState([]);
   const [memberType, setMemberType] = useState();
   const [number, setNumber] = useState(2);
 
 
   const getRecipeList = async(type, page) => {
+    setIsLoading(true);
     if (type === "foryou") {
       if (page === 1) {
         setNumber(2);
@@ -55,7 +67,9 @@ const FeedRecipeList = () => {
       const response = await getRecommendRecipeList(type, page);
       setRecipeList(recipeList => [...recipeList, response.data])
       setMemberType(response.member_type)
+      setIsLoading(false);
     } else {
+      setIsLoading(true);
       if (page === 1) {
         setNumber(2);
         setRecipeList([]);
@@ -64,8 +78,9 @@ const FeedRecipeList = () => {
         setForYouRecipe(false);
         setYouLikeRecipe(true);
         const response = await getRecommendRecipeList(type, page);
-        setRecipeList(recipeList => [...recipeList, response.data])
-        setMemberType(response.member_type)
+        setRecipeList(recipeList => [...recipeList, response.data]);
+        setMemberType(response.member_type);
+        setIsLoading(false);
       }
     }
   }
@@ -97,6 +112,7 @@ const FeedRecipeList = () => {
   
 return (
     <>
+    <Container>
       <div style={{display: "flex", justifyContent: "center", marginTop: "1rem"}}>
         <div>
           <CategoryButton fs="1.3rem" fw="300" mr="1rem" onClick={()=>getRecipeList("foryou", 1)}>FOR:YOU</CategoryButton>
@@ -108,14 +124,17 @@ return (
         </div>
       </div>
       { memberType === 0 ?           
-        <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans">Write a survey and reviews to get more accurate recipe recommendations.</Title> : null 
+        <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>Write a survey and reviews to get more accurate recipe recommendations.</Title> : null 
       }
       { memberType === 1 ?
-        <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans">Write a survey to get more accurate recipe recommendations.</Title> : null
+        <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>Write a survey to get more accurate recipe recommendations.</Title> : null
       } 
       { memberType === 2 ?
-        <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans">Write reviews to get more accurate recipe recommendations.</Title> : null
+        <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>Write reviews to get more accurate recipe recommendations.</Title> : null
       }
+      <CircularProgressContainer>
+        {isLoading ? <CircularProgress style={{display: "flex", justifyContent: "center"}}/> : null}
+      </CircularProgressContainer>
       <CardContainer>
         {recipeList.map((recipe, idx) => 
           ( recipe.map((recipeItem, index) => ( 
@@ -133,6 +152,7 @@ return (
           ))) 
         )}
       </CardContainer>
+      </Container>
     </>
   )
 }

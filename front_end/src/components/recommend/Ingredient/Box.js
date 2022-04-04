@@ -1,6 +1,8 @@
 import { useDrag } from 'react-dnd';
 import { ItemTypes } from './ItemTypes';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import { CircularProgress } from "@mui/material";
+
 
 const style = {
   cursor: 'pointer',
@@ -12,6 +14,13 @@ const style = {
 
 
 const Box = ({ src, title }) =>  {
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+    setTimeout(4000)
+    setIsLoading(false);
+    },[isLoading]);
+
     const [{ isDragging }, drag] = useDrag(() => ({
         type: ItemTypes.BOX,
         item: { src, title },
@@ -30,14 +39,19 @@ const Box = ({ src, title }) =>  {
     const opacity = isDragging ? 0.4 : 1;
     
     return (
-        <img 
-            src={src} 
-            ref={drag} 
-            style={{  ...style, opacity }} 
-            alt={title} 
-            data-testid={`box-${src}`} 
-            title={title}
-        />
+        <>
+        {isLoading ?    
+            <CircularProgress /> :
+            <img
+                src={src} 
+                ref={drag} 
+                style={{  ...style, opacity }} 
+                alt={title} 
+                data-testid={`box-${src}`} 
+                title={title}
+            />
+        }
+        </>
 	);
 };
 

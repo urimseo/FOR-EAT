@@ -4,6 +4,8 @@ import { getRecipeList } from "api/CategoryApi";
 import Card from "components/commons/Card";
 import "assets/css/Pagination.css";
 import Pagination from "react-js-pagination";
+import { CircularProgress } from "@mui/material";
+
 
 const Container = styled.div`
   margin: 1rem 0;
@@ -46,6 +48,7 @@ const Time = forwardRef((props, ref) => {
   const [time120minShow, set120minShow] = useState(false);
   const [time180minShow, set180minShow] = useState(false);
   const [time24hoursShow, set24hoursShow] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [RecipeList, setRecipeList] = useState([]);
   const [page, setPage] = useState(1); 
 
@@ -70,6 +73,7 @@ const Time = forwardRef((props, ref) => {
   };
 
   const get30minRecipe = async(page) => {
+    setIsLoading(true);
     set30minShow(true);
     set60minShow(false);
     set120minShow(false);
@@ -81,11 +85,13 @@ const Time = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "30min");
     if (Recipe) {
-      setRecipeList(Recipe)
+      setRecipeList(Recipe);
+      setIsLoading(false);
     }
   }
 
   const get60minRecipe = async(page) => {
+    setIsLoading(true);
     set30minShow(false);
     set60minShow(true);
     set120minShow(false);
@@ -97,11 +103,13 @@ const Time = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "60min");
     if (Recipe) {
-      setRecipeList(Recipe)
+      setRecipeList(Recipe);
+      setIsLoading(false);
     }
   }
 
   const get120minRecipe = async(page) => {
+    setIsLoading(true);
     set30minShow(false);
     set60minShow(false);
     set120minShow(true);
@@ -113,11 +121,13 @@ const Time = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "120min");
     if (Recipe) {
-      setRecipeList(Recipe)
+      setRecipeList(Recipe);
+      setIsLoading(false);
     }
   }
 
   const get180minRecipe = async(page) => {
+    setIsLoading(true);
     set30minShow(false);
     set60minShow(false);
     set120minShow(false);
@@ -129,11 +139,13 @@ const Time = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "180min");
     if (Recipe) {
-      setRecipeList(Recipe)
+      setRecipeList(Recipe);
+      setIsLoading(false);
     }
   }
 
   const get24hoursRecipe = async(page) => {
+    setIsLoading(true);
     set30minShow(false);
     set60minShow(false);
     set120minShow(false);
@@ -145,7 +157,8 @@ const Time = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "24hours");
     if (Recipe) {
-      setRecipeList(Recipe)
+      setRecipeList(Recipe);
+      setIsLoading(false);
     }
   }
   
@@ -159,21 +172,24 @@ const Time = forwardRef((props, ref) => {
         {time24hoursShow ? <TimeButton onClick={()=>get24hoursRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>24HOURS</TimeButton> : <TimeButton onClick={get24hoursRecipe}>24HOURS</TimeButton>}
       </div>  
       <CardContainer>
-        {RecipeList.map((Recipe, index) => ( 
-          <Card
-            key={Recipe.recipe_seq}
-            recipeSeq={Recipe.recipe_seq}
-            index={index}
-            recipeImg={Recipe.images}
-            recipeName={Recipe.name}
-            recipeKeywords={(Recipe.keywords.length > 1 ? [Recipe.keywords[0].keyword_name, Recipe.keywords[1].keyword_name] : Recipe.keywords[0].keyword_name)}
-            recipeCalorie={Recipe.calories}
-            recipeRating={Recipe.average_rating}
-            likedCount={Recipe.liked_count}
-          />
-        ))}
+      {isLoading ? <CircularProgress style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}/> :
+          (RecipeList.map((Recipe, index) => ( 
+            <Card
+              key={Recipe.recipe_seq}
+              recipeSeq={Recipe.recipe_seq}
+              index={index}
+              recipeImg={Recipe.images}
+              recipeName={Recipe.name}
+              recipeKeywords={(Recipe.keywords.length > 1 ? [Recipe.keywords[0].keyword_name, Recipe.keywords[1].keyword_name] : Recipe.keywords[0].keyword_name)}
+              recipeCalorie={Recipe.calories}
+              recipeRating={Recipe.average_rating}
+              likedCount={Recipe.liked_count}
+            />
+          )))
+        }
       </CardContainer>
-      {RecipeList.length !== 0 ?      
+      {isLoading ? null :       
+      (RecipeList.length !== 0 ?      
         <PageContainer>
           <Pagination 
             activePage={page} 
@@ -185,7 +201,7 @@ const Time = forwardRef((props, ref) => {
             onChange={handlePageChange}
           />
         </PageContainer> : null
-      }
+      )}
     </Container>
   );
 });

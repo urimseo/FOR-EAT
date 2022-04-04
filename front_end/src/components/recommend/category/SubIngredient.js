@@ -4,6 +4,8 @@ import { getRecipeList } from "api/CategoryApi";
 import Card from "components/commons/Card";
 import Pagination from "react-js-pagination";
 import "assets/css/Pagination.css";
+import { CircularProgress } from "@mui/material";
+
 
 const Container = styled.div`
   margin: 1rem 0;
@@ -48,6 +50,7 @@ const SubIngredient = forwardRef((props, ref) => {
   const [poultryShow, setPoultryShow] = useState(false);
   const [chickenShow, setChickenShow] = useState(false);
   const [RecipeList, setRecipeList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1); 
 
   const handlePageChange = (page) => { 
@@ -71,6 +74,7 @@ const SubIngredient = forwardRef((props, ref) => {
   };
 
   const getBeefRecipe = async(page) => {
+    setIsLoading(true);
     setBeafShow(true);
     setporkShow(false);
     setLambShow(false);
@@ -82,11 +86,13 @@ const SubIngredient = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Beef");
     if (Recipe) {
-      setRecipeList(Recipe)
+      setRecipeList(Recipe);
+      setIsLoading(false);
     }
   }
 
   const getPorkRecipe = async(page) => {
+    setIsLoading(true);
     setBeafShow(false);
     setporkShow(true);
     setLambShow(false);
@@ -98,11 +104,13 @@ const SubIngredient = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Pork");
     if (Recipe) {
-      setRecipeList(Recipe)
+      setRecipeList(Recipe);
+      setIsLoading(false);
     }
   }
 
   const getLambRecipe = async(page) => {
+    setIsLoading(true);
     setBeafShow(false);
     setporkShow(false);
     setLambShow(true);
@@ -114,11 +122,13 @@ const SubIngredient = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Lamb");
     if (Recipe) {
-      setRecipeList(Recipe)
+      setRecipeList(Recipe);
+      setIsLoading(false);
     }
   }
 
   const getPoultryRecipe = async(page) => {
+    setIsLoading(true);
     setBeafShow(false);
     setporkShow(false);
     setLambShow(false);
@@ -130,11 +140,13 @@ const SubIngredient = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Poultry");
     if (Recipe) {
-      setRecipeList(Recipe)
+      setRecipeList(Recipe);
+      setIsLoading(false);
     }
   }
 
   const getChickenRecipe = async(page) => {
+    setIsLoading(true);
     setBeafShow(false);
     setporkShow(false);
     setLambShow(false);
@@ -146,7 +158,8 @@ const SubIngredient = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Chicken");
     if (Recipe) {
-      setRecipeList(Recipe)
+      setRecipeList(Recipe);
+      setIsLoading(false);
     }
   }
 
@@ -160,21 +173,24 @@ const SubIngredient = forwardRef((props, ref) => {
         {chickenShow ? <SubIngredientButton onClick={()=>getChickenRecipe(1)} style={{color: "#ED8141"}}>CHICKEN</SubIngredientButton> : <SubIngredientButton onClick={getChickenRecipe}>CHICKEN</SubIngredientButton>}
       </div>
       <CardContainer>
-        {RecipeList.map((Recipe, index) => ( 
-          <Card
-            key={Recipe.recipe_seq}
-            recipeSeq={Recipe.recipe_seq}
-            index={index}
-            recipeImg={Recipe.images}
-            recipeName={Recipe.name}
-            recipeKeywords={(Recipe.keywords.length > 1 ? [Recipe.keywords[0].keyword_name, Recipe.keywords[1].keyword_name] : Recipe.keywords[0].keyword_name)}
-            recipeCalorie={Recipe.calories}
-            recipeRating={Recipe.average_rating}
-            likedCount={Recipe.liked_count}
-          />
-        ))}
+      {isLoading ? <CircularProgress style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}/> :
+          (RecipeList.map((Recipe, index) => ( 
+            <Card
+              key={Recipe.recipe_seq}
+              recipeSeq={Recipe.recipe_seq}
+              index={index}
+              recipeImg={Recipe.images}
+              recipeName={Recipe.name}
+              recipeKeywords={(Recipe.keywords.length > 1 ? [Recipe.keywords[0].keyword_name, Recipe.keywords[1].keyword_name] : Recipe.keywords[0].keyword_name)}
+              recipeCalorie={Recipe.calories}
+              recipeRating={Recipe.average_rating}
+              likedCount={Recipe.liked_count}
+            />
+          )))
+        }
       </CardContainer>
-      {RecipeList.length !== 0 ?      
+      {isLoading ? null :       
+      (RecipeList.length !== 0 ?      
         <PageContainer>
           <Pagination 
             activePage={page} 
@@ -186,7 +202,7 @@ const SubIngredient = forwardRef((props, ref) => {
             onChange={handlePageChange}
           />
         </PageContainer> : null
-      }
+      )}
     </Container>
   );
 });
