@@ -161,8 +161,9 @@ const Time = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "24hours");
     if (Recipe) {
-      setRecipeList(Recipe);
+      setRecipeList(Recipe.data);
       setIsLoading(false);
+      setTotalCount(Recipe.total_count);
     }
   }
   
