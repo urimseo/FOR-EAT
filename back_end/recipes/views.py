@@ -304,6 +304,8 @@ class IngredientChoice(ListAPIView, LimitOffsetPagination):
                 return Response(data=data, status=status.HTTP_404_NOT_FOUND)
 
         count = len(temp)
+        temp = temp.annotate(
+                        average_rating=Avg('review__ratings'), review_cnt=Count('review')).order_by('-average_rating', '-review_cnt')
         results = self.paginate_queryset(temp)
         serializer = IngredientChoiceListSerializer(results, many=True)
 
