@@ -26,7 +26,7 @@ const Ingredients = ({ ingredients }) => {
     <TextContainer ta="right">
       <div className="title">INGREDIENTS</div>
       <ul>
-        {ingredients && ingredients.map((ingredient) => (<li className="content_bold">{ingredient}</li>))}
+        {ingredients && ingredients.map((ingredient, idx) => (<li className="content_bold" key={idx}>{ingredient}</li>))}
       </ul>
     </TextContainer>
   )
