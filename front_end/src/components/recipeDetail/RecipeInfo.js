@@ -55,15 +55,16 @@ display: flex;
 const TextContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
-  row-gap: 1rem;
   margin: 1rem 0;
   .itemTitle{
     font-weight: 600;
   }
   .nutriTitle{
     grid-template-rows: 0 0;
+    grid-row: 1 / span 3;
     font-size: 1.5rem;
     font-weight: 600;
+    vertical-align: center;
   }
   .item{
     align-self: center;
@@ -77,7 +78,7 @@ const CardContainer = styled.div`
 `
 
 const RecipeInfo = ({ 
-  recipe_seq, name, categories, servings, liked,
+  recipe_seq, name, categories, servings, serving_size, liked,
   prep_time, cook_time, calories, carbohydrate_content, protein_content, fat_content, 
   saturated_fat_content, cholesterol_content, sodium_content, fiber_content, sugar_content, average_rating }) => {
   
@@ -92,8 +93,12 @@ const RecipeInfo = ({
 
   useEffect(() => {
     setLike(liked);
-    console.log(liked)
-  }, [])
+  }, [liked])
+
+  useEffect(() => {
+    setLike(like)
+  }, [like])
+
 
   return (
     <Container>
@@ -103,13 +108,14 @@ const RecipeInfo = ({
         ta="start" dp="flex"
         mb="1rem"
         >{name}</Typography>
-        <Like src={ like ? icon_filled_heart : icon_lined_heart} onClick={toggleLike} alt="" />
+        <Like src={ like ? icon_filled_heart : icon_lined_heart } 
+        onClick={toggleLike} alt="" />
       </SpaceBetweenContainer>
       <SpaceBetweenContainer>
         <CategoryTag>
           <div id="flag">{(categories.length === 0 ? "DELICIOUS" : categories[0]["category_name"] )}</div>
         </CategoryTag>
-        <Rating name="read-only" value={average_rating} readOnly />
+        <Rating name="read-only" value={average_rating ? average_rating : null} readOnly />
       </SpaceBetweenContainer>
       <hr />
         <TextContainer>
@@ -124,6 +130,7 @@ const RecipeInfo = ({
         <TextContainer>
           <div className="nutriTitle">NUTRITION</div>
           <div className="item">Of Adult's Reference Intake</div>
+          <div className="item">Serving Size : {serving_size}</div>
         </TextContainer>
         <div style={{display: "grid", gridTemplateColumns:"2fr 8fr", gap: "0.5vw" }}>
           <CalorieCard title="CALORIES" grams={Math.ceil(calories)} ratio={Math.ceil(calories/667*100)} />

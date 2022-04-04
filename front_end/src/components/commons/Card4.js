@@ -13,7 +13,7 @@ const Container = styled.div`
 `
 
 const CardItem = styled.div`
-  width: 13.3rem;
+  width: 11.9rem;
   height: 16.8rem;
   position: relative;
   opacity: 1;
@@ -34,8 +34,8 @@ const CardItem = styled.div`
 `
 
 const ImgWrapper = styled.div`
-  width: 13.3rem;
-  height: 13.3rem;
+  width: 11.9rem;
+  height: 11.9rem;
   overflow: hidden; 
   background-position: center;
 
