@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Plus from "assets/img/Plus.png";
-import Button2 from "components/commons/Button2";
 
 const SubTheme = styled.div`
   margin-top: 3rem;
@@ -38,6 +37,25 @@ const PLUS = styled(motion.div)`
   margin-top: 1rem;
 `;
 
+const Selected = styled.div`
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 5px solid #c4c4c4;
+  border-radius: 5rem;
+  transition: 0.2s;
+  width: 8.5rem;
+  height: 8.5rem;
+  background-color: white;
+  margin-top: 1rem;
+  margin-right: 3rem;
+  font-family: "Work Sans";
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: "default";
+`;
+
 const Image = styled.img`
   border-radius: 4rem;
   height: 3rem;
@@ -67,7 +85,7 @@ const SpaceBetweenContainer = styled.div`
   justify-content: space-around;
 `;
 
-const DietaryRestrictions = ({ on, setWidgetId, surveyList }) => {
+const DietaryRestrictions = ({ setWidgetId, surveyList }) => {
   const [cholesterolShow, setCholesterolShow] = useState(
     surveyList.cholesterol
   );
@@ -103,14 +121,14 @@ const DietaryRestrictions = ({ on, setWidgetId, surveyList }) => {
         <BoxContainer>
           <SpaceBetweenContainer>
             {cholesterolShow ? (
-              <Button2 cursor="default" name="Low cholesterol" />
+              <Selected cursor="default">Low cholesterol</Selected>
             ) : (
               ""
             )}
-            {sodiumShow ? <Button2 cursor="default" name="Low sodium" /> : ""}
-            {sugarShow ? <Button2 cursor="default" name="Low sugar" /> : ""}
+            {sodiumShow ? <Selected cursor="default">Low sodium</Selected> : ""}
+            {sugarShow ? <Selected cursor="default">Low sugar</Selected> : ""}
             {interestShow ? (
-              <Button2 cursor="default" name="No interest" />
+              <Selected cursor="default">No interest</Selected>
             ) : (
               ""
             )}

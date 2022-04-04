@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Plus from "assets/img/Plus.png";
-import Button2 from "components/commons/Button2";
 
 const SubTheme = styled.div`
   margin-top: 3rem;
@@ -38,6 +37,25 @@ const PLUS = styled(motion.div)`
   margin-top: 1rem;
 `;
 
+const Selected = styled.div`
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 5px solid #c4c4c4;
+  border-radius: 5rem;
+  transition: 0.2s;
+  width: 8.5rem;
+  height: 8.5rem;
+  background-color: white;
+  margin-top: 1rem;
+  margin-right: 3rem;
+  font-family: "Work Sans";
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: "default";
+`;
+
 const Image = styled.img`
   border-radius: 4rem;
   height: 3rem;
@@ -69,7 +87,7 @@ const SpaceBetweenContainer = styled.div`
   justify-content: space-around;
 `;
 
-const Goals = ({ on, setWidgetId, surveyList }) => {
+const Goals = ({ setWidgetId, surveyList }) => {
   const [beginnerShow, setBeginnerShow] = useState(surveyList.beginner);
   const [newCuisinShow, setNewCuisinShow] = useState(
     surveyList.recipe_challenger
@@ -109,22 +127,22 @@ const Goals = ({ on, setWidgetId, surveyList }) => {
         <BoxContainer>
           <SpaceBetweenContainer>
             {beginnerShow ? (
-              <Button2 cursor="default" name="Beginner cook" />
+              <Selected cursor="default" name="Beginner cook" >Beginner cook</Selected>
             ) : (
               ""
             )}
             {newCuisinShow ? (
-              <Button2 cursor="default" name="Try new cuisin" />
+              <Selected cursor="default" name="Try new cuisin" >Try new cuisin</Selected>
             ) : (
               ""
             )}
 
-            {saveTimeShow ? <Button2 cursor="default" name="Save time" /> : ""}
-            {healthyShow ? <Button2 cursor="default" name="Eat healty" /> : ""}
-            {dietShow ? <Button2 cursor="default" name="Try diet" /> : ""}
+            {saveTimeShow ? <Selected cursor="default">Save time</Selected> : ""}
+            {healthyShow ? <Selected cursor="default">Eat healty</Selected> : ""}
+            {dietShow ? <Selected cursor="default">Try diet</Selected> : ""}
 
             {interestShow ? (
-              <Button2 cursor="default" name="No interest" />
+              <Selected cursor="default">No interest</Selected>
             ) : (
               ""
             )}

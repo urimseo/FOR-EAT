@@ -87,12 +87,12 @@ const Preferences = ({SurveyList}) => {
   const widgets = ["M01", "M02", "M03", "M04"];
 
   const wid = {
-    M01: <Infos key={widgets[0]} on={on} surveyList={surveyList} setWidgetId={setWidgetId} />,
+    M01: <Infos key={widgets[0]} surveyList={surveyList} setWidgetId={setWidgetId} />,
     M02: (
-      <DietaryRestrictions key={widgets[1]} on={on} surveyList={surveyList} setWidgetId={setWidgetId}/>
+      <DietaryRestrictions key={widgets[1]} surveyList={surveyList} setWidgetId={setWidgetId}/>
     ),
-    M03: <Allergies key={widgets[2]} on={on} surveyList={surveyList} setWidgetId={setWidgetId} />,
-    M04: <Goals key={widgets[3]} on={on} surveyList={surveyList} setWidgetId={setWidgetId} />,
+    M03: <Allergies key={widgets[2]} surveyList={surveyList} setWidgetId={setWidgetId} />,
+    M04: <Goals key={widgets[3]} surveyList={surveyList} setWidgetId={setWidgetId} />,
   };
 
   const mod = {
