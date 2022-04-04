@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
 import Chart from 'react-apexcharts'
 
@@ -34,23 +34,41 @@ const FlexContainer = styled.div`
   
 `
 
-const DoughnutChart = () => {
-  const [ data, setData ] = useState([6, 5, 4, 2, 1])
-  const [ categories, setCategories ] = useState(['Apple', 'Mango', 'Orange', 'Watermelon', 'etc'])
+const DoughnutChart = ({ category }) => {
+  const [ categories, setCategories ] = useState([])
+  const [ data, setData ] = useState([])
   
+  const getCategories = () => {
+    if (category) {
+      setCategories(category.map((item, idx) => item[0]))
+    }
+  }
+  const getData = () => {
+    if (category) {
+      setData(category.map((item, idx) => item[1]))
+    }
+  }
+
+  useEffect(() => {
+    getCategories()
+  }, [category])
+  useEffect(() => {
+    getData()
+  }, [category])
+
   return (
     <Container className="donut">
       <FlexContainer>
         <TextContainer>
           <div className="title">Top 3 :<br /> Most Eaten Categories</div>
-          { categories.map((category, idx) => {
+          { categories ? categories.map((category, idx) => {
             if (idx < 3 ) {
               return (
                 <li className='content'>{category}</li>
               )
             }
           })
-          }
+          : null}
         </TextContainer>
         <FlexContainer>
           <Chart 
@@ -58,7 +76,8 @@ const DoughnutChart = () => {
             type="donut" 
             width="380" 
             options={{ 
-              labels: ['Apple', 'Mango', 'Orange', 'Watermelon', 'etc'],
+              // labels: ['Apple', 'Mango', 'Orange', 'Watermelon', 'etc'],
+              labels: categories,
               chart: {
                 width: 380,
                 type: 'donut',
