@@ -83,12 +83,12 @@ class RecipeListSerializer(serializers.ModelSerializer):
             model = Keyword
             fields = ('keyword_name',)
     keywords = KeywordSerializer(many=True)
-    ratings = ReviewSerializer(many=True, read_only=True)
+    # ratings = ReviewSerializer(many=True, read_only=True)
 
     class Meta:
         model = Recipe
         # 리뷰 추가하면 rating field 추가
-        fields = ('recipe_seq', 'name', 'calories', 'images', 'keywords', 'ratings')
+        fields = ('recipe_seq', 'name', 'calories', 'images', 'keywords')
 
 class IngredientChoiceListSerializer(serializers.ModelSerializer):
 

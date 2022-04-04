@@ -67,7 +67,7 @@ class RecipeList(ListAPIView, LimitOffsetPagination):
 
         for i in response_data['data']:
             i['liked_count'] = LikedRecipe.objects.filter(recipe_seq=i['recipe_seq']).count()
-            i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).aggregate(average_rating=Avg('review__ratings')))
+            i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).values('review').aggregate(average_rating=Avg('review__ratings')))
             i['images'] = json.loads(i['images'])[0]
   
         return Response(response_data, status=status.HTTP_200_OK)
@@ -86,7 +86,7 @@ class RecipeDetail(APIView):
         recipe = self.get_object(pk)
         serializer = RecipeSerializer(recipe)
         response_data = serializer.data
-        response_data.update(Recipe.objects.filter(recipe_seq=response_data['recipe_seq']).aggregate(average_rating=Avg('review__ratings')))
+        response_data.update(recipe.review_set.all().aggregate(average_rating=Avg('ratings')))
 
         try:
             response_data['ingredient_raw'] = json.loads(serializer.data['ingredient_raw'])
@@ -118,12 +118,12 @@ class RecipeDetail(APIView):
 
         for i in ingredients_recommend_serializer.data:
             i['liked_count'] = LikedRecipe.objects.filter(recipe_seq=i['recipe_seq']).count()
-            i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).aggregate(average_rating=Avg('review__ratings')))
+            i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).values('review').aggregate(average_rating=Avg('review__ratings')))
             i['images'] = json.loads(i['images'])[0]
             
         for i in nutrient_recommend_serializer.data:
             i['liked_count'] = LikedRecipe.objects.filter(recipe_seq=i['recipe_seq']).count()
-            i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).aggregate(average_rating=Avg('review__ratings')))
+            i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).values('review').aggregate(average_rating=Avg('review__ratings')))
             i['images'] = json.loads(i['images'])[0]
 
         response_data['ingredients_recommend'] = ingredients_recommend_serializer.data[-3:]
@@ -153,8 +153,8 @@ class ReviewList(APIView, LimitOffsetPagination):
 
     @login_decorator
     def post(self, request, pk, format=None):
-
-        if Review.objects.filter(member=request.member, recipe=pk):
+        recipe=Recipe.objects.get(recipe_seq=pk)
+        if Review.objects.filter(member=request.member, recipe=recipe):
             data = {
                     "msg": "이미 리뷰를 작성한 회원입니다",
                     "status": 202
@@ -170,7 +170,7 @@ class ReviewList(APIView, LimitOffsetPagination):
         serializer = ReviewSerializer(data=request.data)
 
         if serializer.is_valid():
-            serializer.save(member=Member.objects.get(member_seq=request.member.member_seq), recipe=Recipe.objects.get(recipe_seq=pk))
+            serializer.save(member=request.member, recipe=recipe)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
             
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -185,7 +185,7 @@ class ReviewDetail(APIView):
     @login_decorator
     def delete(self, request, id, format=None):
         review = self.get_object(id)
-        review_writer = Member.objects.get(member_seq=review.member.member_seq)
+        review_writer = Member.objects.get(member_seq=review.member)
 
         if review_writer == request.member:
             Review.objects.get(id=id).delete()
@@ -205,7 +205,7 @@ class ReviewDetail(APIView):
     @login_decorator
     def put(self, request, id, format=None):
         review = self.get_object(id)
-        review_writer = Member.objects.get(member_seq=review.member.member_seq)
+        review_writer = Member.objects.get(member_seq=review.member)
 
         try:
             file = request.FILES['image']
@@ -239,6 +239,7 @@ class RecipeLike(APIView):
                 "status": 202
             }
             return Response(data= data, status=status.HTTP_202_ACCEPTED)
+
         else:
             recipe.members.add(request.member)
             data = {
@@ -267,14 +268,15 @@ class Search(APIView, LimitOffsetPagination):
                 pass
         else:
             object_list = Recipe.objects.all()
-
+        object_list = object_list.annotate(
+                        average_rating=Avg('review__ratings'), review_cnt=Count('review')).order_by('-average_rating', '-review_cnt')
         count = len(object_list)
         results = self.paginate_queryset(object_list, request)
         serializer = RecipeListSerializer(results, many=True)
 
         for i in serializer.data:
             i['liked_count'] = LikedRecipe.objects.filter(recipe_seq=i['recipe_seq']).count()
-            i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).aggregate(average_rating=Avg('review__ratings')))
+            i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).values('review').aggregate(average_rating=Avg('review__ratings')))
             i['images'] = json.loads(i['images'])[0]
 
         response_data = dict()
@@ -302,12 +304,14 @@ class IngredientChoice(ListAPIView, LimitOffsetPagination):
                 return Response(data=data, status=status.HTTP_404_NOT_FOUND)
 
         count = len(temp)
+        temp = temp.annotate(
+                        average_rating=Avg('review__ratings'), review_cnt=Count('review')).order_by('-average_rating', '-review_cnt')
         results = self.paginate_queryset(temp)
         serializer = IngredientChoiceListSerializer(results, many=True)
 
         for i in serializer.data:
             i['liked_count'] = LikedRecipe.objects.filter(recipe_seq=i['recipe_seq']).count()
-            i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).aggregate(average_rating=Avg('review__ratings')))
+            i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).values('review').aggregate(average_rating=Avg('review__ratings')))
             i['images'] = json.loads(i['images'])[0]
 
         response_data = dict()
@@ -329,7 +333,7 @@ class BrowseRecipeList(ListAPIView, LimitOffsetPagination):
         serializer = RecipeListSerializer(results, many = True)
 
         for i in serializer.data:
-            i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).aggregate(average_rating=Avg('review__ratings')))
+            i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).values('review').aggregate(average_rating=Avg('review__ratings')))
             i['liked_count'] = LikedRecipe.objects.filter(recipe_seq=i['recipe_seq']).count()
             i['images'] = json.loads(i['images'])[0]
   
@@ -337,23 +341,20 @@ class BrowseRecipeList(ListAPIView, LimitOffsetPagination):
 
 
 class RecommendRecipeList(ListAPIView, LimitOffsetPagination):
-    # @login_decorator
+    @login_decorator
     def get(self, request, format=None):
-        # token = request.data['data']['access_token']
-        # member = decode_token(token)
-        member = Member.objects.get(member_seq=1)
 
         word = self.request.GET['type']
 
-        # is_survey = Survey.objects.filter(member_seq=request.member.member_seq)
-        is_survey = Survey.objects.filter(member_seq=member)
-        # is_review = Review.objects.filter(member=request.member)
-        is_review = Review.objects.filter(member=member)
+        is_survey = Survey.objects.filter(member_seq=request.member)
+        # is_survey = Survey.objects.filter(member_seq=member)
+        is_review = Review.objects.filter(member=request.member)
+        # is_review = Review.objects.filter(member=member)
 
         if word == 'foryou':
 
-            # recommends = Recommend.objects.filter(member_seq=request.member.member_seq).values('content_base')
-            recommends = Recommend.objects.filter(member_seq=member).values('content_base')
+            recommends = Recommend.objects.filter(member_seq=request.member).values('content_base')
+            # recommends = Recommend.objects.filter(member_seq=member).values('content_base')
 
             if recommends[0]['content_base']:
                 recommend_list = json.loads(recommends[0]['content_base'])
@@ -364,8 +365,8 @@ class RecommendRecipeList(ListAPIView, LimitOffsetPagination):
             else:
                 if is_survey and not is_review:
 
-                    # temp = Survey.objects.filter(member_seq=request.member.member_seq).values()
-                    temp = Survey.objects.filter(member_seq=member).values()
+                    temp = Survey.objects.filter(member_seq=request.member).values()
+                    # temp = Survey.objects.filter(member_seq=member).values()
 
                     ingredinet_keywords = json.loads(temp[0]['ingredient_keywords'])
 
@@ -382,14 +383,14 @@ class RecommendRecipeList(ListAPIView, LimitOffsetPagination):
             serializer = RecipeListSerializer(results, many = True)
 
             for i in serializer.data:
-                i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).aggregate(average_rating=Avg('review__ratings')))
+                i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).values('review').aggregate(average_rating=Avg('review__ratings')))
                 i['liked_count'] = LikedRecipe.objects.filter(recipe_seq=i['recipe_seq']).count()
                 i['images'] = json.loads(i['images'])[0]
         
         elif word == 'likeyou':
 
-            # recommends = Recommend.objects.filter(member_seq=request.member.member_seq).values('collaborate_base', 'survey_base')
-            recommends = Recommend.objects.filter(member_seq=member).values('collaborate_base', 'survey_base')
+            recommends = Recommend.objects.filter(member_seq=request.member).values('collaborate_base', 'survey_base')
+            # recommends = Recommend.objects.filter(member_seq=member).values('collaborate_base', 'survey_base')
             
             if recommends[0]['collaborate_base']:
                 recommend_list = json.loads(recommends[0]['collaborate_base'])
@@ -404,14 +405,14 @@ class RecommendRecipeList(ListAPIView, LimitOffsetPagination):
                 recipes = sorted(recipes, key=lambda x: recommend_list.index(x.recipe_seq))[::-1]
 
             else:
-                recipes = Recipe.objects.annotate(
-                    average_rating=Avg('review__ratings'), review_cnt=Count('review')).order_by('-average_rating', '-review_cnt')[:75]
-
+                recipes = Recipe.objects.prefetch_related('review_set')\
+                    .annotate(average_rating=Avg('review__ratings'), review_cnt=Count('review'))\
+                    .order_by('-average_rating', '-review_cnt')[:75]
             results = self.paginate_queryset(recipes)
             serializer = RecipeListSerializer(results, many = True)
 
             for i in serializer.data:
-                i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).aggregate(average_rating=Avg('review__ratings')))
+                i.update(Recipe.objects.filter(recipe_seq=i['recipe_seq']).values('review').aggregate(average_rating=Avg('review__ratings')))
                 i['liked_count'] = LikedRecipe.objects.filter(recipe_seq=i['recipe_seq']).count()
                 i['images'] = json.loads(i['images'])[0]
         
