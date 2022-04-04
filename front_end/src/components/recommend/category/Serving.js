@@ -4,6 +4,8 @@ import { getRecipeList } from "api/CategoryApi";
 import Card from "components/commons/Card";
 import "assets/css/Pagination.css";
 import Pagination from "react-js-pagination";
+import { CircularProgress } from "@mui/material";
+
 
 const Container = styled.div`
   margin: 1rem 0;
@@ -45,6 +47,7 @@ const Servings = forwardRef((props, ref) => {
   const [fourRecipeShow, setFourRecipeShow] = useState(false);
   const [partyRecipeShow, setPartyRecipeShow] = useState(false);
   const [RecipeList, setRecipeList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1); 
 
   const handlePageChange = (page) => { 
@@ -65,6 +68,7 @@ const Servings = forwardRef((props, ref) => {
   };
 
   const getOneRecipe = async(page) => {
+    setIsLoading(true);
     setOneRecipeShow(true);
     setTwoRecipeShow(false);
     setFourRecipeShow(false);
@@ -75,11 +79,13 @@ const Servings = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "One");
     if (Recipe) {
-      setRecipeList(Recipe)
+      setRecipeList(Recipe);
+      setIsLoading(false);
     }
   }
 
   const getTwoRecipe = async(page) => {
+    setIsLoading(true);
     setOneRecipeShow(false);
     setTwoRecipeShow(true);
     setFourRecipeShow(false);
@@ -90,11 +96,13 @@ const Servings = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Two");
     if (Recipe) {
-      setRecipeList(Recipe)
+      setRecipeList(Recipe);
+      setIsLoading(false);
     }
   }
 
   const getFourRecipe = async (page) => {
+    setIsLoading(true);
     setOneRecipeShow(false);
     setTwoRecipeShow(false);
     setFourRecipeShow(true);
@@ -105,11 +113,13 @@ const Servings = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Four");
     if (Recipe) {
-      setRecipeList(Recipe)
+      setRecipeList(Recipe);
+      setIsLoading(false);
     }
   }
   
   const getPartyRecipe = async(page) => {
+    setIsLoading(true);
     setOneRecipeShow(false);
     setTwoRecipeShow(false);
     setFourRecipeShow(false);
@@ -120,8 +130,8 @@ const Servings = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Party");
     if (Recipe) {
-      setRecipeList(Recipe)
-      console.log(Recipe)
+      setRecipeList(Recipe);
+      setIsLoading(false);
     }
   }
 
@@ -134,7 +144,8 @@ const Servings = forwardRef((props, ref) => {
         {partyRecipeShow ? <ServingsButton onClick={()=>getPartyRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>PARTY</ServingsButton> : <ServingsButton onClick={getPartyRecipe}>PARTY</ServingsButton>}
       </div> 
       <CardContainer>
-        {RecipeList.map((Recipe, index) => ( 
+      {isLoading ? <CircularProgress style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}/> :
+        (RecipeList.map((Recipe, index) => ( 
           <Card
             key={Recipe.recipe_seq}
             recipeSeq={Recipe.recipe_seq}
@@ -146,9 +157,11 @@ const Servings = forwardRef((props, ref) => {
             recipeRating={Recipe.average_rating}
             likedCount={Recipe.liked_count}
           />
-        ))}
+        )))
+      }
       </CardContainer>
-      {RecipeList.length !== 0 ?      
+      {isLoading ? null :       
+      (RecipeList.length !== 0 ?      
         <PageContainer>
           <Pagination 
             activePage={page} 
@@ -160,7 +173,7 @@ const Servings = forwardRef((props, ref) => {
             onChange={handlePageChange}
           />
         </PageContainer> : null
-      }
+      )}
     </Container>
   );
 });

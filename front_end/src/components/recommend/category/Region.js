@@ -4,6 +4,8 @@ import { getRecipeList } from "api/CategoryApi";
 import Card from "components/commons/Card";
 import Pagination from "react-js-pagination";
 import "assets/css/Pagination.css";
+import { CircularProgress } from "@mui/material";
+
 
 const Container = styled.div`
   margin: 1rem 0;
@@ -48,6 +50,7 @@ const Region = forwardRef((props, ref) => {
   const [africaShow, setAfricaShow] = useState(false);
   const [Oceaniahow, setOceaniaShow] = useState(false);
   const [RecipeList, setRecipeList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1); 
 
   const handlePageChange = (page) => { 
@@ -71,6 +74,7 @@ const Region = forwardRef((props, ref) => {
   };
 
   const getEuropeRecipe = async(page) => {
+    setIsLoading(true);
     setEuropeShow(true);
     setAsiaShow(false);
     setAmericaShow(false);
@@ -82,7 +86,8 @@ const Region = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Europe");
     if (Recipe) {
-      setRecipeList(Recipe)
+      setRecipeList(Recipe);
+      setIsLoading(false);
     }
   }
 
@@ -103,6 +108,7 @@ const Region = forwardRef((props, ref) => {
   }
 
   const getAmericaRecipe = async(page) => {
+    setIsLoading(true);
     setEuropeShow(false);
     setAsiaShow(false);
     setAmericaShow(true);
@@ -114,11 +120,13 @@ const Region = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "America");
     if (Recipe) {
-      setRecipeList(Recipe)
+      setRecipeList(Recipe);
+      setIsLoading(false);
     }
   }
 
   const getAfricaRecipe = async(page) => {
+    setIsLoading(true);
     setEuropeShow(false);
     setAsiaShow(false);
     setAmericaShow(false);
@@ -130,11 +138,13 @@ const Region = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Africa");
     if (Recipe) {
-      setRecipeList(Recipe)
+      setRecipeList(Recipe);
+      setIsLoading(false);
     }
   }
 
   const getOceaniaRecipe = async(page) => {
+    setIsLoading(true);
     setEuropeShow(false);
     setAsiaShow(false);
     setAmericaShow(false);
@@ -146,7 +156,8 @@ const Region = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Oceania");
     if (Recipe) {
-      setRecipeList(Recipe)
+      setRecipeList(Recipe);
+      setIsLoading(false);
     }
   }
   
@@ -160,21 +171,24 @@ const Region = forwardRef((props, ref) => {
         {Oceaniahow ? <RegionButton onClick={()=>getOceaniaRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>OCEANIA</RegionButton> : <RegionButton onClick={getOceaniaRecipe}>OCEANIA</RegionButton>}
       </div>  
       <CardContainer>
-        {RecipeList.map((Recipe, index) => ( 
-          <Card
-            key={Recipe.recipe_seq}
-            recipeSeq={Recipe.recipe_seq}
-            index={index}
-            recipeImg={Recipe.images}
-            recipeName={Recipe.name}
-            recipeKeywords={(Recipe.keywords.length > 1 ? [Recipe.keywords[0].keyword_name, Recipe.keywords[1].keyword_name] : Recipe.keywords[0].keyword_name)}
-            recipeCalorie={Recipe.calories}
-            recipeRating={Recipe.average_rating}
-            likedCount={Recipe.liked_count}
-          />
-        ))}
+        {isLoading ? <CircularProgress style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}/> :
+          (RecipeList.map((Recipe, index) => ( 
+            <Card
+              key={Recipe.recipe_seq}
+              recipeSeq={Recipe.recipe_seq}
+              index={index}
+              recipeImg={Recipe.images}
+              recipeName={Recipe.name}
+              recipeKeywords={(Recipe.keywords.length > 1 ? [Recipe.keywords[0].keyword_name, Recipe.keywords[1].keyword_name] : Recipe.keywords[0].keyword_name)}
+              recipeCalorie={Recipe.calories}
+              recipeRating={Recipe.average_rating}
+              likedCount={Recipe.liked_count}
+            />
+          )))
+        }
       </CardContainer>
-      {RecipeList.length !== 0 ?      
+      {isLoading ? null :       
+      (RecipeList.length !== 0 ?      
         <PageContainer>
           <Pagination 
             activePage={page} 
@@ -186,7 +200,7 @@ const Region = forwardRef((props, ref) => {
             onChange={handlePageChange}
           />
         </PageContainer> : null
-      }
+      )}
     </Container>
   );
 });

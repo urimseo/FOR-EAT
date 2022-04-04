@@ -5,6 +5,8 @@ import { getRecipeList } from "api/CategoryApi";
 import Card from "components/commons/Card";
 import Pagination from "react-js-pagination";
 import "assets/css/Pagination.css";
+import { CircularProgress } from "@mui/material";
+
 
 const Container = styled.div`
   margin: 1rem 0;
@@ -48,6 +50,7 @@ const Ingredient = forwardRef((props, ref) => {
   const [seafoodShow, setSeafoodShow] = useState(false);
   const [vegetableShow, setVegetableShow] = useState(false);
   const [RecipeList, setRecipeList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1); 
 
   const handlePageChange = (page) => { 
@@ -72,6 +75,7 @@ const Ingredient = forwardRef((props, ref) => {
   }
 
   const getSeafoodRecipe = async(page) => {
+    setIsLoading(true);
     setSeafoodShow(true);
     setMeatShow(false);
     setVegetableShow(false);
@@ -81,11 +85,13 @@ const Ingredient = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Seafood");
     if (Recipe) {
-      setRecipeList(Recipe)
+      setRecipeList(Recipe);
+      setIsLoading(false);
     }
   }
 
   const getVegetableRecipe = async(page) => {
+    setIsLoading(true);
     setVegetableShow(true);
     setSeafoodShow(false);
     setMeatShow(false);
@@ -95,7 +101,8 @@ const Ingredient = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Vegetable");
     if (Recipe) {
-      setRecipeList(Recipe)
+      setRecipeList(Recipe);
+      setIsLoading(false);
     }
   }
   
@@ -109,7 +116,8 @@ const Ingredient = forwardRef((props, ref) => {
       </div>
       { meatShow ? null : 
         <CardContainer>
-          {RecipeList.map((Recipe, index) => ( 
+          {isLoading ? <CircularProgress style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}/> :
+          (RecipeList.map((Recipe, index) => ( 
             <Card
               key={Recipe.recipe_seq}
               recipeSeq={Recipe.recipe_seq}
@@ -121,10 +129,12 @@ const Ingredient = forwardRef((props, ref) => {
               recipeRating={Recipe.average_rating}
               likedCount={Recipe.liked_count}
             />
-          ))}
+          )))
+          }
         </CardContainer>
       }
-      { meatShow === false && RecipeList.length !== 0 ?  
+      {isLoading ? null :       
+        (RecipeList.length !== 0 ?      
         <PageContainer>
           <Pagination 
             activePage={page} 
@@ -135,8 +145,8 @@ const Ingredient = forwardRef((props, ref) => {
             nextPageText={"›"} 
             onChange={handlePageChange}
           />
-        </PageContainer> : null 
-      }
+        </PageContainer> : null
+        )}
     </Container>
   );
 });
