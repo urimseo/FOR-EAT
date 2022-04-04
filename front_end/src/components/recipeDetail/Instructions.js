@@ -27,7 +27,7 @@ const Instructions = ({instructions}) => {
     <TextContainer>
         <div className="title">INSTRUCTIONS</div>
         <ul>
-          { instructions && instructions.map((instruction) => (<li className="content_light">{instruction}</li>))}
+          { instructions && instructions.map((instruction, idx) => (<li className="content_light" key={idx}>{instruction}</li>))}
         </ul>
       </TextContainer>
     )

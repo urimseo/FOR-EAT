@@ -26,10 +26,11 @@ const KeywordList = ({ keywords }) => {
 
   return (
     <KeywordContainer>
-      { keywords ? keywords.map((keyword) => (
+      { keywords ? keywords.map((keyword, idx) => (
           <Keyword 
           // 클릭시 검색 페이지로 이동 (SearchInput.js 참고하기)
           // function으로 뺐더니 e.target.value 못 잡아서 안에 넣음
+            key={idx}
             onClick={
               async (e) => {
                 const response = await getSearchList(1, keyword.keyword_name)
