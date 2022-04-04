@@ -25,9 +25,8 @@ const SubIngredientButton = styled.button`
 `
 
 const CardContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  /* grid-template-columns: 21.5rem 21.5rem 21.5rem 21.5rem; */
+  display: grid;
+  grid-template-columns: 21.5rem 21.5rem 21.5rem 21.5rem;
   justify-content: center;
 `
 
@@ -50,6 +49,7 @@ const SubIngredient = forwardRef((props, ref) => {
   const [poultryShow, setPoultryShow] = useState(false);
   const [chickenShow, setChickenShow] = useState(false);
   const [RecipeList, setRecipeList] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1); 
 
@@ -86,8 +86,9 @@ const SubIngredient = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Beef");
     if (Recipe) {
-      setRecipeList(Recipe);
+      setRecipeList(Recipe.data);
       setIsLoading(false);
+      setTotalCount(Recipe.total_count);
     }
   }
 
@@ -104,8 +105,9 @@ const SubIngredient = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Pork");
     if (Recipe) {
-      setRecipeList(Recipe);
+      setRecipeList(Recipe.data);
       setIsLoading(false);
+      setTotalCount(Recipe.total_count);
     }
   }
 
@@ -122,8 +124,9 @@ const SubIngredient = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Lamb");
     if (Recipe) {
-      setRecipeList(Recipe);
+      setRecipeList(Recipe.data);
       setIsLoading(false);
+      setTotalCount(Recipe.total_count);
     }
   }
 
@@ -140,8 +143,9 @@ const SubIngredient = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Poultry");
     if (Recipe) {
-      setRecipeList(Recipe);
+      setRecipeList(Recipe.data);
       setIsLoading(false);
+      setTotalCount(Recipe.total_count);
     }
   }
 
@@ -158,8 +162,9 @@ const SubIngredient = forwardRef((props, ref) => {
     }
     const Recipe = await getRecipeList(page, "Chicken");
     if (Recipe) {
-      setRecipeList(Recipe);
+      setRecipeList(Recipe.data);
       setIsLoading(false);
+      setTotalCount(Recipe.total_count);
     }
   }
 
@@ -172,9 +177,9 @@ const SubIngredient = forwardRef((props, ref) => {
         {poultryShow ? <SubIngredientButton onClick={()=>getPoultryRecipe(1)} style={{color: "#ED8141"}}>POULTRY</SubIngredientButton> : <SubIngredientButton onClick={getPoultryRecipe}>POULTRY</SubIngredientButton>}
         {chickenShow ? <SubIngredientButton onClick={()=>getChickenRecipe(1)} style={{color: "#ED8141"}}>CHICKEN</SubIngredientButton> : <SubIngredientButton onClick={getChickenRecipe}>CHICKEN</SubIngredientButton>}
       </div>
-      <CardContainer>
-      {isLoading ? <CircularProgress style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}/> :
-          (RecipeList.map((Recipe, index) => ( 
+      {isLoading ? <div style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}><CircularProgress /></div> :
+        <CardContainer>
+          {RecipeList.map((Recipe, index) => (
             <Card
               key={Recipe.recipe_seq}
               recipeSeq={Recipe.recipe_seq}
@@ -186,16 +191,16 @@ const SubIngredient = forwardRef((props, ref) => {
               recipeRating={Recipe.average_rating}
               likedCount={Recipe.liked_count}
             />
-          )))
-        }
-      </CardContainer>
+          ))}
+        </CardContainer>
+      }
       {isLoading ? null :       
       (RecipeList.length !== 0 ?      
         <PageContainer>
           <Pagination 
             activePage={page} 
-            itemsCountPerPage={10} 
-            totalItemsCount={250} 
+            itemsCountPerPage={24} 
+            totalItemsCount={totalCount} 
             pageRangeDisplayed={5} 
             prevPageText={"‹"} 
             nextPageText={"›"} 
