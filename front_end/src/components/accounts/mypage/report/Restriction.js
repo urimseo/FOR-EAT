@@ -72,8 +72,11 @@ const Restriction = ({ nutrient, user }) => {
     else if ( 110 > result > 90 ) {
       return ["#FFE78F", "Sufficient"]
     }
-    else {
+    else if ( 90 > result ) {
       return ["#97BB97", "Low"]
+    }
+    else {
+      return ["#C4C4C4", "none"]
     }
   }
 
@@ -134,6 +137,10 @@ const Restriction = ({ nutrient, user }) => {
           <Card bc="#FFFFFF" p="0.8rem 0.2rem 0 0.2rem" m="0" width="14.5rem" height="8rem" align="start" color="#000" fw="400" fs="1rem">
             You are the best owner for your own body. You've been eating in moderation with all three of the factors you should limit your intake.<br />
             Keep Going and make your body healthier.
+          </Card> :
+          data[0][1][1] === "none" || data[1][1][1] === "none" || data[2][1][1] === "none" ? 
+          <Card bc="#FFFFFF" p="0.8rem 0.2rem 0 0.2rem" m="0" width="14.5rem" height="8rem" align="start" color="#000" fw="400" fs="1rem">
+            <div style={{ fontSize: "1rem", fontWeight: "300"}}>Not enough data... </div>
           </Card> :
           <Card bc="#FFFFFF" p="0.8rem 0.2rem 0 0.2rem" m="0" width="14.5rem" height="8rem" align="start" color="#000" fw="400" fs="1rem">
             You are trying to do your best to reduce intake of these factors. Cheer up! you can do better next time. We provide information of each nutrient that you can easily check on the Recipe. 

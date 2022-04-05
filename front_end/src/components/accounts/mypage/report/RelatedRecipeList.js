@@ -33,14 +33,14 @@ const RelatedRecipeList = ({popular_recipe, user}) => {
     <Container>
       <TextContainer>
         <div className="title">
-          { user ?  user.gender ? "Women": "Men" : "Men"} in their 
+          { user ?  user.gender ? "Women in their ": "Men in their " : ""} 
           { user ? 
-            user.age === 1 ? " 10" :
-            user.age === 2 ? " 20" :
-            user.age === 3 ? " 30~40" :
-            user.age === 4 ? " 50~64" :
-            user.age === 5 ? " 65~70" : " 75" : " 75"
-          }'s
+            user.age === 1 ? " 10's" :
+            user.age === 2 ? " 20's" :
+            user.age === 3 ? " 30~40's" :
+            user.age === 4 ? " 50~64's" :
+            user.age === 5 ? " 65~74's" : " 75's" : "Popular Recipes"
+          }
         </div>
       </TextContainer>
       <CardContainer>

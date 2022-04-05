@@ -11,7 +11,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 14rem;
-  height: 13rem;
+  height: 14rem;
   background-color: #FFFFFF;
   padding: 1.4rem;
   margin: 1rem 2rem 0 0;
@@ -20,11 +20,17 @@ const Container = styled.div`
 
 const TextContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   .title { 
     font-size: 1.5rem;
     font-weight: 500;
     padding: 0;
+  }
+  .content {
+    font-size: 1rem;
+    font-weight: 300;
+    padding: 0.3rem 0;
   }
 `
 
@@ -97,6 +103,8 @@ const Habit = ({ nutrient, user }) => {
       setHabit("okay")
     } else if ( average >= 120 || 80 > average ) {
       setHabit("bad")
+    } else {
+      setHabit("none")
     }
   }
   
@@ -116,9 +124,10 @@ const Habit = ({ nutrient, user }) => {
     <Container>
       <TextContainer>
         <div className="title">My Eating Habits?</div>
+        <div className="content" style={ habit==="none" ? null : {display: "none"} } >Not enough data..</div>
       </TextContainer>
       <ImgWrapper>
-        <Img src={ habit === "good" ? icon_good : habit === "bad" ? icon_bad : habit === "okay" ? icon_okay : null} />
+        <Img src={ habit === "good" ? icon_good : habit === "bad" ? icon_bad : habit === "okay" ? icon_okay : icon_okay} />
       </ImgWrapper>
     </Container>
   )
