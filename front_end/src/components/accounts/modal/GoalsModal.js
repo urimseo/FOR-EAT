@@ -9,8 +9,7 @@ import { Alert } from "components/commons/Alert";
 const Container = styled(motion.div)`
   box-sizing: border-box;
   width: 700px;
-  border-radius: 40px;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
+  box-shadow: 3px 5px 5px 5px #424141;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -146,14 +145,14 @@ const GoalsModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyList }
         <div style={{ width: "26rem" }}>
           <SpaceBetweenContainer>
             <Button2
-              bc={beginnerShow ? on : ""}
+              bs={beginnerShow ? on : ""}
               mr="0px" 
               onClick={onBeginner}
               name="Beginner cook"
             />
 
             <Button2
-              bc={newCuisinShow ? on : ""}
+              bs={newCuisinShow ? on : ""}
               mr="0px" 
               onClick={onNewCuisin}
               name="Try new cuisin"
@@ -161,24 +160,24 @@ const GoalsModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyList }
           </SpaceBetweenContainer>
           <SpaceBetweenContainer>
             <Button2
-              bc={saveTimeShow ? on : ""}
+              bs={saveTimeShow ? on : ""}
               mr="0px" 
               onClick={onSaveTime}
               name="Save time"
             />
 
             <Button2
-              bc={healthyShow ? on : ""}
+              bs={healthyShow ? on : ""}
               mr="0px" 
               onClick={onHealthy}
               name="Eat healty"
             />
           </SpaceBetweenContainer>
           <SpaceBetweenContainer>
-            <Button2 bc={dietShow ? on : ""} mr="0px" onClick={onDiet} name="Try diet" />
+            <Button2 bs={dietShow ? on : ""} mr="0px" onClick={onDiet} name="Try diet" />
 
             <Button2
-              bc={interestShow ? on : ""}
+              bs={interestShow ? on : ""}
               mr="0px" 
               onClick={onInterest}
               name="No interest"
@@ -188,15 +187,14 @@ const GoalsModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyList }
       </BoxContainer>
 
       <ButtonContainer>
-        <Button name="Check" onClick={onCheck} />
-
-        <Button
+      <Button
           name="Cancel"
           bc="#C4C4C4"
           hoverColor="#a2a2a2"
-          ml="3rem"
           onClick={onClose}
         />
+        <Button name="Check"
+          ml="3rem" onClick={onCheck} />
       </ButtonContainer>
     </Container>
   );
