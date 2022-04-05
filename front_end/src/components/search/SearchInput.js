@@ -58,7 +58,7 @@ const SearchInput = ({ onClick, url, isSelected }) => {
     }
   }
   return (
-    <SearchContainer onSubmit={false}>
+    <SearchContainer>
       <Input 
         placeholder=" search in result"
         value={word || ''}
