@@ -22,7 +22,7 @@
 
 🍴 [**사용자 맞춤 레시피 추천 서비스 FOR:EAT**](https://j6a103.p.ssafy.io/)
 
-💡 [**Team mija u tlieta Notion**](https://www.notion.so/93cfd85697c44cf6bfb98542b17ed1e8)
+💡 [**Team mija u tlieta Notion**](https://www.notion.so/FOR-EAT-e294d1ecbda54887aa3d1930119d6e95)
 
 
 
