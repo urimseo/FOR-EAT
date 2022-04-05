@@ -7,6 +7,7 @@ const Container = styled.div`
   display: flex;
   margin: 0 1rem;
   width: 60.5%;
+  height: 14rem;
   background-color: white;
   border-radius: 0.5rem;
   padding: 1.4rem 2rem 1.4rem 2rem;
@@ -22,10 +23,9 @@ const TextContainer = styled.div`
     padding: 0;
     margin: 0 0 1rem 0;
   }
-  .content {
+  .notice {
     font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.4rem;
+    font-weight: 300;
   }
 `
 
@@ -61,6 +61,7 @@ const DoughnutChart = ({ category }) => {
       <FlexContainer>
         <TextContainer>
           <div className="title">Top 3 :<br /> Most Eaten Categories</div>
+          <div className="notice" style={ categories ? {display: "none"} : null }>Not enough data..</div>
           { categories ? categories.map((category, idx) => {
             if (idx < 3 ) {
               return (
