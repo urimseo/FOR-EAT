@@ -6,7 +6,6 @@ const Container = styled.div`
   border: 1px solid #000000;
   display: flex;
   flex-direction: column;
-  algin-items: center;
   padding: 0.5rem;
   .Warning {
     color: red;
