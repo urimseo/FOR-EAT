@@ -8,8 +8,7 @@ import { editSurvey } from "api/MyPageApi";
 const Container = styled(motion.div)`
   box-sizing: border-box;
   width: 700px;
-  border-radius: 40px;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
+  box-shadow: 3px 5px 5px 5px #424141;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -120,8 +119,8 @@ const InfosModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyList }
       <ButtonContainers>
         <div style={{ width: "26rem" }}>
           <SpaceBetweenContainer>
-            <Button2 bc={manShow ? on : ""} mt="0px" mr="0px" onClick={onMan} name="Man" />
-            <Button2 bc={womanShow ? on : ""} mt="0px" mr="0px" onClick={onWoman} name="Woman" />
+            <Button2 bs={manShow ? on : ""} mt="0px" mr="0px" onClick={onMan} name="Man" />
+            <Button2 bs={womanShow ? on : ""} mt="0px" mr="0px" onClick={onWoman} name="Woman" />
           </SpaceBetweenContainer>
         </div>
       </ButtonContainers>
@@ -139,15 +138,14 @@ const InfosModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyList }
         </SelectContent>
       </SelectContainer>
       <ButtonContainer>
-        <Button name="Check" onClick={onCheck} />
-
         <Button
           name="Cancel"
           bc="#C4C4C4"
           hoverColor="#a2a2a2"
-          ml="3rem"
           onClick={onClose}
         />
+        <Button name="Check"
+          ml="3rem" onClick={onCheck} />
       </ButtonContainer>
     </Container>
   );
