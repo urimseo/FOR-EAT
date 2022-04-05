@@ -28,7 +28,7 @@ const StyledButton = styled.button`
     cursor: no-drop;
   }
 
-  &:active{
+  &:active {
     box-shadow: none;
   }
 `;

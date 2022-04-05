@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
 
-
 const Container = styled.div`
   height: 32vh;
   border: 1px solid #000000;
@@ -53,6 +52,5 @@ const NutritionCard = ( props ) => {
       </Container>
   );
 };
-
 
 export default NutritionCard;

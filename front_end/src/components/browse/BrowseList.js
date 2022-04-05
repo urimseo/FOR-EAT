@@ -4,10 +4,9 @@ import BrowseLiseItem from "components/browse/BrowseListItem";
 
 const Container = styled.div`
   margin: 0 0 10rem 0;
-`
+`;
 
 const BrowseList = () => {
-  
   const Data = [
     { keyword: "Vegan", title: "Vegan Recipes" },
     { keyword: "Kid Friendly", title: "FOR:Kids" },
@@ -33,22 +32,19 @@ const BrowseList = () => {
     { keyword: "Beverages", title: "Beverages" },
     { keyword: "Lactose Free", title: "Lactose Free" },
     { keyword: "Spring", title: "Spring" },
-  ]
+  ];
   var newnum = [];
-  for (var i=0; i<9; i++){
-    var movenum = Data.splice(Math.floor(Math.random() * Data.length),1)[0]
-    newnum.push(movenum)
+  for (var i = 0; i < 9; i++) {
+    var movenum = Data.splice(Math.floor(Math.random() * Data.length), 1)[0];
+    newnum.push(movenum);
   }
   return (
     <Container>
-      { newnum.map((item, idx) => ( 
-        <BrowseLiseItem 
-          key={idx}
-          {...item} 
-        />
+      {newnum.map((item, idx) => (
+        <BrowseLiseItem key={idx} {...item} />
       ))}
     </Container>
-  )
-}
+  );
+};
 
 export default BrowseList;

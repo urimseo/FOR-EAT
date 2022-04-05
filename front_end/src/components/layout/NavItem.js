@@ -8,7 +8,7 @@ const Container = styled.div`
   text-align: center;
 
   &:hover {
-    color: #ED8141;
+    color: #ed8141;
   }
 `;
 
@@ -18,7 +18,7 @@ const NavItem = ({ onClick, url, name, isSelected }) => {
       onClick={() => onClick(url)}
       co={isSelected === url ? true : false}
     >
-          {name}
+      {name}
     </Container>
   );
 };

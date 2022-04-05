@@ -20,7 +20,7 @@ const StyledTitle = styled.p`
 `;
 
 const Title = (props) => {
-  return <StyledTitle {...props} ></StyledTitle>;
+  return <StyledTitle {...props}></StyledTitle>;
 };
 
 export default Title;

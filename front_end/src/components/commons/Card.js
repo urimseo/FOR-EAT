@@ -96,9 +96,7 @@ const TextContent = styled.div`
 `
 
 const Card = ({ recipeImg, recipeName, recipeCalorie, recipeSeq, recipeKeywords, recipeRating, likedCount}) => {
-
   return (
-
       <Container>
         <Link to={`/recipes/${recipeSeq}`} style={{color: 'black', textDecoration : "none"}}>
           <CardItem>
@@ -127,7 +125,6 @@ const Card = ({ recipeImg, recipeName, recipeCalorie, recipeSeq, recipeKeywords,
   );
 };
 
-
 Card.propTypes = {
   recipeImg: PropTypes.string.isRequired,
   recipeName: PropTypes.string.isRequired,
@@ -136,6 +133,5 @@ Card.propTypes = {
   recipeKeywords: PropTypes.array.isRequired,
   likedCount: PropTypes.number.isRequired
 };
-
 
 export default Card

@@ -6,7 +6,6 @@ import Pagination from "react-js-pagination";
 import "assets/css/Pagination.css";
 import { CircularProgress } from "@mui/material";
 
-
 const Container = styled.div`
   margin: 1rem 0;
 `
@@ -33,8 +32,6 @@ const CardContainer = styled.div`
 const PageContainer = styled.div`
   margin: 2rem 0 5rem 0;
 `
-
-
 
 const SubIngredient = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
@@ -183,6 +180,5 @@ const SubIngredient = forwardRef((props, ref) => {
     </Container>
   );
 });
-
 
 export default SubIngredient;

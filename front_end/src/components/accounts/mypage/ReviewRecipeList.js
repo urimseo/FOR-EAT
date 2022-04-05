@@ -33,7 +33,7 @@ const See = styled.a`
   margin-left: auto;
   text-decoration: none;
   color: #ed8141;
-  font-family : Work Sans;
+  font-family: Work Sans;
 `;
 
 const Sub = styled.div`
@@ -41,34 +41,40 @@ const Sub = styled.div`
   margin-bottom: 3rem;
   font-size: 20px;
   font-weight: bold;
-`
+`;
 
 const ReviewList = ({ ReviewList, UserInfo }) => {
   return (
     <Container>
       <Top>
         <Title>My Reviews</Title>
-        {ReviewList.length !== 0 ?
-        <See href={"/" + UserInfo + "/mypage/reviews"}>See all →</See>
-        :null}
+        {ReviewList.length !== 0 ? (
+          <See href={"/" + UserInfo + "/mypage/reviews"}>See all →</See>
+        ) : null}
       </Top>
-      
-      {ReviewList.length !== 0 ?
-      <div
-        style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
-      >
-        {ReviewList.map((review) => (
-          <ReviewCard
-            key={review.id}
-            reviewId={review.id}
-            content={review.content}
-            ratings={review.ratings}
-            lastModifiedDate={review.last_modified_date}
-            recipe_seq={review.recipe_seq}
-          />
-        ))}
-      </div> : <Sub>Please register your review.</Sub>
-      }
+
+      {ReviewList.length !== 0 ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            flexWrap: "wrap",
+          }}
+        >
+          {ReviewList.map((review) => (
+            <ReviewCard
+              key={review.id}
+              reviewId={review.id}
+              content={review.content}
+              ratings={review.ratings}
+              lastModifiedDate={review.last_modified_date}
+              recipe_seq={review.recipe_seq}
+            />
+          ))}
+        </div>
+      ) : (
+        <Sub>Please register your review.</Sub>
+      )}
     </Container>
   );
 };

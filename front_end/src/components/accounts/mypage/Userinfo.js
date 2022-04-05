@@ -7,12 +7,12 @@ import { Alert } from "components/commons/Alert";
 import { editMember } from "api/MyPageApi";
 
 const Container = styled.div`
-	margin-top: 7rem;
+  margin-top: 7rem;
 `;
 
 const ProfileImage = styled.div`
   position: relative;
-	display: inline-block;
+  display: inline-block;
   top: 1rem;
   width: 12rem;
   input {
@@ -37,52 +37,56 @@ const Edit = styled.img`
 
 const NickName = styled.div`
   position: relative;
-	display: inline-block;
-	top: -4rem;
-	left: 3rem;
+  display: inline-block;
+  top: -4rem;
+  left: 3rem;
   width: 15rem;
 `;
 
 const ConfirmNickName = styled.div`
   position: relative;
-	display: inline-block;
+  display: inline-block;
 `;
 
 const H1 = styled.div`
-	font-weight: bold;
-	font-size: 40px;
+  font-weight: bold;
+  font-size: 40px;
 `;
 
 const EditNickName = styled.input`
   position: relative;
-	display: inline-block;
+  display: inline-block;
   width: 15rem;
-	border: none;
-	border-bottom: 1px solid;
-	outline: none;
-	font-size: 39px;
-	font-weight: bold;
+  border: none;
+  border-bottom: 1px solid;
+  outline: none;
+  font-size: 39px;
+  font-weight: bold;
 `;
 
 const Email = styled.div`
   position: relative;
-	display: inline-block;
-	top: -2rem;
-	left: -12rem;
+  display: inline-block;
+  top: -2rem;
+  left: -12rem;
 `;
 
-
-
-const Userinfo = ({image, nickname, email, UserInfo}) => {
+const Userinfo = ({ image, nickname, email, UserInfo }) => {
   const [showNickname, setShowNickname] = useState(true);
   const [saveNickname, setSaveNickname] = useState();
   const [saveImage, setSaveImage] = useState();
   const [flagNickname, setFlagNickname] = useState();
   const [flagImage, setFlagImage] = useState();
 
-  if (!flagNickname && nickname !== undefined){setSaveNickname(nickname); setFlagNickname(1)}
-  if (!flagImage && image !== undefined){setSaveImage(image); setFlagImage(1)}
-  
+  if (!flagNickname && nickname !== undefined) {
+    setSaveNickname(nickname);
+    setFlagNickname(1);
+  }
+  if (!flagImage && image !== undefined) {
+    setSaveImage(image);
+    setFlagImage(1);
+  }
+
   const formData = new FormData();
   const onFileUpload = async (e) => {
     let file_kind = e.target.value.lastIndexOf(".");
@@ -90,35 +94,35 @@ const Userinfo = ({image, nickname, email, UserInfo}) => {
     let file_type = file_name.toLowerCase();
     let check_file_type = new Array();
     check_file_type = ["jpg", "gif", "png", "jpeg"];
-    
+
     if (check_file_type.indexOf(file_type) == -1) {
       Alert("🧡 Only image files can be selected.");
       return false;
     }
-    
+
     formData.append("profile_image_url", e.target.files[0]);
 
-    editMember(UserInfo, formData).then((res) => {
-        setSaveImage(res.profile_image_url)
+    editMember(UserInfo, formData)
+      .then((res) => {
+        setSaveImage(res.profile_image_url);
       })
-      .catch(() => console.log(formData))
-    };
-    
-	const onShowName = (e) => {
-		if(e.target.value.length === 0 && e.keyCode === 13){
-      Alert("🧡 Nickname must be between 1 and 8 characters!");
-	}
-		else if(e.keyCode === 13){
-      Alert("🧡 successfully changed your nickname!");
-			setSaveNickname(e.target.value)
-      formData.append("nickname", e.target.value)
-			setShowNickname(true)
-      editMember(UserInfo, formData)
-		}
+      .catch(() => console.log(formData));
   };
 
-	const onEditName = (e) => {
-			setShowNickname(false)
+  const onShowName = (e) => {
+    if (e.target.value.length === 0 && e.keyCode === 13) {
+      Alert("🧡 Nickname must be between 1 and 8 characters!");
+    } else if (e.keyCode === 13) {
+      Alert("🧡 successfully changed your nickname!");
+      setSaveNickname(e.target.value);
+      formData.append("nickname", e.target.value);
+      setShowNickname(true);
+      editMember(UserInfo, formData);
+    }
+  };
+
+  const onEditName = (e) => {
+    setShowNickname(false);
   };
 
   return (
@@ -141,25 +145,21 @@ const Userinfo = ({image, nickname, email, UserInfo}) => {
           />
         </ProfileImage>
 
-		    <NickName>
-				  {showNickname ? (
-						<ConfirmNickName
-						  onClick={onEditName}
-						>
-						<H1>{saveNickname}</H1>
-						</ConfirmNickName>
-            ) : (
-						<EditNickName
-            onKeyUp={onShowName}
-						defaultValue={saveNickname}
-						minLength={1}
-						maxLength={8}
-						/>
+        <NickName>
+          {showNickname ? (
+            <ConfirmNickName onClick={onEditName}>
+              <H1>{saveNickname}</H1>
+            </ConfirmNickName>
+          ) : (
+            <EditNickName
+              onKeyUp={onShowName}
+              defaultValue={saveNickname}
+              minLength={1}
+              maxLength={8}
+            />
           )}
-				</NickName>
-				<Email>
-				{email}
-				</Email>
+        </NickName>
+        <Email>{email}</Email>
       </Container>
     </>
   );

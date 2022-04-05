@@ -21,6 +21,7 @@ const TextContainer = styled.div`
     list-style: auto;
   }
 `
+
 const Ingredients = ({ ingredients }) => {
   return (
     <TextContainer ta="right">

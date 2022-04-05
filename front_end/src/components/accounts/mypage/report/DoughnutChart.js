@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
 import Chart from 'react-apexcharts'
 
-
 const Container = styled.div`
   display: flex;
   margin: 0 1rem;
@@ -106,7 +105,6 @@ const DoughnutChart = ({ category }) => {
       </FlexContainer>
     </Container>
   );
-
 }
 
 export default DoughnutChart;

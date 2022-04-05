@@ -4,8 +4,6 @@ import Title from "components/commons/Title"
 import BottomButton from "components/accounts/survey/BottomButton";
 import Button from "components/accounts/survey/Button";
 
-
-
 const Container = styled.div`
   min-height: 100vh;
 `
@@ -57,8 +55,6 @@ const SelectContent = styled.select`
   font-size: 1rem;
   font-family: Work Sans;
 `
-
-
 
 const InformationSurvey = ({form, propFunction, nextSteps}) => {
   const { age, gender } = form  // 필요한 키들만 비구조할당으로 선언

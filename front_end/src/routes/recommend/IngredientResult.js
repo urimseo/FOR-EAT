@@ -29,7 +29,6 @@ const PageContainer = styled.div`
   margin: 4rem 0 7rem 0;
 `
 
-
 const IngredientResult = () => {
   const location = useLocation();
   const recipeList = location.state[0].data
@@ -53,6 +52,7 @@ const IngredientResult = () => {
       setRecipeList(recipeList.data)
     }
   }
+  
   return (
     <>
     <CarouselHeader />

@@ -14,6 +14,7 @@ const ExerciseContainer = styled.div`
     font-style: italic;
   }
 `
+
 const CalculateCalories = ({ calories }) => {
   const exercises =  [
     ["Running", 0.133],
@@ -24,9 +25,11 @@ const CalculateCalories = ({ calories }) => {
     ["Tennis", 0.126]
   ]
   const weight = 60
+  
   const chooseRandom = (a) => {
     return a[Math.floor(Math.random()*a.length)];
   }
+  
   const randomItem = chooseRandom(exercises)
     return (
       <ExerciseContainer>

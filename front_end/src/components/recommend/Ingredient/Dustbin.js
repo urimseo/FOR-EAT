@@ -6,7 +6,6 @@ import { getIngredientRecipeList } from 'api/IngredientApi';
 import { useNavigate } from 'react-router-dom';
 import { Alert } from "components/commons/Alert";
 
-
 const style = {
   height: '25rem',
   width: '45rem',
@@ -18,7 +17,6 @@ const style = {
   float: 'left',
 };
 
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -29,7 +27,6 @@ const DustbinContainer = styled.div`
   justify-content: center;
   margin-top: 5rem;
 `
-
 
 const BowlContainer = styled.div`
   display: flex;
@@ -128,8 +125,6 @@ const FoodButton = styled.button`
   }
 `
 
-
-
 const Dustbin = React.memo(function Dustbin() {
     const navigate = useNavigate();
     const [foods, setFood] = useState([]);
@@ -176,7 +171,6 @@ const Dustbin = React.memo(function Dustbin() {
         return foods.indexOf(value) === idx; 
     });
 
-
     return (
         <>
         <Container>
@@ -204,6 +198,5 @@ const Dustbin = React.memo(function Dustbin() {
         </>
     );
 });
-
 
 export default React.memo(Dustbin);

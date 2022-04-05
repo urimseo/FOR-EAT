@@ -1,18 +1,17 @@
 import React from "react";
-import GoogleLogin from 'react-google-login';
+import GoogleLogin from "react-google-login";
 import styled from "styled-components";
-import { useSetRecoilState } from 'recoil';
-import { isLoginState, userInfoState } from '../../../atoms/atoms';
-import { useNavigate } from 'react-router-dom';
-import { googleLogin } from '../../../api/AuthApi';
+import { useSetRecoilState } from "recoil";
+import { isLoginState, userInfoState } from "../../../atoms/atoms";
+import { useNavigate } from "react-router-dom";
+import { googleLogin } from "../../../api/AuthApi";
 import { Alert } from "components/commons/Alert";
 import { setApiHeaders } from "api/Axios";
 
 const Container = styled.div`
   margin: auto;
   margin-top: 2rem;
-`
-
+`;
 
 const LoginGoogle = () => {
   const navigate = useNavigate();
@@ -24,7 +23,7 @@ const LoginGoogle = () => {
       email: response.profileObj.email,
       googleId: response.profileObj.googleId,
       imageUrl: response.profileObj.imageUrl,
-      name: response.profileObj.name
+      name: response.profileObj.name,
     };
 
     const result = await googleLogin(data, response.tokenId);
@@ -38,19 +37,18 @@ const LoginGoogle = () => {
         } else {
           navigate("/recommend");
         }
-      }
-      catch {
+      } catch {
         window.location.reload();
       }
     } else {
       Alert("Please check your information.");
     }
-  }
-  
+  };
+
   const failGoogle = (response) => {
     console.log(response);
-  }
-  
+  };
+
   return (
     <>
       <Container>

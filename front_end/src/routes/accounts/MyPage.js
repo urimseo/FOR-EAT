@@ -11,7 +11,6 @@ import { Container } from "@mui/material";
 import { getMember } from "api/MyPageApi";
 import { getMypage } from "api/MyPageApi";
 
-
 const SpaceBetweenContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -46,7 +45,6 @@ const UnderLine = styled.div`
   padding-right: 1rem;
 `
 
-
 const MyPage = () => {
   const [savedRecipes, setSavedRecipes] = useState(true);
   const [preferences, setPreferences] = useState(false);
@@ -64,11 +62,13 @@ const MyPage = () => {
     setPreferences(false);
     setReport(false);
   };
+
   const showPreferences = async() => {
     setSavedRecipes(false);
     setPreferences(true);
     setReport(false);
   };
+
   const showReport = async() => {
     setSavedRecipes(false);
     setPreferences(false);
@@ -80,6 +80,7 @@ const MyPage = () => {
 
     getMypage(UserInfo)
     .then((res) => {
+      console.log(res)
       setRecipeList(res.liked_recipe)
       setReviewList(res.review)
       setSurveyList(res.member_survey)
@@ -98,9 +99,6 @@ const MyPage = () => {
     .catch((err) => 
       console.log(err)
       )
-      
-
-    
   },[]);
 
   return (

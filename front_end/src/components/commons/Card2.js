@@ -87,6 +87,7 @@ const HoverText = styled.div`
   -ms-transform: translate(-50%, -50%);
   text-align: center;
 `
+
 const TextContent = styled.div`
   color: white;
   font-size: 16px;
@@ -105,11 +106,8 @@ const Arrow = () => {
   )
 }
 
-
 const Card2 = ({ name, images, keywords, recipe_seq, liked_count }) => {
-  
   return (
-
     <Container >
       <Link to={`/recipes/${recipe_seq}`} style={{color: 'black', textDecoration : "none"}}>
         <CardItem >
@@ -136,7 +134,6 @@ const Card2 = ({ name, images, keywords, recipe_seq, liked_count }) => {
         </CardItem>
       </Link>
     </Container>
-
   );
 };
 

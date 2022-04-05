@@ -1,49 +1,54 @@
-.pagination { 
-  display: flex; 
-  justify-content: center; 
-  margin-top: 0.938rem; 
-} 
-ul { 
-  list-style: none; 
-  padding: 0; 
-} 
-ul.pagination li { 
-  display: inline-block; 
-  width: 1.875rem;
-  height: 1.875rem; 
-  border: 0.03rem solid #C4C4C4; 
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  font-size: 1rem; 
-} 
-ul.pagination li:first-child{ 
-  border-radius: 0.313rem 0 0 0.313rem; 
-} 
-ul.pagination li:last-child{ 
-  border-radius: 0 0.313rem 0.313rem 0; 
-} 
-ul.pagination li a { 
-  text-decoration: none; 
-  color: #000000; 
-  font-size: 1rem; 
-} 
-ul.pagination li.active a { 
-  color: white; 
-} 
-ul.pagination li.active { 
-  background-color: #000000; 
-} 
-ul.pagination li a:hover, 
-ul.pagination li a.active { 
-  color: #ED8141; 
-} 
-.page-selection { 
-  width: 3rem; 
-  height: 1.875rem; 
-  color: #000000; 
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.938rem;
 }
 
-/* C4C4C4 
-396A39
-*/
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul.pagination li {
+  display: inline-block;
+  width: 1.875rem;
+  height: 1.875rem;
+  border: 0.03rem solid #C4C4C4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+}
+
+ul.pagination li:first-child {
+  border-radius: 0.313rem 0 0 0.313rem;
+}
+
+ul.pagination li:last-child {
+  border-radius: 0 0.313rem 0.313rem 0;
+}
+
+ul.pagination li a {
+  text-decoration: none;
+  color: #000000;
+  font-size: 1rem;
+}
+
+ul.pagination li.active a {
+  color: white;
+}
+
+ul.pagination li.active {
+  background-color: #000000;
+}
+
+ul.pagination li a:hover,
+ul.pagination li a.active {
+  color: #ED8141;
+}
+
+.page-selection {
+  width: 3rem;
+  height: 1.875rem;
+  color: #000000;
+}

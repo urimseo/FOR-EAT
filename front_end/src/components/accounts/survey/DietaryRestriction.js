@@ -4,8 +4,6 @@ import Title from "components/commons/Title"
 import BottomButton from "components/accounts/survey/BottomButton";
 import Button from "components/accounts/survey/Button";
 
-
-
 const Container = styled.div`
   min-height: 100vh;
 `
@@ -51,7 +49,6 @@ const SpaceBetweenContainer = styled.div`
   display: flex;
   justify-content: space-around;
 `
-
 
 const DietaryRestriction = ({form, flag, propFunction, prevSteps, nextSteps}) => {
   const { cholesterol, sodium, sugar } = form;
@@ -115,6 +112,5 @@ const DietaryRestriction = ({form, flag, propFunction, prevSteps, nextSteps}) =>
     </>
   )
 }
-
 
 export default DietaryRestriction;

@@ -2,7 +2,6 @@ import { useDrag } from 'react-dnd';
 import { ItemTypes } from './ItemTypes';
 import React from 'react';
 
-
 const style = {
   cursor: 'pointer',
   float: 'left',
@@ -10,7 +9,6 @@ const style = {
   height: '5.5rem',
   borderRadius: '55%',
 };
-
 
 const Box = ({ src, title }) =>  {
     const [{ isDragging }, drag] = useDrag(() => ({

@@ -4,12 +4,10 @@ import FeedCarousel from "components/recommend/Feed/FeedCarousel";
 import Title from "components/commons/Title";
 import FeedRecipeList from "components/recommend/Feed/FeedRecipeList";
 
-
 const Container = styled.div`
   margin: 0 10vw;
   min-height: 100vh;
 `
-
 
 const Feed = () => {
   return (

@@ -11,7 +11,6 @@ import RelatedRecipeList from "./RelatedRecipeList";
 
 import { getReportDetail } from "api/MyPageApi";
 
-
 const Container = styled.div`
   padding: 4rem 0 10rem 0;
 `
@@ -80,11 +79,4 @@ const Report = () => {
     )
 }
 
-
-
 export default Report;
-
-
-
-
-

@@ -47,6 +47,7 @@ const Sub = styled.div`
 `
 
 const WishRecipeList = ({RecipeList, UserInfo}) => {
+  console.log(RecipeList)
   return (
     <>
       <Container>

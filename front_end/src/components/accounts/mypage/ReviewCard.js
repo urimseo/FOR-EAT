@@ -56,11 +56,11 @@ const Contents = styled.div`
   font-size: 1rem;
   text-align: justify;
   word-wrap: break-word;
-  color: #4A4A4A;
+  color: #4a4a4a;
   width: 29rem;
   height: 5rem;
   overflow-x: hidden;
-  overflow-y:scroll;
+  overflow-y: scroll;
   ::-webkit-scrollbar {
     width: 0.5rem;
   }
@@ -68,8 +68,7 @@ const Contents = styled.div`
     background-color: #7e7e7e;
     border-radius: 10px;
   }
-
-`
+`;
 
 const Icon = styled.img`
   width: 1rem;
@@ -131,11 +130,11 @@ const ReviewCard = ({
           </TextContainer>
         </FlexContainer>
       </CardContainer>
-        <ImgWrapper>
-      <Link to={`/recipes/${recipe_seq}`} style={{ }}>
+      <ImgWrapper>
+        <Link to={`/recipes/${recipe_seq}`} style={{}}>
           <Img src={recipeImg} alt="이미지를 찾을 수 없습니다." />
-      </Link>
-        </ImgWrapper>
+        </Link>
+      </ImgWrapper>
     </Container>
   );
 };
