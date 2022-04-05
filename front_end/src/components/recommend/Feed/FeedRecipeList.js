@@ -4,6 +4,8 @@ import Title from "components/commons/Title";
 import { getRecommendRecipeList } from "api/RecommendApi";
 import Card from "components/commons/Card";
 import { CircularProgress } from "@mui/material";
+import { setApiHeaders } from "api/Axios";
+
 
 
 
@@ -58,6 +60,7 @@ const FeedRecipeList = () => {
 
   const getRecipeList = async(type, page) => {
     setIsLoading(true);
+    setApiHeaders();
     if (type === "foryou") {
       if (page === 1) {
         setNumber(2);
