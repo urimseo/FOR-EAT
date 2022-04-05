@@ -35,13 +35,13 @@ const CategoryButton = styled.a`
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: 400;
-  margin: 2rem 1rem 0 0;
+  margin: 2rem 1.5rem 0 0;
 `
 
 const UnderLine = styled.div`
   display: inline-block;
   width: ${(props) => (props.width ? props.width : "")};
-  border-bottom: 1px solid black;
+  border-bottom: 0.5rem solid #ED8141;
   margin-top: 1rem;
   padding-right: 1rem;
 `
@@ -119,7 +119,7 @@ const MyPage = () => {
             </RowContainer>
             <RowContainer>
               <CategoryButton onClick={showReport}>WEEKLY REPORT</CategoryButton>
-              {report ? <UnderLine width="7.7rem" /> : null}
+              {report ? <UnderLine width="9rem" /> : null}
             </RowContainer>
           </BoxContainer>
         </SpaceBetweenContainer>

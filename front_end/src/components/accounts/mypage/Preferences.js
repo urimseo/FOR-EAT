@@ -45,22 +45,30 @@ const Overlay = styled(motion.div)`
 `;
 
 const Sub = styled.div`
-  font-size: 32px;
-  font-weight: 500;
   margin-top: 3rem;
   margin-bottom: 3rem;
 `
 
 const Nothing = styled.div`
-margin-top: 3rem;
-  margin-bottom: 3rem;
-
+  margin-bottom: 2rem;
+  font-size: 16px;
+  font-family: Work Sans;
 `
 
-const Nothing_a = styled.a`
-  margin-top: 3rem;
-  text-decoration: none;
-  color: #ed8141;
+const Nothing_b = styled.button`
+  color: white;
+  background-color: #ED8141;
+  border-radius: 33px;
+  height: 54px;
+  width: 212px;
+  border: none;
+  font-size: 16px;
+  font-family: Work Sans;
+  margin-bottom: 20rem;
+
+  &:hover{
+    cursor: pointer;
+  }
 `
 
 const overlay = {
@@ -82,7 +90,7 @@ const Preferences = ({SurveyList}) => {
     setFlag(false)
   },[flag])
 
-  const on = "#a2a2a2"
+  const on = "1px 1px 10px 3px #ed8141"
 
   const widgets = ["M01", "M02", "M03", "M04"];
 
@@ -128,9 +136,8 @@ const Preferences = ({SurveyList}) => {
            
         </SurveyContainer>
         :<Sub> 
-        <Nothing>It is only available if you fill out a survey.</Nothing>
-        <Nothing>Please fill out a survey.</Nothing>
-        <Nothing_a href="/survey">Go to fill out a survey.</Nothing_a>
+        <Nothing>It is only available if you fill out a survey. Please fill out a survey.</Nothing>
+        <Nothing_b onClick={() => window.location.href='/survey'}>Go to fill out a survey.</Nothing_b>
         </Sub>
         }
       </Container>

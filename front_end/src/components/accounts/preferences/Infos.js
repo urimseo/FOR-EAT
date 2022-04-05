@@ -28,7 +28,7 @@ const PLUS = styled(motion.div)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 5px solid #c4c4c4;
+  box-shadow: 1px 1px 10px 3px #e2e2e2;
   border-radius: 5rem;
   transition: 0.2s;
   cursor: pointer;
@@ -43,7 +43,7 @@ const Selected = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
-  border: 5px solid #c4c4c4;
+  box-shadow: 1px 1px 10px 3px #e2e2e2;
   border-radius: 5rem;
   transition: 0.2s;
   width: 8.5rem;

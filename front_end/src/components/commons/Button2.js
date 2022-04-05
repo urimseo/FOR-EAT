@@ -7,7 +7,8 @@ const StyledButton = styled.button`
   background-color: ${(props) => (props.bc ? props.bc : "white")};
   margin-top: ${(props) => (props.mt ? props.mt : "1rem")};
   margin-right: ${(props) => (props.mr ? props.mr : "3rem")};
-  border: ${(props) => (props.border ? props.border : "5px solid #C4C4C4")};
+  box-shadow: ${(props) => (props.bs ? props.bs : "1px 1px 10px 3px #e2e2e2")};
+  border: ${(props) => (props.border ? props.border : "none")};
   font-weight: 500;
   border-radius: ${(props) => (props.br ? props.br : "5rem")};
   font-family: "Work Sans";
