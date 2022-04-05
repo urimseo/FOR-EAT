@@ -47,7 +47,7 @@ const RelatedRecipeList = ({ ingredients_recommend, nutrient_recommend }) => {
           )) : null }
       </CardContainer>
       <TextContainer>
-        <div className="text">Nutritionally Balanced</div>
+        <div className="text">Nutritionally Similar</div>
         <div className="line"/>
       </TextContainer>
       <CardContainer>
