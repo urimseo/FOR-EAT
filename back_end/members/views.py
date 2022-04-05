@@ -376,6 +376,7 @@ class MemberProfilePage(APIView):
             liked_recipe_serilizer_all = RecipeListSerializer(request.member.liked_recipes.all(), many=True)
             liked_recipe_serilizer = liked_recipe_serilizer_all.data[-3:]
             for recipe in liked_recipe_serilizer:
+                recipe['liked_count'] = LikedRecipe.objects.filter(recipe_seq=recipe['recipe_seq']).count()
                 recipe['images'] = json.loads(recipe['images'])[0]
             # get_member_review
             review = Review.objects.all().filter(member=request.member)
@@ -527,6 +528,7 @@ class WeeklyReport(APIView):
             recipe_serializer = RecipeListSerializer(recipe_all, many=True)
 
             for recipe in recipe_serializer.data:
+                recipe['liked_count'] = LikedRecipe.objects.filter(recipe_seq=recipe['recipe_seq']).count()
                 recipe['images'] = json.loads(recipe['images'])[0]
 
             data = {
