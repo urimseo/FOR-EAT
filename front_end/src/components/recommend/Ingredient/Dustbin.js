@@ -27,7 +27,7 @@ const Container = styled.div`
 const DustbinContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 10rem;
+  margin-top: 5rem;
 `
 
 
@@ -182,7 +182,7 @@ const Dustbin = React.memo(function Dustbin() {
         <Container>
           <DustbinContainer>
             <div ref={drop} role={'Dustbin'} style={{ ...style, backgroundColor }}>
-              <div>{isActive ? 'Release to drop' : 'Drag a ingredient here!'}</div>
+              <div style={{fontSize: "1.1rem"}}>{isActive ? 'Release to drop' : 'Drag a ingredient here!'}</div>
               {foodsUnique.map((food, index) => (
                 (index <= 8 ? 
                   <Foodimg1 key={index} src={food.src} alt={food.title} /> : ( index <= 17 ?

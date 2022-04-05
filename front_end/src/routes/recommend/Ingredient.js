@@ -47,13 +47,16 @@ const Ingredient = () => {
           <div className="title">Select From Below</div>
           <BorderLine />
           <div className="content">Choose ingredients that are dormant in your refrigerator.<br />
-          <SpaceBetweenContainer>
-            <div style={{display: "flex", fontWeight:"500", marginRight:"0.3rem" }}>FOR:EAT</div>
-            <div style={{display: "flex" }}>
-              recommends some great dishes you can make based on this ingredient.
-            </div>
-          </SpaceBetweenContainer>
-          What materials do you have? Put the ingredients in the box by drag and drop.
+            <SpaceBetweenContainer>
+              <div style={{display: "flex", fontWeight:"500", marginRight:"0.3rem" }}>FOR:EAT</div>
+              <div style={{display: "flex" }}>
+                recommends some great dishes you can make based on this ingredient.
+              </div>
+            </SpaceBetweenContainer>
+            <SpaceBetweenContainer>
+              <div>What materials do you have? Put the ingredients in the box by</div>
+              <div style={{display: "flex", fontWeight:"500", marginLeft:"0.3rem" }}>drag and drop.</div>
+            </SpaceBetweenContainer>
           </div>
         </TextContainer>
           <IngredientSelect /> 
