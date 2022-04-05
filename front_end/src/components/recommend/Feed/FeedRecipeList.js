@@ -57,7 +57,6 @@ const FeedRecipeList = () => {
 
 
   const getRecipeList = async(type, page) => {
-    console.log(type, page)
     setIsLoading(true);
     if (type === "foryou") {
       if (page === 1) {
@@ -145,7 +144,7 @@ return (
         <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>We recommend recipes that members with similar preference like.</Title> : null
       }
       <CircularProgressContainer>
-        {isLoading ? <CircularProgress style={{display: "flex", justifyContent: "center"}}/> : null}
+        {recipeList.length === 0 && isLoading ? <CircularProgress style={{display: "flex", justifyContent: "center"}}/> : null}
       </CircularProgressContainer>
       <CardContainer>
         {recipeList.map((recipe, idx) => 
