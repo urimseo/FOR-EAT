@@ -9,7 +9,7 @@ import Carousel3 from "assets/img/RecommendCarousel4.PNG";
 
 
 const Header = styled.div`
-  height: 20rem;
+  min-height: 20rem;
   background-image: url(${(props) => (props.image ? props.image : MainImg)});
   background-size: cover;
   position: center;
