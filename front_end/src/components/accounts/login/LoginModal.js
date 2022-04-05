@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from "styled-components";
 import Logo from "assets/img/logo.png";
 import Typography from "components/commons/Typography";
 import LoginGoogle from "components/accounts/login/LoginGoogle";
 import LoginKakao from "components/accounts/login/LoginKakao";
+import Terms from "components/accounts/login/Terms";
+import UnderLine from 'components/commons/Line';
 
 const Container = styled.div`
   .modal {
@@ -88,11 +90,27 @@ const Container = styled.div`
   }
 `
 
+const CustomLink = styled.div`
+  display: flex;
+  text-decoration: underline;
+  margin-left: 0.3rem;
+  cursor: pointer;
+`
 
 
 const LoginModal = (props) => {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close } = props;
+
+  // useState를 사용하여 open상태를 변경한다. (open일때 true로 만들어 열리는 방식)
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
@@ -113,9 +131,13 @@ const LoginModal = (props) => {
               </Typography>
               <LoginGoogle />
               <LoginKakao />
-              <Typography fs="0.5rem" mt="3rem">
-                By connecting, you agree to our Terms of Use and Privacy Notice
-              </Typography>
+              <div style={{ display: "flex", justifyContent:"center"}}>
+                <Typography fs="0.5rem" mt="3rem" dp="flex">
+                  By connecting, you agree to our <CustomLink onClick={openModal}> Terms of Use and Privacy Notice.</CustomLink>
+                  <Terms open={modalOpen} close={closeModal}>
+                  </Terms>
+                </Typography>
+              </div>
               <button className="close" onClick={close}>
                 &times;
               </button>
@@ -123,7 +145,7 @@ const LoginModal = (props) => {
             </div>
             <footer>
               <button className="close" onClick={close}>
-                CLOSE & USE FOR:EAT
+                CLOSE
               </button>
             </footer>
           </section>
