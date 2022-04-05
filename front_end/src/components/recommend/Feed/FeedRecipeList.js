@@ -50,12 +50,14 @@ const FeedRecipeList = () => {
   const [forYouRecipe, setForYouRecipe] = useState();
   const [youLikeRecipe, setYouLikeRecipe] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [isSpinner, setIsSpinner] = useState(false);
   const [recipeList, setRecipeList] = useState([]);
   const [memberType, setMemberType] = useState();
   const [number, setNumber] = useState(2);
 
 
   const getRecipeList = async(type, page) => {
+    console.log(type, page)
     setIsLoading(true);
     if (type === "foryou") {
       if (page === 1) {
@@ -68,6 +70,7 @@ const FeedRecipeList = () => {
       setRecipeList(recipeList => [...recipeList, response.data])
       setMemberType(response.member_type)
       setIsLoading(false);
+      setIsSpinner(false);
     } else {
       setIsLoading(true);
       if (page === 1) {
@@ -81,6 +84,7 @@ const FeedRecipeList = () => {
         setRecipeList(recipeList => [...recipeList, response.data]);
         setMemberType(response.member_type);
         setIsLoading(false);
+        setIsSpinner(false);
       }
     }
   }
@@ -96,9 +100,11 @@ const FeedRecipeList = () => {
     if(scrollTop + clientHeight >= scrollHeight) {
       setNumber( number + 1 );
       if (forYouRecipe === true && number <= 4 ) {
+        setIsSpinner(true);
         getRecipeList("foryou", number);
       }
       else if (youLikeRecipe === true && number <= 4) {
+        setIsSpinner(true);
         getRecipeList("likeyou", number);
       }
     }
@@ -132,6 +138,12 @@ return (
       { memberType === 2 ?
         <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>Write reviews to get more accurate recipe recommendations.</Title> : null
       }
+      { forYouRecipe && memberType === 3 ?
+        <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>We recommend recipes that you may like.</Title> : null
+      }
+      { youLikeRecipe && memberType === 3 ?
+        <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>We recommend recipes that members with similar preference like.</Title> : null
+      }
       <CircularProgressContainer>
         {isLoading ? <CircularProgress style={{display: "flex", justifyContent: "center"}}/> : null}
       </CircularProgressContainer>
@@ -152,6 +164,9 @@ return (
           ))) 
         )}
       </CardContainer>
+      <CircularProgressContainer>
+        {recipeList.length >= 1 && isSpinner ? <CircularProgress style={{display: "flex", justifyContent: "center"}}/> : null}
+      </CircularProgressContainer>
       </Container>
     </>
   )
