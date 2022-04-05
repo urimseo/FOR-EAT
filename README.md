@@ -20,7 +20,7 @@
 
 **FOR:EAT**은 유저의 취향, 냉장고에 있는 재료를 반영하여 다양한 알고리즘을 통해 사용자 맞춤형으로 레시피를 추천하는 서비스입니다. 
 
-**🍴 **[**사용자 맞춤 레시피 추천 서비스 FOR:EAT**](https://j6a103.p.ssafy.io/)
+🍴 [**사용자 맞춤 레시피 추천 서비스 FOR:EAT**](https://j6a103.p.ssafy.io/)
 
 💡 [**Team mija u tlieta Notion**](https://www.notion.so/93cfd85697c44cf6bfb98542b17ed1e8)
 
@@ -158,9 +158,9 @@ front/back 의 `.env` 파일은 sercret key 문제로 요청 시 보내드리겠
 
 ## Team Introduce
 
-|         |                김윤하                |                          김현규                          |                 서우림                 |                이재경                |                 장준범                  |      한슬기      |
-| ------- | :----------------------------------: | :------------------------------------------------------: | :------------------------------------: | :----------------------------------: | :-------------------------------------: | :--------------: |
-| Profile |                                      |                                                          |                                        |                                      |                                         |                  |
-| Stack   |       팀장 & Frontend & UI/UX        | 서버 관리 및 배포 & 추천 알고리즘 분석 & 백엔드 API 개발 |  백엔드 API 개발 & 추천 알고리즘 분석  | 백엔드 API 개발 & 추천 알고리즘 분석 |            Frontend & UI/UX             | Frontend & UI/UX |
-| Git     | [@yulloe](https://github.com/yulloe) |                                                          | [@urimseo](https://github.com/urimseo) |                                      | [@UNILION](https://github.com/UNILION/) |                  |
+|         |                김윤하                |                          김현규                          |                 서우림                 |                이재경                |                 장준범                  |                  한슬기                  |
+| ------- | :----------------------------------: | :------------------------------------------------------: | :------------------------------------: | :----------------------------------: | :-------------------------------------: | :--------------------------------------: |
+| Profile |                                      |                                                          |                                        |                                      |                                         |                                          |
+| Stack   |       팀장 & Frontend & UI/UX        | 서버 관리 및 배포 & 추천 알고리즘 분석 & 백엔드 API 개발 |  백엔드 API 개발 & 추천 알고리즘 분석  | 백엔드 API 개발 & 추천 알고리즘 분석 |            Frontend & UI/UX             |             Frontend & UI/UX             |
+| Git     | [@yulloe](https://github.com/yulloe) |                                                          | [@urimseo](https://github.com/urimseo) |                                      | [@UNILION](https://github.com/UNILION/) | [@1seul357](https://github.com/1seul357) |
 
