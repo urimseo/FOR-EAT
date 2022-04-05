@@ -57,15 +57,22 @@ const ButtonContainer = styled.div`
   margin: 3rem;
 `;
 
-const InfosModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyList }) => {
+const InfosModal = ({
+  setFlag,
+  on,
+  UserInfo,
+  layoutId,
+  setWidgetId,
+  surveyList,
+}) => {
   const [womanShow, setWomanShow] = useState();
   const [manShow, setManShow] = useState();
   const [age, setAge] = useState();
 
   useEffect(() => {
-    setWomanShow(surveyList.gender)
-    setManShow(!surveyList.gender)
-    setAge(surveyList.age)
+    setWomanShow(surveyList.gender);
+    setManShow(!surveyList.gender);
+    setAge(surveyList.age);
   }, []);
 
   const onClick = (event) => {
@@ -76,12 +83,12 @@ const InfosModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyList }
     const formData = new FormData();
     formData.append("gender", womanShow);
     formData.append("age", age);
-    editSurvey(UserInfo, formData)
-    setWomanShow(surveyList.gender)
-    setManShow(!surveyList.gender)
-    setAge(surveyList.age)
+    editSurvey(UserInfo, formData);
+    setWomanShow(surveyList.gender);
+    setManShow(!surveyList.gender);
+    setAge(surveyList.age);
     setWidgetId(null);
-    setFlag(true)
+    setFlag(true);
   };
 
   const onClose = () => {
@@ -89,8 +96,8 @@ const InfosModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyList }
   };
 
   const onChange = (e) => {
-    setAge(e.target.value)
-  }
+    setAge(e.target.value);
+  };
 
   const onWoman = () => {
     setWomanShow(true);
@@ -120,8 +127,20 @@ const InfosModal = ({ setFlag, on, UserInfo, layoutId, setWidgetId, surveyList }
       <ButtonContainers>
         <div style={{ width: "26rem" }}>
           <SpaceBetweenContainer>
-            <Button2 bc={manShow ? on : ""} mt="0px" mr="0px" onClick={onMan} name="Man" />
-            <Button2 bc={womanShow ? on : ""} mt="0px" mr="0px" onClick={onWoman} name="Woman" />
+            <Button2
+              bc={manShow ? on : ""}
+              mt="0px"
+              mr="0px"
+              onClick={onMan}
+              name="Man"
+            />
+            <Button2
+              bc={womanShow ? on : ""}
+              mt="0px"
+              mr="0px"
+              onClick={onWoman}
+              name="Woman"
+            />
           </SpaceBetweenContainer>
         </div>
       </ButtonContainers>

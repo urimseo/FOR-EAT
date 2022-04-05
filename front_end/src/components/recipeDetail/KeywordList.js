@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { getSearchList } from "api/SearchApi";
 
-
 const KeywordContainer = styled.div`
   padding: 1rem 0;
 `
@@ -19,11 +18,8 @@ const Keyword = styled.div`
   cursor: pointer;
 `
 
-
 const KeywordList = ({ keywords }) => {
-
   const navigate = useNavigate();
-
   return (
     <KeywordContainer>
       { keywords ? keywords.map((keyword, idx) => (

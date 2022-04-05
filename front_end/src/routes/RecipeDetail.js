@@ -11,7 +11,6 @@ import ReviewList from "components/recipeDetail/ReviewList";
 import KeywordList from "components/recipeDetail/KeywordList";
 import { getRecipeDetail } from "api/RecipeDetailApi";
 
-
 const Container = styled.div`
   padding: 6rem 10rem;
   display: grid;
@@ -55,12 +54,10 @@ const RecipeDetail = (props) => {
     setRecipe(result)
   }
 
-
   useEffect(() => {
     getRecipe();
   }, [recipeId]) // recipeId 변경될 때마다 실행됨(RecipeDetail에서 Card선택시 새로고침 안 되는 문제 해결)
 
-  
 	return (
     <div>
       <Container>
@@ -85,8 +82,7 @@ const RecipeDetail = (props) => {
             <RelatedRecipeList 
               ingredients_recommend={recipe.ingredients_recommend}
               nutrient_recommend={recipe.nutrient_recommend}
-            /> 
-
+            />
           <ReviewList recipeId={recipeId}/>
         </Wrapper>
       </Container>

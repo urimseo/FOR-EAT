@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -49,7 +48,6 @@ const TextContainer = styled.div`
     margin: 0 1rem 0.5rem 0;
   }
 `
-
 
 const IngredientResultCardRight = ({recipeSeq, recipeImage, recipeName, recipeCalorie, recipeIngredients}) => {
   return (

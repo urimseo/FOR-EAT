@@ -24,7 +24,6 @@ import ReviewRecipes from "components/accounts/mypage/ReviewRecipeAll"
 import {isLoginState} from 'atoms/atoms'
 import { useRecoilValue } from 'recoil';
 
-
 const AppRouter = () => {
   const isLogged = useRecoilValue(isLoginState);
   return (

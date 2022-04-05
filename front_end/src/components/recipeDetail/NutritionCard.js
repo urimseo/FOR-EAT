@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
 
-
 const Container = styled.div`
   border: 1px solid #000000;
   display: flex;
@@ -62,6 +61,5 @@ const NutritionCard = ( props ) => {
       </Container>
   );
 };
-
 
 export default React.memo(NutritionCard);

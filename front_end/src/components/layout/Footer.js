@@ -111,6 +111,7 @@ const Footer = () => {
   const onNotion = () => {
     document.location.href = "https://bittersweet-talos-845.notion.site/FOR-EAT-e294d1ecbda54887aa3d1930119d6e95"
   }
+  
   return (
     <Container>
       <LeftContainer>

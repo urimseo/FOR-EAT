@@ -7,7 +7,6 @@ import Pagination from "react-js-pagination";
 import "assets/css/Pagination.css";
 import { CircularProgress } from "@mui/material";
 
-
 const Container = styled.div`
   margin: 1rem 0;
 `
@@ -34,7 +33,6 @@ const CardContainer = styled.div`
 const PageContainer = styled.div`
   margin: 2rem 0 5rem 0;
 `
-
 
 const Ingredient = forwardRef((props, ref) => {
   const childSubIngredient = useRef();
@@ -83,6 +81,7 @@ const Ingredient = forwardRef((props, ref) => {
       setPage(1); 
       page = 1;
     }
+
     const Recipe = await getRecipeList(page, "Seafood");
     if (Recipe) {
       setRecipeList(Recipe.data);
@@ -100,6 +99,7 @@ const Ingredient = forwardRef((props, ref) => {
       setPage(1); 
       page = 1;
     }
+    
     const Recipe = await getRecipeList(page, "Vegetable");
     if (Recipe) {
       setRecipeList(Recipe.data);

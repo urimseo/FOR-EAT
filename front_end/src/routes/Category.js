@@ -9,7 +9,6 @@ import UnderLine from "components/commons/Line";
 import { getRecipeList } from "api/CategoryApi";
 import CarouselHeader from "components/recommend/Ingredient/CarouselHeader";
 
-
 const Container = styled.div`
   margin: 0 10vw;
   min-height: 100vh;
@@ -20,6 +19,7 @@ const SpaceBetweenContainer = styled.div`
   justify-content: space-between;
   margin-top: 2rem;
 `
+
 const CenterContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -57,7 +57,6 @@ const BorderLine = styled.div`
   width: 100%;
   border-bottom: 1px solid black;
 `
-
 
 const Category = () => {
   const [servignsShow, setServingsShow] = useState(true);

@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 const SurveyButton = styled.button`
   font-size: ${(props) => (props.fs ? props.fs : "1rem")};
   cursor: pointer;

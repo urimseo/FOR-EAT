@@ -7,7 +7,6 @@ import BrowseArticle from "components/browse/BrowseAricle";
 import PopularIngredients from "components/browse/BrowsePopularIngredient";
 import { Container } from "@mui/material";
 
-
 const Header = styled.div`
   h1 {
   font-family: Playfair Display;
@@ -35,11 +34,8 @@ const Header = styled.div`
   }
 `
 
-
 const Browse = () => {
-
   return (
-
     <Container sx={{marginTop: "4rem"}}>
       <Header>
         <h1>BROWSE</h1>

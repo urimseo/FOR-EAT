@@ -41,7 +41,10 @@ export const getSurvey = async (member_seq) => {
 };
 
 export const editSurvey = async (member_seq, formData) => {
-  const response = await fileInstance.patch(`/members/${member_seq}/survey`, formData);
+  const response = await fileInstance.patch(
+    `/members/${member_seq}/survey`,
+    formData
+  );
   return response.data;
 };
 
@@ -50,8 +53,7 @@ export const createSurvey = async (member_seq) => {
   return response.data;
 };
 
-
 export const getReportDetail = async (member_seq) => {
   const response = await instance.get(`/members/${member_seq}/mypage/report`);
   return response.data;
-}
+};

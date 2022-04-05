@@ -127,18 +127,30 @@ const Goals = ({ setWidgetId, surveyList }) => {
         <BoxContainer>
           <SpaceBetweenContainer>
             {beginnerShow ? (
-              <Selected cursor="default" name="Beginner cook" >Beginner cook</Selected>
+              <Selected cursor="default" name="Beginner cook">
+                Beginner cook
+              </Selected>
             ) : (
               ""
             )}
             {newCuisinShow ? (
-              <Selected cursor="default" name="Try new cuisin" >Try new cuisin</Selected>
+              <Selected cursor="default" name="Try new cuisin">
+                Try new cuisin
+              </Selected>
             ) : (
               ""
             )}
 
-            {saveTimeShow ? <Selected cursor="default">Save time</Selected> : ""}
-            {healthyShow ? <Selected cursor="default">Eat healty</Selected> : ""}
+            {saveTimeShow ? (
+              <Selected cursor="default">Save time</Selected>
+            ) : (
+              ""
+            )}
+            {healthyShow ? (
+              <Selected cursor="default">Eat healty</Selected>
+            ) : (
+              ""
+            )}
             {dietShow ? <Selected cursor="default">Try diet</Selected> : ""}
 
             {interestShow ? (

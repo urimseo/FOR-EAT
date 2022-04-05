@@ -25,6 +25,7 @@ const SpaceBetweenContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 `
+
 const CategoryTag = styled.div`
 display: flex;
 #flag {
@@ -52,6 +53,7 @@ display: flex;
   border-bottom: 1.3rem solid transparent;
 }
 `
+
 const TextContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -70,6 +72,7 @@ const TextContainer = styled.div`
     align-self: center;
   }
 `
+
 const CardContainer = styled.div`
   display:grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;

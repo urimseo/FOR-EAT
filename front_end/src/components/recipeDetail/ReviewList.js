@@ -21,8 +21,6 @@ const TextContainer = styled.div`
   }
 `
 
-
-
 const ReviewList = ({ recipeId }) => {
 
   return (

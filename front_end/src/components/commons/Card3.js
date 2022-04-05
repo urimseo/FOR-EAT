@@ -34,7 +34,6 @@ const CardItem = styled.div`
   &:hover .middle {
     opacity: 1;
   }
-  
 `
 
 const ImgWrapper = styled.div`
@@ -42,15 +41,12 @@ const ImgWrapper = styled.div`
   height: 19rem;
   overflow: hidden; 
   background-position: center;
-
 `
 
 const Img = styled.img`
   width: 100%;
   height: 100%;
-
 `
-
 
 const TextContainer = styled.div`
   padding: 0.7rem;
@@ -103,6 +99,7 @@ const HoverText = styled.div`
   -ms-transform: translate(-50%, -50%);
   text-align: center;
 `
+
 const TextContent = styled.div`
   color: white;
   font-size: 16px;
@@ -116,8 +113,6 @@ const TextContent = styled.div`
 `
 
 const Card3 = ({ recipe_seq, name, calories, images, average_rating, liked_count }) => {
-
-
     return (
       <Container>
         <Link to={`/recipes/${recipe_seq}`} style={{color: 'black', textDecoration : "none"}}>
@@ -145,7 +140,5 @@ const Card3 = ({ recipe_seq, name, calories, images, average_rating, liked_count
       </Container>
   );
 };
-
-
 
 export default Card3

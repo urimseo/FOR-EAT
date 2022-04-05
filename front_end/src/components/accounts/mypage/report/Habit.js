@@ -5,7 +5,6 @@ import icon_okay from "assets/img/icon_okay.png";
 import icon_bad from "assets/img/icon_bad.png";
 import nutrientInfo from "assets/nutrient";
 
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -43,8 +42,6 @@ const Img = styled.img`
   width: 44%;
   margin: 1rem 0 2rem 0;
 `
-
-
 
 const Habit = ({ nutrient, user }) => {
   

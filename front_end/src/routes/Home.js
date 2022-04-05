@@ -14,7 +14,6 @@ const SubContainer = styled.div`
   width: 100%;
 `;
 
-
 const Home = () => {
   return (
     <>

@@ -25,6 +25,7 @@ const TextContainer = styled.div`
     border-bottom: 1px solid black;
   }
 `
+
 const CardContainer = styled.div`
   display: flex;
   flex-flow: wrap;

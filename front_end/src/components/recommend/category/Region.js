@@ -6,7 +6,6 @@ import Pagination from "react-js-pagination";
 import "assets/css/Pagination.css";
 import { CircularProgress } from "@mui/material";
 
-
 const Container = styled.div`
   margin: 1rem 0;
 `
@@ -84,6 +83,7 @@ const Region = forwardRef((props, ref) => {
       setPage(1); 
       page = 1;
     }
+
     const Recipe = await getRecipeList(page, "Europe");
     if (Recipe) {
       setRecipeList(Recipe.data);
@@ -102,6 +102,7 @@ const Region = forwardRef((props, ref) => {
       setPage(1); 
       page = 1;
     }
+
     const Recipe = await getRecipeList(page, "Asia");
     if (Recipe) {
       setRecipeList(Recipe.data);
@@ -121,6 +122,7 @@ const Region = forwardRef((props, ref) => {
       setPage(1); 
       page = 1;
     }
+    
     const Recipe = await getRecipeList(page, "America");
     if (Recipe) {
       setRecipeList(Recipe.data);
@@ -140,6 +142,7 @@ const Region = forwardRef((props, ref) => {
       setPage(1); 
       page = 1;
     }
+    
     const Recipe = await getRecipeList(page, "Africa");
     if (Recipe) {
       setRecipeList(Recipe.data);

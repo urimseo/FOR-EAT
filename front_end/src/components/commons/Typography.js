@@ -24,17 +24,16 @@ const StyledTypography = styled.p`
   height: ${(props) => (props.h ? props.h : "")};
   text-align: ${(props) => (props.ta ? props.ta : "center")};
   letter-spacing: -1%;
-  line-height: ${(props) => (props.lh ? props.lh : "")}; 
-  z-index: ${(props) => (props.zi ? props.zi : "")}; 
+  line-height: ${(props) => (props.lh ? props.lh : "")};
+  z-index: ${(props) => (props.zi ? props.zi : "")};
   cursor: ${(props) => (props.cursor ? props.cursor : "default")};
   &:hover {
-    color: ${(props) =>
-      props.hoverColor ? props.hoverColor : "#000"};
+    color: ${(props) => (props.hoverColor ? props.hoverColor : "#000")};
   }
-  `;
+`;
 
 const Typography = (props) => {
-  return <StyledTypography {...props} ></StyledTypography>;
+  return <StyledTypography {...props}></StyledTypography>;
 };
 
 export default Typography;

@@ -3,7 +3,6 @@ import styled from "styled-components";
 import BarCharts from "react-apexcharts";
 import nutrientInfo from "assets/nutrient";
 
-
 const Container = styled.div`
   display: block;
   margin: 0 1rem;
@@ -11,12 +10,10 @@ const Container = styled.div`
 `
 
 const BarChart = ({ nutrient, user }) => {
-
   const age = user.age
   const gender = user.gender
   const [ standard, setStandard ] = useState([])
   const [ data, setData ] = useState([])
-
 
   function Ratio(ate, avg) {
     // % = 내가 먹은 값/평균값
@@ -33,6 +30,7 @@ const BarChart = ({ nutrient, user }) => {
       }
     }
   }
+
   const getData = () => {
     setData([
       { x: 'Calories', 
@@ -97,7 +95,6 @@ const BarChart = ({ nutrient, user }) => {
     ])
   }
   
-
   useEffect(() => {
     getNutrientInfo()
   }, [age, gender])

@@ -4,7 +4,6 @@ import Title from "components/commons/Title"
 import BottomButton from "components/accounts/survey/BottomButton";
 import Button from "components/accounts/survey/Button";
 
-
 const Container = styled.div`
   min-height: 100vh;
   margin-bottom: 10rem;
@@ -52,8 +51,6 @@ const SpaceBetweenContainer = styled.div`
   justify-content: space-around;
 `
 
-
-
 const GoalSurvey = ({form, flag, clickSubmit, propFunction, prevSteps}) => {
   const {beginner, recipe_challenger, timesaver, healthy_diet, lose_weight} = form;
   const {noInterest} = flag;
@@ -63,7 +60,6 @@ const GoalSurvey = ({form, flag, clickSubmit, propFunction, prevSteps}) => {
   const [healtyShow, getHealtyShow] = useState(healthy_diet);
   const [weightShow, getWeightShow] = useState(lose_weight);
   const [interestShow, getInterestShow] = useState(noInterest);
-
   
   const getGoal = (state) => {
     if (state === "beginner") {
@@ -135,6 +131,5 @@ const GoalSurvey = ({form, flag, clickSubmit, propFunction, prevSteps}) => {
     </>
   )
 }
-
 
 export default GoalSurvey;

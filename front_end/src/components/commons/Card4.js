@@ -30,7 +30,6 @@ const CardItem = styled.div`
   &:hover .middle {
     opacity: 1;
   }
-  
 `
 
 const ImgWrapper = styled.div`
@@ -38,14 +37,12 @@ const ImgWrapper = styled.div`
   height: 11.9rem;
   overflow: hidden; 
   background-position: center;
-
 `
 
 const Img = styled.img`
   width: 100%;
   height: 100%;
 `
-
 
 const TextContainer = styled.div`
   padding: 0.5rem;
@@ -99,6 +96,7 @@ const HoverText = styled.div`
   text-align: center;
   cursor: pointer;
 `
+
 const TextContent = styled.div`
   color: white;
   font-size: 0.8rem;
@@ -112,8 +110,6 @@ const TextContent = styled.div`
 `
 
 const BrowseCard = ({ recipe_seq, name, calories, images, average_rating, liked_count }) => {
-
-
     return (
       <Container>
           <CardItem>
@@ -137,11 +133,8 @@ const BrowseCard = ({ recipe_seq, name, calories, images, average_rating, liked_
               </TextContent>
             </HoverText>
           </CardItem>
-       
       </Container>
   );
 };
-
-
 
 export default BrowseCard

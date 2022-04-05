@@ -15,6 +15,7 @@ const Header = styled.div`
   height: 24rem;
   background-image: url(${Tile});
 `
+
 const HeaderContent = styled.div`
   position: absolute;
   top: 19rem;
@@ -26,6 +27,7 @@ const HeaderContent = styled.div`
   z-index: 2;
   text-align: center;
 `
+
 const BodyContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -57,8 +59,6 @@ const CardContainer = styled.div`
 const PageContainer = styled.div`
   margin: 2rem 0 5rem 0;
 `
-
-
 
 const SearchResult = () => {
   const location = useLocation();

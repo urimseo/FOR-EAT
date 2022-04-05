@@ -6,7 +6,6 @@ import "assets/css/Pagination.css";
 import Pagination from "react-js-pagination";
 import { CircularProgress } from "@mui/material";
 
-
 const Container = styled.div`
   margin: 1rem 0;
 `

@@ -28,7 +28,6 @@ const CardContainer = styled.div`
 `
 
 const RelatedRecipeList = ({popular_recipe, user}) => {
-
   return (
     <Container>
       <TextContainer>

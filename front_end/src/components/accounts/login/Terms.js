@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
 import Logo from "assets/img/logo.png";
 import Typography from "components/commons/Typography";
@@ -57,7 +57,7 @@ const Container = styled.div`
   }
   .modal > section > footer button {
     padding: 0.5rem;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     font-size: 0.6rem;
   }
   .modal.openModal {
@@ -84,7 +84,7 @@ const Container = styled.div`
       opacity: 1;
     }
   }
-`
+`;
 
 const TextContainer = styled.div`
   padding: 0 2rem;
@@ -100,8 +100,7 @@ const TextContainer = styled.div`
     background-color: #7e7e7e;
     border-radius: 10px;
   }
-`
-
+`;
 
 const Terms = (props) => {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
@@ -110,11 +109,11 @@ const Terms = (props) => {
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
     <Container>
-      <div className={open ? 'openModal modal' : 'modal'}>
+      <div className={open ? "openModal modal" : "modal"}>
         {open ? (
           <section>
             <div>
-              <img className='img' src={Logo} alt=""/>
+              <img className="img" src={Logo} alt="" />
               <Typography ff="Philosopher" mr="auto" ml="auto" mt="1rem" mb="1rem" fs="2rem" fw="200">
                 Terms of Use and Privacy
               </Typography> 
@@ -233,7 +232,6 @@ const Terms = (props) => {
               <button className="close" onClick={close}>
                 &times;
               </button>
-
             </div>
             <footer>
               <button className="close" onClick={close}>
@@ -247,4 +245,4 @@ const Terms = (props) => {
   );
 };
 
-export default Terms
+export default Terms;

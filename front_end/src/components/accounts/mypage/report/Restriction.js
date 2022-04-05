@@ -48,8 +48,6 @@ const Card = styled.div`
   }
 `
 
-
-
 const Restriction = ({ nutrient, user }) => {
   // 부모컴포넌트에서 props 보낼 때 || {}로 보내주면 자식에서 신경 안 써도 됨.
   const age = user.age
@@ -61,7 +59,7 @@ const Restriction = ({ nutrient, user }) => {
     [ "Cholesterol", checkRestriction(nutrient.cholesterol, 100)],
     [ "Sugar", checkRestriction(nutrient.sugar, 16.7)],
   ]) // 초기데이터 필요(return 부분에 data.map 있음)
-  
+
 
   //내가 먹은 값/평균값*100 > 110 : 초과
   function checkRestriction(ate, avg) {

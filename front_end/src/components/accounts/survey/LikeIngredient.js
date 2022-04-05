@@ -12,9 +12,6 @@ import tomato from "assets/img/IngredientItem/tomato.jpg"
 import seafood from "assets/img/IngredientItem/seafood.PNG"
 import BottomButton from "components/accounts/survey/BottomButton";
 
-
-
-
 const Container = styled.div`
   min-height: 100vh;
   margin-bottom: 10rem;
@@ -95,8 +92,6 @@ const Button = styled.button`
       props.hoverColor ? props.hoverColor : "#a2a2a2"};
   }
 `
-
-
 
 const LikeIngredient = ({form, propFunction, prevSteps, nextSteps}) => {
   const { liked_ingredient } = form;
@@ -284,6 +279,5 @@ const LikeIngredient = ({form, propFunction, prevSteps, nextSteps}) => {
     </>
   )
 }
-
 
 export default LikeIngredient;

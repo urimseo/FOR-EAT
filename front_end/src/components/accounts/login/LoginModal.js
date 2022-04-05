@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import styled from "styled-components";
 import Logo from "assets/img/logo.png";
 import Typography from "components/commons/Typography";
 import LoginGoogle from "components/accounts/login/LoginGoogle";
 import LoginKakao from "components/accounts/login/LoginKakao";
 import Terms from "components/accounts/login/Terms";
-import UnderLine from 'components/commons/Line';
 
 const Container = styled.div`
   .modal {
@@ -61,7 +60,7 @@ const Container = styled.div`
   }
   .modal > section > footer button {
     padding: 0.5rem;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     font-size: 0.6rem;
   }
   .modal.openModal {
@@ -88,15 +87,14 @@ const Container = styled.div`
       opacity: 1;
     }
   }
-`
+`;
 
 const CustomLink = styled.div`
   display: flex;
   text-decoration: underline;
   margin-left: 0.3rem;
   cursor: pointer;
-`
-
+`;
 
 const LoginModal = (props) => {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
@@ -115,11 +113,11 @@ const LoginModal = (props) => {
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
     <Container>
-      <div className={open ? 'openModal modal' : 'modal'}>
+      <div className={open ? "openModal modal" : "modal"}>
         {open ? (
           <section>
             <div>
-              <img className='img' src={Logo} alt=""/>
+              <img className="img" src={Logo} alt="" />
               <Typography ff="Philosopher" mr="auto" ml="auto" mt="1rem" fs="2rem" fw="200">
                 FOR:EAT
               </Typography>
@@ -131,17 +129,19 @@ const LoginModal = (props) => {
               </Typography>
               <LoginGoogle />
               <LoginKakao />
-              <div style={{ display: "flex", justifyContent:"center"}}>
+              <div style={{ display: "flex", justifyContent: "center" }}>
                 <Typography fs="0.5rem" mt="3rem" dp="flex">
-                  By connecting, you agree to our <CustomLink onClick={openModal}> Terms of Use and Privacy Notice.</CustomLink>
-                  <Terms open={modalOpen} close={closeModal}>
-                  </Terms>
+                  By connecting, you agree to our{" "}
+                  <CustomLink onClick={openModal}>
+                    {" "}
+                    Terms of Use and Privacy Notice.
+                  </CustomLink>
+                  <Terms open={modalOpen} close={closeModal}></Terms>
                 </Typography>
               </div>
               <button className="close" onClick={close}>
                 &times;
               </button>
-
             </div>
             <footer>
               <button className="close" onClick={close}>
@@ -155,4 +155,4 @@ const LoginModal = (props) => {
   );
 };
 
-export default LoginModal
+export default LoginModal;

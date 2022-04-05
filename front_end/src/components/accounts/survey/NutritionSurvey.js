@@ -6,9 +6,6 @@ import fatImg from "assets/img/province.png"
 import BottomButton from "components/accounts/survey/BottomButton";
 import Button from "components/accounts/survey/Button";
 
-
-
-
 const Container = styled.div`
   min-height: 100vh;
 `
@@ -65,7 +62,6 @@ const Item = styled.div`
   display: flex;
 `
 
-
 const NutritionSurvey = ({form, propFunction, prevSteps, nextSteps}) => {
   const { carbohydrate, protein, fat } = form;
 
@@ -78,7 +74,6 @@ const NutritionSurvey = ({form, propFunction, prevSteps, nextSteps}) => {
   const [fatHighShow, setFatHighShow] = useState((fat === 3 ? true : false));
   const [fatAverageShow, setFatAverageShow] = useState((fat === 2 ? true : false));
   const [fatLowShow, seFatLowShow] = useState((fat === 1 ? true : false));
-
 
   const getCarbohydrates = (state) => {
     if (state === "high") {

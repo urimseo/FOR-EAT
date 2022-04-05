@@ -9,8 +9,6 @@ import peanut from "assets/img/IngredientItem/peanut.jpg";
 import sesame from "assets/img/IngredientItem/sesame.jpg";
 import BottomButton from "components/accounts/survey/BottomButton";
 
-
-
 const Container = styled.div`
   min-height: 100vh;
   margin-bottom: 10rem;
@@ -256,6 +254,5 @@ const AllergySurvey = ({form, flag, propFunction, prevSteps, nextSteps}) => {
     </>
   )
 }
-
 
 export default AllergySurvey;

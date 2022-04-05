@@ -24,7 +24,6 @@ import tomato from "assets/img/IngredientItem/tomato.jpg"
 import turkey from "assets/img/IngredientItem/turkey.png"
 import zucchini from "assets/img/IngredientItem/zucchini.jpg"
 
-
 const Container = styled.div`
   margin-top: 3rem;
   min-width: 32vh;
@@ -45,7 +44,6 @@ const IngredientItemContainer = styled.div`
     font-weight: 300;
   }
 `
-
 
 export const IngredientItem = memo(function IngredientItem() {
     return (<div>
