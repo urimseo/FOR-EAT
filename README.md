@@ -50,7 +50,7 @@
 
 ### 재료 조합하기
 
-<video src="README.assets/bandicam 2022-04-05 16-31-52-554.mp4"></video>
+<video src="README.assets/ingredient.mp4"></video>
 
 
 
