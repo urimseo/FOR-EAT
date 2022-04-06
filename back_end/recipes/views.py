@@ -91,6 +91,8 @@ class RecipeDetail(APIView):
         response_data = serializer.data
         response_data.update(recipe.review_set.all().aggregate(average_rating=Avg('ratings')))
 
+
+
         try:
             response_data['ingredient_raw'] = json.loads(serializer.data['ingredient_raw'])
         except:
@@ -100,7 +102,14 @@ class RecipeDetail(APIView):
                 if i == len(temp)-1:
                     temp[i] =temp[i][:-2]
             response_data['ingredient_raw'] = temp
-                
+        try:         
+            temp = MemberAllergy.objects.filter(member_seq=Survey.objects.get(member_seq=request.member)).values('allergy_seq')
+            is_allergy = Recipe.objects.filter(recipe_seq=pk, allergies__in=temp).values('allergies')
+            is_allergy = list(Allergy.objects.filter(allergy_seq__in=is_allergy).values('allergy_name'))
+            print(is_allergy)
+            response_data['allergy'] = is_allergy
+        except:
+            pass
 
         response_data['instructions'] = json.loads(serializer.data['instructions'])
         response_data['images'] = json.loads(response_data['images'])[0]

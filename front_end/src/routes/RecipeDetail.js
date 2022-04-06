@@ -52,6 +52,7 @@ const RecipeDetail = (props) => {
 
   const getRecipe = async () => {
     const result = await getRecipeDetail(recipeId);
+    console.log(result)
     setRecipe(result)
   }
 
