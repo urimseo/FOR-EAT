@@ -1,6 +1,6 @@
 # FOR:EAT
 
-<img src="README.assets/Group 59 (2).png" style="width: 200px;"/>
+![logo](README.assets/logo.png)
 
 ## 목차
 
