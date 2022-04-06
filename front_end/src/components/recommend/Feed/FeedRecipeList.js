@@ -5,6 +5,8 @@ import { getRecommendRecipeList } from "api/RecommendApi";
 import Card from "components/commons/Card";
 import { CircularProgress } from "@mui/material";
 import { setApiHeaders } from "api/Axios";
+import { Link } from 'react-router-dom';
+
 
 
 
@@ -16,7 +18,7 @@ const Container = styled.div`
 const CircularProgressContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 1rem;
+  margin-top: 3rem;
 `
 
 const CardContainer = styled.div`
@@ -42,7 +44,7 @@ const CategoryButton = styled.button`
 
 const BorderLine = styled.div`
   width: 6rem;
-  border-bottom: 1px solid black;
+  border-bottom: 0.5rem solid #ED8141;
   margin-left: ${(props) => (props.ml ? props.ml : "")};
   margin-right: ${(props) => (props.mr ? props.mr : "")};
 `
@@ -127,15 +129,16 @@ return (
           {forYouRecipe ? <BorderLine /> : null}
         </div>
         <div>
-          <CategoryButton fs="1.3rem" fw="300" ml="1rem" onClick={()=>getRecipeList("likeyou", 1)}>YOU:LIKE</CategoryButton>
+          <CategoryButton fs="1.3rem" fw="300" ml="1rem" onClick={()=>getRecipeList("likeyou", 1)}>LIKE:YOU</CategoryButton>
           {youLikeRecipe ? <BorderLine ml="1.1rem" /> : null}
         </div>
       </div>
       { memberType === 0 ?           
-        <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>Write a survey and reviews to get more accurate recipe recommendations.</Title> : null 
+        <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>
+          Write a <Link to={'/survey'} style={{color: 'black', textDecoration : "none", fontWeight: "600"}}>&nbsp;survey&nbsp;</Link>and reviews to get more accurate recipe recommendations.</Title> : null 
       }
       { memberType === 1 ?
-        <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>Write a survey to get more accurate recipe recommendations.</Title> : null
+        <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>Write a <Link to={'/survey'} style={{color: 'black', textDecoration : "none", fontWeight: "600"}}>&nbsp;survey&nbsp;</Link>to get more accurate recipe recommendations.</Title> : null 
       } 
       { memberType === 2 ?
         <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>Write reviews to get more accurate recipe recommendations.</Title> : null
@@ -147,7 +150,7 @@ return (
         <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>We recommend recipes that members with similar preference like.</Title> : null
       }
       <CircularProgressContainer>
-        {recipeList.length === 0 && isLoading ? <CircularProgress style={{display: "flex", justifyContent: "center"}}/> : null}
+        {recipeList.length === 0 && isLoading ? <CircularProgress sx={{ color: '#ED8141' }} style={{display: "flex", justifyContent: "center"}}/> : null}
       </CircularProgressContainer>
       <CardContainer>
         {recipeList.map((recipe, idx) => 
@@ -167,7 +170,7 @@ return (
         )}
       </CardContainer>
       <CircularProgressContainer>
-        {recipeList.length >= 1 && isSpinner ? <CircularProgress style={{display: "flex", justifyContent: "center"}}/> : null}
+        {recipeList.length >= 1 && isSpinner ? <CircularProgress sx={{ color: '#ED8141' }} style={{display: "flex", justifyContent: "center"}}/> : null}
       </CircularProgressContainer>
       </Container>
     </>

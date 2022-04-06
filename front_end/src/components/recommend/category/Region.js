@@ -176,7 +176,7 @@ const Region = forwardRef((props, ref) => {
         {africaShow ? <RegionButton onClick={()=>getAfricaRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>AFRICA</RegionButton> : <RegionButton onClick={getAfricaRecipe}>AFRICA</RegionButton>}
         {Oceaniahow ? <RegionButton onClick={()=>getOceaniaRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>OCEANIA</RegionButton> : <RegionButton onClick={getOceaniaRecipe}>OCEANIA</RegionButton>}
       </div>  
-      {isLoading ? <div style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}><CircularProgress /></div> :
+      {isLoading ? <div style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}><CircularProgress sx={{ color: '#ED8141' }} /></div> :
         <CardContainer>
           {RecipeList.map((Recipe, index) => (
             <Card

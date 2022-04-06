@@ -148,7 +148,7 @@ const Type = forwardRef((props, ref) => {
         {pastaShow ? <TypeButton onClick={()=>getPastaRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>PASTA</TypeButton> : <TypeButton onClick={getPastaRecipe}>PASTA</TypeButton>}
         {dessertShow ? <TypeButton onClick={()=>getDessertRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>DESSERT</TypeButton> : <TypeButton onClick={getDessertRecipe}>DESSERT</TypeButton>}
       </div>  
-      {isLoading ? <div style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}><CircularProgress /></div> :
+      {isLoading ? <div style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}><CircularProgress sx={{ color: '#ED8141' }} /></div> :
         <CardContainer>
           {RecipeList.map((Recipe, index) => (
             <Card

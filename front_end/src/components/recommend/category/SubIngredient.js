@@ -149,7 +149,7 @@ const SubIngredient = forwardRef((props, ref) => {
         {lambShow? <SubIngredientButton onClick={()=>getLambRecipe(1)} style={{color: "#ED8141"}}>LAMB</SubIngredientButton> : <SubIngredientButton onClick={getLambRecipe}>LAMB</SubIngredientButton>}
         {chickenShow ? <SubIngredientButton onClick={()=>getChickenRecipe(1)} style={{color: "#ED8141"}}>CHICKEN</SubIngredientButton> : <SubIngredientButton onClick={getChickenRecipe}>CHICKEN</SubIngredientButton>}
       </div>
-      {isLoading ? <div style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}><CircularProgress /></div> :
+      {isLoading ? <div style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}><CircularProgress sx={{ color: '#ED8141' }} /></div> :
         <CardContainer>
           {RecipeList.map((Recipe, index) => (
             <Card
