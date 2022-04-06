@@ -50,7 +50,7 @@
 
 ### 재료 조합하기
 
-<video src="README.assets/ingredient.mp4"></video>
+<iframe src="https://lab.ssafy.com/s06-bigdata-rec-sub2/S06P22A103/-/blob/develop/README.assets/ingredient.mp4" allowFullScreen></iframe>
 
 
 
@@ -91,7 +91,7 @@
 
 front/back 의 `.env` 파일은 sercret key 문제로 요청 시 보내드리겠습니다.
 
-### **Github Clone**
+### Github Clone
 
 - clone 받기
 
@@ -99,7 +99,7 @@ front/back 의 `.env` 파일은 sercret key 문제로 요청 시 보내드리겠
   git clone https://lab.ssafy.com/s06-bigdata-rec-sub2/S06P22A103.git
   ```
 
-### **Frontend**
+### Frontend
 
 - 시스템 버전
     - node : @16.14.0
@@ -118,7 +118,7 @@ front/back 의 `.env` 파일은 sercret key 문제로 요청 시 보내드리겠
     ```
     
 
-### **Backend**
+### Backend
 
 - 시스템 버전
     - Django: 3.2.12
@@ -148,19 +148,19 @@ front/back 의 `.env` 파일은 sercret key 문제로 요청 시 보내드리겠
 
 ## Document
 
-- <a href="https://lab.ssafy.com/s06-bigdata-rec-sub2/S06P22A103/-/blob/docs/docs/API_%EB%AA%85%EC%84%B8%EC%84%9C.pdf">API 명세서</a>
-- <a href="https://lab.ssafy.com/s06-bigdata-rec-sub2/S06P22A103/-/blob/docs/docs/ERD.PNG">ERD</a>
-- <a href="https://lab.ssafy.com/s06-bigdata-rec-sub2/S06P22A103/-/blob/docs/docs/%ED%99%94%EB%A9%B4%EA%B5%AC%EC%A1%B0%EB%8F%84.pdf">화면구조도</a>
-- <a href="https://lab.ssafy.com/s06-bigdata-rec-sub2/S06P22A103/-/blob/docs/docs/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C.pdf">기능 정의서</a>
-- <a href="https://lab.ssafy.com/s06-bigdata-rec-sub2/S06P22A103/-/blob/docs/docs/%EC%99%80%EC%9D%B4%EC%96%B4%ED%94%84%EB%A0%88%EC%9E%84.PNG">와이어프레임</a>
+- <a href="https://lab.ssafy.com/s06-bigdata-rec-sub2/S06P22A103/-/blob/develop/docs/API_%EB%AA%85%EC%84%B8%EC%84%9C.pdf">API 명세서</a>
+- <a href="https://lab.ssafy.com/s06-bigdata-rec-sub2/S06P22A103/-/blob/develop/docs/ERD.PNG">ERD</a>
+- <a href="https://lab.ssafy.com/s06-bigdata-rec-sub2/S06P22A103/-/blob/develop/docs/%ED%99%94%EB%A9%B4%EA%B5%AC%EC%A1%B0%EB%8F%84.pdf">화면구조도</a>
+- <a href="https://lab.ssafy.com/s06-bigdata-rec-sub2/S06P22A103/-/blob/develop/docs/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C.pdf">기능 정의서</a>
+- <a href="https://lab.ssafy.com/s06-bigdata-rec-sub2/S06P22A103/-/blob/develop/docs/%EC%99%80%EC%9D%B4%EC%96%B4%ED%94%84%EB%A0%88%EC%9E%84.PNG">와이어프레임</a>
 
 
 
 ## Team Introduce
 
-|         |                김윤하                |                          김현규                          |                 서우림                 |                이재경                |                 장준범                  |                  한슬기                  |
-| ------- | :----------------------------------: | :------------------------------------------------------: | :------------------------------------: | :----------------------------------: | :-------------------------------------: | :--------------------------------------: |
-| Profile |                                      |                                                          |                                        |                                      |                                         |                                          |
-| Stack   |       팀장 & Frontend & UI/UX        | 서버 관리 및 배포 & 추천 알고리즘 분석 & 백엔드 API 개발 |  백엔드 API 개발 & 추천 알고리즘 분석  | 백엔드 API 개발 & 추천 알고리즘 분석 |            Frontend & UI/UX             |             Frontend & UI/UX             |
-| Git     | [@yulloe](https://github.com/yulloe) |                                                          | [@urimseo](https://github.com/urimseo) |                                      | [@UNILION](https://github.com/UNILION/) | [@1seul357](https://github.com/1seul357) |
+|         |                김윤하                |                          김현규                          |                 서우림                 |                  이재경                  |                 장준범                  |                  한슬기                  |
+| ------- | :----------------------------------: | :------------------------------------------------------: | :------------------------------------: | :--------------------------------------: | :-------------------------------------: | :--------------------------------------: |
+| Profile |                                      |                                                          |                                        |                                          |                                         |                                          |
+| Stack   |       팀장 & Frontend & UI/UX        | 서버 관리 및 배포 & 추천 알고리즘 분석 & 백엔드 API 개발 |  백엔드 API 개발 & 추천 알고리즘 분석  |   백엔드 API 개발 & 추천 알고리즘 분석   |            Frontend & UI/UX             |             Frontend & UI/UX             |
+| Git     | [@yulloe](https://github.com/yulloe) |            [@HQkim](https://github.com/HQkim)            | [@urimseo](https://github.com/urimseo) | [@aletsire](https://github.com/aletsire) | [@UNILION](https://github.com/UNILION/) | [@1seul357](https://github.com/1seul357) |
 
