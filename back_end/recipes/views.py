@@ -13,8 +13,8 @@ from functools import reduce
 
 from recipes.serializers import RecipeSerializer, RecipeListSerializer, ReviewListSerializer, ReviewSerializer, IngredientChoiceListSerializer
 from recipes.storages import FileUpload, s3_client
-from members.models import Member, LikedRecipe, Recommend, Survey
-from recipes.models import Keyword, Recipe, Category, RecipeKeyword, Review
+from members.models import Member, LikedRecipe, Recommend, Survey, MemberAllergy
+from recipes.models import Allergy, Keyword, Recipe, Category, RecipeKeyword, Review
 from members.utils import login_decorator
 import json
 import re
@@ -91,6 +91,12 @@ class RecipeDetail(APIView):
         response_data = serializer.data
         response_data.update(recipe.review_set.all().aggregate(average_rating=Avg('ratings')))
 
+        temp = MemberAllergy.objects.filter(member_seq=Survey.objects.get(member_seq=request.member)).values('allergy_seq')
+
+        is_allergy = Recipe.objects.filter(recipe_seq=pk, allergies__in=temp).values('allergies')
+        is_allergy = list(Allergy.objects.filter(allergy_seq__in=is_allergy).values('allergy_name'))
+        print(is_allergy)
+
         try:
             response_data['ingredient_raw'] = json.loads(serializer.data['ingredient_raw'])
         except:
@@ -131,6 +137,7 @@ class RecipeDetail(APIView):
 
         response_data['ingredients_recommend'] = ingredients_recommend_serializer.data[-3:]
         response_data['nutrient_recommend'] = nutrient_recommend_serializer.data[:3]
+        response_data['allergy'] = is_allergy
 
         return Response(response_data)
 
