@@ -138,12 +138,17 @@ const ReviewForm = ({ recipeId }) => {
     formData.append("ratings", ratings);
 
     const response = await createReview(recipeId, formData)
-    if (response) {
+    if (response.data.status === 200 ) {
       const result = await getReviewList(recipeId)
       setReviews(result.data)
+      Alert("🧡 Reviewed Successfylly!")
       // 리뷰 작성 후 입력 값 초기화
       setRatings(0)
       setContent("")
+
+    }
+    if (response.data.status === 202 ) {
+      Alert("❌ You Can Review Once.")
     }
   }
   

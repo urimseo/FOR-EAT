@@ -155,9 +155,9 @@ const Footer = () => {
         <Hr />
 
         <RightBottomContainer>
-          <Typography ff="Playfair Display" fw="600" c="white" hoverColor="white" ml="5rem">+82 2 1234.5678 / +82 10 1234.5678</Typography>
-          <Typography ff="Playfair Display" fw="400" c="white" hoverColor="white" ml="5rem">508, Eonju-ro, Gangnam-gu, Seoul, Republic of Korea, 06152</Typography>
-          <Typography ff="Playfair Display" fw="600" c="white" hoverColor="white" ml="5rem">Copyright © FOR:EAT All Rights Reserved.</Typography>
+          <Typography fs="0.8rem" fw="300" c="white" hoverColor="white" ml="5rem">+82 2 1234.5678 / +82 10 1234.5678</Typography>
+          <Typography fs="0.8rem" fw="300" c="white" hoverColor="white" ml="5rem">508, Eonju-ro, Gangnam-gu, Seoul, Republic of Korea, 06152</Typography>
+          <Typography fs="0.8rem" fw="300" c="white" hoverColor="white" ml="5rem">Copyright © FOR:EAT All Rights Reserved.</Typography>
         </RightBottomContainer>
       </RightContainer>
     </Container>

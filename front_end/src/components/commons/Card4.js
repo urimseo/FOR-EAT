@@ -116,12 +116,11 @@ const BrowseCard = ({ recipe_seq, name, calories, images, average_rating, liked_
 
     return (
       <Container>
+        <Link to={`/recipes/${recipe_seq}`} style={{display: "flex", textDecoration: "none", color:"black"}}>
           <CardItem>
-            <Link to={`/recipes/${recipe_seq}`} style={{display: "flex"}}>
             <ImgWrapper className='image-wrapper'>
               <Img src={images} className="image"/>
             </ImgWrapper>
-            </Link>
             <TextContainer>
               <div className='title'>{name}</div>
               <BorderLine />
@@ -137,6 +136,7 @@ const BrowseCard = ({ recipe_seq, name, calories, images, average_rating, liked_
               </TextContent>
             </HoverText>
           </CardItem>
+        </Link>
        
       </Container>
   );
