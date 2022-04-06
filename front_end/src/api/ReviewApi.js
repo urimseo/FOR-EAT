@@ -2,7 +2,7 @@ import { instance, fileInstance } from '../api/Axios';
 
 export const createReview = async (recipe_seq, formData) => {
     const response = await fileInstance.post(`/recipes/${recipe_seq}/reviews`, formData);
-    return response.data;
+    return response;
   }
   
   
