@@ -138,17 +138,17 @@ const ReviewForm = ({ recipeId }) => {
     formData.append("ratings", ratings);
 
     const response = await createReview(recipeId, formData)
-    if (response.data.status === 200 ) {
-      const result = await getReviewList(recipeId)
-      setReviews(result.data)
-      Alert("🧡 Reviewed Successfylly!")
-      // 리뷰 작성 후 입력 값 초기화
-      setRatings(0)
-      setContent("")
-
-    }
-    if (response.data.status === 202 ) {
-      Alert("❌ You Can Review Once.")
+    if (response) {
+      if ( response.status === 201 ) {
+        const result = await getReviewList(recipeId)
+        setReviews(result.data)
+        console.log(response)
+        // 리뷰 작성 후 입력 값 초기화
+        setRatings(0)
+        setContent("")
+      } else if ( response.status === 202 ) {
+        Alert("❌ You can review only once.")
+      }
     }
   }
   
@@ -176,7 +176,7 @@ const ReviewForm = ({ recipeId }) => {
     .catch((err) => {
       console.log(err)
     })
-  }, [reviews])
+  }, [])
   
   return (
     <Container>
