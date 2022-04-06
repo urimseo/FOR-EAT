@@ -459,7 +459,10 @@ class WeeklyReport(APIView):
                     'gender': survey.gender
                 }
             except:
-                user = None 
+                user = {
+                    'age': 0,
+                    'gender': 0
+                }
             # get weekly review
             before_week = datetime.now() - timedelta(weeks=1)
             weekly_review = list(Review.objects.filter(member=pk, 
