@@ -137,16 +137,35 @@ return (
         <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>
           Write a <Link to={'/survey'} style={{color: 'black', textDecoration : "none", fontWeight: "600"}}>&nbsp;survey&nbsp;</Link>and reviews to get more accurate recipe recommendations.</Title> : null 
       }
-      { memberType === 1 ?
-        <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>Write a <Link to={'/survey'} style={{color: 'black', textDecoration : "none", fontWeight: "600"}}>&nbsp;survey&nbsp;</Link>to get more accurate recipe recommendations.</Title> : null 
+      { forYouRecipe && memberType === 1 ?
+        <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>We recommend recipes that you may like.</Title> : null
       } 
-      { memberType === 2 ?
-        <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>Write reviews to get more accurate recipe recommendations.</Title> : null
+      { youLikeRecipe && memberType === 1 ?
+        <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>
+          Write a <Link to={'/survey'} style={{color: 'black', textDecoration : "none", fontWeight: "600"}}>&nbsp;survey&nbsp;</Link>and reviews to get more accurate recipe recommendation.</Title> : null 
+      } 
+      { forYouRecipe && memberType === 2 ?
+        <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>We recommend recipes that you may like.</Title> : null
+      } 
+      { youLikeRecipe && memberType === 2 ?
+        <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>We recommend recipes that members with similar preference like.</Title> : null
       }
       { forYouRecipe && memberType === 3 ?
-        <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>We recommend recipes that you may like.</Title> : null
-      }
+        <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>Write reviews to get more accurate recipe recommendation.</Title> : null 
+      } 
       { youLikeRecipe && memberType === 3 ?
+        <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>Write at least 5 reviews to get more accurate recipe recommendation.</Title> : null
+      }
+      { forYouRecipe && memberType ===  4?
+        <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>We recommend recipes that you may like.</Title> : null
+      } 
+      { youLikeRecipe && memberType === 4 ?
+        <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>Write at least 5 reviews to get more accurate recipe recommendation.</Title> : null
+      }
+      { forYouRecipe && memberType === 5 ?
+        <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>We recommend recipes that you may like.</Title> : null
+      } 
+      { youLikeRecipe && memberType === 5 ?
         <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>We recommend recipes that members with similar preference like.</Title> : null
       }
       <CircularProgressContainer>
