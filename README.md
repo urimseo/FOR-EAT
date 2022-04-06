@@ -1,6 +1,6 @@
 # FOR:EAT
 
-![logo](README.assets/logo.png)
+<img src="README.assets/Group 59 (2).png" style="width: 200px;"/>
 
 ## 목차
 
@@ -48,9 +48,9 @@
 
 <hr/>
 
-### 재료 조합하기
+### Weekly Report
 
-<iframe src="https://lab.ssafy.com/s06-bigdata-rec-sub2/S06P22A103/-/blob/develop/README.assets/ingredient.mp4" allowFullScreen></iframe>
+![report](README.assets/report.PNG)
 
 
 
