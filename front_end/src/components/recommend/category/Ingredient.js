@@ -117,7 +117,7 @@ const Ingredient = forwardRef((props, ref) => {
         {meatShow ? <SubIngredient ref={childSubIngredient}/> : null}
       </div>
       { meatShow ? null : 
-        (isLoading ? <div style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}><CircularProgress /></div> :
+        (isLoading ? <div style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}><CircularProgress sx={{ color: '#ED8141' }} /></div> :
         <CardContainer>
           {RecipeList.map((Recipe, index) => (
             <Card
