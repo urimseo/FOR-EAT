@@ -422,11 +422,17 @@ class RecommendRecipeList(ListAPIView, LimitOffsetPagination):
         response_data.update({'data':serializer.data})
 
         if is_survey and is_review:
-            member_type = 3
+            if len(is_review) >=5:
+                member_type = 5
+            else:
+                member_type = 4
         elif is_survey:
-            member_type = 2
+            member_type = 3
         elif is_review:
-            member_type = 1
+            if len(is_review) >=5:
+                member_type = 2
+            else:
+                member_type = 1
         else:
             member_type = 0
 
