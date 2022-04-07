@@ -12,11 +12,6 @@ import KeywordList from "components/recipeDetail/KeywordList";
 import { getRecipeDetail } from "api/RecipeDetailApi";
 import MUIContainer from "@mui/material/Container";
 
-// const Container = styled.div`
-//   padding: 6rem 10rem;
-//   display: flex;
-//   flex-direction: column;
-// `
 
 const Wrapper = styled.div`
   display: flex;
