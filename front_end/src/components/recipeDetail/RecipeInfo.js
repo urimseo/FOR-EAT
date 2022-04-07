@@ -78,7 +78,7 @@ const TextContainer = styled.div`
 `
 const CardContainer = styled.div`
   display:grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 0.9fr 0.9fr 0.9fr 0.9fr;
   grid-template-rows: 1fr 1fr;
   gap: 0.5rem;
 `

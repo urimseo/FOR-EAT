@@ -12,7 +12,7 @@ const Container = styled.div`
   }
   .Line {
     border: 0;
-    width: 5vw;
+    width: 4rem;
     height: 0.05rem;
     background: black;
     margin: auto;
