@@ -12,7 +12,9 @@
 
 ​	[4. Getting Started](#getting-started)
 
-​	[5. Team Introduce](#team-introduce)
+​	[5. Document](#document)
+
+​	[6. Team Introduce](#team-introduce)
 
 
 
