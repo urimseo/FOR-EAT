@@ -147,7 +147,7 @@ const Servings = forwardRef((props, ref) => {
         {fourRecipeShow ? <ServingsButton onClick={()=>getFourRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>FOUR</ServingsButton> : <ServingsButton onClick={getFourRecipe}>FOUR</ServingsButton>}
         {partyRecipeShow ? <ServingsButton onClick={()=>getPartyRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>PARTY</ServingsButton> : <ServingsButton onClick={getPartyRecipe}>PARTY</ServingsButton>}
       </div> 
-      {isLoading ? <div style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}><CircularProgress sx={{ color: '#ED8141' }} /></div> :
+      {isLoading ? <div style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}><CircularProgress sx={{ color: '#ED8141', marginTop: '5rem'}} /></div> :
         <CardContainer>
           {RecipeList.map((Recipe, index) => (
             <Card

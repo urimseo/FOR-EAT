@@ -37,7 +37,7 @@ const BrowseListItem = ({keyword, title}) => {
       <div>
         <Title>{title}</Title>
         <CardContainer>
-          {isLoading ? <CircularProgress sx={{ color: '#ED8141' }} /> : null}
+          {isLoading ? <CircularProgress sx={{ color: '#ED8141', marginTop: '2rem' }} /> : null}
           { resultList.map((result, idx) => {
             // 5개만 잘라서 보여주기
             if ( idx < 5 ) {
