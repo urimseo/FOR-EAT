@@ -176,7 +176,7 @@ const Time = forwardRef((props, ref) => {
         {time180minShow ? <TimeButton onClick={()=>get180minRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>3HOURS</TimeButton> : <TimeButton onClick={get180minRecipe}>3HOURS</TimeButton>}
         {time24hoursShow ? <TimeButton onClick={()=>get24hoursRecipe(1)} style={{backgroundColor: "#ED8141", color: "white"}}>24HOURS</TimeButton> : <TimeButton onClick={get24hoursRecipe}>24HOURS</TimeButton>}
       </div>  
-      {isLoading ? <div style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}><CircularProgress sx={{ color: '#ED8141' }} /></div> :
+      {isLoading ? <div style={{display: "flex", justifyContent: "center", marginTop: "2rem"}}><CircularProgress sx={{ color: '#ED8141', marginTop: '5rem' }} /></div> :
         <CardContainer>
           {RecipeList.map((Recipe, index) => (
             <Card

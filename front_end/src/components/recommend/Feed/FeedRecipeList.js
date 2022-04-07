@@ -169,7 +169,7 @@ return (
         <Title fs="1.1rem" mt="1rem" fw="300" ff="Noto sans" style={{display: "flex", justifyContent: "center"}}>We recommend recipes that members with similar preference like.</Title> : null
       }
       <CircularProgressContainer>
-        {recipeList.length === 0 && isLoading ? <CircularProgress sx={{ color: '#ED8141' }} style={{display: "flex", justifyContent: "center"}}/> : null}
+        {recipeList.length === 0 && isLoading ? <CircularProgress sx={{ color: '#ED8141', marginTop: "5rem" }} style={{display: "flex", justifyContent: "center"}}/> : null}
       </CircularProgressContainer>
       <CardContainer>
         {recipeList.map((recipe, idx) => 
@@ -189,7 +189,7 @@ return (
         )}
       </CardContainer>
       <CircularProgressContainer>
-        {recipeList.length >= 1 && isSpinner ? <CircularProgress sx={{ color: '#ED8141' }} style={{display: "flex", justifyContent: "center"}}/> : null}
+        {recipeList.length >= 1 && isSpinner ? <CircularProgress sx={{ color: '#ED8141', marginTop: '5rem' }} style={{display: "flex", justifyContent: "center"}}/> : null}
       </CircularProgressContainer>
       </Container>
     </>
