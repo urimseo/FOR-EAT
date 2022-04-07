@@ -156,6 +156,7 @@ front/back 의 `.env` 파일은 sercret key 문제로 요청 시 보내드리겠
 - <a href="https://lab.ssafy.com/s06-bigdata-rec-sub2/S06P22A103/-/blob/develop/docs/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C.pdf">기능 정의서</a>
 - <a href="https://lab.ssafy.com/s06-bigdata-rec-sub2/S06P22A103/-/blob/docs/docs/%EC%99%80%EC%9D%B4%EC%96%B4%ED%94%84%EB%A0%88%EC%9E%84.PNG">와이어프레임</a>
 - <a href="https://lab.ssafy.com/s06-bigdata-rec-sub2/S06P22A103/-/blob/docs/docs/%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98.png">아키텍처</a>
+- 추천 알고리즘
 
 
 
