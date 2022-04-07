@@ -10,13 +10,13 @@ import Instructions from "components/recipeDetail/Instructions";
 import ReviewList from "components/recipeDetail/ReviewList";
 import KeywordList from "components/recipeDetail/KeywordList";
 import { getRecipeDetail } from "api/RecipeDetailApi";
+import MUIContainer from "@mui/material/Container";
 
-
-const Container = styled.div`
-  padding: 6rem 10rem;
-  display: grid;
-  grid-template-columns: 1fr;
-`
+// const Container = styled.div`
+//   padding: 6rem 10rem;
+//   display: flex;
+//   flex-direction: column;
+// `
 
 const Wrapper = styled.div`
   display: flex;
@@ -63,7 +63,7 @@ const RecipeDetail = (props) => {
   
 	return (
     <div>
-      <Container>
+      <MUIContainer sx={{ pt: "5rem", pb: "5rem"}}>
         <Wrapper>
           <div style={{display: "flex", flexDirection: "column", maxWidth:"35%"}}>
           <ImgWrapper>
@@ -75,21 +75,20 @@ const RecipeDetail = (props) => {
             categories={(recipe.categories ? recipe.categories : "-")}
             {...recipe}
           />
+        </Wrapper>
           <CalculateCalories calories={recipe.calories}/>
           <IngredientWrapper>
             <Ingredients ingredients={recipe.ingredient_raw} />
             <Instructions instructions={recipe.instructions}/>
           </IngredientWrapper>
-        </Wrapper>
-        <Wrapper jc="center">
+        <Wrapper >
             <RelatedRecipeList 
               ingredients_recommend={recipe.ingredients_recommend}
               nutrient_recommend={recipe.nutrient_recommend}
             /> 
-
           <ReviewList recipeId={recipeId}/>
         </Wrapper>
-      </Container>
+      </MUIContainer>
     </div>
 	)
 };
