@@ -17,8 +17,9 @@ const TextContainer = styled.div`
   .content_light {
     font-size: 1.3rem;
     font-weight: 300;
+    line-height: 1.6rem;
     margin: 1rem 0;
-    list-style: auto;
+    list-style: none;
   }
 `
 

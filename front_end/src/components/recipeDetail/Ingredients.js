@@ -12,13 +12,8 @@ const TextContainer = styled.div`
   .content_bold {
     font-size: 1.3rem;
     font-weight: 500;
+    line-height: 1.5rem;
     margin: 1rem 0;
-  }
-  .content_light {
-    font-size: 1.5rem;
-    font-weight: 300;
-    margin: 1rem 0;
-    list-style: auto;
   }
 `
 const Ingredients = ({ ingredients }) => {
