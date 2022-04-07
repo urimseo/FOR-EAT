@@ -12,7 +12,7 @@ const Container = styled.div`
   }
   .Line {
     border: 0;
-    width: 4rem;
+    width: 5vw;
     height: 0.05rem;
     background: black;
     margin: auto;
@@ -22,7 +22,7 @@ const Container = styled.div`
     width: 5vw;
     height: 0.05rem;
     background: red;
-    margin: auto;
+    margin: auto; 
   }
   .Title {
     font-size: 2vh;
