@@ -105,7 +105,6 @@ class RecipeDetail(APIView):
             temp = MemberAllergy.objects.filter(member_seq=Survey.objects.get(member_seq=request.member)).values('allergy_seq')
             is_allergy = Recipe.objects.filter(recipe_seq=pk, allergies__in=temp).values('allergies')
             is_allergy = list(Allergy.objects.filter(allergy_seq__in=is_allergy).values('allergy_name'))
-            print(is_allergy)
             response_data['allergy'] = is_allergy
         except:
             pass
@@ -139,7 +138,6 @@ class RecipeDetail(APIView):
 
         response_data['ingredients_recommend'] = ingredients_recommend_serializer.data[-3:]
         response_data['nutrient_recommend'] = nutrient_recommend_serializer.data[:3]
-        response_data['allergy'] = is_allergy
 
         return Response(response_data)
 
