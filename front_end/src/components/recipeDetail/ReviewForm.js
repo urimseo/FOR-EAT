@@ -142,7 +142,6 @@ const ReviewForm = ({ recipeId }) => {
       if ( response.status === 201 ) {
         const result = await getReviewList(recipeId)
         setReviews(result.data)
-        console.log(response)
         // 리뷰 작성 후 입력 값 초기화
         setRatings(0)
         setContent("")
