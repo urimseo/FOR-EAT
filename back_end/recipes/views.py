@@ -366,7 +366,7 @@ class RecommendRecipeList(ListAPIView, LimitOffsetPagination):
                 recommend_list = json.loads(recommends[0]['content_base'])
                 recipes = Recipe.objects.filter(Q(recipe_seq__in=recommend_list), ~Q(recipe_seq__in=Review.objects.filter(member=request.member).values('recipe')))
                 recipes = list(recipes)
-                recipes = sorted(recipes, key=lambda x: recommend_list.index(x.recipe_seq))[::-1]
+                recipes = sorted(recipes, key=lambda x: recommend_list.index(x.recipe_seq))
 
             else:
                 if is_survey and not is_review:
@@ -404,13 +404,13 @@ class RecommendRecipeList(ListAPIView, LimitOffsetPagination):
                 recommend_list = json.loads(recommends[0]['collaborate_base'])
                 recipes = Recipe.objects.filter(Q(recipe_seq__in=recommend_list), ~Q(recipe_seq__in=Review.objects.filter(member=request.member).values('recipe')))
                 recipes = list(recipes)
-                recipes = sorted(recipes, key=lambda x: recommend_list.index(x.recipe_seq))[::-1]
+                recipes = sorted(recipes, key=lambda x: recommend_list.index(x.recipe_seq))
             
             elif recommends[0]['survey_base']:
                 recommend_list = json.loads(recommends[0]['survey_base'])
                 recipes = Recipe.objects.filter(Q(recipe_seq__in=recommend_list), ~Q(recipe_seq__in=Review.objects.filter(member=request.member).values('recipe')))
                 recipes = list(recipes)
-                recipes = sorted(recipes, key=lambda x: recommend_list.index(x.recipe_seq))[::-1]
+                recipes = sorted(recipes, key=lambda x: recommend_list.index(x.recipe_seq))
 
             else:
                 recipes = Recipe.objects.prefetch_related('review_set')\
