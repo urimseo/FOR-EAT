@@ -152,8 +152,8 @@ front/back 의 `.env` 파일은 sercret key 문제로 요청 시 보내드리겠
 - <a href="https://lab.ssafy.com/s06-bigdata-rec-sub2/S06P22A103/-/blob/develop/docs/ERD.PNG">ERD</a>
 - <a href="https://lab.ssafy.com/s06-bigdata-rec-sub2/S06P22A103/-/blob/develop/docs/%ED%99%94%EB%A9%B4%EA%B5%AC%EC%A1%B0%EB%8F%84.pdf">화면구조도</a>
 - <a href="https://lab.ssafy.com/s06-bigdata-rec-sub2/S06P22A103/-/blob/develop/docs/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C.pdf">기능 정의서</a>
-- <a href="https://lab.ssafy.com/s06-bigdata-rec-sub2/S06P22A103/-/blob/develop/docs/%EC%99%80%EC%9D%B4%EC%96%B4%ED%94%84%EB%A0%88%EC%9E%84.PNG">와이어프레임</a>
-- 아키텍처
+- <a href="docs/와이어프레임.PNG">와이어프레임</a>
+- <a href="docs/아키텍처.png">아키텍처</a>
 
 
 
