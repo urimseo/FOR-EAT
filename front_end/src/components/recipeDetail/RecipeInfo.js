@@ -99,11 +99,11 @@ const RecipeInfo = ({
 
   useEffect(() => {
     setLike(liked);
-  }, [liked])
+  }, [recipe_seq])
 
-  useEffect(() => {
-    setLike(like)
-  }, [like])
+  // useEffect(() => {
+  //   setLike(like)
+  // }, [like])
 
 
   return (
