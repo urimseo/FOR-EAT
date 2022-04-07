@@ -14,6 +14,12 @@ const ExerciseContainer = styled.div`
     font-style: italic;
   }
 `
+
+const CenterContainer =styled.div`
+  display: flex;
+  justify-content: center;
+`
+
 const CalculateCalories = ({ calories }) => {
   const exercises =  [
     ["Running", 0.133],
@@ -30,16 +36,16 @@ const CalculateCalories = ({ calories }) => {
   const randomItem = chooseRandom(exercises)
     return (
       <ExerciseContainer>
-        <div>
+        <CenterContainer>
           <div className="text">To Burn</div>
           <AnimationOnScroll animateIn="animate__tada">{Math.round(calories)}</AnimationOnScroll>
           <div className="text">Calories</div>
-        </div>
-        <div>
+        </CenterContainer>
+        <CenterContainer>
           <AnimationOnScroll animateIn="animate__tada">{randomItem[0]} </AnimationOnScroll>
           <AnimationOnScroll animateIn="animate__tada">{Math.round(calories/(randomItem[1]*weight))}</AnimationOnScroll>
           <div className="text">Minutes</div>
-        </div>
+        </CenterContainer>
       </ExerciseContainer>
     )
 }
