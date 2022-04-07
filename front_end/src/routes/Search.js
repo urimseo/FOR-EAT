@@ -9,6 +9,7 @@ import Pagination from "react-js-pagination";
 import { getSearchList } from "api/SearchApi";
 
 const Container = styled.div`
+  min-height: 75vh
 `
 
 const Header = styled.div`

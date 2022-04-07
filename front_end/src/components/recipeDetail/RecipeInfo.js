@@ -128,7 +128,7 @@ const RecipeInfo = ({
           <div className="itemTitle">ALLERGIES</div>
           <div className="itemWarn">
             { allergy ? allergy.length > 0 ?
-              allergy.map((item) => (`${item.allergy_name} `)) : "NOT RELEVANT" : null
+              allergy.map((item) => (`${item.allergy_name} `)) : "NOT RELEVANT" : "NOT RELEVANT"
             }
           </div>
           <div className="itemTitle">SERVINGS</div>

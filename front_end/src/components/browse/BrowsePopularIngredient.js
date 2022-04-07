@@ -29,9 +29,13 @@ import orange from "assets/img/IngredientItem/orange.jpg"
 import cabbage from "assets/img/IngredientItem/cabbage.jpg"
 import radish from "assets/img/IngredientItem/radish.jpg"
 import celery from "assets/img/IngredientItem/celery.jpg"
+import lettuce from "assets/img/IngredientItem/lettuce.jpg"
+import sweet_potato from "assets/img/IngredientItem/sweet_potato.jpg"
+import pepper from "assets/img/IngredientItem/pepper.jpg"
 
 
 const Container = styled.div`
+  margin-bottom: 3rem;
 `
 
 const Title = styled.div`
@@ -76,6 +80,9 @@ const PopularIngredients = () => {
     { name: "shrimp", img: shrimp },
     { name: "tomato", img: tomato },
     { name: "celery ", img: celery  },
+    { name: "lettuce ", img: lettuce  },
+    { name: "sweet potato ", img: sweet_potato  },
+    { name: "pepper ", img: pepper  },
   ]
     return (
       <Container>
