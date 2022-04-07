@@ -34,17 +34,23 @@ const BrowseList = () => {
     { keyword: "Lactose Free", title: "Lactose Free" },
     { keyword: "Spring", title: "Spring" },
   ]
-  var newnum = [];
-  for (var i=0; i<9; i++){
-    var movenum = Data.splice(Math.floor(Math.random() * Data.length),1)[0]
-    newnum.push(movenum)
-  }
+
+    let randomIndexArray = []
+    for (var i=0; i< 9; i++) { 
+      var randomNum = Math.floor(Math.random() * 24)
+      if (randomIndexArray.indexOf(randomNum) === -1) {
+        randomIndexArray.push(randomNum)
+      } else { 
+        i--
+      }
+    }
+
   return (
     <Container>
-      { newnum.map((item, idx) => ( 
+      { randomIndexArray.map((item, idx) => ( 
         <BrowseLiseItem 
           key={idx}
-          {...item} 
+          {...Data[item]} 
         />
       ))}
     </Container>
